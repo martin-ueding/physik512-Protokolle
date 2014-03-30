@@ -19,6 +19,20 @@ savefig_options = {
     'bbox_inches': 'tight',
 }
 
+c = 3e8 # m/s
+R_infinity = 10973731 # 1/m
+h = 6.626e-34 # J s
+e = 1.609e-19
+
+def job_moseley(T):
+    Z = 56
+    nu = 3/4 * R_infinity * c * (Z - 1)**2
+
+    E = h * nu
+    E_keV = E / e / 10**3
+
+    T['E_K_alpha_Ba_keV'] = unitprint.siunitx(E_keV)
+
 def setup_logging(options):
     if options.verbose == 0:
         level = logging.WARNING
