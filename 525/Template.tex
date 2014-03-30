@@ -4,6 +4,8 @@
 \usetikzlibrary{chains}
 \usetikzlibrary{shapes.geometric}
 
+\usepackage{booktabs}
+
 \hypersetup{
     pdftitle=
 }
@@ -20,6 +22,24 @@
 \begin{document}
 
 \maketitle
+
+Für unsere Blockschaltbilder benutzen wir folgende Notation:
+
+\begin{tabular}{lc}
+    Element & Symbol \\
+    \midrule
+    Analoges Signal & 
+        \begin{tikzpicture} \draw[->] (0, 0) -- ++(1, 0); \end{tikzpicture}
+    \\
+    Digitales Signal & 
+        \begin{tikzpicture} \draw[->, dashdotted] (0, 0) -- ++(1, 0); \end{tikzpicture}
+    \\
+    Gerät & 
+        \begin{tikzpicture} \node[draw, rectangle, minimum size=1ex, draw] {}; \end{tikzpicture}
+    \\
+    Verstärker &
+        \begin{tikzpicture} \node[draw, isosceles triangle, minimum size=1ex, draw] {}; \end{tikzpicture}
+\end{tabular}
 
 \begin{tikzpicture}[
         device/.style={
