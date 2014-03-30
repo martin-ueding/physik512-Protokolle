@@ -1,0 +1,106 @@
+\input{../header.tex}
+
+\usepackage{tikz}
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes.geometric}
+
+\hypersetup{
+    pdftitle=
+}
+
+%\subject{}
+\title{}
+%\subtitle{}
+\author{
+    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    \and
+    Lino Lemmer
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{tikzpicture}[
+        device/.style={
+            rectangle,
+            minimum size=6mm,
+            draw=black
+        },
+        amp/.style={
+            isosceles triangle,
+            minimum size=6mm,
+            draw=black
+        },
+    ]
+
+    \node[device] (koinzidenz) at (10, -1) {Koinzidenzeinheit};
+    \node[device] (gdg) [right=of koinzidenz] {GDG};
+    \node[device] (mca) [right=of gdg] {MCA};
+    \node[device] (pc) [right=of mca] {PC};
+
+    \begin{scope}[start chain, node distance=5mm, every node/.style={join}, every join/.style={->}]
+        \node[device, on chain] (22Na) at (0, 0) {$^{22}\mathrm{Na}$};
+
+        \begin{scope}[start branch=22Na]
+            \node[device, on chain=going below, node distance=1.5cm] (Szintillator1) {Szintillator};
+            \node[device, on chain] (PM2) {PM};
+            \node[amp, on chain] (PA2) {Pre Amp};
+
+            \begin{scope}[start branch=PA2]
+                \node[amp, on chain=going below right] (amp2) {Amp};
+                \node[device, on chain] (splitter2) {Splitter};
+                \begin{scope}[start branch=splitter2]
+                    \node[device, on chain=going below right] (delay2) {Delay Amp};
+                \end{scope}
+                \begin{scope}[start branch=splitter2]
+                    \node[device, on chain=going above right] (sca2) {SCA};
+                \end{scope}
+
+            \end{scope}
+                \node[device, on chain=going above right] (cfd2) {CFD};
+                \node[device, on chain] (cfddelay) {Delay};
+        \end{scope}
+
+        \node[device, on chain=going above, node distance=1.5cm] (Szintillator1) {Szintillator};
+        \node[device, on chain] (PM1) {PM};
+        \node[amp, on chain] (PA1) {Pre Amp};
+
+        \begin{scope}[start branch=PA1]
+            \node[amp, on chain=going above right] (amp1) {Amp};
+            \node[device, on chain] (splitter1) {Splitter};
+            \begin{scope}[start branch=splitter1]
+                \node[device, on chain=going above right] (delay1) {Delay Amp};
+            \end{scope}
+            \begin{scope}[start branch=splitter1]
+                \node[device, on chain=going below right] (sca1) {SCA};
+            \end{scope}
+        \end{scope}
+
+        \node[device, on chain=going below right] (cfd1) {CFD};
+        \node[device, on chain=going right, node distance=2cm, join=with cfddelay] (tac) {TAC};
+        \node[device, on chain] (delay3) {Delay Amp};
+
+    \end{scope}
+
+    \begin{scope}[->]
+    \draw (koinzidenz) -- (gdg);
+    \draw (gdg) -- (mca);
+    \draw (delay3) -- (mca);
+    \draw (mca) -- (pc);
+    \draw[dashdotted] (sca1) -- (koinzidenz);
+    \draw[dashdotted] (sca2) -- (koinzidenz);
+    \end{scope}
+\end{tikzpicture}
+
+%\newpage
+%\tableofcontents
+%\newpage
+
+\IfFileExists{\bibliographyfile}{
+    \printbibliography
+}{}
+
+\end{document}
+
+% vim: spell spelllang=de
