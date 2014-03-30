@@ -55,10 +55,10 @@ Für unsere Blockschaltbilder benutzen wir folgende Notation:
         },
     ]
 
-    \node[device] (koinzidenz) at (10, -1) {Koinzidenzeinheit};
+    \node[device] (koinzidenz) at (9.5, -1) {Koinzidenzeinheit};
     \node[device] (gdg) [right=of koinzidenz] {GDG};
     \node[device] (mca) [right=of gdg] {MCA};
-    \node[device] (pc) [right=of mca] {PC};
+    \node[device] (pc) [below=of mca] {PC};
 
     \begin{scope}[start chain, node distance=5mm, every node/.style={join}, every join/.style={->}]
         \node[device, on chain] (22Na) at (0, 0) {$^{22}\mathrm{Na}$};
