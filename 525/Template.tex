@@ -58,8 +58,8 @@
                 \end{scope}
 
             \end{scope}
-                \node[device, on chain=going above right] (cfd2) {CFD};
-                \node[device, on chain] (cfddelay) {Delay};
+            \node[device, on chain=going above right] (cfd2) {CFD};
+            \node[device, on chain] (cfddelay) {Delay};
         \end{scope}
 
         \node[device, on chain=going above, node distance=1.5cm] (Szintillator1) {Szintillator};
@@ -79,17 +79,20 @@
 
         \node[device, on chain=going below right] (cfd1) {CFD};
         \node[device, on chain=going right, node distance=2cm, join=with cfddelay] (tac) {TAC};
-        \node[device, on chain] (delay3) {Delay Amp};
+        \node[device, on chain=going right, node distance=2cm] (delay3) {Delay Amp};
 
     \end{scope}
 
     \begin{scope}[->]
-    \draw (koinzidenz) -- (gdg);
-    \draw (gdg) -- (mca);
-    \draw (delay3) -- (mca);
-    \draw (mca) -- (pc);
-    \draw[dashdotted] (sca1) -- (koinzidenz);
-    \draw[dashdotted] (sca2) -- (koinzidenz);
+        \draw (delay3) -- (mca);
+        \draw (mca) -- (pc);
+
+        \begin{scope}[dashdotted]
+            \draw (gdg) -- (mca);
+            \draw (sca1) -- (koinzidenz);
+            \draw (koinzidenz) -- (gdg);
+            \draw (sca2) -- (koinzidenz);
+        \end{scope}
     \end{scope}
 \end{tikzpicture}
 
