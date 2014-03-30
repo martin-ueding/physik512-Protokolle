@@ -16,7 +16,7 @@ _build/template.js: crunch
 	./$<
 
 $(tex): Template.tex _build/template.js
-	./insert $^ $@
+	../insert $^ $@
 
 .PHONY: clean
 clean:
