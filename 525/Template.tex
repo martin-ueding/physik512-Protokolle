@@ -1,8 +1,16 @@
 \input{../../header.tex}
 
+
 \usepackage{tikz}
 \usetikzlibrary{chains}
 \usetikzlibrary{shapes.geometric}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.5, width=0.8\linewidth, xticklabel style={/pgf/number
+format/.cd,use comma}}
+
+\usepgfplotslibrary{external}
+\tikzexternalize
 
 \usepackage{booktabs}
 
@@ -326,13 +334,51 @@ auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
 (Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
 
 Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
-Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt). Damit das
+Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/001-Na.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:001}
+    \caption{Spektrum der Na-Probe im linken Detektor}
+\end{figure}
+
+Damit das
 Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die Verstärkung
 des Hauptverstärkers auf Faktor 100. Als nächstes justieren wir das Fenster des
 SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie wächst. Beim SCA
-ist als obere Grenze MAX eingestellt, als untere 6.3. (001-Na-SCA.txt)
+ist als obere Grenze MAX eingestellt, als untere 6.3. (002-Na-SCA.txt)
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/002-Na-SCA.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:001}
+    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
+\end{figure}
 
 Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:001}
+    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
+\end{figure}
+
+Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
+17:34)
 
 \subsection{Rechter Detektor}
 
@@ -344,6 +390,22 @@ nach dem Hauptverstärker (Bildzeit 16:41).
 Analog zum vorherigen Teil schließen wir den Hauptverstärker an den Splitter
 an. Die Ausgänge vom Splitter schließen wir an den anderen SCA sowie an den
 einen GDG an.
+
+Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
+16:47). Der Delay-Amp steht auf \SI{3.5}{\micro\second}, am GDG selbst haben
+wir kein Delay eingestellt.
+
+Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt). Dann stellen wir die
+Verstärkung so ein, dass die \SI{511}{\kilo\electronvolt} Linie möglichst weit
+rechts ist (005-Na-Zoom.txt).
+
+Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
+17:35)
+
+\subsection{beide SCA}
+
+Wir schließen beide SCA gleichzeitig an das Oszi an. Der rechte Detektor ist
+auf Kanal 1 (Bildnummer 17:38).
 
 \chapter{Auswertung}
 
