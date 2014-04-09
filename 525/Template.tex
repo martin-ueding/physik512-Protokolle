@@ -39,14 +39,17 @@ format/.cd,use comma}}
 
 \section{Zerfallsschema von ${}^{22}\text{Na}$ und ${}^{133}\text{Ba}$}
 
-Das Moseley'sche Gesetz gibt die Frequenz der charakteristischen Röntgenstrahlung eines Kerns mit Kernladung $Z$ an: \parencite[(17.10)]{meschede-gerthsen_24}
+Das Moseley'sche Gesetz gibt die Frequenz der charakteristischen
+Röntgenstrahlung eines Kerns mit Kernladung $Z$ an:
+\parencite[(17.10)]{meschede-gerthsen_24}
 \begin{equation}
     \label{eq:moseley}
     E = h \nu = \frac 34 R_\infty c \cdot (Z - 1)^2.
 \end{equation}
 
-Nach dem Moseley'schen Gesetz \eqref{eq:moseley} ist die Energie der $K_\alpha$-Röntgenstrahlung
-von Barium \SI{<< E_K_alpha_Ba_keV >>}{\kilo\electronvolt}.
+Nach dem Moseley'schen Gesetz \eqref{eq:moseley} ist die Energie der
+$K_\alpha$-Röntgenstrahlung von Barium \SI{<< E_K_alpha_Ba_keV
+>>}{\kilo\electronvolt}.
 
 \section{Wechselwirkung von $\gamma$-Strahlung mit Materie}
 
@@ -244,9 +247,9 @@ einen direkten Vergleich bieten zu können.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
-Wir betrachten das Slow Signal des linken Photomultipliers auf dem Oszi
+Wir betrachten das Slow Signal des linken Photomultipliers auf dem Oszilloskop
 (Bildzeit 16:26), siehe Abbildung~\ref{fig:slow_signal}, links. Dann schauen
-wir uns das Slow Signal des rechten PM auf dem Oszi an, siehe
+wir uns das Slow Signal des rechten PM auf dem Oszilloskop an, siehe
 Abbildung~\ref{fig:slow_signal}, rechts.
 
 \begin{figure}[htbp]
@@ -276,7 +279,7 @@ Abbildung~\ref{fig:slow_pre_amp}.
 \end{figure}
 
 Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang
-betrachten wir auf dem Oszi (Bildzeit links 15:03, rechts 16:41), siehe
+betrachten wir auf dem Oszilloskop (Bildzeit links 15:03, rechts 16:41), siehe
 Abbildung~\ref{fig:slow_amp}.
 
 \begin{figure}[htbp]
@@ -300,9 +303,9 @@ Verstärker umschließt. Dies gelingt uns allerdings nicht, weil das digitale
 Signal zu kurz ist.
 
 Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
-Oszi ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
+Oszilloskop ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
 haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
-repräsentiert ist (Bildzeitpunkt 15:20), siehe Abbildung~\ref{fig:511}.
+repräsentiert ist (Bildzeit 15:20), siehe Abbildung~\ref{fig:511}.
 
 \begin{figure}[htbp]
     \centering
@@ -313,9 +316,9 @@ repräsentiert ist (Bildzeitpunkt 15:20), siehe Abbildung~\ref{fig:511}.
     \label{fig:511}
 \end{figure}
 
-Zwischen SCA und Oszi schalten wir noch den GDG. Am SCA stellen wir den Delay
+Zwischen SCA und Oszilloskop schalten wir noch den GDG. Am SCA stellen wir den Delay
 auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
-(Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
+(Bildzeit 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
 
 Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
 16:47), siehe Abbildung~\ref{fig:sca_umschlossen}. Der rechte Delay-Amp steht
@@ -338,7 +341,7 @@ sowie an den einen GDG an.
 
 \subsection{Energiespektrum für die ${}^{22}\text{Na}$-Quelle aufnehmen}
 
-Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
+Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum. Das
 Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt), siehe
 Abbildung~\ref{mca:001_004}.
 
@@ -387,8 +390,6 @@ Abbildung~\ref{mca:003_005} dargestellt.
 
 \subsection{Einkanalfenster für die ${}^{22}\text{Na}$-Quelle einstellen}
 
-\subsubsection{Linker Detektor}
-
 Als nächstes justieren wir das
 Fenster des linken SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie
 wächst. Beim SCA ist als obere Grenze MAX eingestellt, als untere \num{7.31}.
@@ -415,7 +416,7 @@ resultierende Spektrum ist in Abbildung~\ref{mca:fenster} gezeigt.
     }
 \end{figure}
 
-Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist (Bildzeit
+Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist (Bildzeit
 links 17:34, rechts 17:35), siehe Abbildung~\ref{fig:eine_pulshoehe}.
 
 \begin{figure}[htbp]
@@ -433,9 +434,9 @@ links 17:34, rechts 17:35), siehe Abbildung~\ref{fig:eine_pulshoehe}.
 
 \subsection{Slow-Koinzidenz herstellen}
 
-Wir schließen beide SCA gleichzeitig an das Oszi an. Der rechte Detektor ist
-auf Kanal 1 (Bildnummer 17:38), siehe Abbildung~\ref{fig:beide_sca}. Die beiden
-Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
+Wir schließen beide SCA gleichzeitig an das Oszilloskop an. Der rechte Detektor
+ist auf Kanal 1 (Bildnummer 17:38), siehe Abbildung~\ref{fig:beide_sca}. Die
+beiden Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
 
 \begin{figure}[htbp]
     \centering
