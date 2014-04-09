@@ -254,7 +254,7 @@ Abbildung~\ref{fig:slow_signal}, rechts.
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-26-east.pdf}
     \caption{%
-        Slow-Signale vor dem Vorverstärker
+        Slow-Signale
     }
     \label{fig:slow_signal}
 \end{figure}
@@ -291,94 +291,97 @@ Abbildung~\ref{fig:slow_amp}.
 
 \subsection{Triggerung mit dem SCA}
 
-\subsubsection{Linker Detektor}
-
-Wir schließen den Ausgang des linken Hauptverstärkers an den Splitter an. Der eine
-Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge beider
-Geräte betrachten wir mit dem Oszilloskop. Nun versuchen wir, die Verzögerung so
-einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
-umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
-ist.
+Wir schließen den Ausgang des linken Hauptverstärkers an den Splitter an. Der
+eine Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge
+beider Geräte betrachten wir mit dem Oszilloskop. Nun versuchen wir, die
+Verzögerung so einzustellen, dass das digitale Signal des SCA den Puls vom
+Verstärker umschließt. Dies gelingt uns allerdings nicht, weil das digitale
+Signal zu kurz ist.
 
 Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
 Oszi ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
 haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
-repräsentiert ist (Bildzeitpunkt 15:20)
+repräsentiert ist (Bildzeitpunkt 15:20), siehe Abbildung~\ref{fig:511}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_15-20-east.pdf}
+    \caption{%
+        Besonders häufig vorkommende Linie im Signal des Verstärkers
+    }
+    \label{fig:511}
+\end{figure}
 
 Zwischen SCA und Oszi schalten wir noch den GDG. Am SCA stellen wir den Delay
 auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
 (Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
 
-\subsubsection{Rechter Detektor}
+Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
+16:47), siehe Abbildung~\ref{fig:sca_umschlossen}. Der rechte Delay-Amp steht
+auf \SI{3.5}{\micro\second}, am GDG selbst haben wir kein Delay eingestellt.
 
-Analog zum vorherigen Teil schließen wir den Hauptverstärker an den Splitter
-an. Die Ausgänge vom Splitter schließen wir an den anderen SCA sowie an den
-einen GDG an.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-47-east.pdf}
+    \hfill
+    \caption{%
+        Slow-Signal des rechten Detektors nach dem Hauptverstärker im ersten
+        Kanal. Das Signal aus dem rechten SCA im zweiten Kanal.
+    }
+    \label{fig:sca_umschlossen}
+\end{figure}
+
+Analog zum vorherigen Teil schließen wir den rechten Hauptverstärker an den
+zweiten Splitter an. Die Ausgänge vom Splitter schließen wir an den anderen SCA
+sowie an den einen GDG an.
 
 \subsection{Energiespektrum für die ${}^{22}\text{Na}$-Quelle aufnehmen}
 
-\subsubsection{Linker Detektor}
-
 Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
-Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt).
+Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt), siehe
+Abbildung~\ref{mca:001_004}.
 
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/001-Na.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:001}
-    \caption{Spektrum der Na-Probe im linken Detektor}
-\end{figure}
-
-Damit das Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die
-Verstärkung des Hauptverstärkers auf Faktor 100.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:003}
-    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
-\end{figure}
-
-\subsubsection{Rechter Detektor}
-
-Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
-16:47). Der Delay-Amp steht auf \SI{3.5}{\micro\second}, am GDG selbst haben
-wir kein Delay eingestellt.
-
-Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt).
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
             \addplot[black] table {../Daten/004-Na-rechts.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:004}
-    \caption{Spektrum der Na-Probe im rechten Detektor}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/001-Na.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:001_004}
+    \caption{Spektrum der Na-Probe im rechten und linken Detektor}
 \end{figure}
 
-Dann stellen wir die
-Verstärkung so ein, dass die \SI{511}{\kilo\electronvolt} Linie möglichst weit
-rechts ist (005-Na-Zoom.txt).
+Damit das Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die
+Verstärkung des linken Hauptverstärkers auf Faktor 100. Das gleiche stellen für
+später auch für den rechten Kreis ein. Beide Spektren sind in
+Abbildung~\ref{mca:003_005} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
             \addplot[black] table {../Daten/005-Na-Zoom.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:005}
-    \caption{Spektrum der Na-Probe im rechten Detektor mit höherer Verstärkung}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:003_005}
+    \caption{%
+        Spektrum der Na-Probe im rechten und linken Detektor mit höherer
+        Verstärkung, so dass die \SI{511}{\kilo\electronvolt}-Linie am rechten
+        Rand ist
+    }
 \end{figure}
 
 \subsection{Einkanalfenster für die ${}^{22}\text{Na}$-Quelle einstellen}
