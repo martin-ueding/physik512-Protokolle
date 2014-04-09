@@ -250,7 +250,7 @@ Amplitude proportional zeitlichen Abstand der Eingangssignale.
 
 \chapter{Durchführung}
 
-\section{Slow-Konzidenzkreis einstellen}
+\section{Slow-Koinzidenzkreis einstellen}
 
 Bei der Durchführung am ersten Tag sind wir an einigen Stellen nicht exakt in
 der Reihenfolge der Anleitung vorgegangen. Zur besseren Übersicht haben wir
@@ -443,6 +443,7 @@ ist.
         Aufbau zur Triggerung mit dem SCA. Um Platz zu sparen, fassen wir ab
         hier den Vorverstärker und den Hauptverstärker zu einem Bauteil
         zusammen. Die gestrichpunktete Linie stellt ein digitales Signal dar.
+        Das Oszilloskop wird mit dem digitalen Signal getriggert.
     }
     \label{fig:aufbau:sca_trigger}
 \end{figure}
@@ -461,18 +462,56 @@ repräsentiert ist (Bildzeit 15:20), siehe Abbildung~\ref{fig:511}.
     \label{fig:511}
 \end{figure}
 
-Zwischen SCA und Oszilloskop schalten wir noch den GDG. Am SCA stellen wir den Delay
-auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
-(Bildzeit 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
+Zwischen SCA und Oszilloskop schalten wir noch den GDG
+(Abbildung~\ref{fig:aufbau:sca_gdg}). Am SCA stellen wir den Delay auf 0. Das
+GDG justieren wir so, dass das digitale Signal die Pulse umschließt (Bildzeit
+15:27). Am linken Delay-Amp stellen wir eine Verzögerung von
+\SI{3.25}{\micro\second} ein. Am GDG stellen wir die Verzögerung aus. Am
+Rechten Delay haben wir eine Verzögerung von \SI{3.5}{\micro\second} gewählt.
+Das Oszillogramm für den rechten Zweig (Bildzeit 16:47) haben wir in
+Abbildung~\ref{fig:sca_umschlossen}
 
-Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
-16:47), siehe Abbildung~\ref{fig:sca_umschlossen}. Der rechte Delay-Amp steht
-auf \SI{3.5}{\micro\second}, am GDG selbst haben wir kein Delay eingestellt.
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [above=of na] {Photomultiplier};
+        \node[device] (amp) [right=of pm] {Verstärker};
+        \node[device] (split) [right=of amp] {Splitter};
+        \node[device] (delay) [right=of split] {Verzögerung};
+        \node[device] (sca) [below=of split] {SCA};
+        \node[device] (gdg) [right=of sca] {GDG};
+        \node[monitor] (oszi) [right=of gdg] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (amp);
+            \draw (amp) -- (split);
+            \draw (split) -- (delay);
+            \draw (split) -- (sca);
+            \draw (delay) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (sca) -- (gdg);
+            \draw (gdg) -- (oszi);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zur Triggerung mit dem SCA und GDG.
+    }
+    \label{fig:aufbau:sca_gdg}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-47-east.pdf}
-    \hfill
     \caption{%
         Slow-Signal des rechten Detektors nach dem Hauptverstärker im ersten
         Kanal. Das Signal aus dem rechten SCA im zweiten Kanal.
@@ -486,9 +525,49 @@ sowie an den einen GDG an.
 
 \subsection{Energiespektrum für die ${}^{22}\text{Na}$-Quelle aufnehmen}
 
-Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum. Das
+Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum,
+siehe Abbildung~\ref{fig:aufbau:sca_gdg_mca}. Das
 Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt), siehe
 Abbildung~\ref{mca:001_004}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [above=of na] {Photomultiplier};
+        \node[device] (amp) [right=of pm] {Verstärker};
+        \node[device] (split) [right=of amp] {Splitter};
+        \node[device] (delay) [right=of split] {Verzögerung};
+        \node[device] (sca) [below=of split] {SCA};
+        \node[device] (gdg) [right=of sca] {GDG};
+        \node[monitor] (mca) [right=of gdg] {MCA};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (amp);
+            \draw (amp) -- (split);
+            \draw (split) -- (delay);
+            \draw (split) -- (sca);
+            \draw (delay) -- (mca);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (sca) -- (gdg);
+            \draw (gdg) -- (mca);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zur Spektrumsaufnahme mit dem SCA und GDG. Das digitale Signal
+        wird als Gate im MCA benutzt.
+    }
+    \label{fig:aufbau:sca_gdg_mca}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering
@@ -503,8 +582,8 @@ Abbildung~\ref{mca:001_004}.
             \addplot[black] table {../Daten/001-Na.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:001_004}
     \caption{Spektrum der Na-Probe im rechten und linken Detektor}
+    \label{mca:001_004}
 \end{figure}
 
 Damit das Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die
@@ -525,12 +604,12 @@ Abbildung~\ref{mca:003_005} dargestellt.
             \addplot[black] table {../Daten/003-Na-Spektrum.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:003_005}
     \caption{%
         Spektrum der Na-Probe im rechten und linken Detektor mit höherer
         Verstärkung, so dass die \SI{511}{\kilo\electronvolt}-Linie am rechten
         Rand ist
     }
+    \label{mca:003_005}
 \end{figure}
 
 \subsection{Einkanalfenster für die ${}^{22}\text{Na}$-Quelle einstellen}
@@ -554,11 +633,11 @@ resultierende Spektrum ist in Abbildung~\ref{mca:fenster} gezeigt.
             \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:fenster}
     \caption{%
         Einstellung der SCA Schwellen, so dass nur die
         \SI{511}{\kilo\electronvolt}-Linie wächst.
     }
+    \label{mca:fenster}
 \end{figure}
 
 Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist (Bildzeit
