@@ -1,5 +1,6 @@
 \input{../../header.tex}
 
+\usepackage{csquotes}
 
 \usepackage{tikz}
 \usetikzlibrary{chains}
@@ -389,71 +390,62 @@ Abbildung~\ref{mca:003_005} dargestellt.
 \subsubsection{Linker Detektor}
 
 Als nächstes justieren wir das
-Fenster des SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie
-wächst. Beim SCA ist als obere Grenze MAX eingestellt, als untere \num{6.3}.
-(002-Na-SCA.txt)
+Fenster des linken SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie
+wächst. Beim SCA ist als obere Grenze MAX eingestellt, als untere \num{7.31}.
+Beim rechten SCA haben wir als untere Grenze \num{6.73} erhalten. Das
+resultierende Spektrum ist in Abbildung~\ref{mca:fenster} gezeigt.
 
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/002-Na-SCA.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:002}
-    \caption{%
-        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
-        dass wir die untere Schwelle in mehreren Schritten höher gestellt
-        haben, ohne das Spektrum zurück zu setzen.
-    }
-\end{figure}
-
-Nach Umorganisieren haben wir dies für den gleichen Detektor mit dem
-anderen SCA neu justiert, die untere Schwelle ist nun \num{7.31}.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:002}
-    \caption{%
-        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
-        dass wir die untere Schwelle in mehreren Schritten höher gestellt
-        haben, ohne das Spektrum zurück zu setzen.
-    }
-\end{figure}
-
-Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
-
-Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
-17:34)
-
-\subsubsection{Rechter Detektor}
-
-Am SCA stellen wir die Schwellen entsprechend ein, als untere Grenze haben wir
-\num{6.73}, als Obere auf Maximum.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
             \addplot[black] table {../Daten/006-Na-511keV.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:006}
-    \caption{}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:fenster}
+    \caption{%
+        Einstellung der SCA Schwellen, so dass nur die
+        \SI{511}{\kilo\electronvolt}-Linie wächst.
+    }
 \end{figure}
 
-Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
-17:35)
+Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist (Bildzeit
+links 17:34, rechts 17:35), siehe Abbildung~\ref{fig:eine_pulshoehe}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_17-35-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_17-34-east.pdf}
+    \caption{%
+        Durch den auf die \SI{511}{\kilo\electronvolt}-Linie eingestellten SCA
+        erhalten wir im Oszilloskop mit dem Trigger auf dem zweiten Kanal nur
+        noch eine Pulshöhe.
+    }
+    \label{fig:eine_pulshoehe}
+\end{figure}
 
 \subsection{Slow-Koinzidenz herstellen}
 
 Wir schließen beide SCA gleichzeitig an das Oszi an. Der rechte Detektor ist
-auf Kanal 1 (Bildnummer 17:38).
+auf Kanal 1 (Bildnummer 17:38), siehe Abbildung~\ref{fig:beide_sca}. Die beiden
+Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_17-38-east.pdf}
+    \hfill
+    \caption{%
+        Die Signale von beiden SCA gleichzeitig auf dem Oszilloskop.
+    }
+    \label{fig:beide_sca}
+\end{figure}
 
 \section{Fast-Konzidenzkreis einstellen}
 
