@@ -298,13 +298,35 @@ Für unsere Blockschaltbilder benutzen wir folgende Notation:
 
 \parencite{Leo/Techniques_Nuclear_Experiments}
 
-\hline
+\hrule
 
 Wir schauen uns das Slow Signal des rechten PM auf dem Oszi an.
 
 Danach betrachten wir das Signal nach dem Vorverstärker (Bildzeit 14:58).
 
 Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang betrachten wir auf dem Oszi. (Bildzeitpunkt 15:03)
+
+Wir schließen den Ausgang des Hauptverstärkers an den Splitter an. Der eine
+Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge beider
+Geräte betrachten wir mit dem Oszilloskop. Nun versuchten, die Verzögerung so
+einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
+umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
+ist.
+
+Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
+Oszi ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
+haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
+repräsentiert ist (Bildzeitpunkt 15:20)
+
+Zwischen SCA und Oszi schalten wir noch den GDG. Am SCA stellen wir den Delay
+auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
+(Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
+
+Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
+Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt). Damit das
+Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die Verstärkung
+des Hauptverstärkers auf Faktor 100. Als nächstes justieren wir das Fenster des
+SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie wächst.
 
 \chapter{Auswertung}
 
