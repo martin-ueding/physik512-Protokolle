@@ -26,7 +26,7 @@ format/.cd,use comma}}
     \and
     Lino Lemmer
 }
-\publishers{Tutor: Philipp Hoffmeister}
+\publishers{Tutor: Damian-Maria Piontek}
 
 \begin{document}
 
@@ -233,13 +233,184 @@ Amplitude proportional zeitlichen Abstand der Eingangssignale.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
+\subsubsection{Linker Detektor}
+
+Wir betrachten das Slow Signal des linken PM auf dem Oszi an (Bildzeitpunkt
+16:26).
+
+Danach betrachten wir das Signal nach dem Vorverstärker (Bildzeit 14:58).
+
+Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang betrachten wir auf dem Oszi. (Bildzeitpunkt 15:03)
+
+\subsubsection{Rechter Detektor}
+
+Wir schauen uns das Slow Signal des rechten PM auf dem Oszi an. (Erstes Bild)
+
+Nun nach dem Vorverstärker (Bildzeit 16:39). Danach betrachten wir das Signal
+nach dem Hauptverstärker (Bildzeit 16:41).
+
 \subsection{Triggerung mit dem SCA}
+
+\subsubsection{Linker Detektor}
+
+Wir schließen den Ausgang des Hauptverstärkers an den Splitter an. Der eine
+Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge beider
+Geräte betrachten wir mit dem Oszilloskop. Nun versuchten, die Verzögerung so
+einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
+umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
+ist.
+
+Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
+Oszi ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
+haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
+repräsentiert ist (Bildzeitpunkt 15:20)
+
+Zwischen SCA und Oszi schalten wir noch den GDG. Am SCA stellen wir den Delay
+auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
+(Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
+
+\subsubsection{Rechter Detektor}
+
+Analog zum vorherigen Teil schließen wir den Hauptverstärker an den Splitter
+an. Die Ausgänge vom Splitter schließen wir an den anderen SCA sowie an den
+einen GDG an.
 
 \subsection{Energiespektrum für die ${}^{22}\text{Na}$-Quelle aufnehmen}
 
+\subsubsection{Linker Detektor}
+
+Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
+Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/001-Na.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:001}
+    \caption{Spektrum der Na-Probe im linken Detektor}
+\end{figure}
+
+Damit das Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die
+Verstärkung des Hauptverstärkers auf Faktor 100.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:003}
+    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
+\end{figure}
+
+\subsubsection{Rechter Detektor}
+
+Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
+16:47). Der Delay-Amp steht auf \SI{3.5}{\micro\second}, am GDG selbst haben
+wir kein Delay eingestellt.
+
+Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/004-Na-rechts.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:004}
+    \caption{Spektrum der Na-Probe im rechten Detektor}
+\end{figure}
+
+Dann stellen wir die
+Verstärkung so ein, dass die \SI{511}{\kilo\electronvolt} Linie möglichst weit
+rechts ist (005-Na-Zoom.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/005-Na-Zoom.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:005}
+    \caption{Spektrum der Na-Probe im rechten Detektor mit höherer Verstärkung}
+\end{figure}
+
 \subsection{Einkanalfenster für die ${}^{22}\text{Na}$-Quelle einstellen}
 
+\subsubsection{Linker Detektor}
+
+Als nächstes justieren wir das
+Fenster des SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie
+wächst. Beim SCA ist als obere Grenze MAX eingestellt, als untere \num{6.3}.
+(002-Na-SCA.txt)
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/002-Na-SCA.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:002}
+    \caption{%
+        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
+        dass wir die untere Schwelle in mehreren Schritten höher gestellt
+        haben, ohne das Spektrum zurück zu setzen.
+    }
+\end{figure}
+
+Nach Umorganisieren haben wir dies für den gleichen Detektor mit dem
+anderen SCA neu justiert, die untere Schwelle ist nun \num{7.31}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:002}
+    \caption{%
+        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
+        dass wir die untere Schwelle in mehreren Schritten höher gestellt
+        haben, ohne das Spektrum zurück zu setzen.
+    }
+\end{figure}
+
+Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
+
+Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
+17:34)
+
+\subsubsection{Rechter Detektor}
+
+Am SCA stellen wir die Schwellen entsprechend ein, als untere Grenze haben wir
+\num{6.73}, als Obere auf Maximum.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/006-Na-511keV.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:006}
+    \caption{}
+\end{figure}
+
+Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
+17:35)
+
 \subsection{Slow-Koinzidenz herstellen}
+
+Wir schließen beide SCA gleichzeitig an das Oszi an. Der rechte Detektor ist
+auf Kanal 1 (Bildnummer 17:38).
 
 \section{Fast-Konzidenzkreis einstellen}
 
@@ -344,166 +515,6 @@ Für unsere Blockschaltbilder benutzen wir folgende Notation:
 
 \parencite{Leo/Techniques_Nuclear_Experiments}
 
-\hrule
-
-\subsection{Linker Detektor}
-
-Wir betrachten das Slow Signal des linken PM auf dem Oszi an (Bildzeitpunkt
-16:26).
-
-Danach betrachten wir das Signal nach dem Vorverstärker (Bildzeit 14:58).
-
-Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang betrachten wir auf dem Oszi. (Bildzeitpunkt 15:03)
-
-Wir schließen den Ausgang des Hauptverstärkers an den Splitter an. Der eine
-Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge beider
-Geräte betrachten wir mit dem Oszilloskop. Nun versuchten, die Verzögerung so
-einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
-umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
-ist.
-
-Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
-Oszi ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
-haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
-repräsentiert ist (Bildzeitpunkt 15:20)
-
-Zwischen SCA und Oszi schalten wir noch den GDG. Am SCA stellen wir den Delay
-auf 0. Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt
-(Bildzeitpunkt 15:27). Delay-Amp \SI{3.25}{\micro\second}, GDG Delay aus.
-
-Nun ersetzen wir das Oszi durch den MCA und betrachten das Spektrum. Das
-Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt).
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/001-Na.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:001}
-    \caption{Spektrum der Na-Probe im linken Detektor}
-\end{figure}
-
-Damit das
-Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die Verstärkung
-des Hauptverstärkers auf Faktor 100. Als nächstes justieren wir das Fenster des
-SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie wächst. Beim SCA
-ist als obere Grenze MAX eingestellt, als untere \num{6.3}. (002-Na-SCA.txt)
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/002-Na-SCA.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:002}
-    \caption{%
-        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
-        dass wir die untere Schwelle in mehreren Schritten höher gestellt
-        haben, ohne das Spektrum zurück zu setzen.
-    }
-\end{figure}
-
-Nach Umorganisieren haben wir dies für den gleichen Detektor mit dem
-anderen SCA neu justiert, die untere Schwelle ist nun \num{7.31}.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:002}
-    \caption{%
-        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
-        dass wir die untere Schwelle in mehreren Schritten höher gestellt
-        haben, ohne das Spektrum zurück zu setzen.
-    }
-\end{figure}
-
-Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:003}
-    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
-\end{figure}
-
-Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
-17:34)
-
-\subsection{Rechter Detektor}
-
-Wir schauen uns das Slow Signal des rechten PM auf dem Oszi an. (Erstes Bild)
-
-Nun nach dem Vorverstärker (Bildzeit 16:39). Danach betrachten wir das Signal
-nach dem Hauptverstärker (Bildzeit 16:41).
-
-Analog zum vorherigen Teil schließen wir den Hauptverstärker an den Splitter
-an. Die Ausgänge vom Splitter schließen wir an den anderen SCA sowie an den
-einen GDG an.
-
-Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
-16:47). Der Delay-Amp steht auf \SI{3.5}{\micro\second}, am GDG selbst haben
-wir kein Delay eingestellt.
-
-Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt).
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/004-Na-rechts.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:004}
-    \caption{Spektrum der Na-Probe im rechten Detektor}
-\end{figure}
-
-Dann stellen wir die
-Verstärkung so ein, dass die \SI{511}{\kilo\electronvolt} Linie möglichst weit
-rechts ist (005-Na-Zoom.txt).
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/005-Na-Zoom.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:005}
-    \caption{Spektrum der Na-Probe im rechten Detektor mit höherer Verstärkung}
-\end{figure}
-
-Am SCA stellen wir die Schwellen entsprechend ein, als untere Grenze haben wir
-\num{6.73}, als Obere auf Maximum.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/006-Na-511keV.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \label{mca:006}
-    \caption{}
-\end{figure}
-
-Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
-17:35)
-
-\subsection{beide SCA}
-
-Wir schließen beide SCA gleichzeitig an das Oszi an. Der rechte Detektor ist
-auf Kanal 1 (Bildnummer 17:38).
 
 \chapter{Auswertung}
 
