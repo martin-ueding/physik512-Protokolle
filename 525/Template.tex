@@ -227,6 +227,10 @@ entladen. Die Spannung zwischen den Kondensatorplatten ist proportional zur
 Zeitdifferenz und die Amplitude proportional zur Spannung. Somit ist die
 Amplitude proportional zeitlichen Abstand der Eingangssignale.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                Durchführung                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Durchführung}
 
 \section{Slow-Konzidenzkreis einstellen}
@@ -239,12 +243,10 @@ einen direkten Vergleich bieten zu können.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
-\subsubsection{Linker Detektor}
-
 Wir betrachten das Slow Signal des linken Photomultipliers auf dem Oszi
-(Bildzeitpunkt 16:26), siehe Abbildung \ref{fig:slow_signal}, links. Dann
-schauen wir uns das Slow Signal des rechten PM auf dem Oszi an, siehe Abbildung
-\ref{fig:slow_signal}, rechts.
+(Bildzeit 16:26), siehe Abbildung~\ref{fig:slow_signal}, links. Dann schauen
+wir uns das Slow Signal des rechten PM auf dem Oszi an, siehe
+Abbildung~\ref{fig:slow_signal}, rechts.
 
 \begin{figure}[htbp]
     \centering
@@ -252,12 +254,14 @@ schauen wir uns das Slow Signal des rechten PM auf dem Oszi an, siehe Abbildung
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-26-east.pdf}
     \caption{%
-        Slow Signale der beiden Photomultiplier
+        Slow-Signale vor dem Vorverstärker
     }
     \label{fig:slow_signal}
 \end{figure}
 
-Danach betrachten wir das Signal nach dem Vorverstärker (Bildzeit 14:58).
+Danach betrachten wir das Signal nach dem Vorverstärker des linken (Bildzeit
+14:58) und rechten (Bildzeit 16:39) Detektors, siehe
+Abbildung~\ref{fig:slow_pre_amp}.
 
 \begin{figure}[htbp]
     \centering
@@ -265,17 +269,25 @@ Danach betrachten wir das Signal nach dem Vorverstärker (Bildzeit 14:58).
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_14-58-east.pdf}
     \caption{%
+        Slow-Signal nach dem Vorverstärker
     }
-    \label{fig:}
+    \label{fig:slow_pre_amp}
 \end{figure}
 
-Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang betrachten wir auf dem Oszi. (Bildzeitpunkt 15:03)
+Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang
+betrachten wir auf dem Oszi (Bildzeit links 15:03, rechts 16:41), siehe
+Abbildung~\ref{fig:slow_amp}.
 
-\subsubsection{Rechter Detektor}
-
-
-Nun nach dem Vorverstärker (Bildzeit 16:39). Danach betrachten wir das Signal
-nach dem Hauptverstärker (Bildzeit 16:41).
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-41-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_15-03-east.pdf}
+    \caption{%
+        Slow-Signal nach dem Verstärker
+    }
+    \label{fig:slow_amp}
+\end{figure}
 
 \subsection{Triggerung mit dem SCA}
 
@@ -554,4 +566,4 @@ Für unsere Blockschaltbilder benutzen wir folgende Notation:
 
 \end{document}
 
-% vim: spell spelllang=de
+% vim: spell spelllang=de tw=79
