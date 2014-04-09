@@ -351,7 +351,7 @@ Damit das
 Spektrum den ganzen Messbereich des MCA ausfüllt, stellen wir die Verstärkung
 des Hauptverstärkers auf Faktor 100. Als nächstes justieren wir das Fenster des
 SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie wächst. Beim SCA
-ist als obere Grenze MAX eingestellt, als untere 6.3. (002-Na-SCA.txt)
+ist als obere Grenze MAX eingestellt, als untere \num{6.3}. (002-Na-SCA.txt)
 
 \begin{figure}[htbp]
     \centering
@@ -360,8 +360,30 @@ ist als obere Grenze MAX eingestellt, als untere 6.3. (002-Na-SCA.txt)
             \addplot[black] table {../Daten/002-Na-SCA.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:001}
-    \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
+    \label{mca:002}
+    \caption{%
+        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
+        dass wir die untere Schwelle in mehreren Schritten höher gestellt
+        haben, ohne das Spektrum zurück zu setzen.
+    }
+\end{figure}
+
+Nach Umorganisieren haben wir dies für den gleichen Detektor mit dem
+anderen SCA neu justiert, die untere Schwelle ist nun \num{7.31}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/007-Na-SCA-neu.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:002}
+    \caption{%
+        Einstellung der SCA Schwellen. Die Stufen sind dadurch entstanden,
+        dass wir die untere Schwelle in mehreren Schritten höher gestellt
+        haben, ohne das Spektrum zurück zu setzen.
+    }
 \end{figure}
 
 Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
@@ -373,7 +395,7 @@ Nun öffnen wir das Fenster am SCA um das vollständige Spektrum aufnehmen kann.
             \addplot[black] table {../Daten/003-Na-Spektrum.txt};
         \end{axis}
     \end{tikzpicture}
-    \label{mca:001}
+    \label{mca:003}
     \caption{Spektrum der Na-Probe im linken Detektor mit höherer Verstärkung}
 \end{figure}
 
@@ -395,9 +417,47 @@ Die Zeit stellen wir am GDG so ein, dass die Pulse überdeckt werden (Bildzeit
 16:47). Der Delay-Amp steht auf \SI{3.5}{\micro\second}, am GDG selbst haben
 wir kein Delay eingestellt.
 
-Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt). Dann stellen wir die
+Wir betrachten das Spektrum im MCA (004-Na-Rechts.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/004-Na-rechts.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:004}
+    \caption{Spektrum der Na-Probe im rechten Detektor}
+\end{figure}
+
+Dann stellen wir die
 Verstärkung so ein, dass die \SI{511}{\kilo\electronvolt} Linie möglichst weit
 rechts ist (005-Na-Zoom.txt).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/005-Na-Zoom.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:005}
+    \caption{Spektrum der Na-Probe im rechten Detektor mit höherer Verstärkung}
+\end{figure}
+
+Am SCA stellen wir die Schwellen entsprechend ein, als untere Grenze haben wir
+\num{6.73}, als Obere auf Maximum.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/006-Na-511keV.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \label{mca:006}
+    \caption{}
+\end{figure}
 
 Auf dem Oszi sehen wir, dass nur noch eine Pulshöhe zu erkennen ist. (Bildzeit
 17:35)
