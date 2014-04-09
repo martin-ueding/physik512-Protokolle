@@ -6,6 +6,19 @@
 \usetikzlibrary{chains}
 \usetikzlibrary{shapes.geometric}
 
+\tikzset{device/.style={
+                rectangle,
+                minimum size=6mm,
+                draw=black
+            },
+            monitor/.style={
+                rectangle,
+                rounded corners=2mm,
+                minimum size=6mm,
+                draw=black
+            },
+        }
+
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.5, width=0.8\linewidth, xticklabel style={/pgf/number
 format/.cd,use comma}}
@@ -247,9 +260,40 @@ einen direkten Vergleich bieten zu können.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
-Wir betrachten das Slow Signal des linken Photomultipliers auf dem Oszilloskop
-(Bildzeit 16:26), siehe Abbildung~\ref{fig:slow_signal}, links. Dann schauen
-wir uns das Slow Signal des rechten PM auf dem Oszilloskop an, siehe
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [right=of na] {Photomultiplier};
+        \node[monitor] (oszi) [right=of pm] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zum Betrachten des Slow-Signals. Die gepunktete Linie stellt
+        Teilchenaustausch (Elektronen, $\gammaup$-Strahlung, …) dar. Die
+        durchgezogene Linie ist ein analoges elektrisches Signal. Messgeräte,
+        die etwas anzeigen, markieren wir durch die abgerundeten Ecken.
+    }
+    \label{fig:aufbau:slow}
+\end{figure}
+
+Wir betrachten das Slow-Signal des linken Photomultipliers auf dem Oszilloskop
+wie in Abbildung~\ref{fig:aufbau:slow} gezeigt. Das Oszillogramm ist in
+Abbildung~\ref{fig:slow_signal}, links (Bild 16:26). Dann schauen wir uns das
+Slow-Signal des rechten PM auf dem Oszilloskop an, siehe
 Abbildung~\ref{fig:slow_signal}, rechts.
 
 \begin{figure}[htbp]
@@ -265,7 +309,37 @@ Abbildung~\ref{fig:slow_signal}, rechts.
 
 Danach betrachten wir das Signal nach dem Vorverstärker des linken (Bildzeit
 14:58) und rechten (Bildzeit 16:39) Detektors, siehe
-Abbildung~\ref{fig:slow_pre_amp}.
+Abbildung~\ref{fig:slow_pre_amp}. Der Aufbau ist in
+Abbildung~\ref{fig:aufbau:slow_pre} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [right=of na] {Photomultiplier};
+        \node[device] (preamp) [right=of pm] {Vorverstärker};
+        \node[monitor] (oszi) [right=of preamp] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (preamp);
+            \draw (preamp) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zum Betrachten des Slow-Signals nach dem Vorverstärker
+    }
+    \label{fig:aufbau:slow_pre}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering
@@ -278,9 +352,41 @@ Abbildung~\ref{fig:slow_pre_amp}.
     \label{fig:slow_pre_amp}
 \end{figure}
 
-Wir schließen den Hauptverstärker nach dem Vorverstärker an. Dessen Ausgang
-betrachten wir auf dem Oszilloskop (Bildzeit links 15:03, rechts 16:41), siehe
+Wir schließen den Hauptverstärker nach dem Vorverstärker an, siehe
+Abbildung~\ref{fig:aufbau:slow_amp}. Dessen Ausgang betrachten wir auf dem
+Oszilloskop (Bildzeit links 15:03, rechts 16:41), siehe
 Abbildung~\ref{fig:slow_amp}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [right=of na] {Photomultiplier};
+        \node[device] (preamp) [right=of pm] {Vorverstärker};
+        \node[device] (amp) [right=of preamp] {Verstärker};
+        \node[monitor] (oszi) [right=of amp] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (preamp);
+            \draw (preamp) -- (amp);
+            \draw (amp) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zum Betrachten des Slow-Signals nach dem Hauptverstärker
+    }
+    \label{fig:aufbau:slow_amp}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering
@@ -297,10 +403,49 @@ Abbildung~\ref{fig:slow_amp}.
 
 Wir schließen den Ausgang des linken Hauptverstärkers an den Splitter an. Der
 eine Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge
-beider Geräte betrachten wir mit dem Oszilloskop. Nun versuchen wir, die
-Verzögerung so einzustellen, dass das digitale Signal des SCA den Puls vom
-Verstärker umschließt. Dies gelingt uns allerdings nicht, weil das digitale
-Signal zu kurz ist.
+beider Geräte betrachten wir mit dem Oszilloskop, siehe
+Abbildung~\ref{fig:aufbau:sca_trigger}. Nun versuchen wir, die Verzögerung so
+einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
+umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
+ist.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [right=of na] {Photomultiplier};
+        \node[device] (amp) [right=of pm] {Verstärker};
+        \node[device] (split) [right=of amp] {Splitter};
+        \node[device] (delay) [right=of split] {Verzögerung};
+        \node[device] (sca) [below=of split] {SCA};
+        \node[monitor] (oszi) [below=of delay] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (amp);
+            \draw (amp) -- (split);
+            \draw (split) -- (delay);
+            \draw (split) -- (sca);
+            \draw (delay) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (sca) -- (oszi);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau zur Triggerung mit dem SCA. Um Platz zu sparen, fassen wir ab
+        hier den Vorverstärker und den Hauptverstärker zu einem Bauteil
+        zusammen. Die gestrichpunktete Linie stellt ein digitales Signal dar.
+    }
+    \label{fig:aufbau:sca_trigger}
+\end{figure}
 
 Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
 Oszilloskop ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
