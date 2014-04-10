@@ -20,8 +20,12 @@
         }
 
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.5, width=0.8\linewidth, xticklabel style={/pgf/number
-format/.cd,use comma}}
+\pgfplotsset{
+    compat=1.5,
+    width=0.8\linewidth,
+    xticklabel style={/pgf/number format/.cd,use comma},
+    yticklabel style={/pgf/number format/.cd,use comma},
+}
 
 \usepgfplotslibrary{external}
 \tikzexternalize
@@ -859,6 +863,44 @@ und dan GDG, das andere über Delay und beide auf das Oszilloskop. Signale
 übereinander gelegt (Bildzeit rechts 12:28, links 12:27). Dann ein Spektrum
 aufgenommen (009). Dann SCA Fenster so eingestellt, dass die nur 350 Linie drin
 ist (010).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/011-Ba-Spek-l.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/009-Ba-Spek-r.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum der Bariumemissionen
+    }
+    \label{mca:ba_spek}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/012-Ba-SCA-l.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/010-Ba-SCA-r.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Einstellung der SCA Schwellen, so dass nur die gewünschte Linie wächst.
+    }
+    \label{mca:ba_spek_sca}
+\end{figure}
 
 Mit dem linken Slow-Zweig gehen wir gleich vor, wir nehmen ein Spektrum (011). SCA Fenster (012).
 
