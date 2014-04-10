@@ -1061,11 +1061,12 @@ Zweig.
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_12-28-east.pdf}
     \caption{%
+        SCA- gegen Slow-Signal für den rechten Detektor mit der Bariumquelle.
     }
     \label{fig:eine_pulshoehe_ba}
 \end{figure}
 
-Dann wird ein Spektrum aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
+Dann wird ein Spektrum mit dem MCA aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
 
 \begin{figure}[htbp]
     \centering
@@ -1086,7 +1087,7 @@ Dann wird ein Spektrum aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
     \label{mca:ba_spek}
 \end{figure}
 
-Dann SCA Fenster so eingestellt, dass die nur
+Dann wird SCA Fenster so eingestellt, dass die nur
 \SI{350}{\kilo\electronvolt}-Linie drin ist/* 010 */, siehe
 Abbildung~\ref{mca:ba_spek_sca}.
 
@@ -1116,34 +1117,36 @@ ebenfalls Abbildungen \ref{mca:ba_spek} und \ref{mca:ba_spek_sca}.
 Wir betrachten das rechte Slow-Signal und Start-CFD-Signal auf dem
 Oszilloskop/*Bildzeit 13:18*/. Die Schwelle des CFD stellen wir auf das
 Minimum. Dann wechseln wir auf den Stop-Zweig (links) und betrachten zuerst
-ohne Schwelle/*Bildzeit 13:21*/. Anschließend stellen wir die Schwelle ein/*
-Bildzeit 13:23 */.
-
-Wir überprüfen nun die Fast-Koinzidenz, indem wir Start- und Stop-Signal am
-Oszilloskop betrachten.
-
-CFD Stelle nach dem Skript, in dem wir das Slow-Signal und negatives Stop-CFD
-Signal auf das MCA geben. Die Schwelle des Stop-CFD stellen wir so, dass die
-für die Röntgenlinie keine Ereignisse mehr registriert werden (013).
-
-Wir tauschen kurz die Barium gegen Natrium, um zu überprüfen, ob die 511 Linie
-noch an der richtigen Stelle im MCA ist. Dies ist der Fall.
-
-Wir machen den Abgleich Fast- und Slow-Kreis auf dem Oszilloskop/* Bildzeit
-13:53 */, siehe Abbildung~\ref{fig:fast-slow-abgleich}.
+ohne Schwelle/*Bildzeit 13:21*/, siehe
+Abbildung~\ref{fig:ba_start_slow_baseline}. Anschließend stellen wir die
+Schwelle ein/* Bildzeit 13:23 */, siehe Abbildung~\ref{fig:ba_start_slow}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-53-east.pdf}
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-21-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-18-east.pdf}
     \caption{%
-        Abgleich von Fast- und Slow-Kreis.
+        Stop- und Start-Signal der CFDs zusammen mit ihren Slow-Signalen.
     }
-    \label{fig:fast-slow-abgleich}
+    \label{fig:ba_start_slow_baseline}
 \end{figure}
 
-Beispiel für den Fast-Abgleich /* Bildzeit 13:54 */ ist in
-Abbildung~\ref{fig:fast_abgleich_oszi}. Wir müssen darauf achten, dass das
-Start-Signal (Kanal 1) in den meisten Fällen vor dem Stop-Signal (Kanal 2)
+Beim Start-Zweig ist die untere Grenze schon ausreichend hoch, um den
+Untergrund zu filtern.
+
+\begin{figure}[htbp]
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-23-east.pdf}
+    \caption{%
+        Stop-Signal zusammen mit sein Slow-Signal, mit höherer Schwelle.
+    }
+    \label{fig:ba_start_slow}
+\end{figure}
+
+Wir überprüfen nun die Fast-Koinzidenz, indem wir Start- und Stop-Signal am
+Oszilloskop betrachten. Ein Beispiel für den Fast-Abgleich /* Bildzeit 13:54 */
+ist in Abbildung~\ref{fig:fast_abgleich_oszi}. Wir müssen darauf achten, dass
+das Start-Signal (Kanal 1) in den meisten Fällen vor dem Stop-Signal (Kanal 2)
 kommt. Damit dies immer der Fall ist, schalten wir eine ausreichende
 Verzögerung hinter den Stop-CFD.
 
@@ -1156,12 +1159,49 @@ Verzögerung hinter den Stop-CFD.
     \label{fig:fast_abgleich_oszi}
 \end{figure}
 
-\hrule
+Wir stellen die CFD Schwelle nach dem Skript ein, indem wir das Slow-Signal
+und negatives Stop-CFD Signal auf das MCA geben. Die Schwelle des Stop-CFD
+stellen wir so, dass die für die Röntgenlinie keine Ereignisse mehr registriert
+werden/* 013 */, siehe Abbildung~\ref{mca:xray}.
 
-\parencite{Bieling/K125}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
+                ylabel=Ereignisse, axis lines=left, xtick={0,1000,...,8000}
+            ]
+            \addplot[black] table {../Daten/013-Ba-CFD-l.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum des Barium. Hiermit haben wir die Schwelle für das Stop-CFD
+        eingestellt, so dass die Röntgenlinie nicht mehr auslöst.
+    }
+    \label{mca:xray}
+\end{figure}
 
+Wir tauschen kurz die Barium gegen Natrium, um zu überprüfen, ob die
+\SI{511}{\kilo\electronvolt}-Linie noch an der richtigen Stelle im MCA ist.
+Dies ist der Fall.
 
-\parencite{Leo/Techniques_Nuclear_Experiments}
+Wir machen den Abgleich Fast- und Slow-Koinzidenz auf dem Oszilloskop/* Bildzeit
+13:53 */, siehe Abbildung~\ref{fig:fast-slow-abgleich}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-53-east.pdf}
+    \caption{%
+        Abgleich von Fast- und Slow-Koinzidenz.
+    }
+    \label{fig:fast-slow-abgleich}
+\end{figure}
+
+Nun ist der Aufbau fertig für die Bariumquelle kalibriert und wir können mir
+der Lebensdauermessung starten, die über Nacht geht.
+
+\nocite{Bieling/K125}
+\nocite{Leo/Techniques_Nuclear_Experiments}
 
 
 \chapter{Auswertung}
