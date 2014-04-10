@@ -23,8 +23,8 @@
 \pgfplotsset{
     compat=1.5,
     width=0.8\linewidth,
-    xticklabel style={/pgf/number format/.cd,use comma},
-    yticklabel style={/pgf/number format/.cd,use comma},
+    xticklabel style={/pgf/number format/use comma},
+    yticklabel style={/pgf/number format/use comma},
 }
 
 \usepgfplotslibrary{external}
@@ -312,6 +312,12 @@ einen direkten Vergleich bieten zu können.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
+Wir betrachten das Slow-Signal des linken Photomultipliers auf dem Oszilloskop
+wie in Abbildung~\ref{fig:aufbau:slow} gezeigt. Das Oszillogramm ist in
+Abbildung~\ref{fig:slow_signal}, links/* Bild 16:26*/. Dann schauen wir uns das
+Slow-Signal des rechten PM auf dem Oszilloskop an, siehe
+Abbildung~\ref{fig:slow_signal}, rechts.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -342,25 +348,22 @@ einen direkten Vergleich bieten zu können.
     \label{fig:aufbau:slow}
 \end{figure}
 
-Wir betrachten das Slow-Signal des linken Photomultipliers auf dem Oszilloskop
-wie in Abbildung~\ref{fig:aufbau:slow} gezeigt. Das Oszillogramm ist in
-Abbildung~\ref{fig:slow_signal}, links (Bild 16:26). Dann schauen wir uns das
-Slow-Signal des rechten PM auf dem Oszilloskop an, siehe
-Abbildung~\ref{fig:slow_signal}, rechts.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_14-33-east.pdf}
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_16-26-east.pdf}
     \caption{%
-        Slow-Signale
+        Slow-Signale von linkem und rechten Detektor.
     }
     \label{fig:slow_signal}
 \end{figure}
 
-Danach betrachten wir das Signal nach dem Vorverstärker des linken (Bildzeit
-14:58) und rechten (Bildzeit 16:39) Detektors, siehe
+An beiden Signalen ist der exponentielle Abfall des Signals zu erkennen, das
+durch der Abklingzeit des Szintillators erzeugt wird.
+
+Danach betrachten wir das Signal nach dem Vorverstärker des linken /* Bildzeit
+14:58 */ und rechten /* Bildzeit 16:39 */ Detektors, siehe
 Abbildung~\ref{fig:slow_pre_amp}. Der Aufbau ist in
 Abbildung~\ref{fig:aufbau:slow_pre} dargestellt.
 
@@ -388,7 +391,7 @@ Abbildung~\ref{fig:aufbau:slow_pre} dargestellt.
         \end{scope}
     \end{tikzpicture}
     \caption{%
-        Aufbau zum Betrachten des Slow-Signals nach dem Vorverstärker
+        Aufbau zum Betrachten des Slow-Signals nach dem Vorverstärker.
     }
     \label{fig:aufbau:slow_pre}
 \end{figure}
@@ -399,14 +402,18 @@ Abbildung~\ref{fig:aufbau:slow_pre} dargestellt.
     \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_14-58-east.pdf}
     \caption{%
-        Slow-Signal nach dem Vorverstärker
+        Slow-Signal nach dem Vorverstärker für den linken und rechten Detektor.
     }
     \label{fig:slow_pre_amp}
 \end{figure}
 
+Der Vorverstärker zieht die Pulse, die wir an der Dynode abnehmen, stark in die
+Länge. Dies wird erst im nächsten Schritt wieder korrigiert. Dafür erhalten wir
+etwas Verstärkung.
+
 Wir schließen den Hauptverstärker nach dem Vorverstärker an, siehe
 Abbildung~\ref{fig:aufbau:slow_amp}. Dessen Ausgang betrachten wir auf dem
-Oszilloskop (Bildzeit links 15:03, rechts 16:41), siehe
+Oszilloskop/* Bildzeit links 15:03, rechts 16:41 */, siehe
 Abbildung~\ref{fig:slow_amp}.
 
 \begin{figure}[htbp]
@@ -451,15 +458,20 @@ Abbildung~\ref{fig:slow_amp}.
     \label{fig:slow_amp}
 \end{figure}
 
+An der Zeiteinteilung der Bildschirmfotos ist zu erkennen, dass die Pulse jetzt
+wieder sehr kurz sind. Der Hauptverstärker kürzt die Pulse, allerdings werden
+sie teilweise ins Negative gezogen, wie beim rechten Zweig zu sehen ist.
+
 \subsection{Triggerung mit dem SCA}
 
 Wir schließen den Ausgang des linken Hauptverstärkers an den Splitter an. Der
-eine Ausgang geht an das SCA. Der Andere an Delay-Verstärker. Die Ausgänge
+eine Ausgang geht an das SCA. Der Andere an den Delay-Verstärker. Die Ausgänge
 beider Geräte betrachten wir mit dem Oszilloskop, siehe
 Abbildung~\ref{fig:aufbau:sca_trigger}. Nun versuchen wir, die Verzögerung so
 einzustellen, dass das digitale Signal des SCA den Puls vom Verstärker
 umschließt. Dies gelingt uns allerdings nicht, weil das digitale Signal zu kurz
-ist.
+ist. Dass das digitale Signal zu kurz ist, ist auch in Abbildung~\ref{fig:511}
+zu erkennen.
 
 \begin{figure}[htbp]
     \centering
@@ -503,25 +515,26 @@ ist.
 Wir regeln den Verstärker auf Faktor 20 herunter. Im Nachleuchten auf dem
 Oszilloskop ist eine Amplitude zu erkennen, die besonders häufig vorkommt. Davon
 haben wir ein Bild so gespeichert, dass diese Linie auch besonders stark
-repräsentiert ist (Bildzeit 15:20), siehe Abbildung~\ref{fig:511}.
+repräsentiert ist/* Bildzeit 15:20 */, siehe Abbildung~\ref{fig:511}. Diese
+Linie wird die \SI{511}{\kilo\electronvolt}-Linie sein.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-09_15-20-east.pdf}
     \caption{%
-        Besonders häufig vorkommende Linie im Signal des Verstärkers
+        Besonders häufig vorkommende Linie im Signal des Verstärkers.
     }
     \label{fig:511}
 \end{figure}
 
 Zwischen SCA und Oszilloskop schalten wir noch den GDG
-(Abbildung~\ref{fig:aufbau:sca_gdg}). Am SCA stellen wir den Delay auf 0. Das
-GDG justieren wir so, dass das digitale Signal die Pulse umschließt (Bildzeit
-15:27). Am linken Delay-Amp stellen wir eine Verzögerung von
-\SI{3.25}{\micro\second} ein. Am GDG stellen wir die Verzögerung aus. Am
-Rechten Delay haben wir eine Verzögerung von \SI{3.5}{\micro\second} gewählt.
-Das Oszillogramm für den rechten Zweig (Bildzeit 16:47) haben wir in
-Abbildung~\ref{fig:sca_umschlossen}
+(Abbildung~\ref{fig:aufbau:sca_gdg}). Am SCA stellen wir die Verzögerung auf 0.
+Das GDG justieren wir so, dass das digitale Signal die Pulse umschließt/*
+Bildzeit 15:27, scheint aber nicht geklappt zu haben. */. Am linken Delay-Amp
+stellen wir eine Verzögerung von \SI{3.25}{\micro\second} ein. Am GDG stellen
+wir die Verzögerung aus. Am Rechten Delay haben wir eine Verzögerung von
+\SI{3.5}{\micro\second} gewählt. Das Oszillogramm für den rechten Zweig
+/* Bildzeit 16:47 */ haben wir in Abbildung~\ref{fig:sca_umschlossen}.
 
 \begin{figure}[htbp]
     \centering
@@ -571,6 +584,9 @@ Abbildung~\ref{fig:sca_umschlossen}
     \label{fig:sca_umschlossen}
 \end{figure}
 
+Dort ist zu erkennen, dass mit dem verlängerten Logiksignal das analoge Signal
+umschlossen werden kann.
+
 Analog zum vorherigen Teil schließen wir den rechten Hauptverstärker an den
 zweiten Splitter an. Die Ausgänge vom Splitter schließen wir an den anderen SCA
 sowie an den einen GDG an.
@@ -579,7 +595,7 @@ sowie an den einen GDG an.
 
 Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum,
 siehe Abbildung~\ref{fig:aufbau:sca_gdg_mca}. Das
-Fenster im SCA stellen wir auf die maximale Größe ein (001-Na.txt), siehe
+Fenster im SCA stellen wir auf die maximale Größe ein/* 001-Na.txt */, siehe
 Abbildung~\ref{mca:001_004}.
 
 \begin{figure}[htbp]
@@ -666,11 +682,11 @@ Abbildung~\ref{mca:003_005} dargestellt.
 
 \subsection{Einkanalfenster für die ${}^{22}\text{Na}$-Quelle einstellen}
 
-Als nächstes justieren wir das
-Fenster des linken SCA so, dass nur noch die \SI{511}{\kilo\electronvolt} Linie
-wächst. Beim SCA ist als obere Grenze MAX eingestellt, als untere \num{7.31}.
-Beim rechten SCA haben wir als untere Grenze \num{6.73} erhalten. Das
-resultierende Spektrum ist in Abbildung~\ref{mca:fenster} gezeigt.
+Als nächstes justieren wir das Fenster des linken SCA so, dass nur noch die
+\SI{511}{\kilo\electronvolt} Linie wächst. Beim SCA ist als obere Grenze MAX
+eingestellt, als untere \num{7.31}. Beim rechten SCA haben wir als untere
+Grenze \num{6.73} erhalten. Das resultierende Spektrum ist in
+Abbildung~\ref{mca:fenster} gezeigt.
 
 \begin{figure}[htbp]
     \centering
@@ -692,8 +708,8 @@ resultierende Spektrum ist in Abbildung~\ref{mca:fenster} gezeigt.
     \label{mca:fenster}
 \end{figure}
 
-Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist (Bildzeit
-links 17:34, rechts 17:35), siehe Abbildung~\ref{fig:eine_pulshoehe}.
+Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist/* Bildzeit
+links 17:34, rechts 17:35 */, siehe Abbildung~\ref{fig:eine_pulshoehe}.
 
 \begin{figure}[htbp]
     \centering
@@ -710,8 +726,8 @@ links 17:34, rechts 17:35), siehe Abbildung~\ref{fig:eine_pulshoehe}.
 
 \subsection{Slow-Koinzidenz herstellen}
 
-Wir schließen beide SCA gleichzeitig an das Oszilloskop an. Der rechte Detektor
-ist auf Kanal 1 (Bildzeit 17:38), siehe Abbildung~\ref{fig:beide_sca}. Die
+Wir schließen beide SCAs gleichzeitig an das Oszilloskop an. Der rechte Detektor
+ist auf Kanal 1/* Bildzeit 17:38 */, siehe Abbildung~\ref{fig:beide_sca}. Die
 beiden Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
 
 \begin{figure}[htbp]
@@ -728,18 +744,26 @@ beiden Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
 
 Wir beginnen mit der Einstellung des Fast-Kreises am rechten Detektor. Wir
 betrachten das Slow-Signal nach dem Vorverstärker und das Fast-Signal zusammen
-auf dem Oszilloskop (Bildzeit 09:27). Das gleiche wiederholen wir für den
-linken Detektor (Bildzeit 09:29).
+auf dem Oszilloskop/*Bildzeit 09:27*/, siehe
+Abbildung~\ref{fig:fast_einstellen}. Das gleiche wiederholen wir für den linken
+Detektor/*Bildzeit 09:29*/.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-29-34-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-27-east.pdf}
+    \caption{%
+        Slow-Signal nach dem Vorverstärker zusammen mit dem Fast-Signal des
+        gleichen Detektors, jeweils für den linken und rechten Zweig.
+    }
+    \label{fig:fast_einstellen}
+\end{figure}
 
 Dann schließen wir den linken Hauptverstärker über das Delay an das Oszilloskop
 an. Das Signal des rechten Fast-Ausgangs wird an das CFD und dessen negativer
 Ausgang an das Oszilloskop angeschlossen, siehe
-Abbildung~\ref{fig:aufbau:fast1}. Wir nehmen ein Bild mit Baseline auf (Bild
-09:50). Nun erhöhen wir die Schwelle am CFD auf \num{0.4}, so dass die Baseline
-verschwindet (Bild 09:51). Dies wiederholen wir für den rechten Zweig. Beim
-rechte CFD hat schon bei unterster Schwelleneinstellung keine Baseline (Bild
-10:17). Daher werden wir den linken CFD als Stop-Signal zu benutzen, damit wir
-die \SI{81}{\kilo\electronvolt}-Linie nicht abschneiden.
+Abbildung~\ref{fig:aufbau:fast1}.
 
 \begin{figure}[htbp]
     \centering
@@ -770,13 +794,49 @@ die \SI{81}{\kilo\electronvolt}-Linie nicht abschneiden.
         \end{scope}
     \end{tikzpicture}
     \caption{%
+        Erster Aufbau zur Einstellung des Fast-Kreises.
     }
     \label{fig:aufbau:fast1}
 \end{figure}
 
+Wir nehmen ein Bild mit Baseline auf/*Bild 09:50*/, siehe
+Abbildung~\ref{fig:cfd_einstellen_baseline}. Nun erhöhen wir die Schwelle am
+CFD auf \num{0.4}, so dass die Baseline verschwindet/*Bild 09:51*/, siehe
+Abbildung~\ref{fig:cfd_einstellen}. Dies wiederholen wir für den rechten Zweig.
+Beim rechten CFD hat schon bei unterster Schwelleneinstellung keine
+Baseline/*Bild 10:17*/, siehe Abbildung~\ref{fig:cfd_einstellen}. Daher werden
+wir den linken CFD als Stop-Signal zu benutzen, damit wir die
+\SI{81}{\kilo\electronvolt}-Linie nicht abschneiden.
+
+\begin{figure}[htbp]
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-50-east.pdf}
+    \caption{%
+        Fast- und Slow-Signal mit Baseline.
+    }
+    \label{fig:cfd_einstellen_baseline}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-51-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_10-17-23-east.pdf}
+    \caption{%
+        Fast- und Slow-Signal mit herausgefilterter Baseline für linken und
+        rechten Detektor.
+    }
+    \label{fig:cfd_einstellen}
+\end{figure}
+
+Es ist gut zu erkennen, dass Triggerung erst dann gut funktioniert, wenn das
+Rauschen in der Baseline ignoriert wird und nur starke Signale einen Logikpuls
+auslösen.
+
 Wir schließen den CFD, den wir für das Stop-Signal nutzen wollen, noch an ein
-Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop (Bildzeit
-10:27), Abbildung~\ref{fig:aufbau:fast2}. Danach geben wir beide CFD Signale (mit Delay) auf das TAC.
+Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop/*Bildzeit
+10:27*/, siehe Abbildung~\ref{fig:aufbau:fast2}. Das Oszillogramm ist in
+Abbildung~\ref{fig:cfd_stop} gezeigt. Danach geben wir beide CFD Signale
+(mit Delay) auf das TAC, siehe Abbildung~\ref{fig:aufbau:fast3}.
 
 \begin{figure}[htbp]
     \centering
@@ -809,9 +869,23 @@ Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop (Bildzeit
         \end{scope}
     \end{tikzpicture}
     \caption{%
+        Aufbau zum Bestimmen des benötigten Delays hinter dem Stop-CFD.
     }
     \label{fig:aufbau:fast2}
 \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_10-28-east.pdf}
+    \caption{%
+        Signale Start- und Stop-CFDs zusammen.
+    }
+    \label{fig:cfd_stop}
+\end{figure}
+
+Durch die zusätzliche Verzögerung hinter dem Stop-CFD erscheinen dessen Pulse
+sichtbar weiter hinter den Pulse des Start-CFD. Auf diese Weise ist
+sichergestellt, dass das TAC richtig arbeiten kann.
 
 \begin{figure}[htbp]
     \centering
@@ -847,22 +921,151 @@ Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop (Bildzeit
     \end{tikzpicture}
     \caption{%
     }
-    \label{fig:aufbau:fast2}
+    \label{fig:aufbau:fast3}
 \end{figure}
 
 \section{Zeiteichung des TAC}
 
-Wir prüfen erneut die Slow-Koinzidenz (Bildzeit 10:39). Dann schließen wir GDG
-an das Oszilloskop an, das TAC an den zweiten Kanal (Bildzeit 10:49). Zuletzt
-schließen wir den GDG und das TAC an das MCA an und nehmen Promptkurven auf.
+Wir prüfen erneut die Slow-Koinzidenz/* Bildzeit 10:39, um 13:10 jedoch noch
+mal richtig gemacht */, siehe Abbildung~\ref{fig:pruef_slow}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-10-east.pdf}
+    \caption{%
+        Überprüfung der Slow-Koinzidenz.
+    }
+    \label{fig:pruef_slow}
+\end{figure}
+
+Die Signale der SCAs überlappen sich noch immer ausreichend, so dass die
+Koinzidenz weiterhin besteht.
+
+Dann schließen wir die zwei SCAs an die Koinzidenzeinheit an. Diese dann an das
+GDG und dieses an das Oszilloskop. Das TAC kommt an den zweiten Kanal/*
+Bildzeit 10:49 */, siehe Abbildung~\ref{fig:tac_oszi}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_10-49-28-east.pdf}
+    \caption{%
+    }
+    \label{fig:tac_oszi}
+\end{figure}
+
+Hier ist gut zu erkennen, dass die Slow- und die Fast-Koinzidenz überlappen.
+So wird die Datennahme mit dem MCA später funktionieren. Im zweiten Kanal sind
+verschiedene Amplituden zu erkennen. Es gibt also verschiedene Lebensdauern,
+und man kann sie hier sehen.
+
+Zuletzt schließen wir den GDG und das TAC an das MCA an (Aufbau in
+Abbildung~\ref{fig:aufbau:komplett}) und nehmen Promptkurven auf, siehe
+Abbildung~\ref{mca:zeiteichung}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (koinzidenz) at (10, 0) {Koinzidenzeinheit};
+        \node[device] (gdg) [right=of koinzidenz] {GDG};
+        \node[device] (mca) [above=of gdg] {MCA};
+
+        \begin{scope}[start chain, node distance=5mm, every node/.style={join}, every join/.style={->}]
+            \node[device, on chain] (22Na) at (0, 0) {$^{22}\mathrm{Na}$};
+
+            \begin{scope}[start branch=22Na]
+                \node[device, on chain=going below, node distance=1.5cm] (Szintillator1) {Szintillator};
+                \node[device, on chain] (PM2) {Photomultiplier};
+
+                \begin{scope}[start branch=PM2]
+                    \node[device, on chain=going below right] (amp2) {Verstärker};
+                    \node[device, on chain] (splitter2) {Splitter};
+                    \begin{scope}[start branch=splitter2]
+                        \node[device, on chain=going below right] (delay2) {Verzögerung};
+                    \end{scope}
+                    \begin{scope}[start branch=splitter2]
+                        \node[device, on chain=going above right] (sca2) {SCA};
+                    \end{scope}
+
+                \end{scope}
+                \node[device, on chain=going above right] (cfd2) {CFD};
+                \node[device, on chain] (cfddelay) {Verzögerung};
+            \end{scope}
+
+            \node[device, on chain=going above, node distance=1.5cm] (Szintillator1) {Szintillator};
+            \node[device, on chain] (PM1) {Photomultiplier};
+
+            \begin{scope}[start branch=PM1]
+                \node[device, on chain=going above right] (amp1) {Verstärker};
+                \node[device, on chain] (splitter1) {Splitter};
+                \begin{scope}[start branch=splitter1]
+                    \node[device, on chain=going above right] (delay1) {Verzögerung};
+                \end{scope}
+                \begin{scope}[start branch=splitter1]
+                    \node[device, on chain=going below right] (sca1) {SCA};
+                \end{scope}
+            \end{scope}
+
+            \node[device, on chain=going below right] (cfd1) {CFD};
+            \node[device, on chain=going right, node distance=2cm, join=with cfddelay] (tac) {TAC};
+
+        \end{scope}
+
+        \begin{scope}[->]
+            \draw (tac) -- (mca);
+
+            \begin{scope}[dashdotted]
+                \draw (gdg) -- (mca);
+                \draw (sca1) -- (koinzidenz);
+                \draw (koinzidenz) -- (gdg);
+                \draw (sca2) -- (koinzidenz);
+            \end{scope}
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Kompletter Aufbau
+    }
+    \label{fig:aufbau:komplett}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
+                ylabel=Ereignisse, axis lines=left, xtick={0,1000,...,8000}
+            ]
+            \addplot[black] table {../Daten/Zeiteichung.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Promptkurve des TAC.
+    }
+    \label{mca:zeiteichung}
+\end{figure}
+
+Mit diesen Promptkurven werden wir nachher die Beziehung zwischen MCA-Kanälen
+und Zeitdifferenzen herstellen können.
 
 \section{Messung der Lebensdauer}
 
-Wir tauschen Natrium gegen Barium aus. Rechtes Slow-Signal mit Splitter auf SCA
-und dan GDG, das andere über Delay und beide auf das Oszilloskop. Signale
-übereinander gelegt (Bildzeit rechts 12:28, links 12:27). Dann ein Spektrum
-aufgenommen (009). Dann SCA Fenster so eingestellt, dass die nur 350 Linie drin
-ist (010).
+Wir tauschen die Natrium- gegen die Bariumquelle aus. Das rechte Slow-Signal
+geben wir mit Splitter einmal auf den SCA und dann auf den GDG, das andere über
+das Delay und beide auf das Oszilloskop. Die Signale werden übereinander
+gelegt/* Bildzeit rechts 12:28, links 12:27 */, siehe
+Abbildung~\ref{fig:eine_pulshoehe_ba}. Dies wiederholen wir mit dem linken
+Zweig.
+
+\begin{figure}[htbp]
+    \centering
+    %\includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_12-27-east.pdf}
+    \hfill
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_12-28-east.pdf}
+    \caption{%
+    }
+    \label{fig:eine_pulshoehe_ba}
+\end{figure}
+
+Dann wird ein Spektrum aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
 
 \begin{figure}[htbp]
     \centering
@@ -878,10 +1081,14 @@ ist (010).
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Spektrum der Bariumemissionen
+        Spektrum der Bariumemissionen im linken und rechten Detektor.
     }
     \label{mca:ba_spek}
 \end{figure}
+
+Dann SCA Fenster so eingestellt, dass die nur
+\SI{350}{\kilo\electronvolt}-Linie drin ist/* 010 */, siehe
+Abbildung~\ref{mca:ba_spek_sca}.
 
 \begin{figure}[htbp]
     \centering
@@ -893,7 +1100,7 @@ ist (010).
     \hfill
     \begin{tikzpicture}
         \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/010-Ba-SCA-r.txt};
+            \addplot[black] table {../Daten/014-Ba-SCA-r2.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -902,14 +1109,15 @@ ist (010).
     \label{mca:ba_spek_sca}
 \end{figure}
 
-Mit dem linken Slow-Zweig gehen wir gleich vor, wir nehmen ein Spektrum (011). SCA Fenster (012).
+Mit dem linken Slow-Zweig gehen wir gleich vor, wir nehmen ein Spektrum/* 011
+*/ und kalibrieren das SCA Fenster/* 012 */ auf die andere Linie. Siehe
+ebenfalls Abbildungen \ref{mca:ba_spek} und \ref{mca:ba_spek_sca}.
 
-Die Slow-Koinzidenz überprüfen wir mit dem Oszilloskop (Bildzeit 13:10).
-
-Wir betrachten rechte Slow-Signal und Start-CFD-Signal auf dem Oszilloskop
-(Bildzeit 13:18). Die Schwelle des CFD stellen wir auf das Minimum. Dann
-wechseln wir auf den Stop-Zweig (links) und betrachten zuerst ohne Schwelle
-(Bildzeit 13:21). Anschließend stellen wir die Schwelle ein (Bildzeit 13:23).
+Wir betrachten das rechte Slow-Signal und Start-CFD-Signal auf dem
+Oszilloskop/*Bildzeit 13:18*/. Die Schwelle des CFD stellen wir auf das
+Minimum. Dann wechseln wir auf den Stop-Zweig (links) und betrachten zuerst
+ohne Schwelle/*Bildzeit 13:21*/. Anschließend stellen wir die Schwelle ein/*
+Bildzeit 13:23 */.
 
 Wir überprüfen nun die Fast-Koinzidenz, indem wir Start- und Stop-Signal am
 Oszilloskop betrachten.
@@ -921,93 +1129,37 @@ für die Röntgenlinie keine Ereignisse mehr registriert werden (013).
 Wir tauschen kurz die Barium gegen Natrium, um zu überprüfen, ob die 511 Linie
 noch an der richtigen Stelle im MCA ist. Dies ist der Fall.
 
-Wir machen den Abgleich Fast- und Slow-Kreis auf dem Oszilloskop (Bildzeit
-13:53).
+Wir machen den Abgleich Fast- und Slow-Kreis auf dem Oszilloskop/* Bildzeit
+13:53 */, siehe Abbildung~\ref{fig:fast-slow-abgleich}.
 
-Beispiel für den Fast-Abgleich (Bildzeit 13:54).
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-53-east.pdf}
+    \caption{%
+        Abgleich von Fast- und Slow-Kreis.
+    }
+    \label{fig:fast-slow-abgleich}
+\end{figure}
 
-Wir setzen die obere Schwelle für den rechten SCA herab und überprüfen das
-Spektrum erneut (014).
+Beispiel für den Fast-Abgleich /* Bildzeit 13:54 */ ist in
+Abbildung~\ref{fig:fast_abgleich_oszi}. Wir müssen darauf achten, dass das
+Start-Signal (Kanal 1) in den meisten Fällen vor dem Stop-Signal (Kanal 2)
+kommt. Damit dies immer der Fall ist, schalten wir eine ausreichende
+Verzögerung hinter den Stop-CFD.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-54-east.pdf}
+    \caption{%
+        Abgleich der beiden Fast-Zweige.
+    }
+    \label{fig:fast_abgleich_oszi}
+\end{figure}
 
 \hrule
 
 \parencite{Bieling/K125}
 
-\begin{tikzpicture}[
-        device/.style={
-            rectangle,
-            minimum size=6mm,
-            draw=black
-        },
-        amp/.style={
-            isosceles triangle,
-            minimum size=6mm,
-            draw=black
-        },
-    ]
-
-    \node[device] (koinzidenz) at (9.5, -1) {Koinzidenzeinheit};
-    \node[device] (gdg) [right=of koinzidenz] {GDG};
-    \node[device] (mca) [right=of gdg] {MCA};
-    \node[device] (pc) [below=of mca] {PC};
-
-    \begin{scope}[start chain, node distance=5mm, every node/.style={join}, every join/.style={->}]
-        \node[device, on chain] (22Na) at (0, 0) {$^{22}\mathrm{Na}$};
-
-        \begin{scope}[start branch=22Na]
-            \node[device, on chain=going below, node distance=1.5cm] (Szintillator1) {Szintillator};
-            \node[device, on chain] (PM2) {PM};
-            \node[amp, on chain] (PA2) {Pre Amp};
-
-            \begin{scope}[start branch=PA2]
-                \node[amp, on chain=going below right] (amp2) {Amp};
-                \node[device, on chain] (splitter2) {Splitter};
-                \begin{scope}[start branch=splitter2]
-                    \node[device, on chain=going below right] (delay2) {Delay Amp};
-                \end{scope}
-                \begin{scope}[start branch=splitter2]
-                    \node[device, on chain=going above right] (sca2) {SCA};
-                \end{scope}
-
-            \end{scope}
-            \node[device, on chain=going above right] (cfd2) {CFD};
-            \node[device, on chain] (cfddelay) {Delay};
-        \end{scope}
-
-        \node[device, on chain=going above, node distance=1.5cm] (Szintillator1) {Szintillator};
-        \node[device, on chain] (PM1) {PM};
-        \node[amp, on chain] (PA1) {Pre Amp};
-
-        \begin{scope}[start branch=PA1]
-            \node[amp, on chain=going above right] (amp1) {Amp};
-            \node[device, on chain] (splitter1) {Splitter};
-            \begin{scope}[start branch=splitter1]
-                \node[device, on chain=going above right] (delay1) {Delay Amp};
-            \end{scope}
-            \begin{scope}[start branch=splitter1]
-                \node[device, on chain=going below right] (sca1) {SCA};
-            \end{scope}
-        \end{scope}
-
-        \node[device, on chain=going below right] (cfd1) {CFD};
-        \node[device, on chain=going right, node distance=2cm, join=with cfddelay] (tac) {TAC};
-        \node[device, on chain=going right, node distance=2cm] (delay3) {Delay Amp};
-
-    \end{scope}
-
-    \begin{scope}[->]
-        \draw (delay3) -- (mca);
-        \draw (mca) -- (pc);
-
-        \begin{scope}[dashdotted]
-            \draw (gdg) -- (mca);
-            \draw (sca1) -- (koinzidenz);
-            \draw (koinzidenz) -- (gdg);
-            \draw (sca2) -- (koinzidenz);
-        \end{scope}
-    \end{scope}
-\end{tikzpicture}
 
 \parencite{Leo/Techniques_Nuclear_Experiments}
 
