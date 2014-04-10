@@ -49,6 +49,9 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
 
     return [popt[0], energy]
 
+def fit_gauge_points(points):
+    pass
+
 def job_energieeichung_links(T):
     gauge_points = []
 
