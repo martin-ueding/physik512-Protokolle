@@ -24,36 +24,44 @@ e = 1.609e-19
 def gauss(x, mean, stddev, amplitude, offset):
     return amplitude * np.exp(- ((x - mean) / stddev)**2)
 
-def job_energieeichung_rechts(T):
-    gauge_points = []
-
-    data = np.loadtxt('Daten/005-Na-Zoom.txt')
+def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
+    data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
 
-    fit_bins = bins[5800:7000]
-    fit_counts = counts[5800:7000]
+    fit_bins = bins[lower:upper]
+    fit_counts = counts[lower:upper]
 
-    popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=[6400, 500, 35, 0])
+    popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
     y = gauss(x, *popt)
 
-    T['Na_rechts_511_mean_kanal'] = unitprint.siunitx(popt[0])
-    T['Na_rechts_511_stddev_kanal'] = unitprint.siunitx(popt[1])
+    T['{}_{}_mean_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[0])
+    T['{}_{}_std_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[1])
 
-    gauge_points.append([popt[0], 511])
+    np.savetxt('_build/fit_{}_{}.txt'.format(prefix, energy), np.column_stack([x, y]))
 
-    np.savetxt('_build/fit_Na_rechts_511.txt', np.column_stack([x, y]))
+    if show:
+        pl.plot(bins, counts)
+        pl.plot(fit_bins, fit_counts)
+        pl.plot(x, y)
+        pl.show()
 
-    print(popt)
-    print(pconv)
+    return [popt[0], energy]
 
-    pl.plot(bins, counts)
-    pl.plot(fit_bins, fit_counts)
-    pl.plot(x, y)
-    pl.show()
+def job_energieeichung_links(T):
+    gauge_points = []
 
+    gauge_points.append(fit_peak(T, 'Daten/005-Na-Zoom.txt', 5800, 7000, [6400, 500, 35, 0], 'Na_links', 511))
 
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 380, 535, [450, 40, 63000, 0], 'Ba_links', 31))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 1080, 1295, [1200, 40, 1200, 0], 'Ba_links', 81))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300, 0], 'Ba_links', 356, True))
+
+def job_energieeichung_rechts(T):
+    gauge_points = []
+
+    gauge_points.append(fit_peak(T, 'Daten/003-Na-Spektrum.txt', 6000, 7000, [6400, 500, 100, 0], 'Na_rechts', 511))
 
 def job_moseley(T):
     Z = 56
@@ -69,6 +77,7 @@ def main():
 
     job_moseley(T)
     job_energieeichung_rechts(T)
+    job_energieeichung_links(T)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)

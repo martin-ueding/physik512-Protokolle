@@ -1206,6 +1206,50 @@ der Lebensdauermessung starten, die über Nacht geht.
 
 \chapter{Auswertung}
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/005-Na-Zoom.txt};
+            \addplot[red, very thick] table {fit_Na_links_511.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/003-Na-Spektrum.txt};
+            \addplot[red, very thick] table {fit_Na_rechts_511.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Anpassungskurven an die Spektren der Na-Probe im rechten und linken
+        Detektor.
+    }
+    \label{}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/011-Ba-Spek-l.txt};
+            \addplot[red, very thick] table {fit_Ba_links_31.txt};
+            \addplot[red, very thick] table {fit_Ba_links_81.txt};
+            \addplot[red, very thick] table {fit_Ba_links_356.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+            \addplot[black] table {../Daten/009-Ba-Spek-r.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum der Bariumemissionen im linken und rechten Detektor.
+    }
+    \label{}
+\end{figure}
+
 \chapter{Ergebnis}
 
 \IfFileExists{\bibliographyfile}{
