@@ -722,6 +722,93 @@ beiden Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
 
 \section{Fast-Konzidenzkreis einstellen}
 
+Wir beginnen mit der Einstellung des Fast-Kreises am rechten Detektor. Wir
+betrachten das Slow-Signal nach dem Vorverstärker und das Fast-Signal zusammen
+auf dem Oszilloskop (Bildzeit 09:27). Das gleiche wiederholen wir für den
+linken Detektor (Bildzeit 09:29).
+
+Dann schließen wir den linken Hauptverstärker über das Delay an das Oszilloskop
+an. Das Signal des rechten Fast-Ausgangs wird an das CFD und dessen negativer
+Ausgang an das Oszilloskop angeschlossen, siehe
+Abbildung~\ref{fig:aufbau:fast1}. Wir nehmen ein Bild mit Baseline auf (Bild
+09:50). Nun erhöhen wir die Schwelle am CFD auf \num{0.4}, so dass die Baseline
+verschwindet (Bild 09:51). Dies wiederholen wir für den rechten Zweig. Beim
+rechte CFD hat schon bei unterster Schwelleneinstellung keine Baseline (Bild
+10:17). Daher werden wir den linken CFD als Stop-Signal zu benutzen, damit wir
+die \SI{81}{\kilo\electronvolt}-Linie nicht abschneiden.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm) [right=of na] {Photomultiplier};
+        \node[device] (amp) [right=of pm] {Verstärker};
+        \node[device] (delay) [right=of amp] {Delay};
+        \node[device] (cfd) [below=of pm] {CFD};
+        \node[monitor] (oszi) [below=of delay] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm) -- (amp);
+            \draw (amp) -- (delay);
+            \draw (delay) -- (oszi);
+            \draw (pm) -- (cfd);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (cfd) -- (oszi);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:aufbau:fast1}
+\end{figure}
+
+Wir schließen den CFD, den wir für das Stop-Signal nutzen wollen, noch an ein
+Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop (Bildzeit
+10:27), Abbildung~\ref{fig:aufbau:fast2}. Danach geben wir beide CFD Signale (mit Delay) auf das TAC.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm1) [above=of na] {Photomultiplier};
+        \node[device] (pm2) [below=of na] {Photomultiplier};
+        \node[device] (cfd1) [right=of pm1] {CFD};
+        \node[device] (cfd2) [right=of pm2] {CFD};
+        \node[device] (delay) [right=of cfd2] {Delay};
+        \node[monitor] (oszi) [above=of delay] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm1);
+            \draw (na) -- (pm2);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm1) -- (cfd1);
+            \draw (pm2) -- (cfd2);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (cfd1) -- (oszi);
+            \draw (cfd2) -- (delay);
+            \draw (delay) -- (oszi);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:aufbau:fast2}
+\end{figure}
+
 \section{Zeiteichung des TAC}
 
 \section{Messung der Lebensdauer}
