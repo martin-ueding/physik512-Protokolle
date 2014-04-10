@@ -4,10 +4,7 @@
 # Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
-import argparse
 import json
-import logging
-import multiprocessing
 
 import matplotlib.pyplot as pl
 import numpy as np
@@ -24,6 +21,40 @@ R_infinity = 10973731 # 1/m
 h = 6.626e-34 # J s
 e = 1.609e-19
 
+def gauss(x, mean, stddev, amplitude, offset):
+    return amplitude * np.exp(- ((x - mean) / stddev)**2)
+
+def job_energieeichung_rechts(T):
+    gauge_points = []
+
+    data = np.loadtxt('Daten/005-Na-Zoom.txt')
+    bins = data[:, 0]
+    counts = data[:, 1]
+
+    fit_bins = bins[5800:7000]
+    fit_counts = counts[5800:7000]
+
+    popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=[6400, 500, 35, 0])
+    x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
+    y = gauss(x, *popt)
+
+    T['Na_rechts_511_mean_kanal'] = unitprint.siunitx(popt[0])
+    T['Na_rechts_511_stddev_kanal'] = unitprint.siunitx(popt[1])
+
+    gauge_points.append([popt[0], 511])
+
+    np.savetxt('_build/fit_Na_rechts_511.txt', np.column_stack([x, y]))
+
+    print(popt)
+    print(pconv)
+
+    pl.plot(bins, counts)
+    pl.plot(fit_bins, fit_counts)
+    pl.plot(x, y)
+    pl.show()
+
+
+
 def job_moseley(T):
     Z = 56
     nu = 3/4 * R_infinity * c * (Z - 1)**2
@@ -33,53 +64,14 @@ def job_moseley(T):
 
     T['E_K_alpha_Ba_keV'] = unitprint.siunitx(E_keV)
 
-def setup_logging(options):
-    if options.verbose == 0:
-        level = logging.WARNING
-    elif options.verbose == 1:
-        level = logging.INFO
-    elif options.verbose == 2:
-        level = logging.DEBUG
-
-    logging.basicConfig(level=level)
-
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--verbose', action='count', default=0)
-    options = parser.parse_args()
+    T = {}
 
-    setup_logging(options)
+    job_moseley(T)
+    job_energieeichung_rechts(T)
 
-    with multiprocessing.Manager() as manager:
-        T = manager.dict()
-
-        l = globals()
-        to_run = []
-        for key, value in l.items():
-            if key.startswith('job_'):
-                to_run.append(value)
-
-        logging.debug('Will run the following functions:')
-        for f in to_run:
-            logging.debug('-', f)
-
-        processes = []
-        for f in to_run:
-            p = multiprocessing.Process(target=f, args=(T,))
-            logging.debug("Starting", p)
-            p.start()
-            processes.append(p)
-
-        for p in processes:
-            logging.debug("Waiting for", p)
-            p.join()
-
-        assert all([p.exitcode == 0 for p in processes])
-
-        logging.debug("Serializing …")
-
-        with open('_build/template.js', 'w') as f:
-            json.dump(dict(T), f, indent=4, sort_keys=True)
+    with open('_build/template.js', 'w') as f:
+        json.dump(dict(T), f, indent=4, sort_keys=True)
 
 if __name__ == "__main__":
     main()
