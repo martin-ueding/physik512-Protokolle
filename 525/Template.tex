@@ -809,27 +809,74 @@ Delay an. Delay und den Start-CFD geben wir auf das Oszilloskop (Bildzeit
     \label{fig:aufbau:fast2}
 \end{figure}
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \node[device] (na) {$^{22}\mathrm{Na}$};
+        \node[device] (pm1) [above=of na] {Photomultiplier};
+        \node[device] (pm2) [below=of na] {Photomultiplier};
+        \node[device] (cfd1) [right=of pm1] {CFD};
+        \node[device] (cfd2) [right=of pm2] {CFD};
+        \node[device] (delay) [right=of cfd2] {Delay};
+        \node[device] (tac) [above=of delay] {TAC};
+        \node[monitor] (oszi) [right=of tac] {Oszilloskop};
+
+        % Teilchenaustausch
+        \begin{scope}[->, dotted, thick]
+            \draw (na) -- (pm1);
+            \draw (na) -- (pm2);
+        \end{scope}
+
+        % Analogsignal
+        \begin{scope}[->]
+            \draw (pm1) -- (cfd1);
+            \draw (pm2) -- (cfd2);
+            \draw (tac) -- (oszi);
+        \end{scope}
+
+        % Digitalsignal
+        \begin{scope}[->, dashdotted]
+            \draw (cfd1) -- (tac);
+            \draw (cfd2) -- (delay);
+            \draw (delay) -- (tac);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:aufbau:fast2}
+\end{figure}
+
 \section{Zeiteichung des TAC}
+
+Wir prüfen erneut die Slow-Koinzidenz (Bildzeit 10:39). Dann schließen wir GDG
+an das Oszilloskop an, das TAC an den zweiten Kanal (Bildzeit 10:49). Zuletzt
+schließen wir den GDG und das TAC an das MCA an und nehmen Promptkurven auf.
 
 \section{Messung der Lebensdauer}
 
-Für unsere Blockschaltbilder benutzen wir folgende Notation:
+Wir tauschen Natrium gegen Barium aus. Rechtes Slow-Signal mit Splitter auf SCA
+und dan GDG, das andere über Delay und beide auf das Oszilloskop. Signale
+übereinander gelegt (Bildzeit rechts 12:28, links 12:27). Dann ein Spektrum
+aufgenommen (009). Dann SCA Fenster so eingestellt, dass die nur 350 Linie drin
+ist (010).
 
-\begin{tabular}{lc}
-    Element & Symbol \\
-    \midrule
-    Analoges Signal & 
-        \begin{tikzpicture} \draw[->] (0, 0) -- ++(1, 0); \end{tikzpicture}
-    \\
-    Digitales Signal & 
-        \begin{tikzpicture} \draw[->, dashdotted] (0, 0) -- ++(1, 0); \end{tikzpicture}
-    \\
-    Gerät & 
-        \begin{tikzpicture} \node[draw, rectangle, minimum size=1ex, draw] {}; \end{tikzpicture}
-    \\
-    Verstärker &
-        \begin{tikzpicture} \node[draw, isosceles triangle, minimum size=1ex, draw] {}; \end{tikzpicture}
-\end{tabular}
+Mit dem linken Slow-Zweig gehen wir gleich vor, wir nehmen ein Spektrum (011). SCA Fenster (012).
+
+Die Slow-Koinzidenz überprüfen wir mit dem Oszilloskop (Bildzeit 13:10).
+
+Wir betrachten rechte Slow-Signal und Start-CFD-Signal auf dem Oszilloskop
+(Bildzeit 13:18). Die Schwelle des CFD stellen wir auf das Minimum. Dann
+wechseln wir auf den Stop-Zweig (links) und betrachten zuerst ohne Schwelle
+(Bildzeit 13:21). Anschließend stellen wir die Schwelle ein (Bildzeit 13:23).
+
+Wir überprüfen nun die Fast-Koinzidenz, indem wir Start- und Stop-Signal am
+Oszilloskop betrachten.
+
+CFD Stelle nach dem Skript, in dem wir das Slow-Signal und negatives Stop-CFD Signal
+auf das MCA geben. Die Schwelle des Stop-CFD stellen wir so, dass die
+für die Röntgenlinie keine Ereignisse mehr registriert werden (013).
+
+\hrule
 
 \parencite{Bieling/K125}
 
