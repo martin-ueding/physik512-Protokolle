@@ -24,6 +24,9 @@ e = 1.609e-19
 def gauss(x, mean, stddev, amplitude, offset):
     return amplitude * np.exp(- ((x - mean) / stddev)**2)
 
+def linear(x, a, b):
+    return x * a + b
+
 def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
@@ -49,8 +52,24 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
 
     return [popt[0], energy]
 
-def fit_gauge_points(points):
-    pass
+def fit_gauge_points(T, points, prefix, show=False):
+    p = np.array(points)
+    energy = p[:, 1]
+    channel = p[:, 0]
+
+    popt, pconv = op.curve_fit(linear, channel, energy)
+
+    np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', np.column_stack([channel, energy]))
+
+    x = np.linspace(np.min(channel), np.max(channel), 10)
+    y = linear(x, *popt)
+
+    if show:
+        pl.plot(channel, energy, marker='+', linestyle='none')
+        pl.plot(x, y)
+        pl.show()
+
+    np.savetxt('_build/fit_detektor_'+prefix+'_fit.txt', np.column_stack([x, y]))
 
 def job_energieeichung_links(T):
     gauge_points = []
@@ -59,7 +78,9 @@ def job_energieeichung_links(T):
 
     gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 380, 535, [450, 40, 63000, 0], 'Ba_links', 31))
     gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 1080, 1295, [1200, 40, 1200, 0], 'Ba_links', 81))
-    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300, 0], 'Ba_links', 356, True))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300, 0], 'Ba_links', 356))
+
+    fit_gauge_points(T, gauge_points, 'links')
 
 def job_energieeichung_rechts(T):
     gauge_points = []
