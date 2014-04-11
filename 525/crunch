@@ -9,6 +9,7 @@ import json
 import matplotlib.pyplot as pl
 import numpy as np
 import scipy.optimize as op
+import scipy.misc
 import unitprint
 
 
@@ -106,10 +107,13 @@ def job_energieeichung_links(T):
 
     f = fit_gauge_points(T, gauge_points, 'links')
 
-    na_sigma = f(gauge_points[0][2]) - f(0)
-    na_fwhm = na_sigma * 2 * np.sqrt(2 * np.log(2))
+    na_sigma_val = f(gauge_points[0][2]) - f(0)
+    na_fwhm_val = na_sigma_val * 2 * np.sqrt(2 * np.log(2))
 
-    T['na_fwhm_links'] = unitprint.siunitx(na_fwhm)
+    na_sigma_err = scipy.misc.derivative(f, gauge_points[0][2])
+    na_fwhm_err = na_sigma_err * 2 * np.sqrt(2 * np.log(2))
+
+    T['na_fwhm_links'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
 
 
 def job_energieeichung_rechts(T):
@@ -122,10 +126,13 @@ def job_energieeichung_rechts(T):
 
     f = fit_gauge_points(T, gauge_points, 'rechts')
 
-    na_sigma = f(gauge_points[0][2]) - f(0)
-    na_fwhm = na_sigma * 2 * np.sqrt(2 * np.log(2))
+    na_sigma_val = f(gauge_points[0][2]) - f(0)
+    na_fwhm_val = na_sigma_val * 2 * np.sqrt(2 * np.log(2))
 
-    T['na_fwhm_rechts'] = unitprint.siunitx(na_fwhm)
+    na_sigma_err = scipy.misc.derivative(f, gauge_points[0][2])
+    na_fwhm_err = na_sigma_err * 2 * np.sqrt(2 * np.log(2))
+
+    T['na_fwhm_rechts'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
 
 def job_zeiteichung(T):
     gauge_points = []
