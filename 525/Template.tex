@@ -669,11 +669,12 @@ Analog zum vorherigen Teil schließen wir den rechten Hauptverstärker an den
 zweiten Splitter an. Die Ausgänge vom Splitter schließen wir an den anderen SCA
 sowie an den einen GDG an.
 
-\subsection{Energiespektrum für die ${}^{22}\text{Na}$-Quelle aufnehmen}
+\subsection{Energiespektrum für die ${}^{22}\mathrm{Na}$-Quelle aufnehmen}
 
 Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum,
-siehe Abbildung~\ref{fig:aufbau:sca_gdg_mca}. Das
-Fenster im SCA stellen wir auf die maximale Größe ein/* 001-Na.txt */, siehe
+siehe Aufbau in Abbildung~\ref{fig:aufbau:sca_gdg_mca}. Das Fenster im SCA
+stellen wir auf die maximale Größe ein/* 001-Na.txt */, so dass wir auch
+wirklich alle Pulse registrieren. Siehe Oszillogramm in
 Abbildung~\ref{mca:001_004}.
 
 \begin{figure}[htbp]
@@ -763,7 +764,7 @@ Abbildung~\ref{mca:003_005} dargestellt.
 Als nächstes justieren wir das Fenster des linken SCA so, dass nur noch die
 \SI{511}{\kilo\electronvolt} Linie wächst. Beim SCA ist als obere Grenze MAX
 eingestellt, als untere \num{7.31}. Beim rechten SCA haben wir als untere
-Grenze \num{6.73} erhalten. Das resultierende Spektrum ist in
+Grenze \num{6.73} erhalten. Die resultierenden Spektra sind in
 Abbildung~\ref{mca:fenster} gezeigt.
 
 \begin{figure}[htbp]
@@ -786,8 +787,9 @@ Abbildung~\ref{mca:fenster} gezeigt.
     \label{mca:fenster}
 \end{figure}
 
-Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist/* Bildzeit
-links 17:34, rechts 17:35 */, siehe Abbildung~\ref{fig:eine_pulshoehe}.
+Auf dem Oszilloskop sehen wir, dass nur noch eine Pulshöhe zu erkennen ist/*
+Bildzeit links 17:34, rechts 17:35 */, siehe
+Abbildung~\ref{fig:eine_pulshoehe}.
 
 \begin{figure}[htbp]
     \centering
@@ -804,9 +806,10 @@ links 17:34, rechts 17:35 */, siehe Abbildung~\ref{fig:eine_pulshoehe}.
 
 \subsection{Slow-Koinzidenz herstellen}
 
-Wir schließen beide SCAs gleichzeitig an das Oszilloskop an. Der rechte Detektor
-ist auf Kanal 1/* Bildzeit 17:38 */, siehe Abbildung~\ref{fig:beide_sca}. Die
-beiden Signale liegen ausreichend genau aufeinander, es herrscht Koinzidenz.
+Wir schließen beide SCAs gleichzeitig an das Oszilloskop an. Der rechte
+Detektor ist auf Kanal~1/* Bildzeit 17:38 */, siehe Aufbau in
+Abbildung~\ref{fig:beide_sca}. Die beiden Signale liegen ausreichend genau
+aufeinander, es herrscht Koinzidenz.
 
 \begin{figure}[htbp]
     \centering
@@ -840,9 +843,9 @@ Detektor/*Bildzeit 09:29*/.
     \label{fig:fast_einstellen}
 \end{figure}
 
-Dann schließen wir den linken Hauptverstärker über das Delay an das Oszilloskop
-an. Das Signal des rechten Fast-Ausgangs wird an das CFD und dessen negativer
-Ausgang an das Oszilloskop angeschlossen, siehe
+Dann schließen wir den linken Hauptverstärker über das Delay an das
+Oszilloskop an. Das Signal des gleichseitigen Fast-Ausgangs wird an das CFD
+und dessen negativer Ausgang an das Oszilloskop angeschlossen, siehe
 Abbildung~\ref{fig:aufbau:fast1}.
 
 \begin{figure}[htbp]
@@ -1039,7 +1042,12 @@ verschiedene Amplituden zu erkennen. Es gibt also verschiedene Lebensdauern,
 und man kann sie hier sehen.
 
 Zuletzt schließen wir den GDG und das TAC an das MCA an (Aufbau in
-Abbildung~\ref{fig:aufbau:komplett}) und nehmen Promptkurven auf, siehe
+Abbildung~\ref{fig:aufbau:komplett}) und nehmen Promptkurven auf: Wir lassen
+so lange mit dem MCA messen, bis eine Gaußkurve zu erkennen ist. Dann schalten
+wir zusätzliche \SI{16}{\nano\second} Verzögerung in das Stop-Signal. Somit
+verschiebt sich die Gaußkurve im Histogram. Nachdem genug Ereignisse gesammelt
+worden sind, schalten wir noch einmal \SI{16}{\nano\second} Verzögerung hinzu.
+Dies wiederholen wir insgesamt fünf Mal. Das Histogram ist in
 Abbildung~\ref{mca:zeiteichung}.
 
 \begin{figure}[htbp]
@@ -1102,7 +1110,7 @@ Abbildung~\ref{mca:zeiteichung}.
         \end{scope}
     \end{tikzpicture}
     \caption{%
-        Kompletter Aufbau
+        Kompletter Aufbau.
     }
     \label{fig:aufbau:komplett}
 \end{figure}
