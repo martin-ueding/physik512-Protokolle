@@ -59,10 +59,18 @@ def fit_gauge_points(T, points, prefix, show=False):
 
     popt, pconv = op.curve_fit(linear, channel, energy)
 
-    np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', np.column_stack([channel, energy]))
+    points_table = np.column_stack([channel, energy])
+    np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', points_table)
+    T['fit_detektor_'+prefix+'_data'] = list(zip(
+        unitprint.siunitx(channel),
+        unitprint.siunitx(energy),
+    ))
 
     x = np.linspace(np.min(channel), np.max(channel), 10)
     y = linear(x, *popt)
+
+    T['fit_detektor_'+prefix+'_steigung'] = unitprint.siunitx(popt[0])
+    T['fit_detektor_'+prefix+'_offset'] = unitprint.siunitx(popt[1])
 
     if show:
         pl.plot(channel, energy, marker='+', linestyle='none')
@@ -86,6 +94,11 @@ def job_energieeichung_rechts(T):
     gauge_points = []
 
     gauge_points.append(fit_peak(T, 'Daten/003-Na-Spektrum.txt', 6000, 7000, [6400, 500, 100, 0], 'Na_rechts', 511))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 270, 500, [384, 40, 17000, 0], 'Ba_rechts', 31))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 1000, 1200, [1100, 40, 1000, 0], 'Ba_rechts', 81))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 4300, 4800, [4500, 40, 3000, 0], 'Ba_rechts', 356))
+
+    fit_gauge_points(T, gauge_points, 'rechts')
 
 def job_moseley(T):
     Z = 56

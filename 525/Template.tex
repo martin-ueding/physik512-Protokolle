@@ -1242,6 +1242,9 @@ der Lebensdauermessung starten, die über Nacht geht.
     \begin{tikzpicture}
         \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
             \addplot[black] table {../Daten/009-Ba-Spek-r.txt};
+            \addplot[red, very thick] table {fit_Ba_rechts_31.txt};
+            \addplot[red, very thick] table {fit_Ba_rechts_81.txt};
+            \addplot[red, very thick] table {fit_Ba_rechts_356.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -1261,7 +1264,8 @@ der Lebensdauermessung starten, die über Nacht geht.
     \hfill
     \begin{tikzpicture}
         \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
-            \addplot[black] table {../Daten/009-Ba-Spek-r.txt};
+            \addplot[black, only marks, mark=+] table {fit_detektor_rechts_data.txt};
+            \addplot[red] table {fit_detektor_rechts_fit.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -1269,6 +1273,18 @@ der Lebensdauermessung starten, die über Nacht geht.
     }
     \label{}
 \end{figure}
+
+Für den linken Detektor finden wir folgende Anpassungsgerade:
+\[
+    E(K) = \SI{<< fit_detektor_links_steigung >>}{\kilo\electronvolt} \cdot K \SI{<<
+    fit_detektor_links_offset >>}{\kilo\electronvolt}.
+\]
+
+Und für den rechten Detektor finden wir folgende Anpassungsgerade:
+\[
+    E(K) = \SI{<< fit_detektor_rechts_steigung >>}{\kilo\electronvolt} \cdot K \SI{<<
+    fit_detektor_rechts_offset >>}{\kilo\electronvolt}.
+\]
 
 \chapter{Ergebnis}
 
