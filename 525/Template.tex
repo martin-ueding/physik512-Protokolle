@@ -1401,9 +1401,17 @@ sind in Abbildung~\ref{fig:fit:energieeichung} dargestellt.
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal,
-            ylabel={Energie / \si{\kilo\electronvolt}}]
-            \addplot[black, only marks, mark=+] table {fit_detektor_links_data.txt};
+        \begin{axis}[
+                width=0.45\linewidth,
+                height=0.3\linewidth,
+                xlabel=Kanal,
+                ylabel={Energie / \si{\kilo\electronvolt}},
+            ]
+            \addplot[
+                black, only marks, mark=+,
+                error bars/x dir=both,
+                error bars/x explicit,
+            ] table[x error index=2] {fit_detektor_links_data.txt};
             \addplot[red] table {fit_detektor_links_fit.txt};
         \end{axis}
     \end{tikzpicture}
@@ -1411,7 +1419,11 @@ sind in Abbildung~\ref{fig:fit:energieeichung} dargestellt.
     \begin{tikzpicture}
         \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal,
             ylabel={Energie / \si{\kilo\electronvolt}}]
-            \addplot[black, only marks, mark=+] table {fit_detektor_rechts_data.txt};
+            \addplot[
+                black, only marks, mark=+,
+                error bars/x dir=both,
+                error bars/x explicit,
+            ] table[x error index=2] {fit_detektor_rechts_data.txt};
             \addplot[red] table {fit_detektor_rechts_fit.txt};
         \end{axis}
     \end{tikzpicture}
@@ -1484,7 +1496,11 @@ bestimmen zu können.
     \begin{tikzpicture}
         \begin{axis}[width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
             ylabel={Zeitdifferenz / \si{\nano\second}}]
-            \addplot[black, only marks, mark=+] table {fit_detektor_prompt_data.txt};
+            \addplot[
+                black, only marks, mark=+,
+                error bars/x dir=both,
+                error bars/x explicit,
+            ] table[x error index=2] {fit_detektor_prompt_data.txt};
             \addplot[red] table {fit_detektor_prompt_fit.txt};
         \end{axis}
     \end{tikzpicture}

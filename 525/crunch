@@ -73,7 +73,7 @@ def fit_gauge_points(T, points, prefix, show=False):
 
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([channel_val, energy])
+    points_table = np.column_stack([channel_val, energy, channel_err])
     np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', points_table)
     T['fit_detektor_'+prefix+'_data'] = list(zip(
         unitprint.siunitx(channel_val, channel_err),
