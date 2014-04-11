@@ -27,6 +27,9 @@ def gauss(x, mean, stddev, amplitude):
 def linear(x, a, b):
     return x * a + b
 
+def decay(x, tau, amplitude):
+    return amplitude * np.exp(-x/tau)
+
 def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
@@ -123,6 +126,30 @@ def job_zeiteichung(T):
     gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 6415, 6670, [6570, 500, 150], 'prompt', 64))
 
     f = fit_gauge_points(T, gauge_points, 'prompt')
+
+    l = np.loadtxt('Daten/Langzeit.txt')
+    channel = l[:, 0]
+    count = l[:, 1]
+    time = f(channel)
+
+    np.savetxt('_build/langzeit_daten.txt', np.column_stack([time, count]))
+
+    selection = time > 5.09
+
+    time_part = time[selection]
+    count_part = count[selection]
+
+    popt, pconv = op.curve_fit(decay, time_part, count_part)
+    d = np.sqrt(pconv.diagonal())
+
+    x = np.linspace(np.min(time_part), np.max(time_part), 1000)
+    y = decay(x, *popt)
+
+    np.savetxt('_build/langzeit_fit.txt', np.column_stack([x, y]))
+
+
+    T['tau'] = unitprint.siunitx(popt[0], d[0])
+
 
 def job_moseley(T):
     Z = 56

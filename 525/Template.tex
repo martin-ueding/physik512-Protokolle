@@ -1278,8 +1278,26 @@ Wir machen den Abgleich Fast- und Slow-Koinzidenz auf dem Oszilloskop/* Bildzeit
     \label{fig:fast-slow-abgleich}
 \end{figure}
 
-Nun ist der Aufbau fertig für die Bariumquelle kalibriert und wir können mir
-der Lebensdauermessung starten, die über Nacht geht.
+Nun ist der Aufbau fertig für die Bariumquelle kalibriert und wir können mit
+der Lebensdauermessung beginnen die über Nacht geht. Am nächsten morgen holen
+wir die Ergebnisse ab. Diese sind in Abbildung~\ref{mca:langzeit} abgebildet.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
+                ylabel=Ereignisse, axis lines=left, xtick={0,1000,...,8000}
+            ]
+            \addplot[black] table {../Daten/Langzeit.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Langzeitmessung des Bariumstrahlers.
+    }
+    \label{mca:langzeit}
+\end{figure}
+
 
 \nocite{Bieling/K125}
 \nocite{Leo/Techniques_Nuclear_Experiments}
@@ -1475,7 +1493,38 @@ Aus der Anpassung erhalten wir die Steigung der Geraden, die uns eine
 Umrechnung von Kanälen in Zeitdifferenzen gibt. Jeder Kanal entspricht einer
 Zeitdifferenz von \SI{<< fit_detektor_prompt_steigung >>}{\nano\second}.
 
+\section{Bestimmung der Zerfallszeit}
+
+Jetzt können wir die Kanäle aus der Langzeitmessung in Zeiten umrechnen. Dabei
+ist der Nullpunkt in der Zeit irrelevant, weil es nur um die Potenz des
+Zerfalles geht, nicht um seinen Startpunkt. Diese umgerechneten Daten sind in
+Abbildung~\ref{fig:zerfall_daten} dargestellt. An diese Daten passen wir eine
+exponentielle Zerfallskurve mit Lebensdauer $\tau$ an. Die Anpassung gibt uns
+eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth, height=0.3\linewidth, xlabel={Zeit /
+                \si{\nano\second}},
+                ylabel=Ereignisse, axis lines=left
+            ]
+            \addplot[black] table {langzeit_daten.txt};
+            \addplot[red, thick] table {langzeit_fit.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Langzeitmessung des Bariumstrahlers.
+    }
+    \label{fig:zerfall_daten}
+\end{figure}
+
+
 \chapter{Ergebnis}
+
+Wir haben die Lebenszeit des Übergangs auf \SI{<< tau >>}{\nano\second}
+bestimmen können.
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography
