@@ -1206,6 +1206,11 @@ der Lebensdauermessung starten, die über Nacht geht.
 
 \chapter{Auswertung}
 
+Wir nehmen die aufgenommenen Spektren von Natrium von beiden Detektoren und
+passen eine Normalverteilung an die \SI{511}{\kilo\electronvolt}-Linie an.
+Damit erhalten wir den Schwerpunkt der Linie. Die Anpassungen sind in
+Abbildung~\ref{fig:fit:na} in rot eingezeichnet.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -1225,8 +1230,12 @@ der Lebensdauermessung starten, die über Nacht geht.
         Anpassungskurven an die Spektren der Na-Probe im rechten und linken
         Detektor.
     }
-    \label{}
+    \label{fig:fit:na}
 \end{figure}
+
+Mit den Linien der Energien \SIlist{31;81;354}{\kilo\electronvolt} aus der
+Bariumprobe gehen wir analog vor. Die Anpassungskurven sind in
+Abbildung~\ref{fig:fit:ba} eingezeichnet.
 
 \begin{figure}[htbp]
     \centering
@@ -1248,10 +1257,45 @@ der Lebensdauermessung starten, die über Nacht geht.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Spektrum der Bariumemissionen im linken und rechten Detektor.
+        Spektrum der Bariumemissionen im linken und rechten Detektor mit
+        Anpassungskurven.
     }
-    \label{}
+    \label{fig:fit:ba}
 \end{figure}
+
+Aus den zwei Spektren pro Detektor haben wir jeweils die Punkte in
+Tabelle~\ref{tab:fitpunkte} zusammengestellt.
+
+\begin{table}
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tabular}{SS}
+            {Kanal} & {Energie / \si{\kilo\electronvolt}} \\
+            \midrule
+            %< for a, b in fit_detektor_links_data: ->%
+            << a >> & << b >> \\
+            %< endfor ->%
+        \end{tabular}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tabular}{SS}
+            {Kanal} & {Energie / \si{\kilo\electronvolt}} \\
+            \midrule
+            %< for a, b in fit_detektor_rechts_data: ->%
+            << a >> & << b >> \\
+            %< endfor ->%
+        \end{tabular}
+    \end{minipage}
+    \caption{%
+        Benutzte Linien aus den Spektren für den linken und rechten Detektor.
+    }
+    \label{tab:fitpunkte}
+\end{table}
+
+An die Kanal-Energie-Punkte passen wir ein lineares Modell an. Die Geraden
+sind in Abbildung~\ref{fig:fit:energieeichung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1271,7 +1315,7 @@ der Lebensdauermessung starten, die über Nacht geht.
     \caption{%
         Energieeichung für linken und rechten Detektor.
     }
-    \label{}
+    \label{fig:fit:energieeichung}
 \end{figure}
 
 Für den linken Detektor finden wir folgende Anpassungsgerade:
