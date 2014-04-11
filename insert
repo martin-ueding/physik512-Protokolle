@@ -14,7 +14,7 @@ def render_template(template_fn, data_fn, output_fn):
     env = jinja2.Environment(
         "%<", ">%",
         "<<", ">>",
-        "%§", "§%",
+        "/*", "*/",
         loader=jinja2.FileSystemLoader(".")
     )
     template = env.get_template(template_fn)
