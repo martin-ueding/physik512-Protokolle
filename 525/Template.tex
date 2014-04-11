@@ -114,6 +114,7 @@ $\SI{81}{\kilo\electronvolt}$ in den Grundzustand über.
 \end{figure}
 
 \section{Wechselwirkung von $\gamma$-Strahlung mit Materie}
+\ref{sec:WW}
 
 Trifft $\gamma$-Strahlung auf Materie, finden abhängig von Photonenergie und
 Ordnungszahl des Atoms unterschiedliche Effekte statt. Die Abhängigkeit ist in
@@ -198,16 +199,20 @@ Photonenergie im Szintillator, beispielsweise durch den Photoeffekt.
     \label{fig:Compton}
 \end{figure}
 
+%TODO: Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
+
 \section{Instrumente}
 
 \subsection{Szintillator}
 
 Zur Detektion von $\gamma$-Quanten verwendet man einen Kristall, zum Beispiel
-Natriumiodid. Trifft nun ein $\gamma$ auf ein Elektron, wird es angeregt. Bei
-der Abregung, die über Zwischenniveaus stattfindet, werden Photonen abgegeben,
-welche von einem Photomultiplier eingefangen werden können. Die Intensität des
-Lichtblitzes ist dabei proportional zur Energie des ursprünglichen
-$\gamma$-Quants.
+Natriumiodid. Trifft nun ein $\gamma$ auf ein Elektron, wird es durch die
+Effekte aus \ref{sec:WW} angeregt. Bei einer Abregung über Zwischenniveaus
+werden Photonen niedrigerer Energie abgegeben, welche von einem
+Photomultiplier eingefangen werden können. Eine andere Möglichkeit ist der
+Stoß mit anderen Elektronen, wodurch zwei Elektronen mit geringerer Energie
+entstehen. Die Intensität des Lichtblitzes ist dabei proportional zur Energie
+des ursprünglichen $\gamma$-Quants.
 
 \subsection{Photomultiplier (PM)}
 
@@ -432,7 +437,7 @@ Abbildung~\ref{fig:slow_signal}, rechts.
 \end{figure}
 
 An beiden Signalen ist der exponentielle Abfall des Signals zu erkennen, das
-durch der Abklingzeit des Szintillators erzeugt wird.
+durch die Abklingzeit des Szintillators erzeugt wird.
 
 Danach betrachten wir das Signal nach dem Vorverstärker des linken /* Bildzeit
 14:58 */ und rechten /* Bildzeit 16:39 */ Detektors, siehe
@@ -820,6 +825,8 @@ auf dem Oszilloskop/*Bildzeit 09:27*/, siehe
 Abbildung~\ref{fig:fast_einstellen}. Das gleiche wiederholen wir für den linken
 Detektor/*Bildzeit 09:29*/.
 
+%TODO Kommentar Polarität
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-29-34-east.pdf}
@@ -1119,6 +1126,8 @@ Mit diesen Promptkurven werden wir nachher die Beziehung zwischen MCA-Kanälen
 und Zeitdifferenzen herstellen können.
 
 \section{Messung der Lebensdauer}
+
+%TODO Subsections mit Einteilung des Versuchs
 
 Wir tauschen die Natrium- gegen die Bariumquelle aus. Das rechte Slow-Signal
 geben wir mit Splitter einmal auf den SCA und dann auf den GDG, das andere über
