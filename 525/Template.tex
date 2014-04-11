@@ -1206,6 +1206,8 @@ der Lebensdauermessung starten, die über Nacht geht.
 
 \chapter{Auswertung}
 
+\section{Energieeichung}
+
 Wir nehmen die aufgenommenen Spektren von Natrium von beiden Detektoren und
 passen eine Normalverteilung an die \SI{511}{\kilo\electronvolt}-Linie an.
 Damit erhalten wir den Schwerpunkt der Linie. Die Anpassungen sind in
@@ -1269,22 +1271,22 @@ Tabelle~\ref{tab:fitpunkte} zusammengestellt.
 \begin{table}
     \begin{minipage}[t]{0.45\textwidth}
         \centering
-        \begin{tabular}{SS}
-            {Kanal} & {Energie / \si{\kilo\electronvolt}} \\
+        \begin{tabular}{SSS}
+            {Kanal} & {Breite} & {Energie / \si{\kilo\electronvolt}} \\
             \midrule
-            %< for a, b in fit_detektor_links_data: ->%
-            << a >> & << b >> \\
+            %< for a, b, c in fit_detektor_links_data: ->%
+            << a >> & << b >> & << c >> \\
             %< endfor ->%
         \end{tabular}
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.45\textwidth}
         \centering
-        \begin{tabular}{SS}
-            {Kanal} & {Energie / \si{\kilo\electronvolt}} \\
+        \begin{tabular}{SSS}
+            {Kanal} & {Breite} & {Energie / \si{\kilo\electronvolt}} \\
             \midrule
-            %< for a, b in fit_detektor_rechts_data: ->%
-            << a >> & << b >> \\
+            %< for a, b, c in fit_detektor_rechts_data: ->%
+            << a >> & << b >> & << c >> \\
             %< endfor ->%
         \end{tabular}
     \end{minipage}
@@ -1300,14 +1302,16 @@ sind in Abbildung~\ref{fig:fit:energieeichung} dargestellt.
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal,
+            ylabel={Energie / \si{\kilo\electronvolt}}]
             \addplot[black, only marks, mark=+] table {fit_detektor_links_data.txt};
             \addplot[red] table {fit_detektor_links_fit.txt};
         \end{axis}
     \end{tikzpicture}
     \hfill
     \begin{tikzpicture}
-        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal, ylabel=Ereignisse, axis lines=left]
+        \begin{axis}[width=0.45\linewidth, height=0.3\linewidth, xlabel=Kanal,
+            ylabel={Energie / \si{\kilo\electronvolt}}]
             \addplot[black, only marks, mark=+] table {fit_detektor_rechts_data.txt};
             \addplot[red] table {fit_detektor_rechts_fit.txt};
         \end{axis}
@@ -1329,6 +1333,66 @@ Und für den rechten Detektor finden wir folgende Anpassungsgerade:
     E(K) = \SI{<< fit_detektor_rechts_steigung >>}{\kilo\electronvolt} \cdot K \SI{<<
     fit_detektor_rechts_offset >>}{\kilo\electronvolt}.
 \]
+
+\section{Zeiteichung}
+
+Ab hier nehmen wir uns die Promptkurven des TAC vor, um eine Beziehung
+zwischen Kanälen und Zeitdifferenzen zu erhalten. An jede Promptkurve passen
+wir wie zuvor eine Normalverteilung an, um den Schwerpunkt und die Breite
+bestimmen zu können.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
+                ylabel=Ereignisse, axis lines=left, xtick={0,1000,...,8000}
+            ]
+            \addplot[black] table {../Daten/Zeiteichung.txt};
+            \addplot[red, very thick] table {fit_prompt_0.txt};
+            \addplot[red, very thick] table {fit_prompt_16.txt};
+            \addplot[red, very thick] table {fit_prompt_32.txt};
+            \addplot[red, very thick] table {fit_prompt_48.txt};
+            \addplot[red, very thick] table {fit_prompt_64.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Promptkurve des TAC mit angepassten Kurven.
+    }
+    \label{fig:fit:promptkurve}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{SSS}
+        {Kanal} & {Breite} & {Zeitdifferenz / \si{\nano\second}} \\
+        \midrule
+        %< for a, b, c in fit_detektor_prompt_data: ->%
+        << a >> & << b >> & << c >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+    }
+    \label{tab:}
+\end{table}
+
+\begin{figure}[htbp]
+    \begin{tikzpicture}
+        \begin{axis}[width=\linewidth, height=0.3\linewidth, xlabel=Kanal,
+            ylabel={Zeitdifferenz / \si{\nano\second}}]
+            \addplot[black, only marks, mark=+] table {fit_detektor_prompt_data.txt};
+            \addplot[red] table {fit_detektor_prompt_fit.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energieeichung für linken und rechten Detektor.
+    }
+    \label{fig:fit:zeiteichung}
+\end{figure}
+
+Aus der Anpassung erhalten wir die Steigung der Geraden, die uns eine
+Umrechnung von Kanälen in Zeitdifferenzen gibt. Jeder Kanal entspricht einer
+Zeitdifferenz von \SI{<< fit_detektor_prompt_steigung >>}{\nano\second}.
 
 \chapter{Ergebnis}
 

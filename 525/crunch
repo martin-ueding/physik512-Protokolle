@@ -21,7 +21,7 @@ R_infinity = 10973731 # 1/m
 h = 6.626e-34 # J s
 e = 1.609e-19
 
-def gauss(x, mean, stddev, amplitude, offset):
+def gauss(x, mean, stddev, amplitude):
     return amplitude * np.exp(- ((x - mean) / stddev)**2)
 
 def linear(x, a, b):
@@ -36,11 +36,14 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
     fit_counts = counts[lower:upper]
 
     popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
+    print(popt)
+    print(pconv)
+    d = np.sqrt(pconv.diagonal())
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
     y = gauss(x, *popt)
 
-    T['{}_{}_mean_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[0])
-    T['{}_{}_std_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[1])
+    T['{}_{}_mean_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[0], d[0])
+    T['{}_{}_std_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[1], d[1])
 
     np.savetxt('_build/fit_{}_{}.txt'.format(prefix, energy), np.column_stack([x, y]))
 
@@ -50,55 +53,76 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
         pl.plot(x, y)
         pl.show()
 
-    return [popt[0], energy]
+    return (popt[0], d[0], abs(popt[1]), d[1], energy)
 
 def fit_gauge_points(T, points, prefix, show=False):
     p = np.array(points)
-    energy = p[:, 1]
-    channel = p[:, 0]
+    channel_val = p[:, 0]
+    channel_err = p[:, 1]
+    width_val = p[:, 2]
+    width_err = p[:, 3]
+    energy = p[:, 4]
 
-    popt, pconv = op.curve_fit(linear, channel, energy)
+    popt, pconv = op.curve_fit(linear, channel_val, energy)
+    print(popt)
+    print(pconv)
 
-    points_table = np.column_stack([channel, energy])
+    d = np.sqrt(pconv.diagonal())
+
+    points_table = np.column_stack([channel_val, energy])
     np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', points_table)
     T['fit_detektor_'+prefix+'_data'] = list(zip(
-        unitprint.siunitx(channel),
+        unitprint.siunitx(channel_val, channel_err),
+        unitprint.siunitx(width_val, width_err),
         unitprint.siunitx(energy),
     ))
 
-    x = np.linspace(np.min(channel), np.max(channel), 10)
+    x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
     y = linear(x, *popt)
 
-    T['fit_detektor_'+prefix+'_steigung'] = unitprint.siunitx(popt[0])
-    T['fit_detektor_'+prefix+'_offset'] = unitprint.siunitx(popt[1])
+    T['fit_detektor_'+prefix+'_steigung'] = unitprint.siunitx(popt[0], d[0])
+    T['fit_detektor_'+prefix+'_offset'] = unitprint.siunitx(popt[1], d[1])
 
     if show:
-        pl.plot(channel, energy, marker='+', linestyle='none')
+        pl.plot(channel_val, energy, marker='+', linestyle='none')
         pl.plot(x, y)
         pl.show()
 
     np.savetxt('_build/fit_detektor_'+prefix+'_fit.txt', np.column_stack([x, y]))
 
+    return lambda x: x * popt[0] + popt[1]
+
 def job_energieeichung_links(T):
     gauge_points = []
 
-    gauge_points.append(fit_peak(T, 'Daten/005-Na-Zoom.txt', 5800, 7000, [6400, 500, 35, 0], 'Na_links', 511))
+    gauge_points.append(fit_peak(T, 'Daten/005-Na-Zoom.txt', 5800, 7000, [6400, 500, 35], 'Na_links', 511))
 
-    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 380, 535, [450, 40, 63000, 0], 'Ba_links', 31))
-    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 1080, 1295, [1200, 40, 1200, 0], 'Ba_links', 81))
-    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300, 0], 'Ba_links', 356))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 380, 535, [450, 40, 63000], 'Ba_links', 31))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 1080, 1295, [1200, 40, 1200], 'Ba_links', 81))
+    gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300], 'Ba_links', 356))
 
     fit_gauge_points(T, gauge_points, 'links')
 
 def job_energieeichung_rechts(T):
     gauge_points = []
 
-    gauge_points.append(fit_peak(T, 'Daten/003-Na-Spektrum.txt', 6000, 7000, [6400, 500, 100, 0], 'Na_rechts', 511))
-    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 270, 500, [384, 40, 17000, 0], 'Ba_rechts', 31))
-    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 1000, 1200, [1100, 40, 1000, 0], 'Ba_rechts', 81))
-    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 4300, 4800, [4500, 40, 3000, 0], 'Ba_rechts', 356))
+    gauge_points.append(fit_peak(T, 'Daten/003-Na-Spektrum.txt', 6000, 7000, [6400, 500, 100], 'Na_rechts', 511))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 270, 500, [384, 40, 17000], 'Ba_rechts', 31))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 1000, 1200, [1100, 40, 1000], 'Ba_rechts', 81))
+    gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 4300, 4800, [4500, 40, 3000], 'Ba_rechts', 356))
 
     fit_gauge_points(T, gauge_points, 'rechts')
+
+def job_zeiteichung(T):
+    gauge_points = []
+
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 1390, 1640, [1500, 500, 150], 'prompt', 0))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 2657, 2900, [2770, 500, 150], 'prompt', 16))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 3894, 4160, [4039, 500, 150], 'prompt', 32))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 5142, 5433, [5312, 500, 150], 'prompt', 48))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 6415, 6670, [6570, 500, 150], 'prompt', 64))
+
+    f = fit_gauge_points(T, gauge_points, 'prompt')
 
 def job_moseley(T):
     Z = 56
@@ -115,6 +139,7 @@ def main():
     job_moseley(T)
     job_energieeichung_rechts(T)
     job_energieeichung_links(T)
+    job_zeiteichung(T)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
