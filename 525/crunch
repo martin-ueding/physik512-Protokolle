@@ -104,7 +104,13 @@ def job_energieeichung_links(T):
     gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 1080, 1295, [1200, 40, 1200], 'Ba_links', 81))
     gauge_points.append(fit_peak(T, 'Daten/011-Ba-Spek-l.txt', 4543, 5164, [4834, 40, 9300], 'Ba_links', 356))
 
-    fit_gauge_points(T, gauge_points, 'links')
+    f = fit_gauge_points(T, gauge_points, 'links')
+
+    na_sigma = f(gauge_points[0][2]) - f(0)
+    na_fwhm = na_sigma * 2 * np.sqrt(2 * np.log(2))
+
+    T['na_fwhm_links'] = unitprint.siunitx(na_fwhm)
+
 
 def job_energieeichung_rechts(T):
     gauge_points = []
@@ -114,7 +120,12 @@ def job_energieeichung_rechts(T):
     gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 1000, 1200, [1100, 40, 1000], 'Ba_rechts', 81))
     gauge_points.append(fit_peak(T, 'Daten/009-Ba-Spek-r.txt', 4300, 4800, [4500, 40, 3000], 'Ba_rechts', 356))
 
-    fit_gauge_points(T, gauge_points, 'rechts')
+    f = fit_gauge_points(T, gauge_points, 'rechts')
+
+    na_sigma = f(gauge_points[0][2]) - f(0)
+    na_fwhm = na_sigma * 2 * np.sqrt(2 * np.log(2))
+
+    T['na_fwhm_rechts'] = unitprint.siunitx(na_fwhm)
 
 def job_zeiteichung(T):
     gauge_points = []
