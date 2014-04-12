@@ -791,6 +791,9 @@ Abbildung~\ref{fig:eine_pulshoehe}.
     \label{fig:eine_pulshoehe}
 \end{figure}
 
+Den Splitter lassen wir während der gesamten Durchführung drin, damit sich die
+Amplituden später nicht verändern.
+
 \subsection{Slow-Koinzidenz herstellen}
 
 Wir schließen beide SCAs gleichzeitig an das Oszilloskop an. Der rechte
@@ -807,6 +810,8 @@ aufeinander, es herrscht Koinzidenz.
     }
     \label{fig:beide_sca}
 \end{figure}
+
+% TODO Wie groß ist die Auflösungszeit?
 
 \section{Fast-Konzidenzkreis einstellen}
 
@@ -1309,6 +1314,9 @@ wir die Ergebnisse ab. Diese sind in Abbildung~\ref{mca:langzeit} abgebildet.
 \nocite{Bieling/K125}
 \nocite{Leo/Techniques_Nuclear_Experiments}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Auswertung                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Auswertung}
 
@@ -1460,6 +1468,9 @@ umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite um und erhalten
 für links \SI{<< na_fwhm_links >>}{\kilo\electronvolt} und rechts \SI{<<
 na_fwhm_rechts >>}{\kilo\electronvolt}.
 
+% TODO Energien der SCA Fenster
+% TODO Energien der CFD Schwellen
+
 \section{Zeiteichung}
 
 Ab hier nehmen wir uns die Promptkurven des TAC vor, um eine Beziehung
@@ -1533,6 +1544,8 @@ Aus der Anpassung erhalten wir die Steigung der Geraden, die uns eine
 Umrechnung von Kanälen in Zeitdifferenzen gibt. Jeder Kanal entspricht einer
 Zeitdifferenz von \SI{<< fit_detektor_prompt_steigung >>}{\nano\second}.
 
+% TODO Was ist die Zeitauflösung?
+
 \section{Bestimmung der Zerfallszeit}
 
 Jetzt können wir die Kanäle aus der Langzeitmessung in Zeiten umrechnen. Dabei
@@ -1564,6 +1577,9 @@ eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
     }
     \label{fig:zerfall_daten}
 \end{figure}
+
+% TODO Vergleich mit Literaturwert
+% TODO Systematische Untergrundeinflüsse?
 
 \chapter{Ergebnis}
 
