@@ -152,12 +152,12 @@ def job_zeiteichung(T):
 
     np.savetxt('_build/langzeit_daten.txt', np.column_stack([time, count]))
 
-    selection = time > 5.09
+    selection = time > 22
 
     time_part = time[selection]
     count_part = count[selection]
 
-    popt, pconv = op.curve_fit(decay, time_part, count_part)
+    popt, pconv = op.curve_fit(decay, time_part, count_part, p0=[10, 60000])
     d = np.sqrt(pconv.diagonal())
 
     x = np.linspace(np.min(time_part), np.max(time_part), 1000)
