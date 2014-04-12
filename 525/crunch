@@ -137,11 +137,11 @@ def job_energieeichung_rechts(T):
 def job_zeiteichung(T):
     gauge_points = []
 
-    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 1390, 1640, [1500, 500, 150], 'prompt', 0))
-    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 2657, 2900, [2770, 500, 150], 'prompt', 16))
-    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 3894, 4160, [4039, 500, 150], 'prompt', 32))
-    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 5142, 5433, [5312, 500, 150], 'prompt', 48))
-    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 6415, 6670, [6570, 500, 150], 'prompt', 64))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 1390, 1640, [1500, 500, 150], 'prompt', 16))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 2657, 2900, [2770, 500, 150], 'prompt', 32))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 3894, 4160, [4039, 500, 150], 'prompt', 48))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 5142, 5433, [5312, 500, 150], 'prompt', 64))
+    gauge_points.append(fit_peak(T, 'Daten/Zeiteichung.txt', 6415, 6670, [6570, 500, 150], 'prompt', 80))
 
     f = fit_gauge_points(T, gauge_points, 'prompt')
 
