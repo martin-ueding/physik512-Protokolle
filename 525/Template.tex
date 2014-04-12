@@ -187,7 +187,7 @@ Szintillator, beispielsweise durch den Photoeffekt.
     \label{fig:Compton}
 \end{figure}
 
-%TODO: Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
+%TODO Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
 
 \section{Instrumente}
 
@@ -1468,7 +1468,29 @@ umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite um und erhalten
 für links \SI{<< na_fwhm_links >>}{\kilo\electronvolt} und rechts \SI{<<
 na_fwhm_rechts >>}{\kilo\electronvolt}.
 
-% TODO Energien der SCA Fenster
+Außerdem können wir die Schwellen der SCAs bestimmen. Dazu betrachten wir als
+obere und untere Grenze die, bei denen die Ereignisanzahl weniger als ein
+Zehntel des Maximums beträgt. Dadurch können wir sie per Programm aus den
+Messdaten bestimmen lassen. Die Schwellen sind in
+Tabelle~\ref{tab:sca_schwellen}.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{llSS}
+        Probe & Seite & {untere Schwelle / \si{\kilo\electronvolt}} & {obere
+    Schwelle} / \si{\kilo\electronvolt} \\
+        \midrule
+        Na & links & << na_sca_links_min >> & << na_sca_links_max >> \\
+        Na & rechts & << na_sca_rechts_min >> & << na_sca_rechts_max >> \\
+        Ba & links & << ba_sca_links_min >> & << ba_sca_links_max >> \\
+        Ba & rechts & << ba_sca_rechts_min >> & << ba_sca_rechts_max >> \\
+    \end{tabular}
+    \caption{%
+        Lage der SCA Schwellen.
+    }
+    \label{tab:sca_schwellen}
+\end{table}
+
 % TODO Energien der CFD Schwellen
 
 \section{Zeiteichung}

@@ -96,6 +96,18 @@ def fit_gauge_points(T, points, prefix, show=False):
 
     return lambda x: x * popt[0] + popt[1]
 
+def extract_boundaries(filename, converter):
+    data = np.loadtxt(filename)
+    channel = data[:, 0]
+    counts = data[:, 1]
+    energies = converter(channel)
+
+    max_counts = np.max(counts)
+
+    selection = counts > max_counts / 10
+
+    return np.min(energies[selection]), np.max(energies[selection])
+
 def job_energieeichung_links(T):
     gauge_points = []
 
@@ -115,6 +127,14 @@ def job_energieeichung_links(T):
 
     T['na_fwhm_links'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
 
+    a, b = extract_boundaries('Daten/006-Na-511keV.txt', f)
+    T['na_sca_rechts_min'] = unitprint.siunitx(a)
+    T['na_sca_rechts_max'] = unitprint.siunitx(b)
+
+    a, b = extract_boundaries('Daten/012-Ba-SCA-l.txt', f)
+    T['ba_sca_links_min'] = unitprint.siunitx(a)
+    T['ba_sca_links_max'] = unitprint.siunitx(b)
+
 
 def job_energieeichung_rechts(T):
     gauge_points = []
@@ -133,6 +153,15 @@ def job_energieeichung_rechts(T):
     na_fwhm_err = na_sigma_err * 2 * np.sqrt(2 * np.log(2))
 
     T['na_fwhm_rechts'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
+
+    a, b = extract_boundaries('Daten/007-Na-SCA-neu.txt', f)
+    T['na_sca_links_min'] = unitprint.siunitx(a)
+    T['na_sca_links_max'] = unitprint.siunitx(b)
+
+
+    a, b = extract_boundaries('Daten/010-Ba-SCA-r.txt', f)
+    T['ba_sca_rechts_min'] = unitprint.siunitx(a)
+    T['ba_sca_rechts_max'] = unitprint.siunitx(b)
 
 def job_zeiteichung(T):
     gauge_points = []
