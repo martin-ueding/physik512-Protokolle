@@ -189,7 +189,7 @@ Szintillator, beispielsweise durch den Photoeffekt.
     \label{fig:Compton}
 \end{figure}
 
-%TODO: Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
+%TODO Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
 
 \section{Instrumente}
 
@@ -793,6 +793,9 @@ Abbildung~\ref{fig:eine_pulshoehe}.
     \label{fig:eine_pulshoehe}
 \end{figure}
 
+Den Splitter lassen wir während der gesamten Durchführung drin, damit sich die
+Amplituden später nicht verändern.
+
 \subsection{Slow-Koinzidenz herstellen}
 
 Wir schließen beide SCAs gleichzeitig an das Oszilloskop an. Der rechte
@@ -809,6 +812,8 @@ aufeinander, es herrscht Koinzidenz.
     }
     \label{fig:beide_sca}
 \end{figure}
+
+% TODO Wie groß ist die Auflösungszeit?
 
 \section{Fast-Konzidenzkreis einstellen}
 
@@ -1170,9 +1175,9 @@ Dann wird ein Spektrum mit dem MCA aufgenommen/* 009 */, siehe Abbildung~\ref{mc
     \label{mca:ba_spek}
 \end{figure}
 
-Dann wird SCA Fenster so eingestellt, dass die nur
-\SI{350}{\kilo\electronvolt}-Linie drin ist/* 010 */, siehe
-Abbildung~\ref{mca:ba_spek_sca}.
+Dann wird das rechte SCA Fenster so eingestellt, dass die nur
+\SI{356}{\kilo\electronvolt}-Linie drin ist/* 010 */, siehe
+Abbildung~\ref{mca:ba_spek_sca}. Dieser rechte Zweig soll als Start dienen.
 
 \begin{figure}[htbp]
     \centering
@@ -1194,8 +1199,8 @@ Abbildung~\ref{mca:ba_spek_sca}.
 \end{figure}
 
 Mit dem linken Slow-Zweig gehen wir gleich vor, wir nehmen ein Spektrum/* 011
-*/ und kalibrieren das SCA Fenster/* 012 */ auf die andere Linie. Siehe
-ebenfalls Abbildungen \ref{mca:ba_spek} und \ref{mca:ba_spek_sca}.
+*/ und kalibrieren das SCA Fenster/* 012 */ auf die \SI{81}{\kilo\electronvolt}
+Linie. Der linke Zweig soll als Stop benutzt werden. Siehe ebenfalls Abbildungen \ref{mca:ba_spek} und \ref{mca:ba_spek_sca}.
 
 \subsection{CFD-Schwelle für die ${}^{133}$Ba-Quelle einstellen}
 
@@ -1311,6 +1316,9 @@ wir die Ergebnisse ab. Diese sind in Abbildung~\ref{mca:langzeit} abgebildet.
 \nocite{Bieling/K125}
 \nocite{Leo/Techniques_Nuclear_Experiments}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Auswertung                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Auswertung}
 
@@ -1462,6 +1470,31 @@ umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite um und erhalten
 für links \SI{<< na_fwhm_links >>}{\kilo\electronvolt} und rechts \SI{<<
 na_fwhm_rechts >>}{\kilo\electronvolt}.
 
+Außerdem können wir die Schwellen der SCAs bestimmen. Dazu betrachten wir als
+obere und untere Grenze die, bei denen die Ereignisanzahl weniger als ein
+Zehntel des Maximums beträgt. Dadurch können wir sie per Programm aus den
+Messdaten bestimmen lassen. Die Schwellen sind in
+Tabelle~\ref{tab:sca_schwellen}.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{llSS}
+        Probe & Seite & {untere Schwelle / \si{\kilo\electronvolt}} & {obere
+    Schwelle} / \si{\kilo\electronvolt} \\
+        \midrule
+        Na & links & << na_sca_links_min >> & << na_sca_links_max >> \\
+        Na & rechts & << na_sca_rechts_min >> & << na_sca_rechts_max >> \\
+        Ba & links & << ba_sca_links_min >> & << ba_sca_links_max >> \\
+        Ba & rechts & << ba_sca_rechts_min >> & << ba_sca_rechts_max >> \\
+    \end{tabular}
+    \caption{%
+        Lage der SCA Schwellen.
+    }
+    \label{tab:sca_schwellen}
+\end{table}
+
+% TODO Energien der CFD Schwellen. Da weiß ich aber nicht, wie das gehen soll.
+
 \section{Zeiteichung}
 
 Ab hier nehmen wir uns die Promptkurven des TAC vor, um eine Beziehung
@@ -1477,11 +1510,11 @@ bestimmen zu können.
                 ylabel=Ereignisse, axis lines=left, xtick={0,1000,...,8000}
             ]
             \addplot[black] table {../Daten/Zeiteichung.txt};
-            \addplot[red, very thick] table {fit_prompt_0.txt};
             \addplot[red, very thick] table {fit_prompt_16.txt};
             \addplot[red, very thick] table {fit_prompt_32.txt};
             \addplot[red, very thick] table {fit_prompt_48.txt};
             \addplot[red, very thick] table {fit_prompt_64.txt};
+            \addplot[red, very thick] table {fit_prompt_80.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -1535,14 +1568,20 @@ Aus der Anpassung erhalten wir die Steigung der Geraden, die uns eine
 Umrechnung von Kanälen in Zeitdifferenzen gibt. Jeder Kanal entspricht einer
 Zeitdifferenz von \SI{<< fit_detektor_prompt_steigung >>}{\nano\second}.
 
+% TODO Was ist die Zeitauflösung?
+
 \section{Bestimmung der Zerfallszeit}
 
 Jetzt können wir die Kanäle aus der Langzeitmessung in Zeiten umrechnen. Dabei
 ist der Nullpunkt in der Zeit irrelevant, weil es nur um die Potenz des
 Zerfalles geht, nicht um seinen Startpunkt. Diese umgerechneten Daten sind in
 Abbildung~\ref{fig:zerfall_daten} dargestellt. An diese Daten passen wir eine
-exponentielle Zerfallskurve mit Lebensdauer $\tau$ an. Die Anpassung gibt uns
-eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
+exponentielle Zerfallskurve mit Lebensdauer $\tau$ an:
+\[
+    N(t) = c \exp\del{-\frac t\tau}.
+\]
+
+Die Anpassung gibt uns eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
 
 \begin{figure}[htbp]
     \centering
@@ -1562,6 +1601,7 @@ eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
     \label{fig:zerfall_daten}
 \end{figure}
 
+% TODO Untergrundeffekte
 
 \chapter{Ergebnis}
 
@@ -1570,7 +1610,10 @@ linken Detektor auf \SI{<< na_fwhm_links >>}{\kilo\electronvolt}, sowie auf
 \SI{<< na_fwhm_rechts >>}{\kilo\electronvolt} für den Rechten bestimmt.
 
 Wir haben die Lebenszeit des $\frac 52^+$-Übergangs auf \SI{<< tau
->>}{\nano\second} bestimmen können.
+>>}{\nano\second} bestimmen können. Der Literaturwert ist \SI{<< tau_lit
+>>}{\nano\second} \parencite{gamma-133cs}. Somit ist unser Messergebnis etwas
+mehr als eine Standardabweichung entfernt. Unser Fehler ist in der richtigen
+Größenordnung abgeschätzt.
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography
