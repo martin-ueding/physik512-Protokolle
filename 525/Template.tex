@@ -1491,7 +1491,7 @@ Tabelle~\ref{tab:sca_schwellen}.
     \label{tab:sca_schwellen}
 \end{table}
 
-% TODO Energien der CFD Schwellen
+% TODO Energien der CFD Schwellen. Da weiß ich aber nicht, wie das gehen soll.
 
 \section{Zeiteichung}
 
@@ -1579,8 +1579,7 @@ exponentielle Zerfallskurve mit Lebensdauer $\tau$ an:
     N(t) = c \exp\del{-\frac t\tau}.
 \]
 
-Die Anpassung gibt uns
-eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
+Die Anpassung gibt uns eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
 
 \begin{figure}[htbp]
     \centering
@@ -1600,8 +1599,7 @@ eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
     \label{fig:zerfall_daten}
 \end{figure}
 
-% TODO Vergleich mit Literaturwert
-% TODO Systematische Untergrundeinflüsse?
+% TODO Untergrundeffekte
 
 \chapter{Ergebnis}
 
@@ -1610,7 +1608,10 @@ linken Detektor auf \SI{<< na_fwhm_links >>}{\kilo\electronvolt}, sowie auf
 \SI{<< na_fwhm_rechts >>}{\kilo\electronvolt} für den Rechten bestimmt.
 
 Wir haben die Lebenszeit des $\frac 52^+$-Übergangs auf \SI{<< tau
->>}{\nano\second} bestimmen können.
+>>}{\nano\second} bestimmen können. Der Literaturwert ist \SI{<<
+tau_lit >>}{\nano\second}. Somit ist unser Messergebnis etwas mehr als
+eine Standardabweichung entfernt. Unser Fehler ist in der richtigen
+Größenordnung abgeschätzt.
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography

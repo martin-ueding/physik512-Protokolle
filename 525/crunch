@@ -197,6 +197,12 @@ def job_zeiteichung(T):
 
     T['tau'] = unitprint.siunitx(popt[0], d[0])
 
+    half_time_lit = 6.283
+
+    tau_lit = half_time_lit / np.log(2)
+
+    T['tau_lit'] = unitprint.siunitx(tau_lit)
+
 
 def job_moseley(T):
     Z = 56
