@@ -1539,7 +1539,12 @@ Jetzt können wir die Kanäle aus der Langzeitmessung in Zeiten umrechnen. Dabei
 ist der Nullpunkt in der Zeit irrelevant, weil es nur um die Potenz des
 Zerfalles geht, nicht um seinen Startpunkt. Diese umgerechneten Daten sind in
 Abbildung~\ref{fig:zerfall_daten} dargestellt. An diese Daten passen wir eine
-exponentielle Zerfallskurve mit Lebensdauer $\tau$ an. Die Anpassung gibt uns
+exponentielle Zerfallskurve mit Lebensdauer $\tau$ an:
+\[
+    N(t) = c \exp\del{-\frac t\tau}.
+\]
+
+Die Anpassung gibt uns
 eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
 
 \begin{figure}[htbp]
@@ -1559,7 +1564,6 @@ eine Lebenszeit von \SI{<< tau >>}{\nano\second}.
     }
     \label{fig:zerfall_daten}
 \end{figure}
-
 
 \chapter{Ergebnis}
 
