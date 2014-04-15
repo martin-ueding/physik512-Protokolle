@@ -151,11 +151,12 @@ Werden nun viele Photonen mit einer Energie $E_\nu$ gestreut, wie es in einem
 Szintillator der Fall ist, ergibt sich ein charakteristisches Bild. In
 Abbildung~\ref{fig:Compton} ist idealisiert die Intensität gegen die an den
 Szintillator übertragene Energie dargestellt. Das Compton-Kontinuum entsteht
-durch die Streuung mit unterschiedlichen Winkeln, die scharfe Grenze, die so
-genannte Compton-Kante wird durch den maximalen Energieübertrag bei $\phi =
-\SI{180}{\degree}$ erzeugt. Der Photopeak, oder auch Full-Energy-Peak bei
-$E_\nu$ entsteht durch die vollständige Deponierung der Photonenergie im
-Szintillator, beispielsweise durch den Photoeffekt.
+durch die Streuung mit unterschiedlichen Winkeln, die Compton-Kante wird durch
+den maximalen Energieübertrag bei $\phi = \SI{180}{\degree}$ erzeugt. Der
+Photopeak, oder auch Full-Energy-Peak bei $E_\nu$ entsteht durch die
+vollständige Deponierung der Photonenergie im Szintillator, beispielsweise
+durch den Photoeffekt. Die Restenergie des zurück gestreuten Photons ist genau
+die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 
 \begin{figure}[htbp]
     \centering
@@ -189,7 +190,22 @@ Szintillator, beispielsweise durch den Photoeffekt.
     \label{fig:Compton}
 \end{figure}
 
-%TODO Rückstreupeak, Single-/ Double-Escape-Peak hier oder bei Szintillator
+\subsection{Rückstreu- und Escape-Peak}
+
+Wird ein Photon, nachdem es durch den Compton-Effekt zurückgeworfen wurde, ein
+weiteres Mal um $\phi = \SI{180}{\degree}$ gestreut, oder in einem
+gegenüberliegenden Szintillator detektiert, entsteht ein weiterer Peak, der
+eine Spektrallinie vortäuscht. Dies ist der Rückstreu-Peak. Die Energie dieses
+Peaks ist daher identisch mit der Restenergie des Photons.
+
+Kommt es zur Paarbildung, wird nur dann die volle Energie im Szintillator
+deponiert, wenn das entstehende Positron auf ein Elektron trifft, unter Abgabe
+zweier \SI{511}{\kilo\electronvolt}-Photonen annihilliert und beide
+entstehenden Photonen durch andere Effekte ihre Energie an den Szintillator
+abgeben. Verlässt eines der Photonen oder sogar beide den Szintillator, ohne
+Energie abzugeben, entsteht eine weitere scheinbare Spektrallinie, der Single-
+bzw. Double-Escape-Peak, bei einer Energie von
+$E_\nu-\SI{511}{\kilo\electronvolt}$ bzw. $E_\nu-\SI{1022}{\kilo\electronvolt}$.
 
 \section{Instrumente}
 
