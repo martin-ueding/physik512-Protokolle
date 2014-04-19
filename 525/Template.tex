@@ -1410,6 +1410,8 @@ wir die Ergebnisse ab. Diese sind in Abbildung~\ref{mca:langzeit} abgebildet.
 
 \section{Energieeichung}
 
+\subsection{Anpassen an die Spektren}
+
 Wir nehmen die aufgenommenen Spektren von Natrium von beiden Detektoren und
 passen eine Normalverteilung an die \SI{511}{\kilo\electronvolt}-Linie an.
 Damit erhalten wir den Schwerpunkt der Linie. Die Anpassungen sind in
@@ -1551,6 +1553,8 @@ Und für den rechten Detektor finden wir folgende Anpassungsgerade:
     fit_detektor_rechts_offset >>}{\kilo\electronvolt}.
 \]
 
+\subsection{Bestimmung der Energieauflösung}
+
 Damit können wir die Standardabweichung der Natriumlinie in ein Energieinterval
 umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite um und erhalten
 für links \SI{<< na_fwhm_links >>}{\kilo\electronvolt} und rechts \SI{<<
@@ -1558,6 +1562,8 @@ na_fwhm_rechts >>}{\kilo\electronvolt}.
 
 % TODO Breiten aller Linien umrechnen.
 % TODO Dann die Genauigkeit bestimmen.
+
+\subsection{Umrechnen der SCA-Schwellen}
 
 Außerdem können wir die Schwellen der SCAs bestimmen. Dazu betrachten wir als
 obere und untere Grenze die, bei denen die Ereignisanzahl weniger als ein

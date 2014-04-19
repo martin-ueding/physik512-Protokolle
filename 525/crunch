@@ -119,13 +119,12 @@ def job_energieeichung_links(T):
 
     f = fit_gauge_points(T, gauge_points, 'links')
 
-    na_sigma_val = f(gauge_points[0][2]) - f(0)
-    na_fwhm_val = na_sigma_val * 2 * np.sqrt(2 * np.log(2))
+    T['fwhm_links'] = []
+    aufloesung(T['fwhm_links'], 511, gauge_points[0][2], f)
+    aufloesung(T['fwhm_links'], 31, gauge_points[1][2], f)
+    aufloesung(T['fwhm_links'], 81, gauge_points[2][2], f)
+    aufloesung(T['fwhm_links'], 356, gauge_points[3][2], f)
 
-    na_sigma_err = scipy.misc.derivative(f, gauge_points[0][2])
-    na_fwhm_err = na_sigma_err * 2 * np.sqrt(2 * np.log(2))
-
-    T['na_fwhm_links'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
 
     a, b = extract_boundaries('Daten/006-Na-511keV.txt', f)
     T['na_sca_rechts_min'] = unitprint.siunitx(a)
@@ -134,6 +133,19 @@ def job_energieeichung_links(T):
     a, b = extract_boundaries('Daten/012-Ba-SCA-l.txt', f)
     T['ba_sca_links_min'] = unitprint.siunitx(a)
     T['ba_sca_links_max'] = unitprint.siunitx(b)
+
+def aufloesung(Tlist, value, width, converter):
+    sigma_val = converter(width) - converter(0)
+    fwhm_val = sigma_val * 2 * np.sqrt(2 * np.log(2))
+
+    sigma_err = scipy.misc.derivative(converter, width)
+    fwhm_err = sigma_err * 2 * np.sqrt(2 * np.log(2))
+
+    Tlist.append([
+        value,
+        unitprint.siunitx(fwhm_val, fwhm_err),
+        unitprint.siunitx(fwhm_val/value, fwhm_err/value),
+    ])
 
 
 def job_energieeichung_rechts(T):
@@ -146,13 +158,11 @@ def job_energieeichung_rechts(T):
 
     f = fit_gauge_points(T, gauge_points, 'rechts')
 
-    na_sigma_val = f(gauge_points[0][2]) - f(0)
-    na_fwhm_val = na_sigma_val * 2 * np.sqrt(2 * np.log(2))
-
-    na_sigma_err = scipy.misc.derivative(f, gauge_points[0][2])
-    na_fwhm_err = na_sigma_err * 2 * np.sqrt(2 * np.log(2))
-
-    T['na_fwhm_rechts'] = unitprint.siunitx(na_fwhm_val, na_fwhm_err)
+    T['fwhm_rechts'] = []
+    aufloesung(T['fwhm_rechts'], 511, gauge_points[0][2], f)
+    aufloesung(T['fwhm_rechts'], 31, gauge_points[1][2], f)
+    aufloesung(T['fwhm_rechts'], 81, gauge_points[2][2], f)
+    aufloesung(T['fwhm_rechts'], 356, gauge_points[3][2], f)
 
     a, b = extract_boundaries('Daten/007-Na-SCA-neu.txt', f)
     T['na_sca_links_min'] = unitprint.siunitx(a)
