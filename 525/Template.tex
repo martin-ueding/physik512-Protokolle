@@ -1591,6 +1591,9 @@ erhalten die Werte in Tabelle~\ref{tab:energiegenauigkeit}.
     \label{tab:energiegenauigkeit}
 \end{table}
 
+Die einzelnen Auflösungen hängen derart stark von der Energie ab, dass es uns
+nicht sinnvoll erscheint, hier einen Mittelwert zu erstellen.
+
 Sahand aus der anderen Gruppe hat mir geschrieben, dass sie bei der
 \SI{511}{\kilo\electronvolt}-Linie Halbwertsbreiten für links
 \SI{155,8}{\kilo\electronvolt} und rechts \SI{138,5}{\kilo\electronvolt} haben.
@@ -1697,7 +1700,9 @@ Aus der Anpassung erhalten wir die Steigung der Geraden, die uns eine
 Umrechnung von Kanälen in Zeitdifferenzen gibt. Jeder Kanal entspricht einer
 Zeitdifferenz von \SI{<< fit_detektor_prompt_steigung >>}{\nano\second}.
 
-% TODO Was ist die Zeitauflösung?
+Die Breite der angepassten Gaußkurven rechnen wir in Halbwertsbreiten um. Aus
+allen fünf errechnen wir Mittelwert und Standardabweichung. Wir erhalten eine
+Zeitauflösung von \SI{<< widths_ns >>}{\nano\second}.
 
 \section{Bestimmung der Zerfallszeit}
 

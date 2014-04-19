@@ -184,10 +184,24 @@ def job_zeiteichung(T):
 
     f = fit_gauge_points(T, gauge_points, 'prompt')
 
+    widths_val = np.array([x[2] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
+    widths_err = np.array([x[3] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
+
+    widths_val_ns = f(widths_val) - f(0)
+
+    print(widths_val)
+    print(widths_val_ns)
+
+    T['widths_ns'] = unitprint.siunitx(np.mean(widths_val_ns), np.std(widths_val_ns))
+
+
+
+
     l = np.loadtxt('Daten/Langzeit.txt')
     channel = l[:, 0]
     count = l[:, 1]
     time = f(channel)
+
 
     np.savetxt('_build/langzeit_daten.txt', np.column_stack([time, count]))
 
@@ -203,7 +217,6 @@ def job_zeiteichung(T):
     y = decay(x, *popt)
 
     np.savetxt('_build/langzeit_fit.txt', np.column_stack([x, y]))
-
 
     T['tau'] = unitprint.siunitx(popt[0], d[0])
 
