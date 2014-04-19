@@ -1472,7 +1472,7 @@ Abbildung~\ref{fig:fit:ba} eingezeichnet.
 Aus den zwei Spektren pro Detektor haben wir jeweils die Punkte in
 Tabelle~\ref{tab:fitpunkte} zusammengestellt.
 
-\begin{table}
+\begin{table}[htbp]
     \begin{minipage}[t]{0.45\textwidth}
         \centering
         \begin{tabular}{SSS}
@@ -1555,13 +1555,47 @@ Und für den rechten Detektor finden wir folgende Anpassungsgerade:
 
 \subsection{Bestimmung der Energieauflösung}
 
-Damit können wir die Standardabweichung der Natriumlinie in ein Energieinterval
-umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite um und erhalten
-für links \SI{<< na_fwhm_links >>}{\kilo\electronvolt} und rechts \SI{<<
-na_fwhm_rechts >>}{\kilo\electronvolt}.
+Damit können wir die Standardabweichung der Linien in ein Energieinterval
+umrechnen. Diese Rechnen wir dann noch in die Halbwertsbreite (FWHM) um und
+erhalten die Werte in Tabelle~\ref{tab:energiegenauigkeit}.
 
-% TODO Breiten aller Linien umrechnen.
-% TODO Dann die Genauigkeit bestimmen.
+\begin{table}[htbp]
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tabular}{SSS}
+            {$E$/ \si{\kilo\electronvolt}} &
+            {FHWM / \si{\kilo\electronvolt}} & 
+            {Auflösung} \\
+            \midrule
+            %< for a, b, c in fwhm_links: ->%
+            << a >> & << b >> & << c >> \\
+            %< endfor ->%
+        \end{tabular}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tabular}{SSS}
+            {$E$/ \si{\kilo\electronvolt}} &
+            {FHWM / \si{\kilo\electronvolt}} & 
+            {Auflösung} \\
+            \midrule
+            %< for a, b, c in fwhm_rechts: ->%
+            << a >> & << b >> & << c >> \\
+            %< endfor ->%
+        \end{tabular}
+    \end{minipage}
+    \caption{%
+        Breiten der Linien sowie deren Genauigkeit.
+    }
+    \label{tab:energiegenauigkeit}
+\end{table}
+
+Sahand aus der anderen Gruppe hat mir geschrieben, dass sie bei der
+\SI{511}{\kilo\electronvolt}-Linie Halbwertsbreiten für links
+\SI{155,8}{\kilo\electronvolt} und rechts \SI{138,5}{\kilo\electronvolt} haben.
+Somit ist deren Detektor nur ungefähr halb so genau in der Energie, wie den
+Detektor an unserem Aufbau.
 
 \subsection{Umrechnen der SCA-Schwellen}
 
@@ -1622,7 +1656,7 @@ Die den Mittelpunkte der Promptkurven sind in Tabelle~\ref{tab:prompt_daten}
 zusammengestellt. Auch hier ist die Anpassung mit der Normalverteilung sehr
 genau gelungen, so dass wir kleine Fehler haben.
 
-\begin{table}
+\begin{table}[htbp]
     \centering
     \begin{tabular}{SSS}
         {Kanal} & {Breite} & {Zeitdifferenz / \si{\nano\second}} \\
