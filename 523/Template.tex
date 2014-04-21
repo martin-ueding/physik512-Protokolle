@@ -55,8 +55,6 @@
 
 \maketitle
 
-\nocite{Guenther/K124}
-\nocite{Kolanoski/Beta}
 \nocite{Hof/Poltergeist}
 \nocite{physik512-Anleitung}
 
@@ -121,6 +119,29 @@ wird, welches aufgrund der großen Energie vom Kern getrennt wird. Diese
 Elektronen nennt man \emph{Augerelektronen}.
 
 \section{Fermitheorie}
+
+\subsection{Kuriedarstellung}
+
+In der Kuriedarstellung\footnote{Nach
+F.\,N.\,D\@.~Kurie. \parencite{wikipedia/Kurie}} trägt man nicht die Zählrate
+gegen die kinetische Energie auf, sondern transformiert die Zählrate zur Größe
+$K$ wie folgt: \parencite[(10.6)]{Kolanoski/Beta}
+\[
+    K(E_{\text e})
+    = \sqrt{
+        \dpd{N}{p_{\text e}} \frac{1}{p_{\text e}^2 F(p_{\text e}, Z)}
+    }
+    \propto
+    \mathcal M_{\text i, \text f} \cdot (E_0 - E_{\text e}).
+\]
+
+Energie und Impuls können durch folgende dimensionslose Größen ausgedrückt
+werden: \parencite[§1.5]{Guenther/K124}
+\[
+    \epsilon := \frac{E}{m_{\text e} c^2}
+    \eqnsep
+    \eta := \frac{p_{\text e}}{m_{\text e} c}.
+\]
 
 \section{Spektrometeraufbau}
 
