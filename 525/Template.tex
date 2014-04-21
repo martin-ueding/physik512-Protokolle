@@ -432,7 +432,7 @@ eine Art Histogramm.
 
 Eine Koinzidenzeinheit gibt ein logisches Signal aus, wenn zwei oder mehr
 eingehende Signale zeitlich überlappen. Dies kann zum Beispiel realisiert
-werden, indem die Amplituden der Signale addiert werden und an einen SCA
+werden, indem die Amplituden der Signale addiert und an einen SCA oder CFD
 übergeben werden, welcher so eingestellt ist, dass er nur anspricht, wenn ein
 Signal mit einer Amplitude einkommt, welches der Summe aller eintreffenden
 Signale entspricht.
@@ -443,10 +443,9 @@ Wie der Name schon sagt, konvertiert ein TAC (engl. \emph{time amplitude
 converter}) ein Zeitabstand in ein Signal mit einer zu dieser Zeitdifferenz
 proportionalen Amplitude. Dies wird erreicht, indem bei einem Startsignal ein
 Kondensator mit einem konstanten Strom geladen wird. Bei einem Stopsignal wird
-dieser Kondensator über einen Widerstand entladen. Die Spannung zwischen den
-Kondensatorplatten ist proportional zur Zeitdifferenz und die Amplitude
-proportional zur Spannung. Somit ist die Amplitude proportional zeitlichen
-Abstand der Eingangssignale.
+die Spannung über dem Kondensator abgegriffen und als Ausgangssignal
+verwendet. Die Amplitude des Signals ist, durch das Laden mit einem konstanten
+Strom, proportional zur Zeitdifferenz der einkommenden Signale.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                Durchführung                                %
