@@ -118,7 +118,7 @@ Helizitäterhalt in gegengesetze Richtungen bewegen.
 \end{figure}
 
 In Abbildung~\ref{fig:Ba-Zerfall} ist das Zerfallsschema von ${}^{133}$Ba zu
-sehen. Dieses zerfällt durch Elektroneneinfang zu ${}^{133}$Cs. Zu
+sehen. Es zerfällt durch Elektroneneinfang zu ${}^{133}$Cs. Zu
 \SI{86}{\percent} ist das Cäsium in einem $\frac{1}{2}^+$-Zustand, welcher
 wiederum mit \SI{87}{\percent} unter Aussendung eines
 \SI{356}{\kilo\electronvolt}-Photons zum $\frac{5}{2}^+$-Zustand zerfällt.
@@ -304,13 +304,13 @@ so weiter, bis zum Schluss die Lawinenelektronen auf die Anode treffen und dort
 ein messbares elektronisches Signal ergeben.
 
 Da die Anzahl der ausgelösten Elektronen proportional zur Intensität der
-eintreffenden Strahlung ist, und da der Photomultiplier linear verstärkt. Ist
+eintreffenden Strahlung ist, und da der Photomultiplier linear verstärkt, ist
 das Ausgangssignal proportional zur einfallenden Intensität. Wird ein
 Szintillatorsignal verstärkt, ist die Amplitude also proportional zur Energie
 der $\gammaup$-Strahlung.
 
 An der Anode liegt meistens Sättigung vor. Dies sorgt dafür, dass die Amplitude
-des Signals keine Aussage mehr über die Energie machen kann, aber durch eine
+des Signals keine Aussage mehr über die Energie machen kann aber durch eine
 Anstiegszeit von wenigen \si{\nano\second} eine hohe Zeitgenauigkeit erreicht
 wird. Wegen des schnellen Anstiegs wird das Ausgangssignal daher auch
 \emph{Fast}-Signal genannt.
@@ -387,10 +387,11 @@ können.
 \subsection{Verstärker}
 
 Der Verstärker/Operationsverstärker (engl. \emph{amplifier}) ist ein
-elektrisches Bauteil, welches die Aufgabe hat ein eingehendes Signal zu
-verstärken. Diese Verstärkung ist nur für einen Eingangs-Amplituden-Bereich und
-einen Verstärkungsbereich linear. Da bei vielen Anwendungen Linearität
-gewährleistet sein muss, werden meist Vor- und Hauptverstärker verwendet.
+elektrisches Bauteil, welches die Aufgabe hat, ein eingehendes Signal zu
+verstärken. Diese Verstärkung ist nur für einen begrenzten
+Eingangs-Amplituden-Bereich und einen Verstärkungsbereich linear. Da bei
+vielen Anwendungen Linearität gewährleistet sein muss, werden meist Vor- und
+Hauptverstärker verwendet.
 
 \subsection{Constant Fraction Diskriminator (CFD)}
 
@@ -404,8 +405,8 @@ ein neues, standardisiertes abgegeben. So ist zum Beispiel der zeitliche
 Abstand zwischen zwei eintreffenden Signalen zu messen. Wann genau der
 Diskriminator triggert, kommt auf die Art an.
 
-Der CFD triggert, wenn ein bestimmter Anteil der Maximalamplitude erreicht
-wird.Dazu wird das einkommende Signal gesplittet, ein Teil wird zeitlich
+Ein CFD triggert, wenn ein bestimmter Anteil der Maximalamplitude erreicht
+wird. Dazu wird das einkommende Signal gesplittet, ein Teil wird zeitlich
 verzögert, der andere invertiert und um einen Faktor $k$ gedämpft. Anschließend
 werden beide Signale wieder addiert. Ein vorher rein positives Signal erhält so
 eine Nullstelle, welche durch $k$ bestimmt wird und den Triggerpunkt definiert.
@@ -431,7 +432,7 @@ eine Art Histogramm.
 
 Eine Koinzidenzeinheit gibt ein logisches Signal aus, wenn zwei oder mehr
 eingehende Signale zeitlich überlappen. Dies kann zum Beispiel realisiert
-werden, indem die Amplituden der Signale addiert werden und an einen SCA
+werden, indem die Amplituden der Signale addiert und an einen SCA oder CFD
 übergeben werden, welcher so eingestellt ist, dass er nur anspricht, wenn ein
 Signal mit einer Amplitude einkommt, welches der Summe aller eintreffenden
 Signale entspricht.
@@ -442,10 +443,9 @@ Wie der Name schon sagt, konvertiert ein TAC (engl. \emph{time amplitude
 converter}) ein Zeitabstand in ein Signal mit einer zu dieser Zeitdifferenz
 proportionalen Amplitude. Dies wird erreicht, indem bei einem Startsignal ein
 Kondensator mit einem konstanten Strom geladen wird. Bei einem Stopsignal wird
-dieser Kondensator über einen Widerstand entladen. Die Spannung zwischen den
-Kondensatorplatten ist proportional zur Zeitdifferenz und die Amplitude
-proportional zur Spannung. Somit ist die Amplitude proportional zeitlichen
-Abstand der Eingangssignale.
+die Spannung über dem Kondensator abgegriffen und als Ausgangssignal
+verwendet. Die Amplitude des Signals ist, durch das Laden mit einem konstanten
+Strom, proportional zur Zeitdifferenz der einkommenden Signale.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                Durchführung                                %
@@ -463,10 +463,10 @@ einen direkten Vergleich bieten zu können.
 
 \subsection{Slow-Pulse des Photomultipliers kontrollieren}
 
-Wir betrachten das Slow-Signal des linken Photomultipliers auf dem Oszilloskop
+Wir betrachten das Slow-Signal des linken Photomultipliers mit einem Aufbau
 wie in Abbildung~\ref{fig:aufbau:slow} gezeigt. Das Oszillogramm ist in
-Abbildung~\ref{fig:slow_signal}, links/* Bild 16:26*/. Dann schauen wir uns das
-Slow-Signal des rechten PM auf dem Oszilloskop an, siehe
+Abbildung~\ref{fig:slow_signal}, links/* Bild 16:26*/. Dann schauen wir uns
+das Slow-Signal des rechten PM auf dem Oszilloskop an, siehe
 Abbildung~\ref{fig:slow_signal}, rechts.
 
 \begin{figure}[htbp]
@@ -510,8 +510,8 @@ Abbildung~\ref{fig:slow_signal}, rechts.
     \label{fig:slow_signal}
 \end{figure}
 
-An beiden Signalen ist der exponentielle Abfall des Signals zu erkennen, das
-durch die Abklingzeit des Szintillators erzeugt wird.
+An beiden Signalen ist der exponentielle Abfall des Signals zu erkennen,
+welcher durch die Abklingzeit des Szintillators erzeugt wird.
 
 Danach betrachten wir das Signal nach dem Vorverstärker des linken /* Bildzeit
 14:58 */ und rechten /* Bildzeit 16:39 */ Detektors, siehe
@@ -614,6 +614,7 @@ wieder sehr kurz sind. Der Hauptverstärker kürzt die Pulse, allerdings werden
 sie teilweise ins Negative gezogen, wie beim rechten Zweig zu sehen ist.
 
 \subsection{Triggerung mit dem SCA}
+\label{ssec:Trig_SCA}
 
 Wir schließen den Ausgang des linken Hauptverstärkers an den Splitter an. Der
 eine Ausgang geht an das SCA. Der Andere an den Delay-Verstärker. Die Ausgänge
@@ -743,6 +744,7 @@ zweiten Splitter an. Die Ausgänge vom Splitter schließen wir an den anderen SC
 sowie an den einen GDG an.
 
 \subsection{Energiespektrum für die ${}^{22}\mathrm{Na}$-Quelle aufnehmen}
+\label{ssec:Spektrum_Na}
 
 Nun ersetzen wir das Oszilloskop durch den MCA und betrachten das Spektrum,
 siehe Aufbau in Abbildung~\ref{fig:aufbau:sca_gdg_mca}. Das Fenster im SCA
@@ -975,6 +977,7 @@ wir den linken CFD als Stop-Signal zu benutzen, damit wir die
 \SI{81}{\kilo\electronvolt}-Linie nicht abschneiden.
 
 \begin{figure}[htbp]
+    \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_09-50-east.pdf}
     \caption{%
         Fast- und Slow-Signal mit Baseline.
@@ -1115,6 +1118,7 @@ Bildzeit 10:49 */, siehe Abbildung~\ref{fig:tac_oszi}.
     \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_10-49-28-east.pdf}
     \caption{%
+        Koinzidenzeinheit und TAC am Oszillator.
     }
     \label{fig:tac_oszi}
 \end{figure}
@@ -1224,15 +1228,14 @@ einstellen}
 
 Wir tauschen die Natrium- gegen die Bariumquelle aus. Das rechte Slow-Signal
 geben wir mit Splitter einmal auf den SCA und dann auf den GDG, das andere über
-das Delay und beide auf das Oszilloskop. Die Signale werden übereinander
+das Delay und beide auf das Oszilloskop. Die Signale werden, wie in
+Abschnitt~\ref{ssec:Trig_SCA} beschrieben, übereinander
 gelegt/* Bildzeit rechts 12:28, links 12:27 */, siehe
 Abbildung~\ref{fig:eine_pulshoehe_ba}. Dies wiederholen wir mit dem linken
 Zweig.
 
 \begin{figure}[htbp]
     \centering
-    %\includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_12-27-east.pdf}
-    \hfill
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_12-28-east.pdf}
     \caption{%
         SCA- gegen Slow-Signal für den rechten Detektor mit der Bariumquelle.
@@ -1240,7 +1243,8 @@ Zweig.
     \label{fig:eine_pulshoehe_ba}
 \end{figure}
 
-Dann wird ein Spektrum mit dem MCA aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
+Dann wird ein Spektrum, wie in Abschnitt~\ref{ssec:Spektrum_Na} beim Natrium,
+mit dem MCA aufgenommen/* 009 */, siehe Abbildung~\ref{mca:ba_spek}.
 
 \begin{figure}[htbp]
     \centering
@@ -1312,6 +1316,7 @@ Beim Start-Zweig ist die untere Grenze schon ausreichend hoch, um den
 Untergrund zu filtern.
 
 \begin{figure}[htbp]
+    \centering
     \includegraphics[width=0.49\linewidth]{../Daten/2014-04-10_13-23-east.pdf}
     \caption{%
         Stop-Signal zusammen mit seinem Slow-Signal, mit höherer Schwelle.
@@ -1681,7 +1686,7 @@ und die Anpassung sind in Abbildung~\ref{fig:fit:zeiteichung} abgebildet.
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=.9\linewidth, height=0.4\linewidth, xlabel=Kanal,
+        \begin{axis}[width=\linewidth, height=0.4\linewidth, xlabel=Kanal,
             ylabel={Zeitdifferenz / \si{\nano\second}}]
             \addplot[
                 black, only marks, mark=+,
