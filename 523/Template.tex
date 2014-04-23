@@ -56,8 +56,6 @@
 \maketitle
 
 \nocite{Hof/Poltergeist}
-\nocite{physik512-Anleitung}
-\nocite{Riezler/Kernphysikalisches}
 
 \begin{abstract}
 \end{abstract}
@@ -145,6 +143,72 @@ werden: \parencite[§1.5]{Guenther/K124}
 \]
 
 \section{Spektrometeraufbau}
+
+Die beiden für diese Art Versuche interessanten Spektrometer sind das
+Halbkreisspektrometer und das doppeltfokussierende $\piup \sqrt
+2$-Spektrometer.
+
+Das Halbkreisspektrometer arbeitet mit einem Permanentmagneten, der die
+Elektronen auf einer Kreisbahn arbeitet. Jedoch werden Elektronen mit gleicher
+Energie nicht auf ganz genau auf einen Punkt fokussiert, sondern in einem
+Bereich $\Deltaup x$ verschmiert
+\parencite[§2.231]{Riezler/Kernphysikalisches}. Je größer der Sollradius
+$\rho_0$ ist, desto besser wird die Abbildung nach 
+\[
+    \Deltaup x = s + \frac{j^2}{\piup^2 \rho} + \rho \phi^2,
+\]
+wobei $s$ und $h$ die Breite und Höhe der Probe und $\phi$ der halbe
+Öffnungswinkel der Strahlen aus der Probe sind
+\parencite[(123)]{Riezler/Kernphysikalisches}.
+
+Eine bessere Fokussierung schafft das doppeltfokussierende $\piup \sqrt
+2$-Spektrometer durch eine inhomogene magnetische Flussdichte. Man nutzt dazu
+eine rotationssymmetrische Flussdichte mit einem radialen Gradienten. In
+\parencite[§2.232]{Riezler/Kernphysikalisches} wird nun folgende Herleitung der
+benötigten Radialabhängigkeit $B(\rho)$ sowie des benötigten
+Spektrometerwinkels $\Phi$ gegeben:
+
+Sei der Sollkreis mit Radius $\rho_0$ durch den Elektronenimpuls $p$ durch $p =
+e B \rho_0$ bestimmt. Ein Teilchen, dass in einem Winkel $\phi_\rho$ zum
+Sollkreis von dessen Rand startet, schneidet ihn wieder am Rand um den Winkel
+$\Phi_\rho$ versetzt. Für diesen Winkel gilt für kleine $\phi_\rho$:
+\parencite[(125)]{Riezler/Kernphysikalisches}
+\[
+    \Phi_\rho = \piup \cdot \del{1 + \frac{\rho_0}{B(\rho_0)} \dpd B
+    \rho}^{-\frac 12}.
+\]
+
+In der axialen Richtung gilt eine ähnliche Bedingung:
+\parencite[(126)]{Riezler/Kernphysikalisches}
+\[
+    \Phi_z = \piup \cdot \del{- \frac{\rho_0}{B(\rho_0)} \dpd B
+    \rho}^{-\frac 12}.
+\]
+
+Aus diesen beiden Gleichungen folgt laut den Autoren nun die Beziehung:
+\parencite[(127)]{Riezler/Kernphysikalisches}
+\[
+    \frac1{\Phi_\rho^2} + \frac1{\Phi_z^2} = \frac1{\piup^2}.
+\]
+
+Mit der Bedingung, dass diese beiden Winkel gleich sein müssen ist die Lösung
+der entsprechenden Differentialgleichung:
+\parencite[(129)]{Riezler/Kernphysikalisches}
+\[
+    \Phi = \piup \sqrt 2 \approx \SI{256}{\degree}.
+\]
+
+Daher hat dieses Spektrometer seinen Namen.
+
+Das Spektrometer hat noch eine Dispersion, so dass die Impulsintervalle nicht
+gleich groß sind. Die Dispersion ist angegeben als:
+\parencite[(130)]{Riezler/Kernphysikalisches}
+\[
+    \gamma = \frac{4 \rho_0}{B \rho},
+\]
+weshalb die Messwerte mit $\gamma$ zu multiplizieren sind. Da wir die Energie
+mit den Konversionslinien eichen werden, ist jede zum Impuls proportionale
+Größe geeignet \parencite[§P523.5.4]{physik512-Anleitung}.
 
 \section{Detektoren}
 
