@@ -226,22 +226,25 @@ sich der Ferromagnet befindet, in mehreren Durchläufen zwischen dem positiven
 und negativen Maximum regeln, wobei ab dem zweiten Durchlauf der
 Betrag der maximalen Magnetfeldstärke reduziert wird. Dadurch wird das
 Remanenzfeld bei jedem Durchlauf schwächer, bis am Ende verschwindet. Diesen
-Vorgang nennt man \emph{Hysterese}.
+Vorgang nennt man \emph{Hysterese}. Dieser Vorgang ist in
+Abbildung~\ref{fig:hysterese} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-                width=\linewidth,
-                height=0.5\linewidth,
+                width=0.7\linewidth,
+                height=0.7\linewidth,
+                xlabel=Spulenstrom / wilk.\,Einh.,
+                ylabel=Flussdichte / wilk.\,Einh.,
             ]
-            \addplot table [x index=1, y index=2]{../Daten/data.txt};
+            \addplot[black] table [x index=1, y index=2]{../Daten/data.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        %
+        Hysteresekurve von Eisen. Messdaten aus \parencite{Ueding/248}.
     }
-    \label{fig:}
+    \label{fig:hysterese}
 \end{figure}
 
 \chapter{Durchführung}
