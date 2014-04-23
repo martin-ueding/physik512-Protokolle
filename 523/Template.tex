@@ -55,9 +55,12 @@
 
 \maketitle
 
-\nocite{Hof/Poltergeist}
 
 \begin{abstract}
+    In diesem Versuch kalibrieren wir ein doppeltfokussierendes $\piup
+    \sqrt2$-Spektrometer mit $^{137}$Ba und bestimmen das Auflösungsvermögen.
+    Wir nehmen die $\betaup$-Spektren von $^{22}$Na und $^{204}$Tl auf. Aus den
+    Messdaten bestimmen wir die Maximalenergie der emittierten Teilchen.
 \end{abstract}
 
 \tableofcontents
@@ -119,27 +122,110 @@ Elektronen nennt man \emph{Augerelektronen}.
 
 \section{Fermitheorie}
 
-\subsection{Kuriedarstellung}
-
-In der Kuriedarstellung\footnote{Nach
-F.\,N.\,D\@.~Kurie. \parencite{wikipedia/Kurie}} trägt man nicht die Zählrate
-gegen die kinetische Energie auf, sondern transformiert die Zählrate zur Größe
-$K$ wie folgt: \parencite[(10.6)]{Kolanoski/Beta}
+Im Spektrometer wird der Impuls des Elektrons durch seine Krümmung einem
+Magnetfeld bestimmt. Der Krümmungsradius $\rho$ folgt schnell aus dem Ansatz
+„Einstein-Lorentz-Kraft wirkt als Zentripetalkraft“:
 \[
-    K(E_{\text e})
-    = \sqrt{
-        \dpd{N}{p_{\text e}} \frac{1}{p_{\text e}^2 F(p_{\text e}, Z)}
-    }
-    \propto
-    \mathcal M_{\text i, \text f} \cdot (E_0 - E_{\text e}).
+    epB = \frac{p^2}{\rho}
+    \iff
+    p = eB\rho.
 \]
 
+Diese Form ist auch in \parencite[§2.232]{Riezler/Kernphysikalisches}
+angegeben. Da $p \propto B\rho$, kann man die Energien auch als $B\rho$-Werte
+angeben, die traditionell in der veralteten Einheit \si{\gauss\centi\meter}
+gemessen werden. Dies entspricht \SI{0.1}{\milli\tesla\centi\meter}, also
+\si{\micro\tesla\meter}.
+    
 Energie und Impuls können durch folgende dimensionslose Größen ausgedrückt
 werden: \parencite[(132) und (133)]{Riezler/Kernphysikalisches}
 \[
     \epsilon := \frac{E}{m c^2} = 1 + \frac{E_\text{kin}}{m c^2}
     \eqnsep
     \eta := \frac{p}{m c}.
+\]
+
+Weiterhin gelten aus der speziellen Relativitätstheorie die Beziehungen:
+\parencite[(134)]{Riezler/Kernphysikalisches}
+\[
+    \epsilon^2 = 1 + \eta^2
+    \iff
+    \eta = \sqrt{\epsilon^2 - 1}.
+\]
+
+Damit werden wir jetzt die erwartete Energieverteilung herleiten. Wir beginnen
+mit Fermis goldener Regel \parencite[Seite~9]{Hof/Poltergeist}:
+\[
+    \dot N(p) \dif p = \frac{2\piup}{\hbar} \abs{\bra{\text E} H \ket{\text A}}^2 \dod n{E_0},
+\]
+wobei $\dot N(p) \dif p$ die Zählrate an Teilchen ist, deren Impuls im
+Intervall $[p, p + \dif p]$ liegt. $H$ ist der Hamiltonoperator der
+Wechselwirkung, die den Anfangszustand $\ket{\text A}$ in den Endzustand
+$\ket{\text E}$ überführt. $n(E_0)$ ist die Zustandsdichte im Phasenraum. Die
+Vorfaktoren und das Matrixelement ist weitestgehend energieunabhängig, so dass
+wir für unsere Zwecke hier schreiben können:
+\[
+    \dot N(p) \dif p \propto \dod n{E_0}.
+\]
+
+Als nächstes leiten wir die Zustandsdichte im Phasenraum her. Durch die
+Unbestimmtheitsrelation nimmt jeder Zustand $\ket{x, p}$ ein Phasenraumvolumen
+von $(2\piup\hbar)^3$ ein. Die Anzahl der Zustände der Impulszustände bis zum
+Maximalimpuls $p$, die auf der Kernvolumen $V$ beschränkt sind, sind durch
+Integration über den Phasenraum gegeben:
+\[
+    n(p) = \frac{1}{(2\piup\hbar} \frac 43 \piup p^3 V.
+\]
+
+Dies gilt für jedes Teilchen. Da wir hier Elektron und Antineutrino betrachten
+müssen, ist unsere Zustandsdichte das Produkt der zwei Zustandsdichten, da der
+gesamte Phasenraum das kartesische Produkt der beiden Räume ist. Somit erhalten
+wir mit $\dif n = \dif n_{\text e} \dif n_\nuup$, bis auf Vorfaktoren:
+\[
+    \dod n{E_0} \propto p_{\text e}^2 p_\nuup^2 \dod{p_\nuup}{E_0} \dif
+    p_{\text e}.
+\]
+
+Die gesamte Energie, die beim Zerfall frei wird, ist $E_0$. Diese teilt sich
+auf in die Energie, die Elektron und Neutrino jeweils bekommen. Daher gilt
+natürlich $E_0 = E_{\text e} + E_\nuup$. Somit können wir das unbekannte
+$p_\nuup$ ausdrücken:
+\[
+    p_\nuup = \frac{E_\nuup}{c} = \frac 1c \cdot (E_0 - E_{\text e}).
+\]
+Die Ableitung nach $E_0$ ist nur $c^{-1}$, so dass sich die Zustandsdichte zu
+\[
+    \dod n{E_0} \propto p^2 \cdot (E_0 - E)^2 \dif p
+\]
+vereinfachen lässt. Da nur noch Elektronenimpulse vorkommen, lassen wir ab hier
+wieder den Index weg. Ab hier wird die Fermifunktion $F$ eingeführt, um
+elektromagnetische Wechselwirkungen zwischen Kern und Elektron abbilden zu
+können. Die Zustandsdichte ist nun:
+\[
+    \dod n{E_0} \propto F(p, Z) p^2 \cdot (E_0 - E)^2 \dif p.
+\]
+In dimensionslosen Einheiten ist dies:
+\[
+    \dod n{\epsilon_0} \propto F(\eta, Z) \eta^2 \cdot (\epsilon_0 -
+    \epsilon)^2 \dif \eta.
+\]
+
+Im Experiment werden wir zuerst Impulse $p$ (oder $B\rho$) messen, die wir in
+Energien umrechnen. Diese werden wir dann in dimensionslose Energien $\epsilon$
+überführen. Die Fermifunktion für Natrium, die wir aus
+Abbildung~\ref{fig:fermifunktion} ablesen sollen, hängt von der Energie ab. Die
+Fermifunktion für Thallium, die in der Praktikumsanleitung gegeben ist, hängt
+vom Impuls ab. Wir werden die bisher hergeleitete Gleichung so transformieren,
+dass sie von der Energie abhängt, damit alles weitere einheitlich ist. Die
+Differentiale transformieren sich nach
+\parencite[(135)]{Riezler/Kernphysikalisches} wie folgt:
+\[
+    \eta \dif \eta = \epsilon \dif \epsilon.
+\]
+Das zu erwartende Spektrum ist daher:
+\[
+    \dot N(\epsilon) \dif \epsilon \propto F(\eta, Z) \epsilon\eta \cdot (\epsilon_0 -
+    \epsilon)^2 \dif \epsilon.
 \]
 
 \begin{figure}[htbp]
@@ -154,6 +240,20 @@ werden: \parencite[(132) und (133)]{Riezler/Kernphysikalisches}
     }
     \label{fig:fermifunktion}
 \end{figure}
+
+\subsection{Kuriedarstellung}
+
+In der Kuriedarstellung\footnote{Nach F.\,N.\,D\@.~Kurie, nicht Marie Curie
+\parencite{wikipedia/Kurie}} trägt man nicht die Zählrate gegen die kinetische
+Energie auf, sondern transformiert die Zählrate zur Größe $K$ wie folgt
+\parencite[(138)]{Riezler/Kernphysikalisches}:
+\[
+    K(\epsilon) = \sqrt{\frac{\dot N(\epsilon)}{F(Z, \epsilon) \eta(\epsilon) \epsilon}}.
+\]
+Dadurch entsteht im Diagram eine Gerade, die die Abszisse bei $E_0$ schneidet,
+sofern die Neutrinos masselos sind. Haben die Neutrinos eine endliche Masse, so
+wird der Schnittpunkt bei etwas kleineren Energien liegen, da nicht die volle
+Zerfallsenergie als kinetische Energie für das Elektron zur Verfügung steht.
 
 \section{Spektrometeraufbau}
 
@@ -175,8 +275,8 @@ wobei $s$ und $h$ die Breite und Höhe der Probe und $\phi$ der halbe
 \parencite[(123)]{Riezler/Kernphysikalisches}.
 
 Eine bessere Fokussierung schafft das doppeltfokussierende $\piup \sqrt
-2$-Spektrometer durch eine inhomogene magnetische Flussdichte. Man nutzt dazu
-eine rotationssymmetrische Flussdichte mit einem radialen Gradienten. In
+2$-Spektrometer durch ein inhomogenes Magnetfeld. Man nutzt dazu
+ein rotationssymmetrisches Magnetfeld mit einem radialen Gradienten. In
 \parencite[§2.232]{Riezler/Kernphysikalisches} wird nun folgende Herleitung der
 benötigten Radialabhängigkeit $B(\rho)$ sowie des benötigten
 Spektrometerwinkels $\Phi$ gegeben:
@@ -224,6 +324,19 @@ mit den Konversionslinien eichen werden, ist jede zum Impuls proportionale
 Größe geeignet \parencite[§P523.5.4]{physik512-Anleitung}.
 
 \section{Detektoren}
+
+In diesem Versuch benötigen wir im Detektor keine Energieinformation, da wir
+diese bereits durch das Magnetfeld erhalten. Wichtiger ist, dass alle
+Elektronen detektiert werden und die Totzeit gering ist.
+
+Ein möglicher Detektor ist das Geiger-Müller Zählrohr, bei dem eintretende
+Teilchen ein Gas ionisieren und somit eine Hochspannungsentladung auslösen. Der
+Strompuls kann verstärkt und gezählt werden.
+
+Eine Diode, die in Sperrrichtung betrieben wird, eignet sich ebenfalls als
+Detektor. Tritt ein Elektron in den die Sperrzone ein, erzeugt es dort freie
+Ladungsträger (Elektronen und Löcher), die dann ebenfalls zu einem Strompuls
+führen.
 
 \section{Hysterese}
 
