@@ -394,9 +394,15 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
 \begin{figure}[htpb]
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=.7\linewidth, height=.4\linewidth,
-            xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
-            \addplot+[xbar] table {../Daten/01-Cs-40s.txt};
+        \begin{axis}[
+                ybar,
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=Hallspannung/Skt.,
+                ylabel=Ereignisse,
+                axis lines=left
+            ]
+            \addplot[draw=black] table {../Daten/01-Cs-40s.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -408,12 +414,17 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
 
 \begin{figure}[htpb]
     \centering
-    %\begin{tikzpicture}
-    %    \begin{axis}[width=.7\linewidth, height=.4\linewidth,
-    %        xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
-    %        \addplot[black] table {../Daten/02-Cs-40s.txt};
-    %    \end{axis}
-    %\end{tikzpicture}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=Hallspannung/Skt.,
+                ylabel=Ereignisse,
+                axis lines= left
+            ]
+            \addplot[black] table {../Daten/02-Cs-40s.txt};
+        \end{axis}
+    \end{tikzpicture}
     \caption{%
         $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{40}{\second}
         Messdauer und \SI{4}{\percent} Transmission
