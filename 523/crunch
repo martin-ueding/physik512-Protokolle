@@ -64,6 +64,8 @@ def spektrum_edit(T, basename, umrechner):
 
     hall, d_hall = umrechner(hall, d_hall)
 
+    ereignisse /= hall
+    d_ereignisse = np.sqrt((d_ereignisse/hall)**2+(ereignisse*d_hall/hall**2)**2)
     tabelle = np.column_stack([hall, ereignisse, d_hall, d_ereignisse])
     np.savetxt('Daten/{}_bearb.txt'.format(basename), tabelle)
 
