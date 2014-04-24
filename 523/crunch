@@ -50,7 +50,7 @@ def hall_offset(T):
 
     return umrechner
 
-def spektrum_edit(T, basename, umrechner):
+def spektrum_edit(T, basename, templatename, umrechner):
     data = np.loadtxt('Daten/{}.txt'.format(basename))
 
     untergrund = data[0,1]
@@ -59,7 +59,15 @@ def spektrum_edit(T, basename, umrechner):
     hall = data[1:,0]
     d_hall = np.ones(hall.shape) * 0.3
 
-    ereignisse = data[1:,1] - untergrund
+    ereignisse = data[1:,1]
+    d_ereignisse = np.sqrt(ereignisse)
+
+    T['{}_mess'.format(templatename)] = list(zip(
+        unitprint.siunitx(hall, d_hall),
+        unitprint.siunitx(ereignisse, d_ereignisse)
+        ))
+
+    ereignisse -= untergrund
     d_ereignisse = np.sqrt(ereignisse + d_untergrund**2)
 
     hall, d_hall = umrechner(hall, d_hall)
@@ -67,9 +75,9 @@ def spektrum_edit(T, basename, umrechner):
     ereignisse /= hall
     d_ereignisse = np.sqrt((d_ereignisse/hall)**2+(ereignisse*d_hall/hall**2)**2)
     tabelle = np.column_stack([hall, ereignisse, d_hall, d_ereignisse])
-    np.savetxt('Daten/{}_bearb.txt'.format(basename), tabelle)
+    np.savetxt('_build/{}_bearb.txt'.format(basename), tabelle)
 
-    T[basename] = list(zip(
+    T[templatename] = list(zip(
         unitprint.siunitx(hall, d_hall),
         unitprint.siunitx(ereignisse, d_ereignisse)
         ))
@@ -79,11 +87,11 @@ def main():
     T = {}
 
     umrechner = hall_offset(T)
-    spektrum_edit(T, '01-Cs-40s', umrechner)
-    spektrum_edit(T, '02-Cs-40s', umrechner)
-    spektrum_edit(T, '03-Cs-100s', umrechner)
-    spektrum_edit(T, '04-Tl-80s', umrechner)
-    spektrum_edit(T, '05-Na-200s', umrechner)
+    spektrum_edit(T, '01-Cs-40s', 'Cs_40s_kompl', umrechner)
+    spektrum_edit(T, '02-Cs-40s', 'Cs_40s_ausschn', umrechner)
+    spektrum_edit(T, '03-Cs-100s', 'Cs_100s', umrechner)
+    spektrum_edit(T, '04-Tl-80s', 'Tl_80s', umrechner)
+    spektrum_edit(T, '05-Na-200s', 'Na_200s', umrechner)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)

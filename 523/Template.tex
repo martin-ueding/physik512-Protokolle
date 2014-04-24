@@ -409,8 +409,28 @@ Offsetspannung. Wir erhalten \SI{<< hall_offset >>}{\skt}.
 
 \section{Kalibrierung des $\betaup$-Spektrometers}
 
-Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
-\SI{4}{\percent} Transmission.
+Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Den
+Magnetstrom polen wir so, dass der Detektor Ereignisse anzeigt. Nun messen
+wir zunächst bei \SI{4}{\percent} Transmission \SI{40}{\second} lang die
+Anzahl der Ereignisse bei verschiedenen Magnetisierungen. Diese gehen wir in
+\SI{10}{\skt}-Schritten ab. Unsere Messwerte sind in
+Tabelle~\ref{tab:Cs-40-kompl} zu sehen.
+
+\begin{table}
+    \centering
+    \begin{tabular}{SS}
+        {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
+        \midrule
+        %< for a, b in Cs_40s_kompl_mess: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Messwerte zur Kalibrierung des Spektrometers. Probe: ${}^{137}$Cs,
+        Zeit: \SI{40}{\second}, Transmission: \SI{4}{\percent}.
+    }
+    \label{tab:Cs-40-kompl}
+\end{table}
 
 \begin{figure}[htpb]
     \centering
