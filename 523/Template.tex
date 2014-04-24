@@ -32,6 +32,8 @@
 \usepgfplotslibrary{external}
 \tikzexternalize
 
+\DeclareSIUnit{\skt}{SKT}
+
 \usepackage{booktabs}
 
 \hypersetup{
@@ -379,12 +381,31 @@ Abbildung~\ref{fig:hysterese} dargestellt.
 
 \section{Offsetspannung}
 
-Wir erhöhen den Magnetstrom bis die Magnetisierung in Sättigung geht. Die
-Hallsonde zeigt \num{-183.2(2)}\footnote{\erklaerungFehlerNotation} an. Wir
-notieren die Remanenz. Nach dem Umpolen erreichen wir eine Sättigung von
-\num{196}.
+Wir erhöhen, zunächst ohne Strahler, den Magnetstrom bis die Magnetisierung
+in Sättigung geht. Die Hallsonde zeigt
+\num{-183.2(3)}\footnote{\erklaerungFehlerNotation} Skalenteile (von nun an
+\si{\skt}) an. Wir notieren die
+Remanenz. Nach dem Umpolen erreichen wir eine Sättigung von
+\SI{196.0(3)}{\skt}. Unsere Messwerte sind in Tabelle~\ref{tab:remanenz} zu
+sehen.
 
-% TODO Tabelle mit Remanenzwerten.
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Untere Remanenz/\si{\skt}} & {Obere Remanenz/\si{\skt}}\\
+        \midrule
+        %< for a, b in tab_remanenz: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Untere und obere Remanenz der Spektrometer-Hysterese.
+    }
+    \label{tab:remanenz}
+\end{table}
+
+Der Mittelwert der Differenzen zwischen oberer und unterer Remanenz ist die
+Offsetspannung. Wir erhalten \SI{<< hall_offset >>}{\skt}.
 
 \section{Kalibrierung des $\betaup$-Spektrometers}
 
