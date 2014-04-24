@@ -463,6 +463,54 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
     \label{fig:Cs-100}
 \end{figure}
 
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=Hallspannung/Skt.,
+                ylabel=Ereignisse,
+                axis lines= left
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../Daten/04-Tl-80s_bearb.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{204}$Tl bei \SI{80}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Tl-80}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=Hallspannung/Skt.,
+                ylabel=Ereignisse,
+                axis lines= left
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../Daten/05-Na-200s_bearb.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{22}$Na bei \SI{200}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Cs-100}
+\end{figure}
+
 \chapter{Auswertung}
 
 \IfFileExists{\bibliographyfile}{
