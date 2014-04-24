@@ -375,6 +375,53 @@ Abbildung~\ref{fig:hysterese} dargestellt.
 
 \chapter{Durchführung}
 
+\section{Kalibrierung des $\betaup$-Spektrometers}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[width=.7\linewidth, height=.4\linewidth,
+            xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
+            \addplot+[xbar] table {../Daten/01-Cs-40s.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{40}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Cs-40s-vollst}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    %\begin{tikzpicture}
+    %    \begin{axis}[width=.7\linewidth, height=.4\linewidth,
+    %        xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
+    %        \addplot[black] table {../Daten/02-Cs-40s.txt};
+    %    \end{axis}
+    %\end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{40}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Cs-40s-ausschn}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    %\begin{tikzpicture}
+    %    \begin{axis}[width=.7\linewidth, height=.4\linewidth,
+    %        xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
+    %        \addplot[black] table {../Daten/01-Cs-100s.txt};
+    %    \end{axis}
+    %\end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{100}{\second}
+        Messdauer und \SI{1}{\percent} Transmission
+    }
+    \label{fig:Cs-100}
+\end{figure}
+
 \chapter{Auswertung}
 
 
