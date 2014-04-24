@@ -80,7 +80,8 @@ def main():
     spektrum_edit(T, '01-Cs-40s', umrechner)
     spektrum_edit(T, '02-Cs-40s', umrechner)
     spektrum_edit(T, '03-Cs-100s', umrechner)
-    spektrum_edit(T, '01-Cs-40', umrechner)
+    spektrum_edit(T, '04-Tl-80s', umrechner)
+    spektrum_edit(T, '05-Na-200s', umrechner)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
