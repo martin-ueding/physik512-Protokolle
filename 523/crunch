@@ -20,14 +20,14 @@ def hall_offset(T):
     :return: Umrechnungsfunktion
     :rtype: function
     '''
-    data = np.loadtxt(Daten/Remanenz.txt)
+    data = np.loadtxt('Daten/Remanenz.txt')
     rem_unten = data[:,0]
     rem_oben = data[:,1]
     rem_mittel = rem_oben-rem_unten
     offset = np.mean(rem_mittel)
     d_offset = np.std(rem_mittel)
 
-    T['tab_remanenz' = list(zip(
+    T['tab_remanenz'] = list(zip(
         unitprint.siunitx(rem_unten),
         unitprint.siunitx(rem_oben)
         ))
@@ -54,17 +54,17 @@ def spektrum_edit(T, basename, umrechner):
     data = np.loadtxt('Daten/{}.txt'.format(basename))
 
     untergrund = data[0,1]
-    d_untergrung = np.sqrt(untergrund)
+    d_untergrund = np.sqrt(untergrund)
 
     hall = data[1:,0]
-    d_hall = 0.3
+    d_hall = np.ones(hall.shape) * 0.3
 
     ereignisse = data[1:,1] - untergrund
     d_ereignisse = np.sqrt(ereignisse + d_untergrund**2)
 
     hall, d_hall = umrechner(hall, d_hall)
 
-    tabelle = np.column_stack([hall, d_hall, ereignisse, d_ereignisse])
+    tabelle = np.column_stack([hall, ereignisse, d_hall, d_ereignisse])
     np.savetxt('Daten/{}_bearb.txt'.format(basename), tabelle)
 
     T[basename] = list(zip(

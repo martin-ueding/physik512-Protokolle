@@ -401,7 +401,11 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
                 ylabel=Ereignisse,
                 axis lines=left
             ]
-            \addplot[color=black] table {../Daten/01-Cs-40s_bearb.txt};
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../Daten/01-Cs-40s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -421,7 +425,11 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
                 ylabel=Ereignisse,
                 axis lines= left
             ]
-            \addplot[color=black] table {../Daten/02-Cs-40s_bearb.txt};
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../Daten/02-Cs-40s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -441,7 +449,11 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
                 ylabel=Ereignisse,
                 axis lines= left
             ]
-            \addplot[color=black] table {../Daten/03-Cs-100s_bearb.txt};
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../Daten/03-Cs-100s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
