@@ -395,14 +395,13 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-                ybar,
                 width=.7\linewidth,
                 height=.4\linewidth,
                 xlabel=Hallspannung/Skt.,
                 ylabel=Ereignisse,
                 axis lines=left
             ]
-            \addplot[draw=black] table {../Daten/01-Cs-40s.txt};
+            \addplot[color=black] table {../Daten/01-Cs-40s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -422,7 +421,7 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
                 ylabel=Ereignisse,
                 axis lines= left
             ]
-            \addplot[black] table {../Daten/02-Cs-40s.txt};
+            \addplot[color=black] table {../Daten/02-Cs-40s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -434,12 +433,17 @@ Wir setzen die Caesiumprobe ein und evakuieren das Spektrometer wieder. Bei
 
 \begin{figure}[htpb]
     \centering
-    %\begin{tikzpicture}
-    %    \begin{axis}[width=.7\linewidth, height=.4\linewidth,
-    %        xlabel=Hallspannung/Skt., ylabel=Ereignisse, axis lines= left]
-    %        \addplot[black] table {../Daten/01-Cs-100s.txt};
-    %    \end{axis}
-    %\end{tikzpicture}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=Hallspannung/Skt.,
+                ylabel=Ereignisse,
+                axis lines= left
+            ]
+            \addplot[color=black] table {../Daten/03-Cs-100s_bearb.txt};
+        \end{axis}
+    \end{tikzpicture}
     \caption{%
         $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{100}{\second}
         Messdauer und \SI{1}{\percent} Transmission
