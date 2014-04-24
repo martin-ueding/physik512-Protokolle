@@ -12,9 +12,48 @@ import scipy.optimize as op
 import scipy.misc
 import unitprint
 
+def hall_offset(T):
+    '''
+    Berechnet den Hall Offset und gibt eine Umrechnungsfunktion zurück.
+
+    :param dict T: Globales Template dice
+    :return: Umrechnungsfunktion
+    :rtype: function
+    '''
+    data = np.loadtxt(Daten/Remanenz.txt)
+    rem_unten = data[:,0]
+    rem_oben = data[:,1]
+    rem_mittel = rem_oben-rem_unten
+    offset = np.mean(rem_mittel)
+    d_offset = np.std(rem_mittel)
+
+    T['tab_remanenz' = zip(
+        unitprint.siunitx(rem_unten),
+        unitprint.siunitx(rem_oben)
+        )
+
+    T['hall_offset'] = unitprint.siunitx(offset, d_offset)
+
+    def umrechner(skalen, fehler):
+        '''
+        Rechnet Skalenwerte in Skalenwerte ohne Offset um.
+
+        :param float skalen: Skalenteile mit Offset
+        :param float fehler: Fehler in Skalenteilen
+        :return: Wert und Fehler
+        :rtype: tuple
+        '''
+        neu_wert = skalen - offset
+        neu_fehler = np.sqrt(fehler**2 + d_offset**2)
+
+        return neu_wert, neu_fehler
+
+    return umrechner
 
 def main():
     T = {}
+
+    umrechner = hall_offset(T)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
