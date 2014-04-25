@@ -54,7 +54,11 @@ def spektrum_edit(T, basename, templatename, umrechner):
     data = np.loadtxt('Daten/{}.txt'.format(basename))
 
     untergrund = data[0,1]
-    d_untergrund = np.sqrt(untergrund)
+
+    if templatename == 'Tl_80s':
+        d_untergrund = 20
+    else:
+        d_untergrund = np.sqrt(untergrund)
 
     hall = data[1:,0]
     d_hall = np.ones(hall.shape) * 0.3
@@ -66,6 +70,8 @@ def spektrum_edit(T, basename, templatename, umrechner):
         unitprint.siunitx(hall, d_hall),
         unitprint.siunitx(ereignisse, d_ereignisse)
         ))
+
+    T['{}_untergrund'.format(templatename)] = unitprint.siunitx(untergrund, d_untergrund)
 
     ereignisse -= untergrund
     d_ereignisse = np.sqrt(ereignisse + d_untergrund**2)

@@ -483,7 +483,8 @@ finden. Dieses liegt bei etwa \SIrange{}{}{\skt}. Wir wählen in diesem Bereich
 eine Hall-Spannung aus um uns für eine Messdauer für die Spektrumsaufnahme
 zu entscheiden. Wir wählen \SI{80}{\second} aus, da bei dieser Zeit das Maximum
 über \num{1000} Ereignisse aufweist. Die Messwerte finden sich in
-Tabelle~\ref{tab:Tl-80}.
+Tabelle~\ref{tab:Tl-80}. Als Untergrund wählen wir, wegen fehlender Messung,
+\num{<< Tl_80s_untergrund >>} Ereignisse.
 
 \begin{table}[htbp]
     \centering
@@ -501,6 +502,26 @@ Tabelle~\ref{tab:Tl-80}.
     \label{tab:Tl-80}
 \end{table}
 
+Im Anschluss polen wir das Magnetfeld um und setzen die Natrium-Probe ein wir
+verfahren genauso wie bei der Thallium-Probe und wählen als Messdauer
+\SI{200}{\second}. Die Messwerte sind in Tabelle~\ref{tab:Na-200} zu sehen. Als
+Untergrund haben wir \num{<< Na_200s_untergrund >>} Ereignisse gemessen.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
+        \midrule
+        %< for a, b in Na_200s_mess: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Messwerte zur Bestimmung des $\betaup$-Spektrums. Probe: ${}^{22}$Na,
+        Zeit: \SI{200}{\second}, Transmission: \SI{4}{\percent}.
+    }
+    \label{tab:Na-200}
+\end{table}
 
 \chapter{Auswertung}
 
