@@ -457,7 +457,7 @@ und \ref{tab:Cs-100}.
     \label{tab:Cs-40-aussch}
 \end{table}
 
-\begin{table}
+\begin{table}[htbp]
     \centering
     \begin{tabular}{SS}
         {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
@@ -472,6 +472,35 @@ und \ref{tab:Cs-100}.
     }
     \label{tab:Cs-100}
 \end{table}
+
+\section{Vermessung des ${}^{204}$Tl- und ${}^{22}$Na-Spektrums}
+
+Wir wählen als nächstes die Thallium-Probe aus, da diese wie das Caesium ein
+$\betaup^-$-Strahler ist und wir so das Magnetfeld nicht umpolen müssen. Wir
+Stellen zunächst eine Messdauer von \SI{100}{\second}, bei \SI{4}{\percent}
+Transmission ein, um einen groben Bereich für das Maximum des Spektrums zu
+finden. Dieses liegt bei etwa \SIrange{}{}{\skt}. Wir wählen in diesem Bereich
+eine Hall-Spannung aus um uns für eine Messdauer für die Spektrumsaufnahme
+zu entscheiden. Wir wählen \SI{80}{\second} aus, da bei dieser Zeit das Maximum
+über \num{1000} Ereignisse aufweist. Die Messwerte finden sich in
+Tabelle~\ref{tab:Tl-80}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
+        \midrule
+        %< for a, b in Tl_80s_mess: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Messwerte zur Bestimmung des $\betaup$-Spektrums. Probe: ${}^{204}$Tl,
+        Zeit: \SI{80}{\second}, Transmission: \SI{4}{\percent}.
+    }
+    \label{tab:Tl-80}
+\end{table}
+
 
 \chapter{Auswertung}
 
