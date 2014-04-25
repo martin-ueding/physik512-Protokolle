@@ -416,7 +416,7 @@ Anzahl der Ereignisse bei verschiedenen Magnetisierungen. Diese gehen wir in
 \SI{10}{\skt}-Schritten ab. Unsere Messwerte sind in
 Tabelle~\ref{tab:Cs-40-kompl} zu sehen.
 
-\begin{table}
+\begin{table}[htbp]
     \centering
     \begin{tabular}{SS}
         {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
@@ -430,6 +430,47 @@ Tabelle~\ref{tab:Cs-40-kompl} zu sehen.
         Zeit: \SI{40}{\second}, Transmission: \SI{4}{\percent}.
     }
     \label{tab:Cs-40-kompl}
+\end{table}
+
+Die Erhöhung der Zählrate im Bereich zwischen \SI{89}{\skt} und
+\SI{129}{\skt} ist das normale $\betaup$-Spektrum, der Peak bei
+\SI{159.3}{\skt} enthält die Konversionslinien. Um diese aufzulösen,
+vermessen wir den Bereich \SIrange{149}{168}{\skt} in \SI{.5}{\skt}-Schritten
+zunächst mit \SI{4}{\percent} Transmission und \SI{40}{\second} Messdauer,
+danach mit \SI{1}{\percent} Transmission und \SI{100}{\second} Messdauer je
+Intervall. Die Messdaten finden sich in den Tabellen~\ref{tab:Cs-40-aussch}
+und \ref{tab:Cs-100}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
+        \midrule
+        %< for a, b in Cs_40s_ausschn_mess: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Messwerte zur Kalibrierung des Spektrometers. Probe: ${}^{137}$Cs,
+        Zeit: \SI{40}{\second}, Transmission: \SI{4}{\percent}.
+    }
+    \label{tab:Cs-40-aussch}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{SS}
+        {Hall-Spannung/\si{\skt}} & {Anzahl d. Ereignisse} \\
+        \midrule
+        %< for a, b in Cs_100s_mess: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Messwerte zur Kalibrierung des Spektrometers. Probe: ${}^{137}$Cs,
+        Zeit: \SI{100}{\second}, Transmission: \SI{1}{\percent}.
+    }
+    \label{tab:Cs-100}
 \end{table}
 
 \begin{figure}[htpb]
