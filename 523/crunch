@@ -18,7 +18,7 @@ def gauss(x, mean, stddev, amplitude):
 def linear(x, a, b):
     return x * a + b
 
-def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
+def fit_peak(T, filename, lower, upper, p0, prefix, impuls, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
@@ -33,10 +33,10 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
     y = gauss(x, *popt)
 
-    T['{}_{}_mean_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[0], d[0])
-    T['{}_{}_std_kanal'.format(prefix, energy)] = unitprint.siunitx(popt[1], d[1])
+    T['{}_{}_mean_spannung'.format(prefix, impuls)] = unitprint.siunitx(popt[0], d[0])
+    T['{}_{}_std_spannung'.format(prefix, impuls)] = unitprint.siunitx(popt[1], d[1])
 
-    np.savetxt('_build/fit_{}_{}.txt'.format(prefix, energy), np.column_stack([x, y]))
+    np.savetxt('_build/fit_{}_{}.txt'.format(prefix, impuls), np.column_stack([x, y]))
 
     if show:
         pl.plot(bins, counts)
@@ -44,9 +44,9 @@ def fit_peak(T, filename, lower, upper, p0, prefix, energy, show=False):
         pl.plot(x, y)
         pl.show()
 
-    return (popt[0], d[0], abs(popt[1]), d[1], energy)
+    return (popt[0], d[0], abs(popt[1]), d[1], impuls)
 
-def fit_gauge_points(T, points, prefix, show=False):
+def fit_gauge_points(T, points, show=False):
     p = np.array(points)
     channel_val = p[:, 0]
     channel_err = p[:, 1]
@@ -54,15 +54,15 @@ def fit_gauge_points(T, points, prefix, show=False):
     width_err = p[:, 3]
     energy = p[:, 4]
 
-    popt, pconv = op.curve_fit(linear, channel_val, energy)
+    popt, pconv = op.curve_fit(linear, channel_val, impuls)
     print(popt)
     print(pconv)
 
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([channel_val, energy, channel_err])
-    np.savetxt('_build/fit_detektor_'+prefix+'_data.txt', points_table)
-    T['fit_detektor_'+prefix+'_data'] = list(zip(
+    points_table = np.column_stack([channel_val, impuls, channel_err])
+    np.savetxt('_build/fit_impulseichung_data.txt', points_table)
+    T['fit_impulseichung_data'] = list(zip(
         unitprint.siunitx(channel_val, channel_err),
         unitprint.siunitx(width_val, width_err),
         unitprint.siunitx(energy),
@@ -71,29 +71,31 @@ def fit_gauge_points(T, points, prefix, show=False):
     x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
     y = linear(x, *popt)
 
-    T['fit_detektor_'+prefix+'_steigung'] = unitprint.siunitx(popt[0], d[0])
-    T['fit_detektor_'+prefix+'_offset'] = unitprint.siunitx(popt[1], d[1])
+    T['fit_impulseichung_steigung'] = unitprint.siunitx(popt[0], d[0])
+    T['fit_impulseichung_offset'] = unitprint.siunitx(popt[1], d[1])
+
+    return lambda x: x * popt[0] + popt[1]
 
 def impulseichung(T):
     gauge_points = []
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 5, 4], 'konversion', K))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 5, 4], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 3, 5], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-100s_bearb.txt', 154, 159, [157.8, 3, 6], 'konversion', K))
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 5, 4], 'konversion', K))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 5, 4], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 157, 162, [159.2, 4, 2], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-100s_bearb.txt', 159, 165, [162, 4, 2], 'konversion', K))
 
-    f = fit_gauge_points(T, gauge_points, 'impulseichung')
+    f = fit_gauge_points(T, gauge_points)
 
-    widths_val = np.array([x[2] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
-    widths_err = np.array([x[3] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
-
-    widths_val_ns = f(widths_val) - f(0)
-
-    print(widths_val)
-    print(widths_val_ns)
-
-    T['widths_ns'] = unitprint.siunitx(np.mean(widths_val_ns), np.std(widths_val_ns))
+#    widths_val = np.array([x[2] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
+    #widths_err = np.array([x[3] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
+#
+    #widths_val_ns = f(widths_val) - f(0)
+#
+    #print(widths_val)
+    #print(widths_val_ns)
+#
+    #T['widths_ns'] = unitprint.siunitx(np.mean(widths_val_ns), np.std(widths_val_ns))
 
 def aufloesung(Tlist, value, width, converter):
     sigma_val = converter(width) - converter(0)
