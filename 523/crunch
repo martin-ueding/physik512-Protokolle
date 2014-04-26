@@ -52,7 +52,7 @@ def fit_gauge_points(T, points, show=False):
     channel_err = p[:, 1]
     width_val = p[:, 2]
     width_err = p[:, 3]
-    energy = p[:, 4]
+    impuls = p[:, 4]
 
     popt, pconv = op.curve_fit(linear, channel_val, impuls)
     print(popt)
@@ -96,13 +96,14 @@ def impulseichung(T):
     dL_bindung = np.std([L_bindung_1, L_bindung_2, L_bindung_3])
     T['energie_L_bindung'] = unitprint.siunitx(L_bindung, dL_bindung)
     # Energien in Impulse mit natürlich Einheiten umrechnen
-    K = np.sqrt(((gamma - K_bindung)/(m*c**2))**2-1)
+    K = np.sqrt(((gamma - K_bindung)/(m_e*c**2))**2-1)
     T['impuls_K_konversion'] = K
     print(K)
-    L = np.sqrt(((gamma - L_bindung)/(m*c**2))**2-1)
-    dL = (gamma - L_bindung)/(m*c**2)**2/L
+    L = np.sqrt(((gamma - L_bindung)/(m_e*c**2))**2-1)
+    dL = (gamma - L_bindung)/(m_e*c**2)**2/L
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
     print(L)
+    print(dL)
 
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K))
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L))
@@ -221,6 +222,7 @@ def main():
     spektrum_edit(T, '03-Cs-100s', 'Cs_100s', umrechner)
     spektrum_edit(T, '04-Tl-80s', 'Tl_80s', umrechner)
     spektrum_edit(T, '05-Na-200s', 'Na_200s', umrechner)
+    impulseichung(T)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
