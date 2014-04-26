@@ -79,11 +79,11 @@ def fit_gauge_points(T, points, show=False):
 def impulseichung(T):
     gauge_points = []
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 152, 157.8, [155.8, 3, 5], 'konversion', K))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-100s_bearb.txt', 154, 159, [157.8, 3, 6], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion', K))
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 157, 162, [159.2, 4, 2], 'konversion', K))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-100s_bearb.txt', 159, 165, [162, 4, 2], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion', K))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion', K))
 
     f = fit_gauge_points(T, gauge_points)
 
