@@ -531,7 +531,7 @@ Zur Weiterverarbeitung unserer Daten müssen wir, da die
 ausgemessenen Impulsintervalle proportional zum Impuls selbst sind, die
 Zählrate wiederum durch eine zum Impuls proportionale Größe, in unserem Fall
 die um den Offset korrigierte Hall-Spannung, teilen. Die Entsprechenden Plots
-sind in den Abbildungen~\ref{fig:Cs-40s-aussch} bis \ref{fig:Na-200s} zu sehen,
+sind in den Abbildungen~\ref{fig:Cs-40s-ausschn} bis \ref{fig:Na-200s} zu sehen,
 wobei wir die erste, grobe Messung ausgelassen haben, da diese nur zum Finden
 des Peak-Bereiches gemacht wurde.
 
@@ -575,6 +575,7 @@ des Peak-Bereiches gemacht wurde.
             ]
             table[x error index=2, y error index=3] {../_build/02-Cs-40s_bearb.txt};
             \addplot[black] table {../_build/fit_konversion_40_K.txt};
+            \addplot[black] table {../_build/fit_konversion_40_L.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -599,13 +600,15 @@ des Peak-Bereiches gemacht wurde.
                 y dir=both, y explicit
             ]
             table[x error index=2, y error index=3] {../_build/03-Cs-100s_bearb.txt};
+            \addplot[black] table {../_build/fit_konversion_100_K.txt};
+            \addplot[black] table {../_build/fit_konversion_100_L.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
         $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{100}{\second}
         Messdauer und \SI{1}{\percent} Transmission
     }
-    \label{fig:Cs-100}
+    \label{fig:Cs-100s}
 \end{figure}
 
 \begin{figure}[htpb]
@@ -629,7 +632,7 @@ des Peak-Bereiches gemacht wurde.
         $\betaup$-Spektrum von ${}^{204}$Tl bei \SI{80}{\second}
         Messdauer und \SI{4}{\percent} Transmission
     }
-    \label{fig:Tl-80}
+    \label{fig:Tl-80s}
 \end{figure}
 
 \begin{figure}[htpb]
@@ -653,7 +656,7 @@ des Peak-Bereiches gemacht wurde.
         $\betaup$-Spektrum von ${}^{22}$Na bei \SI{200}{\second}
         Messdauer und \SI{4}{\percent} Transmission
     }
-    \label{fig:Na-200}
+    \label{fig:Na-200s}
 \end{figure}
 
 \IfFileExists{\bibliographyfile}{

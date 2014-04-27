@@ -27,7 +27,7 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
     fit_counts = counts[lower:upper]
 
     popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
-    #print(popt)
+    print(popt)
     #print(pconv)
     d = np.sqrt(pconv.diagonal())
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
