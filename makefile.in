@@ -3,8 +3,8 @@
 
 SHELL = /bin/bash
 
-tex = "_build/physik412-$(number)-Ueding_Lemmer.tex"
-out = "_build/physik412-$(number)-Ueding_Lemmer.pdf"
+tex = "_build/physik512-$(number)-Ueding_Lemmer.tex"
+out = "_build/physik512-$(number)-Ueding_Lemmer.pdf"
 
 all: $(out)
 
