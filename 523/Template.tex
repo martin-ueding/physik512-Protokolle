@@ -615,6 +615,25 @@ des Peak-Bereiches gemacht wurde.
     \label{fig:Cs-100s}
 \end{figure}
 
+Zur Impulseichung muss der Impuls für die K- und L-Konversionslinie berechnet
+werden. Die Energie des emittierten $\gammaup$-Quants beim Übergang des
+${}^{137}$Cs in seinen Grundzustand ist $E_\gammaup = \SI{<< energie_gamma
+>>}{\kilo\electronvolt}$. Die Bindungsenergien der K- und L-Elektronen sind
+$E_\mathrm{K} = \SI{<< energie_K_bindung >>}{\kilo\electronvolt}$,
+$E_\mathrm{L,I} = \SI{<< energie_L_bindung_1 >>}{\kilo\electronvolt}$,
+$E_\mathrm{L,II} = \SI{<< energie_L_bindung_2 >>}{\kilo\electronvolt}$ und
+$E_\mathrm{L,III} = \SI{<< energie_L_bindung_3 >>}{\kilo\electronvolt}$. Da das
+Spektrometer die L-Konversionslinie nicht auflösen kann, bilden wir den
+Mittelwert und erhalten so eine Bindungsenergie von $E_\mathrm{L} = \SI{<<
+energie_L_bindung >>}{\kilo\electronvolt}$. Die Differenz aus
+$\gammaup$- und Bindungsenergie ergibt die Energie des Elektrons. Diese rechnen
+wir mit 
+\[
+    \eta = \sqrt{\del{\frac{E_\gammaup-E_\text{K,L}}{m_\text{e}c^2}}^2-1}
+\]
+in Impulse in dimensionslosen Einheiten um. Wir erhalten $\eta_\text{K} = \num{<<
+impuls_K_konversion >>}$ und $\eta_\text{L} = \num{<< impuls_L_konversion >>}$.
+
 \begin{figure}[htpb]
     \centering
     \begin{tikzpicture}
