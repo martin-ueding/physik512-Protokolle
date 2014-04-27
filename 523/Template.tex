@@ -567,9 +567,11 @@ des Peak-Bereiches gemacht wurde.
                 height=.4\linewidth,
                 xlabel=Hallspannung/Skt.,
                 ylabel=Ereignisse,
+                no markers,
                 axis lines= left
             ]
-            \addplot[error bars/.cd,
+            \addplot[scatter, only marks,
+                error bars/.cd,
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
@@ -593,9 +595,11 @@ des Peak-Bereiches gemacht wurde.
                 height=.4\linewidth,
                 xlabel=Hallspannung/Skt.,
                 ylabel=Ereignisse,
+                no markers,
                 axis lines= left
             ]
-            \addplot[error bars/.cd,
+            \addplot[scatter, only marks,
+                error bars/.cd,
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
