@@ -525,29 +525,39 @@ Untergrund haben wir \num{<< Na_200s_untergrund >>} Ereignisse gemessen.
 
 \chapter{Auswertung}
 
-\begin{figure}[htpb]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=.7\linewidth,
-                height=.4\linewidth,
-                xlabel=Hallspannung/Skt.,
-                ylabel=Ereignisse,
-                axis lines=left
-            ]
-            \addplot[error bars/.cd,
-                x dir=both, x explicit,
-                y dir=both, y explicit
-            ]
-            table[x error index=2, y error index=3] {../_build/01-Cs-40s_bearb.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{40}{\second}
-        Messdauer und \SI{4}{\percent} Transmission
-    }
-    \label{fig:Cs-40s-vollst}
-\end{figure}
+\section{Impulseichung des $\betaup$-Spektrometers}
+
+Zur Weiterverarbeitung unserer Daten müssen wir, da die
+ausgemessenen Impulsintervalle proportional zum Impuls selbst sind, die
+Zählrate wiederum durch eine zum Impuls proportionale Größe, in unserem Fall
+die um den Offset korrigierte Hall-Spannung, teilen. Die Entsprechenden Plots
+sind in den Abbildungen~\ref{fig:Cs-40s-aussch} bis \ref{fig:Na-200s} zu sehen,
+wobei wir die erste, grobe Messung ausgelassen haben, da diese nur zum Finden
+des Peak-Bereiches gemacht wurde.
+
+%\begin{figure}[htpb]
+%    \centering
+%    \begin{tikzpicture}
+%        \begin{axis}[
+%                width=.7\linewidth,
+%                height=.4\linewidth,
+%                xlabel=Hallspannung/Skt.,
+%                ylabel=Ereignisse,
+%                axis lines=left
+%            ]
+%            \addplot[error bars/.cd,
+%                x dir=both, x explicit,
+%                y dir=both, y explicit
+%            ]
+%            table[x error index=2, y error index=3] {../_build/01-Cs-40s_bearb.txt};
+%        \end{axis}
+%    \end{tikzpicture}
+%    \caption{%
+%        $\betaup$-Spektrum von ${}^{137}$Cs bei \SI{40}{\second}
+%        Messdauer und \SI{4}{\percent} Transmission
+%    }
+%    \label{fig:Cs-40s-vollst}
+%\end{figure}
 
 \begin{figure}[htpb]
     \centering
@@ -564,6 +574,7 @@ Untergrund haben wir \num{<< Na_200s_untergrund >>} Ereignisse gemessen.
                 y dir=both, y explicit
             ]
             table[x error index=2, y error index=3] {../_build/02-Cs-40s_bearb.txt};
+            \addplot[black] table {../_build/fit_konversion_40_K.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
