@@ -27,8 +27,8 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, show=False):
     fit_counts = counts[lower:upper]
 
     popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
-    print(popt)
-    print(pconv)
+    #print(popt)
+    #print(pconv)
     d = np.sqrt(pconv.diagonal())
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
     y = gauss(x, *popt)
@@ -52,8 +52,9 @@ def fit_gauge_points(T, points, show=False):
     channel_err = p[:, 1]
     width_val = p[:, 2]
     width_err = p[:, 3]
-    impuls = p[:, 4]
-
+    impuls = p[:, 4]/1e15
+    print(channel_val)
+    print(impuls)
     popt, pconv = op.curve_fit(linear, channel_val, impuls)
     print(popt)
     print(pconv)
@@ -65,7 +66,7 @@ def fit_gauge_points(T, points, show=False):
     T['fit_impulseichung_data'] = list(zip(
         unitprint.siunitx(channel_val, channel_err),
         unitprint.siunitx(width_val, width_err),
-        unitprint.siunitx(energy),
+        unitprint.siunitx(impuls),
     ))
 
     x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
