@@ -640,6 +640,30 @@ impuls_K_konversion >>}$ und $\eta_\text{L} = \num{<< impuls_L_konversion >>}$.
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
+                xlabel=Hallspannung/\si{\skt},
+                ylabel=Impuls,
+                no markers,
+                axis lines= left
+            ]
+            \addplot[scatter, only marks,
+                error bars/.cd,
+                x dir=both, x explicit
+            ]
+            table[x error index=2] {../_build/fit_impulseichung_data.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Fit zur Impulseichung des Spektrometers
+    }
+    \label{fig:impulseichung}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
                 xlabel=Hallspannung/Skt.,
                 ylabel=Ereignisse,
                 axis lines= left

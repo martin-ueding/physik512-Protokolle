@@ -74,7 +74,7 @@ def fit_gauge_points(T, points, show=False):
     return lambda x: x * popt[0] + popt[1]
 
 def impulseichung(T):
-    gauge_points = []
+    gauge_points = [(0,0,0,0,0)]
 
     # Energien der Konversionslinien berechnen
     m_e = 9.1e-31
@@ -95,12 +95,9 @@ def impulseichung(T):
     # Energien in Impulse mit natürlich Einheiten umrechnen
     K = np.sqrt(((gamma - K_bindung)/(m_e*c**2))**2-1)
     T['impuls_K_konversion'] = unitprint.siunitx(K)
-    print(K)
     L = np.sqrt(((gamma - L_bindung)/(m_e*c**2))**2-1)
     dL = (gamma - L_bindung)/(m_e*c**2)**2/L
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
-    print(L)
-    print(dL)
 
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K,'K'))
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L,'L'))
