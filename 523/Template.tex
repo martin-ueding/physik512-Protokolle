@@ -633,6 +633,12 @@ wir mit
 \]
 in Impulse in dimensionslosen Einheiten um. Wir erhalten $\eta_\text{K} = \num{<<
 impuls_K_konversion >>}$ und $\eta_\text{L} = \num{<< impuls_L_konversion >>}$.
+Der Impuls ist in Abbildung~\ref{fig:impulseichung} gegen die Peakschwerpunkte
+aufgetragen. Für den Fit ergibt sich
+\[
+    \eta = \del{\SI{<< fit_impulseichung_steigung >>}{\per\skt}} \cdot
+    U_\text{Hall} + \del{\num{<< fit_impulseichung_offset >>}}
+\]
 
 \begin{figure}[htpb]
     \centering
@@ -640,8 +646,8 @@ impuls_K_konversion >>}$ und $\eta_\text{L} = \num{<< impuls_L_konversion >>}$.
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=Hallspannung/\si{\skt},
-                ylabel=Impuls,
+                xlabel=$U_\text{Hall}$/\si{\skt},
+                ylabel=$\eta$,
                 no markers,
                 axis lines= left
             ]
@@ -649,7 +655,8 @@ impuls_K_konversion >>}$ und $\eta_\text{L} = \num{<< impuls_L_konversion >>}$.
                 error bars/.cd,
                 x dir=both, x explicit
             ]
-            table[x error index=2] {../_build/fit_impulseichung_data.txt};
+            table[x error index=2] {../_build/impulseichung_data.txt};
+            \addplot[black] table {../_build/fit_impulseichung.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%

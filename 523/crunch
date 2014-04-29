@@ -48,30 +48,35 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
-    channel_val = p[:, 0]
-    channel_err = p[:, 1]
+    hall = p[:, 0]
+    d_hall = p[:, 1]
     width_val = p[:, 2]
     width_err = p[:, 3]
     impuls = p[:, 4]/1e15
-    popt, pconv = op.curve_fit(linear, channel_val, impuls)
-
+    popt, pconv = op.curve_fit(linear, hall, impuls)
+    popt *= 1e15
+    pconv *= 1e15
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([channel_val, impuls, channel_err])
-    np.savetxt('_build/fit_impulseichung_data.txt', points_table)
+    points_table = np.column_stack([hall[1:], impuls[1:]*1e15, d_hall[1:]])
+    np.savetxt('_build/impulseichung_data.txt', points_table)
     T['fit_impulseichung_data'] = list(zip(
-        unitprint.siunitx(channel_val, channel_err),
+        unitprint.siunitx(hall, d_hall),
         unitprint.siunitx(width_val, width_err),
         unitprint.siunitx(impuls),
     ))
 
-    x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
+    hall = hall[1:]
+    x = np.linspace(np.min(hall)-2, np.max(hall)+1, 10)
     y = linear(x, *popt)
 
     T['fit_impulseichung_steigung'] = unitprint.siunitx(popt[0], d[0])
     T['fit_impulseichung_offset'] = unitprint.siunitx(popt[1], d[1])
 
-    return lambda x: x * popt[0] + popt[1]
+    fit_table = np.column_stack([x, y])
+    np.savetxt('_build/fit_impulseichung.txt', fit_table)
+
+    # return lambda x: x * popt[0] + popt[1]
 
 def impulseichung(T):
     gauge_points = [(0,0,0,0,0)]
