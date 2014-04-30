@@ -112,7 +112,7 @@ def impulseichung(T):
 
     f = fit_gauge_points(T, gauge_points)
 
-def kurie(T, funktion, filename, time)
+def kurie(T, funktion, filename, time):
     data = np.loadtxt(filename)
     hall = data[:,0]
     N = data[:,1]
