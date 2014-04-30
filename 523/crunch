@@ -112,7 +112,16 @@ def impulseichung(T):
 
     f = fit_gauge_points(T, gauge_points)
 
-def kurie(T, funktion, filename)
+def kurie(T, funktion, filename, time)
+    data = np.loadtxt(filename)
+    hall = data[:,0]
+    N = data[:,1]
+    d_H = data[:,2]
+    d_N = data[:,3]
+    
+    rate = N/time
+    impuls = funktion(hall)
+    energy = np.sqrt(1 + impuls**2)
 
 def aufloesung(Tlist, value, width, converter):
     sigma_val = converter(width) - converter(0)
