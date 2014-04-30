@@ -76,7 +76,7 @@ def fit_gauge_points(T, points, show=False):
     fit_table = np.column_stack([x, y])
     np.savetxt('_build/fit_impulseichung.txt', fit_table)
 
-    # return lambda x: x * popt[0] + popt[1]
+    return lambda x: x * popt[0] + popt[1]
 
 def impulseichung(T):
     gauge_points = [(0,0,0,0,0)]
@@ -112,15 +112,7 @@ def impulseichung(T):
 
     f = fit_gauge_points(T, gauge_points)
 
-#    widths_val = np.array([x[2] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
-    #widths_err = np.array([x[3] for x in gauge_points]) * 2 * np.sqrt(2 * np.log(2))
-#
-    #widths_val_ns = f(widths_val) - f(0)
-#
-    #print(widths_val)
-    #print(widths_val_ns)
-#
-    #T['widths_ns'] = unitprint.siunitx(np.mean(widths_val_ns), np.std(widths_val_ns))
+def kurie(T, funktion, filename)
 
 def aufloesung(Tlist, value, width, converter):
     sigma_val = converter(width) - converter(0)
