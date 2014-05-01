@@ -30,8 +30,6 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
     fit_counts = counts[lower:upper]
 
     popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
-    print(popt)
-    #print(pconv)
     d = np.sqrt(pconv.diagonal())
     x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
     y = gauss(x, *popt)
@@ -116,7 +114,7 @@ def impulseichung(T):
     popt, pconv = fit_gauge_points(T, gauge_points)
 
     kurie(T, popt, pconv, '04-Tl-80s', 80)
-    kurie(T, popt, pconv, '05-Na-200s', 200)
+    #kurie(T, popt, pconv, '05-Na-200s', 200)
 
 def kurie(T, popt, pconv, basename, time):
     data = np.loadtxt('_build/{}_bearb.txt'.format(basename))
@@ -124,20 +122,30 @@ def kurie(T, popt, pconv, basename, time):
     N = data[:,1]
     d_H = data[:,2]
     d_N = data[:,3]
+
+    m_e = 9.1e-31
+    c = 3e8
     
     rate = N/time
     d_rate = d_N/time
     impuls = H * popt[0] + popt[1]
     d_impuls = np.sqrt((popt[0]*d_H)**2 + (H*pconv[0,0])**2 + (pconv[1,1])**2)
     energy = np.sqrt(1 + impuls**2)
-    d_enerqy = impuls/energy*d_impuls
+    d_energy = impuls/energy*d_impuls
 
-    if basename == '04_Tl_80s':
-        F = fermi(energy, 'fermi_Tl.txt')
+    if basename == '04-Tl-80s':
+        popt, pconv = fermi('fermi_Tl.txt')
+        print(popt)
+        F = exp_sec_deg(impuls/(m_e*c), *popt)
     else:
-        F = fermi(energy, 'fermi_Na.txt')
+        popt, pconv = fermi('fermi_Na.txt')
+        F = exp_sec_deg(energy, *popt)
+
+    print(F)
 
     K = np.sqrt(rate/(F*impuls*energy))
+
+    print(K)
 
     T['Kurie_{}'.format(basename)] = list(zip(
         unitprint.siunitx(energy, d_energy),
@@ -146,14 +154,14 @@ def kurie(T, popt, pconv, basename, time):
     np.savetxt('_build/Kurie_{}.txt'.format(basename), np.columnstack([energy, K, d_energy]))
 
 
-def fermi(energy, filename):
+def fermi(filename):
     data = np.loadtxt('Daten/{}'.format(filename))
     x = data[:,0]
     F = data[:,1]
 
-    popt, pconv = op.curve_fit(exp_sec_deg, energy, F)
+    popt, pconv = op.curve_fit(exp_sec_deg, x, F)
 
-    return exp_sec_deg(energy, *popt)
+    return popt, pconv
 
 
 def aufloesung(Tlist, value, width, converter):
