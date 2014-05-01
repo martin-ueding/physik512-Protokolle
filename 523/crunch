@@ -18,6 +18,9 @@ def gauss(x, mean, stddev, amplitude):
 def linear(x, a, b):
     return x * a + b
 
+def exp_sec_deg(x, a, b, c, d):
+    return a * np.exp(b * x) + c * np.exp(d * x)
+
 def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
@@ -76,7 +79,7 @@ def fit_gauge_points(T, points, show=False):
     fit_table = np.column_stack([x, y])
     np.savetxt('_build/fit_impulseichung.txt', fit_table)
 
-    return lambda x: x * popt[0] + popt[1]
+    return popt, pconv
 
 def impulseichung(T):
     gauge_points = [(0,0,0,0,0)]
@@ -110,18 +113,48 @@ def impulseichung(T):
     gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K,'K'))
     gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L,'L'))
 
-    f = fit_gauge_points(T, gauge_points)
+    popt, pconv = fit_gauge_points(T, gauge_points)
 
-def kurie(T, funktion, filename, time):
-    data = np.loadtxt(filename)
-    hall = data[:,0]
+    kurie(T, popt, pconv, '04-Tl-80s', 80)
+    kurie(T, popt, pconv, '05-Na-200s', 200)
+
+def kurie(T, popt, pconv, basename, time):
+    data = np.loadtxt('_build/{}_bearb.txt'.format(basename))
+    H = data[:,0]
     N = data[:,1]
     d_H = data[:,2]
     d_N = data[:,3]
     
     rate = N/time
-    impuls = funktion(hall)
+    d_rate = d_N/time
+    impuls = H * popt[0] + popt[1]
+    d_impuls = np.sqrt((popt[0]*d_H)**2 + (H*pconv[0,0])**2 + (pconv[1,1])**2)
     energy = np.sqrt(1 + impuls**2)
+    d_enerqy = impuls/energy*d_impuls
+
+    if basename == '04_Tl_80s':
+        F = fermi(energy, 'fermi_Tl.txt')
+    else:
+        F = fermi(energy, 'fermi_Na.txt')
+
+    K = np.sqrt(rate/(F*impuls*energy))
+
+    T['Kurie_{}'.format(basename)] = list(zip(
+        unitprint.siunitx(energy, d_energy),
+        unitprint.siunitx(K)))
+
+    np.savetxt('_build/Kurie_{}.txt'.format(basename), np.columnstack([energy, K, d_energy]))
+
+
+def fermi(energy, filename):
+    data = np.loadtxt('Daten/{}'.format(filename))
+    x = data[:,0]
+    F = data[:,1]
+
+    popt, pconv = op.curve_fit(exp_sec_deg, energy, F)
+
+    return exp_sec_deg(energy, *popt)
+
 
 def aufloesung(Tlist, value, width, converter):
     sigma_val = converter(width) - converter(0)
