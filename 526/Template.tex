@@ -70,6 +70,10 @@
 % TODO Sollen wir noch explizit machen, dass wir dies aus einem vorherigen
 % Protokoll übernommen haben?
 
+Aufgrund der thematischen Überschneidung mit Versuch 525, den vor bereits
+durchgeführt haben, übernehmen wir einige Abschnitte aus dem Theorieteil von
+\parencite{Ueding/525}.
+
 \section{Wechselwirkung von $\gammaup$-Strahlung mit Materie}
 \label{sec:WW}
 
@@ -151,28 +155,41 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 \end{figure}
 
 
-\subsubsection{Streuformel}
-
 % TODO Compton Streuformel.
 
+% TODO Compton Wellenlänge.
+
+% TODO Differentieller Wirkungsquerschnitt.
+
 Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
-\parencite[(2.107)]{Leo/Techniques_Nuclear_Experiments}:
+\parencite[(2.107)]{Leo/Techniques_Nuclear_Experiments}
 \[
     \dod\sigma\Omega =
     \frac{r_\text e^2}2 \frac1{\del{1 + \gamma(1 - \cos(\theta))}^2}
     \del{
         1 + \cos(\theta)^2 + \frac{\gamma^2(1 - \cos(\theta)^2)}{1 + \gamma(1 -
         \cos(\theta))}
-    }
+    }.
 \]
-
-% TODO Compton Wellenlänge.
-
-% TODO Differentieller Wirkungsquerschnitt.
+Sie beschreibt den differentiellen Wirkungsquerschnitt der Compton-Streuuung in
+Abhängigkeit der Energie ($\gamma := h\nu / m_\text e c^2$) und des
+Polarwinkels $\theta$.
 
 % TODO Klein-Nishina-Plot.
 
 % TODO totaler Stoßwirkungsquerschnitt.
+
+Durch Integration des differentiellen Wirkungsquerschnitts nach dem Raumwinkel
+erhält man den totalen Wirkungsquerschnitt. Dieser ist in
+\parencite[(2.107)]{Leo/Techniques_Nuclear_Experiments} gegeben als
+\[
+    \sigma = 2 \piup r_\text e^2 \del{
+        \frac{1+\gamma}{\gamma^2} \del{
+            \frac{2(1+\gamma)}{1+2\gamma} - \frac1\gamma \ln(1+2\gamma)
+        }
+        + \frac1{2\gamma} \ln(1+2\gamma) - \frac{1+3\gamma}{(1+2\gamma)^2}
+    }.
+\]
 
 % TODO Linearpolarisation von γ-Quanten.
 
@@ -180,7 +197,7 @@ Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
 
 % TODO totaler Abschwächungskoeffizient.
 
-% TODO Abhängigkeit des Wirkungsquerschnittes von E.
+% TODO Abhängigkeit des Wirkungsquerschnitts von E.
 
 \subsection{Rückstreu- und Escape-Peak}
 
