@@ -79,7 +79,7 @@ def fit_gauge_points(T, points, show=False):
     return popt, pconv
 
 def impulseichung(T):
-    gauge_points = [(0,0,0,0,0)]
+    gauge_points = [(0,0,0,0,0,0)]
 
     # Energien der Konversionslinien berechnen
     m_e = 9.1e-31
