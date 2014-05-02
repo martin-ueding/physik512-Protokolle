@@ -89,7 +89,18 @@ Elektrons, wird dieses aus seiner Bindung gelöst. Die dadurch entstehenden
 freien Stellen werden durch höherenergetische Elektronen wieder gefüllt, wobei
 sie Photonen emittieren.
 
-% TODO Abhängigkeit des Wirkungsquerschnittes von E.
+Die Dotierung im Kristall sorgt dafür, dass es Übergänge mit weniger als der
+Bindungsenergie gibt. Rekombiniert ein Elektron in ein derartiges Loch, so ist
+die Energie des frei werdenden Photons kleiner als die normale
+Ionisationsenergie. Dadurch kann es keine weiteren Elektronen auslösen, der
+Kristall ist für diese Photonen transparent.
+
+Laut \parencite[(2,103)]{Leo/Techniques_Nuclear_Experiments} hängt der
+Wirkungsquerschnitt des Photoeffekts ist für nichtrelativistische
+Photonenenergien wie folgt mit der Energie $h\nu$ zusammen:
+\[
+    \sigma \propto Z^5 (h\nu)^{-7/2}.
+\]
 
 \subsection{Paarbildung}
 
@@ -103,6 +114,12 @@ hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
 
 \subsection{Compton-Streuung}
 
+Als Compton-Streuung bezeichnet man die elastische Streuung von Photonen zum
+Beispiel an Elektronen. Die dabei vom Photon an das Elektron übertragene
+Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
+= \SI{180}\degree$, also bei einer Rückstreuung, und minimal bei $\phi =
+\SI{0}\degree$, also wenn das Elektron nur gestreift wird.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -112,8 +129,8 @@ hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
         
         \draw[dashed] (0, 0) -- (4, 0);
 
-        \draw (1.1, 0) arc (0:40:1.1) node[below] {$\theta$};
-        \draw (1, 0) arc (0:-60:1) node[above] {$\phi$};
+        \draw (1.1, 0) arc (0:40:1.1) node[below] {$\phi$};
+        \draw (1, 0) arc (0:-60:1) node[above] {$\theta$};
     \end{tikzpicture}
     \caption{%
         Zur Kinematik der Comptonstreuung, nach
@@ -122,11 +139,17 @@ hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
     \label{fig:}
 \end{figure}
 
-Als Compton-Streuung bezeichnet man die elastische Streuung von Photonen zum
-Beispiel an Elektronen. Die dabei vom Photon an das Elektron übertragene
-Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
-= \SI{180}\degree$, also bei einer Rückstreuung, und minimal bei $\phi =
-\SI{0}\degree$, also wenn das Elektron nur gestreift wird.
+Aus Energie und Impulserhaltung folgt die Beziehung zwischen ein- und
+ausgehendem Photon \parencite[(2.106)]{Leo/Techniques_Nuclear_Experiments}:
+\[
+    h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi)),
+\]
+wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung kann man
+herleiten, dass die Wellenlängendifferenz gegeben ist durch:
+\[
+    \Deltaup \lambda = \frac{h}{m_\text e c} (1 - \cos(\phi)).
+\]
+Der Vorfaktor wird auch Comptonwellenlänge genannt.
 
 Werden nun viele Photonen mit einer Energie $E_\nu$ gestreut, wie es in einem
 Szintillator der Fall ist, ergibt sich ein charakteristisches Bild. In
@@ -171,11 +194,6 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
     \label{fig:Compton}
 \end{figure}
 
-
-% TODO Compton Streuformel.
-
-% TODO Compton Wellenlänge.
-
 \subsubsection{Differentieller Wirkungsquerschnitt}
 
 Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
@@ -189,7 +207,7 @@ Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
     }.
 \]
 Sie beschreibt den differentiellen Wirkungsquerschnitt der Compton-Streuuung in
-Abhängigkeit der Energie ($\gamma := h\nu / m_\text e c^2$) und des
+Abhängigkeit der Energie und des
 Polarwinkels $\theta$.
 
 % TODO Klein-Nishina-Plot.
