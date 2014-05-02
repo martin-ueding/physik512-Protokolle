@@ -661,9 +661,10 @@ aufgetragen. Für die Anpassung ergibt sich
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
-                x dir=both, x explicit
+                x dir=both, x explicit,
+                y dir=both, y explicit
             ]
-            table[x error index=2] {../_build/impulseichung_data.txt};
+            table[x error index=2, y error index=3] {../_build/impulseichung_data.txt};
             \addplot[black] table {../_build/fit_impulseichung.txt};
         \end{axis}
     \end{tikzpicture}

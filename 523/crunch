@@ -21,7 +21,7 @@ def linear(x, a, b):
 def exp_sec_deg(x, a, b, c, d):
     return a * np.exp(b * x) + c * np.exp(d * x)
 
-def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
+def fit_peak(T, filename, lower, upper, p0, prefix, impuls, d_impuls, linie, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
@@ -45,7 +45,7 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
         pl.plot(x, y)
         pl.show()
 
-    return (popt[0], d[0], abs(popt[1]), d[1], impuls)
+    return (popt[0], d[0], abs(popt[1]), d[1], impuls, d_impuls)
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
@@ -54,10 +54,11 @@ def fit_gauge_points(T, points, show=False):
     width_val = p[:, 2]
     width_err = p[:, 3]
     impuls = p[:, 4]
+    d_impuls = p[:, 5]
     popt, pconv = op.curve_fit(linear, hall, impuls)
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([hall[1:], impuls[1:], d_hall[1:]])
+    points_table = np.column_stack([hall[1:], impuls[1:], d_hall[1:], d_impuls[1:]])
     np.savetxt('_build/impulseichung_data.txt', points_table)
     T['fit_impulseichung_data'] = list(zip(
         unitprint.siunitx(hall, d_hall),
@@ -104,11 +105,11 @@ def impulseichung(T):
     dL = (gamma - L_bindung)*1e3*e/(m_e*c**2)/L*dL_bindung
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K,'K'))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L,'L'))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L, dL, 'L'))
 
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K,'K'))
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L,'L'))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L, dL, 'L'))
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
