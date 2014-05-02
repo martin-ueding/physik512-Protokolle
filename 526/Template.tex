@@ -241,12 +241,34 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
 \]
 
 
-
 % TODO Linearpolarisation von γ-Quanten.
 
-% TODO Abschwächung von γ-Strahlung in Materie.
 
-% TODO totaler Abschwächungskoeffizient.
+
+\subsection{Abschwächung von $\boldsymbol\gammaup$-Strahlung in Materie}
+
+Wechselwirken Photonen mit Materie, so wird in der Regel ihre
+Ausbreitungsrichtung geändert. Dies bewirkt, dass sie danach nicht mehr im
+Strahl sind. Im Gegensatz zu Teilchen, die auf einer geraden Strecke
+kontinuierlich Energie an das Medium abgeben können, reduziert sich bei
+Photonen nur deren Rate, nicht jedoch die Energie eines einzelnen Photons.
+
+Ist die Anzahldichte der Streuzentren $n$, so ist $n \dif x$ eine Flächendichte
+für eine Schicht der Dicke $\dif x$. Jedes Streuzentrum habe den
+Wirkungsquerschnitt $\sigma$. Somit ist ein Anteil $n \dif x \sigma$ für die
+Transmission versperrt. Die Intensität nimmt also um diesen Anteil in der
+dünnen Schicht ab:
+\[
+    \dif I = - n \dif x \sigma I.
+\]
+
+Diese Differentialgleichung kann durch Teilen durch $\dif x$ und Integration
+gelöst werden:
+\[
+    I(x) = I_0 \exp(- n \sigma x).
+\]
+Dies ist die Formel von Lambert-Beer. $n \sigma$ ist der \emph{totale
+Abschwächungskoeffizient}.
 
 \subsection{Klein-Nishina-Plot}
 
