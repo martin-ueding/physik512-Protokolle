@@ -103,6 +103,25 @@ hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
 
 \subsection{Compton-Streuung}
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \draw[->, thick] (-3, 0) -- (0, 0) node[above, midway] {$h\nu$};
+        \draw[->, thick] (0, 0) -- (40:3) node[above, midway, sloped] {$h\nu'$};
+        \draw[->] (0, 0) -- (-60:2) node[below, midway, sloped] {$T$};
+        
+        \draw[dashed] (0, 0) -- (4, 0);
+
+        \draw (1.1, 0) arc (0:40:1.1) node[below] {$\theta$};
+        \draw (1, 0) arc (0:-60:1) node[above] {$\phi$};
+    \end{tikzpicture}
+    \caption{%
+        Zur Kinematik der Comptonstreuung, nach
+        \parencite[Abbildung~2.22]{Leo/Techniques_Nuclear_Experiments}.
+    }
+    \label{fig:}
+\end{figure}
+
 Als Compton-Streuung bezeichnet man die elastische Streuung von Photonen zum
 Beispiel an Elektronen. Die dabei vom Photon an das Elektron übertragene
 Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
@@ -195,7 +214,7 @@ Mit $s := T / h \nu$ lässt sich aus der Klein-Nishina Formel das
 Energiespektrum herleiten
 \parencite[(2.113)]{Leo/Techniques_Nuclear_Experiments}:
 \[
-    \dod\sigmaT =
+    \dod\sigma T =
     \frac{\piup r_\text e^2}{m_\text e c^2 \gamma^2} \del{
         2 + \frac{s^2}{\gamma^2(1 - s)^2} + \frac{s}{1-s} \del{
             s - \frac2\gamma
