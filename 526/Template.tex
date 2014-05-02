@@ -1,0 +1,76 @@
+\input{../../header.tex}
+
+\usepackage[section]{placeins}
+
+\usepackage{csquotes}
+
+\usepackage{tikz}
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes.geometric}
+
+\tikzset{device/.style={
+                rectangle,
+                minimum size=6mm,
+                draw=black
+            },
+            monitor/.style={
+                rectangle,
+                rounded corners=2mm,
+                minimum size=6mm,
+                draw=black
+            },
+        }
+
+\usepackage{pgfplots}
+\pgfplotsset{
+    compat=1.5,
+    width=0.8\linewidth,
+    xticklabel style={/pgf/number format/use comma},
+    yticklabel style={/pgf/number format/use comma},
+}
+
+\usepgfplotslibrary{external}
+\tikzexternalize
+
+\DeclareSIUnit{\skt}{SKT}
+
+\usepackage{booktabs}
+
+\hypersetup{
+    pdftitle=
+}
+
+\subject{Praktikumsprotokoll}
+\title{Compton-Effekt}
+\subtitle{Versuch P526 -- Universität Bonn}
+\author{
+    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    \and
+    Lino Lemmer \\
+    \small{\href{mailto:l2@uni-bonn.de}{l2@uni-bonn.de}}
+}
+
+\date{\daterange{2014-04-24}{2014-04-25}}
+
+% TODO Tutor Eintragen
+%\publishers{Tutor: TODO}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Theorie}
+
+
+\IfFileExists{\bibliographyfile}{
+    \printbibliography
+}{}
+
+\end{document}
+
+% vim: spell spelllang=de tw=79
