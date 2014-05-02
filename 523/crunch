@@ -53,13 +53,11 @@ def fit_gauge_points(T, points, show=False):
     d_hall = p[:, 1]
     width_val = p[:, 2]
     width_err = p[:, 3]
-    impuls = p[:, 4]/1e15
+    impuls = p[:, 4]
     popt, pconv = op.curve_fit(linear, hall, impuls)
-    popt *= 1e15
-    pconv *= 1e15
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([hall[1:], impuls[1:]*1e15, d_hall[1:]])
+    points_table = np.column_stack([hall[1:], impuls[1:], d_hall[1:]])
     np.savetxt('_build/impulseichung_data.txt', points_table)
     T['fit_impulseichung_data'] = list(zip(
         unitprint.siunitx(hall, d_hall),
@@ -85,24 +83,25 @@ def impulseichung(T):
     # Energien der Konversionslinien berechnen
     m_e = 9.1e-31
     c = 3e8
-    gamma = 661.66
+    e = 1.6e-19
+    gamma = 661.660
     T['energie_gamma'] = gamma
     K_bindung = 37.441
     T['energie_K_bindung'] = K_bindung
     L_bindung_1 = 5.987
-    T['energie_L_bindung_1'] = K_bindung
+    T['energie_L_bindung_1'] = L_bindung_1
     L_bindung_2 = 5.624
-    T['energie_L_bindung_2'] = K_bindung
+    T['energie_L_bindung_2'] = L_bindung_2
     L_bindung_3 = 5.247
-    T['energie_L_bindung_3'] = K_bindung
+    T['energie_L_bindung_3'] = L_bindung_3
     L_bindung = np.mean([L_bindung_1, L_bindung_2, L_bindung_3])
     dL_bindung = np.std([L_bindung_1, L_bindung_2, L_bindung_3])
     T['energie_L_bindung'] = unitprint.siunitx(L_bindung, dL_bindung)
     # Energien in Impulse mit natürlich Einheiten umrechnen
-    K = np.sqrt(((gamma - K_bindung)/(m_e*c**2))**2-1)
+    K = np.sqrt(((gamma - K_bindung)*1e3*e/(m_e*c**2))**2-1)
     T['impuls_K_konversion'] = unitprint.siunitx(K)
-    L = np.sqrt(((gamma - L_bindung)/(m_e*c**2))**2-1)
-    dL = (gamma - L_bindung)/(m_e*c**2)**2/L
+    L = np.sqrt(((gamma - L_bindung)*1e3*e/(m_e*c**2))**2-1)
+    dL = (gamma - L_bindung)*1e3*e/(m_e*c**2)/L*dL_bindung
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
 
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K,'K'))
@@ -113,7 +112,7 @@ def impulseichung(T):
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
-    kurie(T, popt, pconv, '04-Tl-80s', 80)
+    #kurie(T, popt, pconv, '04-Tl-80s', 80)
     #kurie(T, popt, pconv, '05-Na-200s', 200)
 
 def kurie(T, popt, pconv, basename, time):
@@ -126,22 +125,24 @@ def kurie(T, popt, pconv, basename, time):
     m_e = 9.1e-31
     c = 3e8
     
+    print(H)
+    print(popt)
     rate = N/time
     d_rate = d_N/time
     impuls = H * popt[0] + popt[1]
+    print(impuls)
     d_impuls = np.sqrt((popt[0]*d_H)**2 + (H*pconv[0,0])**2 + (pconv[1,1])**2)
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
     if basename == '04-Tl-80s':
         popt, pconv = fermi('fermi_Tl.txt')
-        print(popt)
         F = exp_sec_deg(impuls/(m_e*c), *popt)
     else:
         popt, pconv = fermi('fermi_Na.txt')
         F = exp_sec_deg(energy, *popt)
 
-    print(F)
+    print(impuls/(m_e*c), *popt)
 
     K = np.sqrt(rate/(F*impuls*energy))
 
