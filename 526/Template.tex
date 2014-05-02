@@ -30,7 +30,7 @@
 }
 
 \usepgfplotslibrary{external}
-\tikzexternalize
+%\tikzexternalize
 
 \DeclareSIUnit{\skt}{SKT}
 
@@ -142,7 +142,7 @@ Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
 Aus Energie und Impulserhaltung folgt die Beziehung zwischen ein- und
 ausgehendem Photon \parencite[(2.106)]{Leo/Techniques_Nuclear_Experiments}:
 \[
-    h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi)),
+    h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi))},
 \]
 wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung kann man
 herleiten, dass die Wellenlängendifferenz gegeben ist durch:
@@ -210,8 +210,6 @@ Sie beschreibt den differentiellen Wirkungsquerschnitt der Compton-Streuuung in
 Abhängigkeit der Energie und des
 Polarwinkels $\theta$.
 
-% TODO Klein-Nishina-Plot.
-
 \subsubsection{Totaler Stoßwirkungsquerschnitt}
 
 Durch Integration des differentiellen Wirkungsquerschnitts nach dem Raumwinkel
@@ -255,6 +253,11 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
 % TODO Abschwächung von γ-Strahlung in Materie.
 
 % TODO totaler Abschwächungskoeffizient.
+
+\subsection{Klein-Nishina-Plot}
+
+Im Klein-Nishina-Plot wird der differentielle Wirkungsquerschnitt gegen den
+Winkel aufgetragen, jedoch in einem Polardiagramm.
 
 \subsection{Thomsonstreuung}
 
