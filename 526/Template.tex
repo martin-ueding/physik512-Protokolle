@@ -157,7 +157,7 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 
 % TODO Compton Wellenlänge.
 
-% TODO Differentieller Wirkungsquerschnitt.
+\subsubsection{Differentieller Wirkungsquerschnitt}
 
 Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
 \parencite[(2.107)]{Leo/Techniques_Nuclear_Experiments}
@@ -175,7 +175,7 @@ Polarwinkels $\theta$.
 
 % TODO Klein-Nishina-Plot.
 
-% TODO totaler Stoßwirkungsquerschnitt.
+\subsubsection{Totaler Stoßwirkungsquerschnitt}
 
 Durch Integration des differentiellen Wirkungsquerschnitts nach dem Raumwinkel
 erhält man den totalen Wirkungsquerschnitt. Dieser ist in
@@ -189,13 +189,35 @@ erhält man den totalen Wirkungsquerschnitt. Dieser ist in
     }.
 \]
 
+\subsubsection{Abhängigkeit des Wirkungsquerschnitts von $E_\nu$}
+
+Mit $s := T / h \nu$ lässt sich aus der Klein-Nishina Formel das
+Energiespektrum herleiten
+\parencite[(2.113)]{Leo/Techniques_Nuclear_Experiments}:
+\[
+    \dod\sigmaT =
+    \frac{\piup r_\text e^2}{m_\text e c^2 \gamma^2} \del{
+        2 + \frac{s^2}{\gamma^2(1 - s)^2} + \frac{s}{1-s} \del{
+            s - \frac2\gamma
+        }
+    }
+\]
+
+Im Fall von $\theta = \piup$ wird der meiste Impuls und Energie auf das
+Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
+„Comptonkante“ und ist gegeben durch
+\parencite[(2.114)]{Leo/Techniques_Nuclear_Experiments}
+\[
+    T_\text{max} = h \nu \frac{2\gamma}{1+2\gamma}.
+\]
+
+
+
 % TODO Linearpolarisation von γ-Quanten.
 
 % TODO Abschwächung von γ-Strahlung in Materie.
 
 % TODO totaler Abschwächungskoeffizient.
-
-% TODO Abhängigkeit des Wirkungsquerschnitts von E.
 
 \subsection{Thomsonstreuung}
 
