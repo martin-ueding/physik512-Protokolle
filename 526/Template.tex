@@ -23,11 +23,12 @@
 
 \usepackage{pgfplots}
 \pgfplotsset{
-    compat=1.5,
+    compat=1.9,
     width=0.8\linewidth,
     xticklabel style={/pgf/number format/use comma},
     yticklabel style={/pgf/number format/use comma},
 }
+\usepgfplotslibrary{polar}
 
 \usepgfplotslibrary{external}
 %\tikzexternalize
@@ -258,6 +259,32 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
 
 Im Klein-Nishina-Plot wird der differentielle Wirkungsquerschnitt gegen den
 Winkel aufgetragen, jedoch in einem Polardiagramm.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+            xmin=0,
+            xmax=180,
+            legend entries={
+                $\gamma=\num{0.01}$,
+                $\gamma=\num{0.1}$,
+                $\gamma=\num{1}$,
+                $\gamma=\num{10}$,
+            }
+        ]
+            \addplot[Red] table {plot_klein_nishina_1.txt};
+            \addplot[Green] table {plot_klein_nishina_2.txt};
+            \addplot[Blue] table {plot_klein_nishina_3.txt};
+            \addplot[Purple] table {plot_klein_nishina_4.txt};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Differentieller Wirkungsquerschnitt $\od\sigma\Omega$ in Abhängigkeit
+        des Polarwinkels $\phi$.
+    }
+    \label{fig:}
+\end{figure}
 
 \subsection{Thomsonstreuung}
 

@@ -21,17 +21,27 @@ def sigma_omega_klein_nishina(gamma, theta):
             * \
             1 / (1 + gamma * (1 - cos))**2 \
             * \
-            (1 + cos**2 + (gamma**2 * (1 - cos**2)) / (1 + gamma * (1 - cos)))
+            (1 + cos**2 + (gamma**2 * (1 - cos)**2) / (1 + gamma * (1 - cos)))
 
 
 def task_nishina_theorie(T):
     theta = np.linspace(0, np.pi, 1000)
 
-    sigma_omega = sigma_omega_klein_nishina(1, theta)
-    np.savetxt('_build/plot_klein_nishina_1.txt', np.column_stack([theta, sigma_omega]))
+    sigma_omega = sigma_omega_klein_nishina(0.01, theta)
+    np.savetxt('_build/plot_klein_nishina_1.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
 
-    sigma_omega = sigma_omega_klein_nishina(100, theta)
-    np.savetxt('_build/plot_klein_nishina_100.txt', np.column_stack([theta, sigma_omega]))
+    sigma_omega = sigma_omega_klein_nishina(0.1, theta)
+    np.savetxt('_build/plot_klein_nishina_2.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+    sigma_omega = sigma_omega_klein_nishina(1, theta)
+    np.savetxt('_build/plot_klein_nishina_3.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+    sigma_omega = sigma_omega_klein_nishina(10, theta)
+    np.savetxt('_build/plot_klein_nishina_4.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
 
 
 def main():
