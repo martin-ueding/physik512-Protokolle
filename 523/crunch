@@ -112,7 +112,7 @@ def impulseichung(T):
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
-    #kurie(T, popt, pconv, '04-Tl-80s', 80)
+    kurie(T, popt, pconv, '04-Tl-80s', 80)
     #kurie(T, popt, pconv, '05-Na-200s', 200)
 
 def kurie(T, popt, pconv, basename, time):
@@ -125,24 +125,25 @@ def kurie(T, popt, pconv, basename, time):
     m_e = 9.1e-31
     c = 3e8
     
-    print(H)
-    print(popt)
     rate = N/time
     d_rate = d_N/time
     impuls = H * popt[0] + popt[1]
-    print(impuls)
     d_impuls = np.sqrt((popt[0]*d_H)**2 + (H*pconv[0,0])**2 + (pconv[1,1])**2)
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
     if basename == '04-Tl-80s':
         popt, pconv = fermi('fermi_Tl.txt')
-        F = exp_sec_deg(impuls/(m_e*c), *popt)
+        F = exp_sec_deg(impuls, *popt)
     else:
         popt, pconv = fermi('fermi_Na.txt')
         F = exp_sec_deg(energy, *popt)
 
-    print(impuls/(m_e*c), *popt)
+    print(N)
+    print(rate)
+    print(impuls)
+    print(energy)
+    print(F)
 
     K = np.sqrt(rate/(F*impuls*energy))
 
@@ -239,7 +240,7 @@ def spektrum_edit(T, basename, templatename, umrechner):
 
     T['{}_untergrund'.format(templatename)] = unitprint.siunitx(untergrund, d_untergrund)
 
-    ereignisse -= untergrund
+    ereignisse = np.maximum(ereignisse-untergrund,0)
     d_ereignisse = np.sqrt(ereignisse + d_untergrund**2)
 
     hall, d_hall = umrechner(hall, d_hall)
