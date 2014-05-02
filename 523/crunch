@@ -153,7 +153,7 @@ def kurie(T, popt, pconv, basename, time):
         unitprint.siunitx(energy, d_energy),
         unitprint.siunitx(K)))
 
-    np.savetxt('_build/Kurie_{}.txt'.format(basename), np.columnstack([energy, K, d_energy]))
+    np.savetxt('_build/Kurie_{}.txt'.format(basename), np.column_stack([energy, K, d_energy]))
 
 
 def fermi(filename):

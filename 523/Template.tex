@@ -703,6 +703,28 @@ aufgetragen. Für die Anpassung ergibt sich
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
+                xlabel=$\epsilon$,
+                ylabel=$K(\epsilon)$,
+                axis lines= left
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit
+            ]
+            table[x error index=2] {../_build/Kurie_04-Tl-80s.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Kurie-Plot für ${}^{204}$Tl
+    }
+    \label{fig:kurie-Tl}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
                 xlabel=Hallspannung/Skt.,
                 ylabel=Ereignisse,
                 axis lines= left
