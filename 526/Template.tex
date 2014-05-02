@@ -255,15 +255,16 @@ Abbildung~\ref{fig:nishina-theo} dargestellt.
     \centering
     \begin{tikzpicture}
         \begin{polaraxis}[
-            xmin=0,
-            xmax=180,
-            legend entries={
-                $\gamma=\num{0.01}$,
-                $\gamma=\num{0.1}$,
-                $\gamma=\num{1}$,
-                $\gamma=\num{10}$,
-            }
-        ]
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                legend entries={
+                    $\gamma=\num{0.01}$,
+                    $\gamma=\num{0.1}$,
+                    $\gamma=\num{1}$,
+                    $\gamma=\num{10}$,
+                }
+            ]
             \addplot[Red] table {plot_klein_nishina_1.txt};
             \addplot[Green] table {plot_klein_nishina_2.txt};
             \addplot[Blue] table {plot_klein_nishina_3.txt};
