@@ -66,6 +66,202 @@
 
 \chapter{Theorie}
 
+% TODO Sollen wir noch explizit machen, dass wir dies aus einem vorherigen
+% Protokoll übernommen haben?
+
+\section{Wechselwirkung von $\gammaup$-Strahlung mit Materie}
+\label{sec:WW}
+
+Trifft $\gammaup$-Strahlung auf Materie, finden abhängig von Photonenergie und
+Ordnungszahl des Atoms unterschiedliche Effekte statt.
+
+\subsection{Photoeffekt}
+
+Als Photoeffekt, auch photoelektrischer oder lichtelektrischer Effekt,
+bezeichnet man den Prozess, bei dem ein Photon seine gesamte Energie an ein
+Elektron abgibt. Ist diese Energie größer als die Bindungsenergie des
+Elektrons, wird dieses aus seiner Bindung gelöst. Die dadurch entstehenden
+freien Stellen werden durch höherenergetische Elektronen wieder gefüllt, wobei
+sie Photonen emittieren.
+
+\subsection{Paarbildung}
+
+Zerfällt ein Photon im Coulombfeld eines Atomkerns in ein
+Elektron-Positron-Paar, spricht man von einer Paarbildung. Dies kann nur
+stattfinden, wenn die Energie des Photons die Ruheenergie der beiden Teilchen
+übersteigt, also $E_\gammaup > 2m_\mathrm{e}c^2$. Zudem findet es bevorzugt bei
+hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
+
+\subsection{Compton-Streuung}
+
+Als Compton-Streuung bezeichnet man die elastische Streuung von Photonen zum
+Beispiel an Elektronen. Die dabei vom Photon an das Elektron übertragene
+Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
+= \SI{180}\degree$, also bei einer Rückstreuung, und minimal bei $\phi =
+\SI{0}\degree$, also wenn das Elektron nur gestreift wird.
+
+Werden nun viele Photonen mit einer Energie $E_\nu$ gestreut, wie es in einem
+Szintillator der Fall ist, ergibt sich ein charakteristisches Bild. In
+Abbildung~\ref{fig:Compton} ist idealisiert die Intensität gegen die an den
+Szintillator übertragene Energie dargestellt. Das Compton-Kontinuum entsteht
+durch die Streuung mit unterschiedlichen Winkeln, die Compton-Kante wird durch
+den maximalen Energieübertrag bei $\phi = \SI{180}{\degree}$ erzeugt. Der
+Photopeak, oder auch Full-Energy-Peak bei $E_\nu$ entsteht durch die
+vollständige Deponierung der Photonenergie im Szintillator, beispielsweise
+durch den Photoeffekt. Die Restenergie des zurück gestreuten Photons ist genau
+die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \draw[thick,->]
+        (0,0) -- (0,5) node[left] {$I$}
+        ;
+        \draw[thick,->]
+        (0,0) -- (7,0) node[below] {$E$}
+        ;
+        \draw
+        (6,0) -- (6,3.5)
+        ;
+        \draw
+        (6,-.2) -- (6,-.1) node[below] {$E_\nu$}
+        ;
+        \draw[bend right=10]
+        (0,3) to node[below] {Compton-Kontinuum} (4.5,3) -- (4.6,0)
+        ;
+        \draw[dashed]
+        (4.5,3.1) -- (4.5,4) node[above] {Compton-Kante}
+        ;
+        \draw[dashed]
+        (6.1,3) -- (6.3,3.5) node[above] {Photo-Peak}
+        ;
+    \end{tikzpicture}
+    \caption{%
+        Idealisiertes Spektrum der bei Einstrahlung von monochromatischer
+        $\gammaup$-Strahlung an den Szintillator übertragenen Energie
+    }
+    \label{fig:Compton}
+\end{figure}
+
+\subsection{Rückstreu- und Escape-Peak}
+
+Wird ein Photon, nachdem es durch den Compton-Effekt zurückgeworfen wurde, ein
+weiteres Mal um $\phi = \SI{180}{\degree}$ gestreut, oder in einem
+gegenüberliegenden Szintillator detektiert, entsteht ein weiterer Peak, der
+eine Spektrallinie vortäuscht. Dies ist der Rückstreu-Peak. Die Energie dieses
+Peaks ist daher identisch mit der Restenergie des Photons.
+
+Kommt es zur Paarbildung, wird nur dann die volle Energie im Szintillator
+deponiert, wenn das entstehende Positron auf ein Elektron trifft, unter Abgabe
+zweier \SI{511}{\kilo\electronvolt}-Photonen annihilliert und beide
+entstehenden Photonen durch andere Effekte ihre Energie an den Szintillator
+abgeben. Verlässt eines der Photonen oder sogar beide den Szintillator, ohne
+Energie abzugeben, entsteht eine weitere scheinbare Spektrallinie, der Single-
+bzw. Double-Escape-Peak, bei einer Energie von
+$E_\nu-\SI{511}{\kilo\electronvolt}$ bzw. $E_\nu-\SI{1022}{\kilo\electronvolt}$.
+\section{Instrumente}
+
+\subsection{Szintillator}
+
+Zur Detektion von $\gammaup$-Quanten verwendet man einen Kristall, zum Beispiel
+Natriumiodid. Trifft nun ein $\gammaup$ auf ein Elektron, wird es durch die
+Effekte aus \ref{sec:WW} angeregt. Bei einer Abregung über Zwischenniveaus
+werden Photonen niedrigerer Energie abgegeben, welche von einem
+Photomultiplier eingefangen werden können. Eine andere Möglichkeit ist der
+Stoß mit anderen Elektronen, wodurch zwei Elektronen mit geringerer Energie
+entstehen. Die Intensität des Lichtblitzes ist dabei proportional zur Energie
+des ursprünglichen $\gammaup$-Quants.
+
+\subsection{Photomultiplier (PM)}
+
+Will man ein schwaches optisches Signal in eine messbares elektrisches Signal
+umwandeln, benötigt man einen Photomultiplier. Ein möglicher Aufbau ist in
+Abbildung~\ref{fig:PM} zu sehen. Zwischen Photokathode und Anode liegt eine
+Spannung an, die von Dynode zu Dynode abfällt.
+
+Trifft ein Photon auf die Photokathode, löst es, wenn seine Energie die
+Austrittsarbeit übersteigt, ein Elektron aus dieser heraus. Durch die angelegte
+Spannung wird das Elektron beschleunigt und zum Beispiel durch ein Elektrisches
+Feld so abgelenkt, dass es auf die erste Dynode trifft. Hier löst es weitere
+Elektronen aus, die zur nächsten Dynode beschleunigt werden. Der Prozess geht
+so weiter, bis zum Schluss die Lawinenelektronen auf die Anode treffen und dort
+ein messbares elektronisches Signal ergeben.
+
+Da die Anzahl der ausgelösten Elektronen proportional zur Intensität der
+eintreffenden Strahlung ist, und da der Photomultiplier linear verstärkt, ist
+das Ausgangssignal proportional zur einfallenden Intensität. Wird ein
+Szintillatorsignal verstärkt, ist die Amplitude also proportional zur Energie
+der $\gammaup$-Strahlung.
+
+An der Anode liegt meistens Sättigung vor. Dies sorgt dafür, dass die Amplitude
+des Signals keine Aussage mehr über die Energie machen kann aber durch eine
+Anstiegszeit von wenigen \si{\nano\second} eine hohe Zeitgenauigkeit erreicht
+wird. Wegen des schnellen Anstiegs wird das Ausgangssignal daher auch
+\emph{Fast}-Signal genannt.
+
+Greift man das Signal an einer Dynode, an der noch keine Sättigung herrscht ab,
+ist eine Aussage über die Energie des verursachenden Photons möglich. Die
+Anstiegszeit ist jedoch deutlich größer. Daher heißt dieses Signal auch
+\emph{Slow}-Signal.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % Röhre
+        \draw[thick] (2,-1) rectangle (9,1);
+        % Photonquelle
+        \draw[thick]
+        (0,0) circle (.5)
+        (225:.5) -- (45:.5)
+        (135:.5) -- (-45:.5)
+        ;
+        % Photokathode und Anode
+        \draw[thick]
+        (2,1) -- (2,-1)
+        (9,1) -- (9,-1)
+        ;
+        % Dynoden
+        \draw[thick]
+        (3,-.3) -- (3,-1)
+        (3,1) -- (3,.3) arc (90:0:.6cm)
+        (3.05,-.3) arc (180:270:.6cm)
+        (3.9,-.9) arc (270:360:.6cm)
+        (3.9,-.3) arc (180:90:.6cm)
+        (4.8,.3) arc (90:0:.6cm)
+        (4.8,-.3) arc (180:270:.6cm)
+        (5.7,-.9) arc (270:360:.6cm)
+        (5.7,-.3) arc (180:90:.6cm)
+        (6.6,.3) arc (90:0:.6cm)
+        (6.6,-.3) arc (180:270:.6cm)
+        (7.5,-.9) arc (270:360:.6cm)
+        (7.5,-.3) arc (180:90:.6cm)
+        ;
+        % Beschriftungen PQ, PK, A und Fokussierung
+        \draw[densely dashed]
+        (0,-.55) -- (0,-1.05) node[below] {Photonquelle}
+        (1.95,-.5) -- (1.2,-1.85) node[below] {Photokathode}
+        (3,-1.05) -- (3,-1.3) node[below] {Fokussierung}
+        (9.05,-.5) -- (9.5,-1.55) node[below] {Anode}
+        ;
+        % Beschriftung Dynoden
+        \node (D) at (6,-1.9) {Dynoden};
+        \draw[densely dashed]
+        (D) -- (3.5,-.9)
+        (D) -- (4.3,-.75)
+        (D) -- (5.2,-.95)
+        (D) -- (5.2,-.25)
+        (D) -- (5.8,-.9)
+        (D) -- (6.8,-.8)
+        ;
+    \end{tikzpicture}
+    \caption{%
+        Möglicher Aufbau eines Photomultipliers
+    }
+    \label{fig:PM}
+\end{figure}
+
+\section{Zerfallsschemata}
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
