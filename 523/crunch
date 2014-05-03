@@ -102,8 +102,12 @@ def impulseichung(T):
     K = np.sqrt(((gamma - K_bindung)*1e3*e/(m_e*c**2))**2-1)
     T['impuls_K_konversion'] = unitprint.siunitx(K)
     L = np.sqrt(((gamma - L_bindung)*1e3*e/(m_e*c**2))**2-1)
-    dL = (gamma - L_bindung)*1e3*e/(m_e*c**2)/L*dL_bindung
+    dL = (gamma - L_bindung)*1e3*(e/(m_e*c**2))**2/L*dL_bindung
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
+    print(L_bindung)
+    print(dL_bindung)
+    print(L)
+    print(dL)
 
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K, 0, 'K'))
     gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L, dL, 'L'))
