@@ -706,12 +706,15 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
+                no markers,
                 axis lines= left
             ]
-            \addplot[error bars/.cd,
+            \addplot[scatter, only marks,
+                error bars/.cd,
                 x dir=both, x explicit
             ]
             table[x error index=2] {../_build/Kurie_04-Tl-80s.txt};
+            \addplot[black] table {../_build/fit_kurie_04-Tl-80s.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -752,12 +755,15 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
-                axis lines= left
+                axis lines= left,
+                no markers
             ]
-            \addplot[error bars/.cd,
+            \addplot[scatter, only marks,
+                error bars/.cd,
                 x dir=both, x explicit
             ]
             table[x error index=2] {../_build/Kurie_05-Na-200s.txt};
+            \addplot[black] table {../_build/fit_kurie_05-Na-200s.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%

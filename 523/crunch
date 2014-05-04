@@ -129,6 +129,7 @@ def kurie(T, popt, pconv, basename, time):
 
     m_e = 9.1e-31
     c = 3e8
+    e = 1.6e-19
     
     rate = N/time
     d_rate = d_N/time
@@ -144,21 +145,30 @@ def kurie(T, popt, pconv, basename, time):
         popt, pconv = fermi('fermi_Na.txt')
         F = exp_sec_deg(energy, *popt)
 
-    print(N)
-    print(rate)
-    print(impuls)
-    print(energy)
-    print(F)
-
     K = np.sqrt(rate/(F*impuls*energy))
-
-    print(K)
 
     T['Kurie_{}'.format(basename)] = list(zip(
         unitprint.siunitx(energy, d_energy),
         unitprint.siunitx(K)))
 
     np.savetxt('_build/Kurie_{}.txt'.format(basename), np.column_stack([energy, K, d_energy]))
+
+    popt, pconv = op.curve_fit(linear, energy, K)
+    
+    E_max = -popt[1]/popt[0]
+    dE_max = np.sqrt((pconv[1][1]/popt[0])**2 + (popt[1]*pconv[0][0]/popt[0]**2)**2)
+
+    T['epsilon_max_{}'.format(basename)] = unitprint.siunitx(E_max, dE_max)
+
+    x = np.linspace(np.min(energy), E_max, 10)
+    y = linear(x,*popt)
+
+    E_max *= m_e*c**2/e/1e3
+    dE_max *= m_e*c**2/e/1e3
+    T['E_max_{}'.format(basename)] = unitprint.siunitx(E_max, dE_max)
+
+    fit_table = np.column_stack([x, y])
+    np.savetxt('_build/fit_kurie_{}.txt'.format(basename), fit_table)
 
 
 def fermi(filename):
