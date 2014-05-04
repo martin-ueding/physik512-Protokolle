@@ -118,11 +118,11 @@ def impulseichung(T):
     popt, pconv = fit_gauge_points(T, gauge_points)
 
     kurie(T, popt, pconv, '04-Tl-80s', 80)
-    #kurie(T, popt, pconv, '05-Na-200s', 200)
+    kurie(T, popt, pconv, '05-Na-200s', 200)
 
 def kurie(T, popt, pconv, basename, time):
     data = np.loadtxt('_build/{}_bearb.txt'.format(basename))
-    H = data[:,0]
+    H = np.abs(data[:,0])
     N = data[:,1]
     d_H = data[:,2]
     d_N = data[:,3]

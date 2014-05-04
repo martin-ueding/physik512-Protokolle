@@ -744,6 +744,28 @@ aufgetragen. Für die Anpassung ergibt sich
     \label{fig:Na-200s}
 \end{figure}
 
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=$\epsilon$,
+                ylabel=$K(\epsilon)$,
+                axis lines= left
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit
+            ]
+            table[x error index=2] {../_build/Kurie_05-Na-200s.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Kurie-Plot für ${}^{22}$Na
+    }
+    \label{fig:kurie-Na}
+\end{figure}
+
 \IfFileExists{\bibliographyfile}{
     \printbibliography
 }{}
