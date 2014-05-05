@@ -550,7 +550,7 @@ des Peak-Bereiches gemacht wurde.
 %                x dir=both, x explicit,
 %                y dir=both, y explicit
 %            ]
-%            table[x error index=2, y error index=3] {../_build/01-Cs-40s_bearb.txt};
+%            table[x error index=2, y error index=3] {../_build/01_Cs_40s_bearb.txt};
 %        \end{axis}
 %    \end{tikzpicture}
 %    \caption{%
@@ -576,7 +576,7 @@ des Peak-Bereiches gemacht wurde.
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
-            table[x error index=2, y error index=3] {../_build/02-Cs-40s_bearb.txt};
+            table[x error index=2, y error index=3] {../_build/02_Cs_40s_bearb.txt};
             \addplot[black] table {../_build/fit_konversion_40_K.txt};
             \addplot[black] table {../_build/fit_konversion_40_L.txt};
         \end{axis}
@@ -604,7 +604,7 @@ des Peak-Bereiches gemacht wurde.
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
-            table[x error index=2, y error index=3] {../_build/03-Cs-100s_bearb.txt};
+            table[x error index=2, y error index=3] {../_build/03_Cs_100s_bearb.txt};
             \addplot[black] table {../_build/fit_konversion_100_K.txt};
             \addplot[black] table {../_build/fit_konversion_100_L.txt};
         \end{axis}
@@ -688,7 +688,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
-            table[x error index=2, y error index=3] {../_build/04-Tl-80s_bearb.txt};
+            table[x error index=2, y error index=3] {../_build/04_Tl_80s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -713,8 +713,8 @@ aufgetragen. Für die Anpassung ergibt sich
                 error bars/.cd,
                 x dir=both, x explicit
             ]
-            table[x error index=2] {../_build/Kurie_04-Tl.txt};
-            \addplot[black] table {../_build/fit_kurie_04-Tl.txt};
+            table[x error index=2] {../_build/Kurie_04_Tl.txt};
+            \addplot[black] table {../_build/fit_kurie_04_Tl.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -737,7 +737,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 x dir=both, x explicit,
                 y dir=both, y explicit
             ]
-            table[x error index=2, y error index=3] {../_build/05-Na-200s_bearb.txt};
+            table[x error index=2, y error index=3] {../_build/05_Na_200s_bearb.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -762,8 +762,8 @@ aufgetragen. Für die Anpassung ergibt sich
                 error bars/.cd,
                 x dir=both, x explicit
             ]
-            table[x error index=2] {../_build/Kurie_05-Na.txt};
-            \addplot[black] table {../_build/fit_kurie_05-Na.txt};
+            table[x error index=2] {../_build/Kurie_05_Na.txt};
+            \addplot[black] table {../_build/fit_kurie_05_Na.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -776,10 +776,10 @@ Aus den Kurie-Plots in den Abbildungen~\ref{fig:kurie-Tl} und
 \ref{fig:kurie-Na} erhält man die Maximalenergie der emittierten Teilchen,
 indem man den Schnittpunkt der Anpassungsgraden mit der $\epsilon$-Achse
 findet. Im Fall vom Thallium ist dies bei uns $\epsilon_\text{max} = \num{<<
-epsilon_max_04-Tl >>}$, was einer Energie von $E_\text{max} = \SI{<<
-E_max_04-Tl >>}{\kilo\electronvolt}$ entspricht.  Beim Natrium finden wir
-$\epsilon_\text{max} = \num{<< epsilon_max_05-Na >>}$, oder $E_\text{max}
-= \SI{<< E_max_05-Na >>}{\kilo\electronvolt}$. 
+epsilon_max_04_Tl >>}$, was einer Energie von $E_\text{max} = \SI{<<
+E_max_04_Tl >>}{\kilo\electronvolt}$ entspricht.  Beim Natrium finden wir
+$\epsilon_\text{max} = \num{<< epsilon_max_05_Na >>}$, oder $E_\text{max}
+= \SI{<< E_max_05_Na >>}{\kilo\electronvolt}$. 
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography

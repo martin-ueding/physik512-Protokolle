@@ -109,19 +109,19 @@ def impulseichung(T):
     print(L)
     print(dL)
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K, 0, 'K'))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L, dL, 'L'))
+    gauge_points.append(fit_peak(T, '_build/02_Cs_40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/02_Cs_40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L, dL, 'L'))
 
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K, 0, 'K'))
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L, dL, 'L'))
+    gauge_points.append(fit_peak(T, '_build/03_Cs_100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/03_Cs_100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L, dL, 'L'))
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
-    kurie(T, popt, pconv, '04-Tl', 80)
-    kurie(T, popt, pconv, '05-Na', 200)
+    kurie(T, popt, pconv, '04_Tl', 80)
+    kurie(T, popt, pconv, '05_Na', 200)
 
 def kurie(T, popt, pconv, basename, time):
-    data = np.loadtxt('_build/{}-{}s_bearb.txt'.format(basename,time))
+    data = np.loadtxt('_build/{}_{}s_bearb.txt'.format(basename,time))
     H = np.abs(data[:,0])
     N = data[:,1]
     d_H = data[:,2]
@@ -138,7 +138,7 @@ def kurie(T, popt, pconv, basename, time):
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
-    if basename == '04-Tl-80s':
+    if basename == '04_Tl_80s':
         popt, pconv = fermi('fermi_Tl.txt')
         F = exp_sec_deg(impuls, *popt)
     else:
@@ -275,11 +275,11 @@ def main():
     T = {}
 
     umrechner = hall_offset(T)
-    spektrum_edit(T, '01-Cs-40s', 'Cs_40s_kompl', umrechner)
-    spektrum_edit(T, '02-Cs-40s', 'Cs_40s_ausschn', umrechner)
-    spektrum_edit(T, '03-Cs-100s', 'Cs_100s', umrechner)
-    spektrum_edit(T, '04-Tl-80s', 'Tl_80s', umrechner)
-    spektrum_edit(T, '05-Na-200s', 'Na_200s', umrechner)
+    spektrum_edit(T, '01_Cs_40s', 'Cs_40s_kompl', umrechner)
+    spektrum_edit(T, '02_Cs_40s', 'Cs_40s_ausschn', umrechner)
+    spektrum_edit(T, '03_Cs_100s', 'Cs_100s', umrechner)
+    spektrum_edit(T, '04_Tl_80s', 'Tl_80s', umrechner)
+    spektrum_edit(T, '05_Na_200s', 'Na_200s', umrechner)
     impulseichung(T)
 
     with open('_build/template.js', 'w') as f:
