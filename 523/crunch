@@ -5,6 +5,7 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 import json
+import sys
 
 import matplotlib.pyplot as pl
 import numpy as np
@@ -281,6 +282,23 @@ def main():
     spektrum_edit(T, '04-Tl-80s', 'Tl_80s', umrechner)
     spektrum_edit(T, '05-Na-200s', 'Na_200s', umrechner)
     impulseichung(T)
+
+    dash_keys = []
+    for key in T:
+        if '-' in key:
+            dash_keys.append(key)
+
+    if len(dash_keys) > 0:
+        print()
+        print('**************************************************************')
+        print('* Es dürfen keine Bindestriche in den Schlüsseln für T sein! *')
+        print('**************************************************************')
+        print()
+        print('Folgende Schlüssel enthalten Bindestriche:')
+        for dash_key in dash_keys:
+            print('-', dash_key)
+        print()
+        sys.exit(100)
 
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
