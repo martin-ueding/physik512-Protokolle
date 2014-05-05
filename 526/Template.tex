@@ -23,14 +23,15 @@
 
 \usepackage{pgfplots}
 \pgfplotsset{
-    compat=1.5,
+    compat=1.9,
     width=0.8\linewidth,
     xticklabel style={/pgf/number format/use comma},
     yticklabel style={/pgf/number format/use comma},
 }
+\usepgfplotslibrary{polar}
 
 \usepgfplotslibrary{external}
-\tikzexternalize
+%\tikzexternalize
 
 \DeclareSIUnit{\skt}{SKT}
 
@@ -52,7 +53,6 @@
 
 \date{\daterange{2014-05-07}{2014-05-08}}
 
-% TODO Tutor Eintragen
 %\publishers{Tutor: TODO}
 
 \begin{document}
@@ -67,9 +67,6 @@
 
 \chapter{Theorie}
 
-% TODO Sollen wir noch explizit machen, dass wir dies aus einem vorherigen
-% Protokoll übernommen haben?
-
 Aufgrund der thematischen Überschneidung mit Versuch 525, den vor bereits
 durchgeführt haben, übernehmen wir einige Abschnitte aus dem Theorieteil von
 \parencite{Ueding/525}.
@@ -78,7 +75,11 @@ durchgeführt haben, übernehmen wir einige Abschnitte aus dem Theorieteil von
 \label{sec:WW}
 
 Trifft $\gammaup$-Strahlung auf Materie, finden abhängig von Photonenergie und
-Ordnungszahl des Atoms unterschiedliche Effekte statt.
+Ordnungszahl des Atoms unterschiedliche Effekte statt. Bei kleinen Energien
+($\gamma < 2$) ist der Photoeffekt der stärkste Effekt, bei mittleren Energien
+($2 < \gamma < 7$) überwiegt der Comptoneffekt. Bei größeren Energien ist die
+Paarerzeugung der Hauptkanal. Die Energien beziehen sich auf Blei als Absorber
+und stammen aus \parencite[Abbildung~17.31]{meschede-gerthsen_24}.
 
 \subsection{Photoeffekt}
 
@@ -89,7 +90,12 @@ Elektrons, wird dieses aus seiner Bindung gelöst. Die dadurch entstehenden
 freien Stellen werden durch höherenergetische Elektronen wieder gefüllt, wobei
 sie Photonen emittieren.
 
-% TODO Abhängigkeit des Wirkungsquerschnittes von E.
+Laut \parencite[(2,103)]{Leo/Techniques_Nuclear_Experiments} hängt der
+Wirkungsquerschnitt des Photoeffekts ist für nichtrelativistische
+Photonenenergien wie folgt mit der Energie $h\nu$ zusammen:
+\[
+    \sigma \propto Z^5 (h\nu)^{-7/2}.
+\]
 
 \subsection{Paarbildung}
 
@@ -99,7 +105,10 @@ stattfinden, wenn die Energie des Photons die Ruheenergie der beiden Teilchen
 übersteigt, also $E_\gammaup > 2m_\mathrm{e}c^2$. Zudem findet es bevorzugt bei
 hohen Ordnungszahlen statt, da dort die Divergenz des Feldes größer ist.
 
-% TODO Abhängigkeit des Wirkungsquerschnittes von E.
+Der Wirkungsquerschnitt hängt quadratisch von der Ladungszahl ab ($\sigma
+\propto Z^2$). Außerdem skaliert er logarithmisch mit der Energie
+\parencite[(17.15)]{meschede-gerthsen_24}
+\parencite[(2.120)]{Leo/Techniques_Nuclear_Experiments}.
 
 \subsection{Compton-Streuung}
 
@@ -108,6 +117,37 @@ Beispiel an Elektronen. Die dabei vom Photon an das Elektron übertragene
 Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
 = \SI{180}\degree$, also bei einer Rückstreuung, und minimal bei $\phi =
 \SI{0}\degree$, also wenn das Elektron nur gestreift wird.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \draw[->, thick] (-3, 0) -- (0, 0) node[above, midway] {$h\nu$};
+        \draw[->, thick] (0, 0) -- (40:3) node[above, midway, sloped] {$h\nu'$};
+        \draw[->] (0, 0) -- (-60:2) node[below, midway, sloped] {$T$};
+        
+        \draw[dashed] (0, 0) -- (4, 0);
+
+        \draw (1.1, 0) arc (0:40:1.1) node[below] {$\phi$};
+        \draw (1, 0) arc (0:-60:1) node[above] {$\theta$};
+    \end{tikzpicture}
+    \caption{%
+        Zur Kinematik der Comptonstreuung, nach
+        \parencite[Abbildung~2.22]{Leo/Techniques_Nuclear_Experiments}.
+    }
+    \label{fig:}
+\end{figure}
+
+Aus Energie und Impulserhaltung folgt die Beziehung zwischen ein- und
+ausgehendem Photon \parencite[(2.106)]{Leo/Techniques_Nuclear_Experiments}:
+\[
+    h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi))},
+\]
+wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung kann man
+herleiten, dass die Wellenlängendifferenz gegeben ist durch:
+\[
+    \Deltaup \lambda = \frac{h}{m_\text e c} (1 - \cos(\phi)).
+\]
+Der Vorfaktor wird auch Comptonwellenlänge genannt.
 
 Werden nun viele Photonen mit einer Energie $E_\nu$ gestreut, wie es in einem
 Szintillator der Fall ist, ergibt sich ein charakteristisches Bild. In
@@ -152,11 +192,6 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
     \label{fig:Compton}
 \end{figure}
 
-
-% TODO Compton Streuformel.
-
-% TODO Compton Wellenlänge.
-
 \subsubsection{Differentieller Wirkungsquerschnitt}
 
 Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
@@ -170,10 +205,8 @@ Die Klein-Nishina Formel wurde aus der QFT hergeleitet und ist
     }.
 \]
 Sie beschreibt den differentiellen Wirkungsquerschnitt der Compton-Streuuung in
-Abhängigkeit der Energie ($\gamma := h\nu / m_\text e c^2$) und des
+Abhängigkeit der Energie und des
 Polarwinkels $\theta$.
-
-% TODO Klein-Nishina-Plot.
 
 \subsubsection{Totaler Stoßwirkungsquerschnitt}
 
@@ -195,7 +228,7 @@ Mit $s := T / h \nu$ lässt sich aus der Klein-Nishina Formel das
 Energiespektrum herleiten
 \parencite[(2.113)]{Leo/Techniques_Nuclear_Experiments}:
 \[
-    \dod\sigmaT =
+    \dod\sigma T =
     \frac{\piup r_\text e^2}{m_\text e c^2 \gamma^2} \del{
         2 + \frac{s^2}{\gamma^2(1 - s)^2} + \frac{s}{1-s} \del{
             s - \frac2\gamma
@@ -212,12 +245,67 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
 \]
 
 
+\subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
 
-% TODO Linearpolarisation von γ-Quanten.
+% TODO
 
-% TODO Abschwächung von γ-Strahlung in Materie.
+\subsection{Abschwächung von $\boldsymbol\gammaup$-Strahlung in Materie}
 
-% TODO totaler Abschwächungskoeffizient.
+Wechselwirken Photonen mit Materie, so wird in der Regel ihre
+Ausbreitungsrichtung geändert. Dies bewirkt, dass sie danach nicht mehr im
+Strahl sind. Im Gegensatz zu Teilchen, die auf einer geraden Strecke
+kontinuierlich Energie an das Medium abgeben können, reduziert sich bei
+Photonen nur deren Rate, nicht jedoch die Energie eines einzelnen Photons.
+
+Ist die Anzahldichte der Streuzentren $n$, so ist $n \dif x$ eine Flächendichte
+für eine Schicht der Dicke $\dif x$. Jedes Streuzentrum habe den
+Wirkungsquerschnitt $\sigma$. Somit ist ein Anteil $n \dif x \sigma$ für die
+Transmission versperrt. Die Intensität nimmt also um diesen Anteil in der
+dünnen Schicht ab:
+\[
+    \dif I = - n \dif x \sigma I.
+\]
+
+Diese Differentialgleichung kann durch Teilen durch $\dif x$ und Integration
+gelöst werden:
+\[
+    I(x) = I_0 \exp(- n \sigma x).
+\]
+Dies ist die Formel von Lambert-Beer. $n \sigma$ ist der \emph{totale
+Abschwächungskoeffizient}.
+
+\subsection{Klein-Nishina-Plot}
+
+Im Klein-Nishina-Plot wird der differentielle Wirkungsquerschnitt gegen den
+Winkel aufgetragen, jedoch in einem Polardiagramm. Theoretische Graphen sind in
+Abbildung~\ref{fig:nishina-theo} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                legend entries={
+                    $\gamma=\num{0.01}$,
+                    $\gamma=\num{0.1}$,
+                    $\gamma=\num{1}$,
+                    $\gamma=\num{10}$,
+                }
+            ]
+            \addplot[Red] table {plot_klein_nishina_1.txt};
+            \addplot[Green] table {plot_klein_nishina_2.txt};
+            \addplot[Blue] table {plot_klein_nishina_3.txt};
+            \addplot[Purple] table {plot_klein_nishina_4.txt};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Klein-Nishina-Plot: Differentieller Wirkungsquerschnitt
+        $\od\sigma\Omega$ in Abhängigkeit des Polarwinkels $\phi$.
+    }
+    \label{fig:nishina-theo}
+\end{figure}
 
 \subsection{Thomsonstreuung}
 
@@ -265,11 +353,27 @@ Stoß mit anderen Elektronen, wodurch zwei Elektronen mit geringerer Energie
 entstehen. Die Intensität des Lichtblitzes ist dabei proportional zur Energie
 des ursprünglichen $\gammaup$-Quants.
 
-% TODO Energieauflösung.
+\subsubsection{Energieauflösung}
 
-% TODO Totzeit.
+Durch verschiedene Effekte im Szintillator, die durch die endliche Temperatur
+verursacht werden, ist die Energieauflösung $E/\Deltaup E$ beschränkt. Im
+Versuch 525 haben wir eine Auflösung in der Größenordnung von 5 gehabt.
 
-% TODO Selbsttransparenz.
+\subsubsection{Totzeit}
+
+Die eintreffenden Photonen erzeugen Teilen- und Antiteilchenschauer im
+Szintillator, die eine gewisse Lebenszeit haben. Trifft in dieser Zeit ein
+zweites Photon ein, so kann es zu Überschneidungen kommen und die Signale nicht
+mehr getrennt werden. Daher braucht der Szintillator eine gewisse Zeit, bis
+alle erzeugten Teilchen wieder gebunden sind. Diese Zeit wird Totzeit genannt.
+
+\subsubsection{Selbsttransparenz}
+
+Die Dotierung im Kristall sorgt dafür, dass es Übergänge mit weniger als der
+Bindungsenergie gibt. Rekombiniert ein Elektron in ein derartiges Loch, so ist
+die Energie des frei werdenden Photons kleiner als die normale
+Ionisationsenergie. Dadurch kann es keine weiteren Elektronen auslösen, der
+Kristall ist für diese Photonen transparent.
 
 \subsection{Photomultiplier (PM)}
 
@@ -359,7 +463,13 @@ Anstiegszeit ist jedoch deutlich größer. Daher heißt dieses Signal auch
     \label{fig:PM}
 \end{figure}
 
-% TODO MCA.
+\subsection{Vielkanalanalysator (MCA)}
+
+Der Vielkanalanalysator (engl. \emph{multi channel analyzer}) sortiert
+einkommende Signale nach Amplitude. Trifft ein Signal mit einer bestimmten
+Amplitude ein, setzt er einen Zähler in einem bestimmten Kanal hoch. Dadurch
+zählt der MCA wie häufig die verschiedenen Amplituden auftauchen. Es entsteht
+eine Art Histogramm.
 
 \section{Zerfallsschemata}
 
