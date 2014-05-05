@@ -21,7 +21,7 @@ def linear(x, a, b):
 def exp_sec_deg(x, a, b, c, d):
     return a * np.exp(b * x) + c * np.exp(d * x)
 
-def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
+def fit_peak(T, filename, lower, upper, p0, prefix, impuls, d_impuls, linie, show=False):
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
@@ -45,7 +45,7 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, linie, show=False):
         pl.plot(x, y)
         pl.show()
 
-    return (popt[0], d[0], abs(popt[1]), d[1], impuls)
+    return (popt[0], d[0], abs(popt[1]), d[1], impuls, d_impuls)
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
@@ -53,13 +53,12 @@ def fit_gauge_points(T, points, show=False):
     d_hall = p[:, 1]
     width_val = p[:, 2]
     width_err = p[:, 3]
-    impuls = p[:, 4]/1e15
+    impuls = p[:, 4]
+    d_impuls = p[:, 5]
     popt, pconv = op.curve_fit(linear, hall, impuls)
-    popt *= 1e15
-    pconv *= 1e15
     d = np.sqrt(pconv.diagonal())
 
-    points_table = np.column_stack([hall[1:], impuls[1:]*1e15, d_hall[1:]])
+    points_table = np.column_stack([hall[1:], impuls[1:], d_hall[1:], d_impuls[1:]])
     np.savetxt('_build/impulseichung_data.txt', points_table)
     T['fit_impulseichung_data'] = list(zip(
         unitprint.siunitx(hall, d_hall),
@@ -80,51 +79,57 @@ def fit_gauge_points(T, points, show=False):
     return popt, pconv
 
 def impulseichung(T):
-    gauge_points = [(0,0,0,0,0)]
+    gauge_points = [(0,0,0,0,0,0)]
 
     # Energien der Konversionslinien berechnen
     m_e = 9.1e-31
     c = 3e8
-    gamma = 661.66
+    e = 1.6e-19
+    gamma = 661.660
     T['energie_gamma'] = gamma
     K_bindung = 37.441
     T['energie_K_bindung'] = K_bindung
     L_bindung_1 = 5.987
-    T['energie_L_bindung_1'] = K_bindung
+    T['energie_L_bindung_1'] = L_bindung_1
     L_bindung_2 = 5.624
-    T['energie_L_bindung_2'] = K_bindung
+    T['energie_L_bindung_2'] = L_bindung_2
     L_bindung_3 = 5.247
-    T['energie_L_bindung_3'] = K_bindung
+    T['energie_L_bindung_3'] = L_bindung_3
     L_bindung = np.mean([L_bindung_1, L_bindung_2, L_bindung_3])
     dL_bindung = np.std([L_bindung_1, L_bindung_2, L_bindung_3])
     T['energie_L_bindung'] = unitprint.siunitx(L_bindung, dL_bindung)
     # Energien in Impulse mit natürlich Einheiten umrechnen
-    K = np.sqrt(((gamma - K_bindung)/(m_e*c**2))**2-1)
+    K = np.sqrt(((gamma - K_bindung)*1e3*e/(m_e*c**2))**2-1)
     T['impuls_K_konversion'] = unitprint.siunitx(K)
-    L = np.sqrt(((gamma - L_bindung)/(m_e*c**2))**2-1)
-    dL = (gamma - L_bindung)/(m_e*c**2)**2/L
+    L = np.sqrt(((gamma - L_bindung)*1e3*e/(m_e*c**2))**2-1)
+    dL = (gamma - L_bindung)*1e3*(e/(m_e*c**2))**2/L*dL_bindung
     T['impuls_L_konversion'] = unitprint.siunitx(L, dL)
+    print(L_bindung)
+    print(dL_bindung)
+    print(L)
+    print(dL)
 
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K,'K'))
-    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L,'L'))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 12, 26, [155.8, 3, 5], 'konversion_40', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/02-Cs-40s_bearb.txt', 26, 35, [159.2, 4, 2], 'konversion_40', L, dL, 'L'))
 
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K,'K'))
-    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L,'L'))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 14, 24, [157.8, 3, 6], 'konversion_100', K, 0, 'K'))
+    gauge_points.append(fit_peak(T, '_build/03-Cs-100s_bearb.txt', 24, 34, [162, 4, 2], 'konversion_100', L, dL, 'L'))
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
     kurie(T, popt, pconv, '04-Tl-80s', 80)
-    #kurie(T, popt, pconv, '05-Na-200s', 200)
+    kurie(T, popt, pconv, '05-Na-200s', 200)
 
 def kurie(T, popt, pconv, basename, time):
     data = np.loadtxt('_build/{}_bearb.txt'.format(basename))
-    H = data[:,0]
+    H = np.abs(data[:,0])
     N = data[:,1]
     d_H = data[:,2]
     d_N = data[:,3]
 
     m_e = 9.1e-31
     c = 3e8
+    e = 1.6e-19
     
     rate = N/time
     d_rate = d_N/time
@@ -135,23 +140,35 @@ def kurie(T, popt, pconv, basename, time):
 
     if basename == '04-Tl-80s':
         popt, pconv = fermi('fermi_Tl.txt')
-        print(popt)
-        F = exp_sec_deg(impuls/(m_e*c), *popt)
+        F = exp_sec_deg(impuls, *popt)
     else:
         popt, pconv = fermi('fermi_Na.txt')
         F = exp_sec_deg(energy, *popt)
 
-    print(F)
-
     K = np.sqrt(rate/(F*impuls*energy))
-
-    print(K)
 
     T['Kurie_{}'.format(basename)] = list(zip(
         unitprint.siunitx(energy, d_energy),
         unitprint.siunitx(K)))
 
-    np.savetxt('_build/Kurie_{}.txt'.format(basename), np.columnstack([energy, K, d_energy]))
+    np.savetxt('_build/Kurie_{}.txt'.format(basename), np.column_stack([energy, K, d_energy]))
+
+    popt, pconv = op.curve_fit(linear, energy, K)
+    
+    E_max = -popt[1]/popt[0]
+    dE_max = np.sqrt((pconv[1][1]/popt[0])**2 + (popt[1]*pconv[0][0]/popt[0]**2)**2)
+
+    T['epsilon_max_{}'.format(basename)] = unitprint.siunitx(E_max, dE_max)
+
+    x = np.linspace(np.min(energy), E_max, 10)
+    y = linear(x,*popt)
+
+    E_max *= m_e*c**2/e/1e3
+    dE_max *= m_e*c**2/e/1e3
+    T['E_max_{}'.format(basename)] = unitprint.siunitx(E_max, dE_max)
+
+    fit_table = np.column_stack([x, y])
+    np.savetxt('_build/fit_kurie_{}.txt'.format(basename), fit_table)
 
 
 def fermi(filename):
@@ -238,7 +255,7 @@ def spektrum_edit(T, basename, templatename, umrechner):
 
     T['{}_untergrund'.format(templatename)] = unitprint.siunitx(untergrund, d_untergrund)
 
-    ereignisse -= untergrund
+    ereignisse = np.maximum(ereignisse-untergrund,0)
     d_ereignisse = np.sqrt(ereignisse + d_untergrund**2)
 
     hall, d_hall = umrechner(hall, d_hall)

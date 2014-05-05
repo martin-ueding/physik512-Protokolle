@@ -564,7 +564,7 @@ des Peak-Bereiches gemacht wurde.
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=Hallspannung/Skt.,
+                xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 no markers,
                 axis lines= left
@@ -592,7 +592,7 @@ des Peak-Bereiches gemacht wurde.
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=Hallspannung/Skt.,
+                xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 no markers,
                 axis lines= left
@@ -659,9 +659,10 @@ aufgetragen. Für die Anpassung ergibt sich
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
-                x dir=both, x explicit
+                x dir=both, x explicit,
+                y dir=both, y explicit
             ]
-            table[x error index=2] {../_build/impulseichung_data.txt};
+            table[x error index=2, y error index=3] {../_build/impulseichung_data.txt};
             \addplot[black] table {../_build/fit_impulseichung.txt};
         \end{axis}
     \end{tikzpicture}
@@ -677,7 +678,7 @@ aufgetragen. Für die Anpassung ergibt sich
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=Hallspannung/Skt.,
+                xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 axis lines= left
             ]
@@ -701,7 +702,32 @@ aufgetragen. Für die Anpassung ergibt sich
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=Hallspannung/Skt.,
+                xlabel=$\epsilon$,
+                ylabel=$K(\epsilon)$,
+                no markers,
+                axis lines= left
+            ]
+            \addplot[scatter, only marks,
+                error bars/.cd,
+                x dir=both, x explicit
+            ]
+            table[x error index=2] {../_build/Kurie_04-Tl-80s.txt};
+            \addplot[black] table {../_build/fit_kurie_04-Tl-80s.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Kurie-Plot für ${}^{204}$Tl
+    }
+    \label{fig:kurie-Tl}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 axis lines= left
             ]
@@ -718,6 +744,40 @@ aufgetragen. Für die Anpassung ergibt sich
     }
     \label{fig:Na-200s}
 \end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=$\epsilon$,
+                ylabel=$K(\epsilon)$,
+                axis lines= left,
+                no markers
+            ]
+            \addplot[scatter, only marks,
+                error bars/.cd,
+                x dir=both, x explicit
+            ]
+            table[x error index=2] {../_build/Kurie_05-Na-200s.txt};
+            \addplot[black] table {../_build/fit_kurie_05-Na-200s.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Kurie-Plot für ${}^{22}$Na
+    }
+    \label{fig:kurie-Na}
+\end{figure}
+
+Aus den Kurie-Plots in den Abbildungen~\ref{fig:kurie-Tl} und
+\ref{fig:kurie-Na} erhält man die Maximalenergie der emittierten Teilchen,
+indem man den Schnittpunkt der Anpassungsgraden mit der $\epsilon$-Achse
+findet. Im Fall vom Thallium ist dies bei uns $\epsilon_\text{max} = \num{<<
+epsilon_max_04-Tl-80s >>}$, was einer Energie von $E_\text{max} = \SI{<<
+E_max_04-Tl-80s >>}{\kilo\electronvolt}$ entspricht.  Beim Natrium finden wir
+$\epsilon_\text{max} = \num{<< epsilon_max_05-Na-200s >>}$, oder $E_\text{max}
+= \SI{<< E_max_05-Na-200s >>}{\kilo\electronvolt}$. 
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography
