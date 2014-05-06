@@ -139,13 +139,7 @@ def kurie(T, popt, pconv, basename, time):
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
-<<<<<<< HEAD
     if basename == '04_Tl':
-=======
-    print(basename)
-
-    if basename == '04_Tl_80s':
->>>>>>> origin/auswertung
         popt, pconv = fermi('fermi_Tl.txt')
         F = exp_sec_deg(impuls, *popt)
 
