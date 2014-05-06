@@ -252,6 +252,9 @@ def hall_offset(T):
     offset = np.mean(rem_mittel)
     d_offset = np.std(rem_mittel)
 
+    assert offset > 0
+    print('offset', offset)
+
     T['tab_remanenz'] = list(zip(
         unitprint.siunitx(rem_unten),
         unitprint.siunitx(rem_oben)
