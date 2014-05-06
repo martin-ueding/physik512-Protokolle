@@ -139,7 +139,7 @@ def kurie(T, popt, pconv, basename, time):
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
-    if basename == '04_Tl_80s':
+    if basename == '04_Tl':
         popt, pconv = fermi('fermi_Tl.txt')
         F = exp_sec_deg(impuls, *popt)
     else:
@@ -154,7 +154,10 @@ def kurie(T, popt, pconv, basename, time):
 
     np.savetxt('_build/Kurie_{}.txt'.format(basename), np.column_stack([energy, K, d_energy]))
 
-    popt, pconv = op.curve_fit(linear, energy, K)
+    if basename == '04_Tl':
+        popt, pconv = op.curve_fit(linear, energy[2:], K[2:])
+    else:
+        popt, pconv = op.curve_fit(linear, energy[5:], K[5:])
     
     E_max = -popt[1]/popt[0]
     dE_max = np.sqrt((pconv[1][1]/popt[0])**2 + (popt[1]*pconv[0][0]/popt[0]**2)**2)
