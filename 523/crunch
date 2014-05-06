@@ -173,7 +173,7 @@ def kurie(T, popt, pconv, basename, time):
         pl.clf()
         pl.plot(impuls, F)
         pl.plot(xx[:,0], xx[:,1], linestyle='None', marker='+')
-        pl.savefig('Tl.pdf')
+        pl.savefig('_build/Tl.pdf')
 
     else:
         pl.clf()
@@ -190,7 +190,7 @@ def kurie(T, popt, pconv, basename, time):
 
         pl.plot(energy, F)
         pl.plot(xx[:,0], xx[:,1], linestyle='None', marker='+')
-        pl.savefig('Na.pdf')
+        pl.savefig('_build/Na.pdf')
 
 
     T['fermi_{}'.format(basename)] = list(zip(
