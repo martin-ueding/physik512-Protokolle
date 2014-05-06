@@ -135,7 +135,7 @@ def aufloesung(Tlist, value, width, dwidth, popt, pconv):
     sigma_val = popt[0]*width
     fwhm_val = sigma_val * 2 * np.sqrt(2 * np.log(2))
 
-    sigma_err =  np.sqrt((width*pconv[0][0])**2 + (popt[0]*)**2)
+    sigma_err =  np.sqrt((width*pconv[0][0])**2 + (popt[0]*dwidth)**2)
     fwhm_err = sigma_err * 2 * np.sqrt(2 * np.log(2))
 
     Tlist.append([
