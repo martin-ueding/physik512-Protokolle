@@ -140,18 +140,12 @@ def kurie(T, popt, pconv, basename, time):
     energy = np.sqrt(1 + impuls**2)
     d_energy = impuls/energy*d_impuls
 
-<<<<<<< HEAD
-    if basename == '04_Tl':
-        popt, pconv = fermi('fermi_Tl.txt')
-        F = exp_sec_deg(impuls, *popt)
-=======
     print(basename)
 
     if basename == '04_Tl':
         xx = np.loadtxt('Daten/fermi_Tl.txt')
         converter = scipy.interpolate.interp1d(xx[:,0], xx[:,1], kind=1)
         F = converter(impuls)
->>>>>>> origin/auswertung
 
         pl.clf()
         pl.plot(impuls, F)
