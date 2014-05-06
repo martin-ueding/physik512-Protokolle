@@ -856,6 +856,50 @@ E_max_04_Tl >>}{\kilo\electronvolt}$ entspricht.  Beim Natrium finden wir
 $\epsilon_\text{max} = \num{<< epsilon_max_05_Na >>}$, oder $E_\text{max} =
 \SI{<< E_max_05_Na >>}{\kilo\electronvolt}$. 
 
+\section{Auflösungsvermögen}
+
+Das Auflösungsvermögen des Spektrometers kann man mit
+\[
+    \frac{\eta_\text{mean}}{\Delta \eta_\text{FWHM}}
+\]
+berechnen, wobei $U_\text{mean}$ den Peakschwerpunk und $\Delta
+U_\text{FWHM}$ die Peakbreite auf halber Maximalhöhe bezeichnen. Die
+Auflösungsvermögen für die \SI{40}{\second}- und für die
+\SI{100}{\second}-Messung findet man in Tabelle~\ref{tab:auflösung_40},
+bzw. \ref{tab:auflösung_100}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{SSS}
+        {$\eta_\text{mean}$} & {$\Delta \eta_\text{FWHM}$} &
+        {Auflösungsvermögen} \\
+        \midrule
+        %< for a, b in aufloesung_40s: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Auflösungsvermögen für die \SI{40}{\second} Messung am Caesium
+    }
+    \label{tab:auflösung_40}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{SSS}
+        {$\eta_\text{mean}$} & {$\Delta \eta_\text{FWHM}$} &
+        {Auflösungsvermögen} \\
+        \midrule
+        %< for a, b in aufloesung_100s: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Auflösungsvermögen für die \SI{100}{\second} Messung am Caesium
+    }
+    \label{tab:auflösung_100}
+\end{table}
+
 \IfFileExists{\bibliographyfile}{
     \printbibliography
 }{}
