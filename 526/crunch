@@ -5,6 +5,7 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 import json
+import sys
 
 import matplotlib.pyplot as pl
 import numpy as np
@@ -43,12 +44,32 @@ def task_nishina_theorie(T):
     np.savetxt('_build/plot_klein_nishina_4.txt',
                np.column_stack([np.degrees(theta), sigma_omega]))
 
+def test_keys(T):
+    dash_keys = []
+    for key in T:
+        if '-' in key:
+            dash_keys.append(key)
+
+    if len(dash_keys) > 0:
+        print()
+        print('**************************************************************')
+        print('* Es dürfen keine Bindestriche in den Schlüsseln für T sein! *')
+        print('**************************************************************')
+        print()
+        print('Folgende Schlüssel enthalten Bindestriche:')
+        for dash_key in dash_keys:
+            print('-', dash_key)
+        print()
+        sys.exit(100)
+
 
 def main():
     T = {}
 
     task_nishina_theorie(T)
 
+
+    test_keys(T)
     with open('_build/template.js', 'w') as f:
         json.dump(dict(T), f, indent=4, sort_keys=True)
 
