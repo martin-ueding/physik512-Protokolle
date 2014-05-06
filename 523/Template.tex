@@ -251,9 +251,10 @@ In der Kuriedarstellung\footnote{Nach F.\,N.\,D\@.~Kurie, nicht Marie Curie
 \parencite{wikipedia/Kurie}} trägt man nicht die Zählrate gegen die kinetische
 Energie auf, sondern transformiert die Zählrate zur Größe $K$ wie folgt
 \parencite[(138)]{Riezler/Kernphysikalisches}:
-\[
-    K(\epsilon) = \sqrt{\frac{\dot N(\epsilon)}{F(Z, \epsilon) \eta(\epsilon) \epsilon}}.
-\]
+\begin{equation}
+    K(\epsilon) = \sqrt{\frac{\dot N(\epsilon)}{F(Z, \epsilon) \eta(\epsilon)
+    \epsilon}}. \label{eq:Kurie}
+\end{equation}
 Dadurch entsteht im Diagram eine Gerade, die die Abszisse bei $E_0$ schneidet,
 sofern die Neutrinos masselos sind. Haben die Neutrinos eine endliche Masse, so
 wird der Schnittpunkt bei etwas kleineren Energien liegen, da nicht die volle
@@ -616,6 +617,54 @@ des Peak-Bereiches gemacht wurde.
     \label{fig:Cs-100s}
 \end{figure}
 
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=$U_\text{Hall}$/\si{\skt},
+                ylabel=Ereignisse,
+                grid=major,
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../_build/04_Tl_80s_bearb.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{204}$Tl bei \SI{80}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Tl-80s}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=.7\linewidth,
+                height=.4\linewidth,
+                xlabel=$U_\text{Hall}$/\si{\skt},
+                ylabel=Ereignisse,
+                grid=major,
+            ]
+            \addplot[error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit
+            ]
+            table[x error index=2, y error index=3] {../_build/05_Na_200s_bearb.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        $\betaup$-Spektrum von ${}^{22}$Na bei \SI{200}{\second}
+        Messdauer und \SI{4}{\percent} Transmission
+    }
+    \label{fig:Na-200s}
+\end{figure}
+
 Zur Impulseichung muss der Impuls für die K- und L-Konversionslinie berechnet
 werden. Die Energie des emittierten $\gammaup$-Quants beim Übergang des
 ${}^{137}$Cs in seinen Grundzustand ist $E_\gammaup = \SI{<< energie_gamma
@@ -671,29 +720,78 @@ ansonsten die Fehlerbalken an den Messwerten nicht mehr zu sehen wären.
     \label{fig:impulseichung}
 \end{figure}
 
-\begin{figure}[htpb]
+Wir benutzen nun die Anpassung um die Hallspannungen aus dem Thallium und
+Natriumspektrum in dimensionslose Impulse umzuwandeln. Zudem berechnen wir mit
+Gleichung~\eqref{eq:Kurie} den $K$-Wert zu den Impulsen und Zählraten. Dazu
+benötigen wir noch die Fermifunktion der beiden Materialien. Wir haben dazu die
+Werte aus Tabelle~\ref{tab:fermi_Tl} und \ref{tab:fermi_Na} linear interpoliert
+um so den Fermifaktor für beliebige Impulse berechnen zu können.
+
+\begin{table}[htpb]
     \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=.7\linewidth,
-                height=.4\linewidth,
-                xlabel=$U_\text{Hall}$/\si{\skt},
-                ylabel=Ereignisse,
-                grid=major,
-            ]
-            \addplot[error bars/.cd,
-                x dir=both, x explicit,
-                y dir=both, y explicit
-            ]
-            table[x error index=2, y error index=3] {../_build/04_Tl_80s_bearb.txt};
-        \end{axis}
-    \end{tikzpicture}
+    \begin{tabular}{SS}
+        {$\eta$} & {$F$}\\
+        \midrule
+        %< for a, b in fermi_04_Tl: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
     \caption{%
-        $\betaup$-Spektrum von ${}^{204}$Tl bei \SI{80}{\second}
-        Messdauer und \SI{4}{\percent} Transmission
+        Fermifunktion für Thallium \parencite[Tabelle
+        P523.1]{physik512-Anleitung}.
     }
-    \label{fig:Tl-80s}
-\end{figure}
+    \label{tab:fermi_Tl}
+\end{table}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{SS}
+        {$\epsilon$} & {$F$}\\
+        \midrule
+        %< for a, b in fermi_05_Na: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Fermifunktion für Natrium. Hier wurden einfach abzulesende Punkte aus
+        Abbildung\ref{fig:fermifunktion} genommen.
+    }
+    \label{tab:fermi_Na}
+\end{table}
+
+Die so berechneten Werte sind in den Tabellen~\ref{tab:Kurie_Tl} und
+\ref{tab:Kurie_Na} zu sehen.
+ 
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{SS}
+        {$\eta$} & {$K$}\\
+        \midrule
+        %< for a, b in Kurie_04_Tl: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Dimensionslose Impulse und $K$-Wert des Betaspektrums von Thallium.
+    }
+    \label{tab:Kurie_Tl}
+\end{table}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{SS}
+        {$\eta$} & {$K$}\\
+        \midrule
+        %< for a, b in Kurie_05_Na: ->%
+        << a >> & << b >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Dimensionslose Energie und $K$-Wert des Betaspektrums von Natrium
+    }
+    \label{tab:Kurie_Na}
+\end{table}
+
 
 \begin{figure}[htpb]
     \centering
@@ -726,30 +824,6 @@ ansonsten die Fehlerbalken an den Messwerten nicht mehr zu sehen wären.
         \begin{axis}[
                 width=.7\linewidth,
                 height=.4\linewidth,
-                xlabel=$U_\text{Hall}$/\si{\skt},
-                ylabel=Ereignisse,
-                grid=major,
-            ]
-            \addplot[error bars/.cd,
-                x dir=both, x explicit,
-                y dir=both, y explicit
-            ]
-            table[x error index=2, y error index=3] {../_build/05_Na_200s_bearb.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        $\betaup$-Spektrum von ${}^{22}$Na bei \SI{200}{\second}
-        Messdauer und \SI{4}{\percent} Transmission
-    }
-    \label{fig:Na-200s}
-\end{figure}
-
-\begin{figure}[htpb]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=.7\linewidth,
-                height=.4\linewidth,
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
                 no markers,
@@ -769,14 +843,18 @@ ansonsten die Fehlerbalken an den Messwerten nicht mehr zu sehen wären.
     \label{fig:kurie-Na}
 \end{figure}
 
-Aus den Kurie-Plots in den Abbildungen~\ref{fig:kurie-Tl} und
-\ref{fig:kurie-Na} erhält man die Maximalenergie der emittierten Teilchen,
-indem man den Schnittpunkt der Anpassungsgraden mit der $\epsilon$-Achse
-findet. Im Fall vom Thallium ist dies bei uns $\epsilon_\text{max} = \num{<<
+Die Werte sind samt Anpassungsgeraden in den Abbildungen~\ref{fig:kurie-Tl} und
+\ref{fig:kurie-Na} zu sehen. Aus deren Nullstellen erhält man die
+Maximalenergie der emittierten Teilchen.  Da bei beiden Messungen einige
+Messwerte deutlich von einer Geraden abwichen, haben wir, um eine vernünftige
+Anpassung zu bekommen, beim Thallium die ersten beiden und den letzten, und
+beim Natrium die ersten fünf und den letzten Datenpunkt ausgelassen.
+
+Im Fall vom Thallium erhielten wir $\epsilon_\text{max} = \num{<<
 epsilon_max_04_Tl >>}$, was einer Energie von $E_\text{max} = \SI{<<
 E_max_04_Tl >>}{\kilo\electronvolt}$ entspricht.  Beim Natrium finden wir
-$\epsilon_\text{max} = \num{<< epsilon_max_05_Na >>}$, oder $E_\text{max}
-= \SI{<< E_max_05_Na >>}{\kilo\electronvolt}$. 
+$\epsilon_\text{max} = \num{<< epsilon_max_05_Na >>}$, oder $E_\text{max} =
+\SI{<< E_max_05_Na >>}{\kilo\electronvolt}$. 
 
 \IfFileExists{\bibliographyfile}{
     \printbibliography

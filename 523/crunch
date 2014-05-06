@@ -193,6 +193,11 @@ def kurie(T, popt, pconv, basename, time):
         pl.savefig('Na.pdf')
 
 
+    T['fermi_{}'.format(basename)] = list(zip(
+        unitprint.siunitx(xx[:,0]),
+        unitprint.siunitx(xx[:,1])
+        ))
+
     K = np.sqrt(rate/(F*impuls*energy))
 
     T['Kurie_{}'.format(basename)] = list(zip(
