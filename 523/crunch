@@ -46,7 +46,7 @@ def fit_peak(T, filename, lower, upper, p0, prefix, impuls, d_impuls, linie, sho
         pl.plot(fit_bins, fit_counts)
         pl.plot(x, y)
         pl.show()
-
+    # (Schwerpunkt, Fehler, Standartabweichung, Fehler, Impuls, Fehler)
     return (popt[0], d[0], abs(popt[1]), d[1], impuls, d_impuls)
 
 def fit_gauge_points(T, points, show=False):
@@ -121,6 +121,29 @@ def impulseichung(T):
 
     kurie(T, popt, pconv, '04_Tl', 80)
     kurie(T, popt, pconv, '05_Na', 200)
+
+    # gauge_points: (Schwerpunkt, Fehler, Standartabweichung, Fehler, Impuls, Fehler)
+
+    T['aufloesung_40s'] = []
+    T['aufloesung_100s'] = []
+    aufloesung(T['aufloesung_40s'], gauge_points[1][4], gauge_points[1][2], gauge_points[1][3], popt, pconv)
+    aufloesung(T['aufloesung_40s'], gauge_points[2][4], gauge_points[2][2], gauge_points[2][3], popt, pconv)
+    aufloesung(T['aufloesung_100s'], gauge_points[3][4], gauge_points[3][2], gauge_points[3][3], popt, pconv)
+    aufloesung(T['aufloesung_100s'], gauge_points[4][4], gauge_points[4][2], gauge_points[4][3], popt, pconv)
+
+def aufloesung(Tlist, value, width, dwidth, popt, pconv):
+    sigma_val = popt[0]*width
+    fwhm_val = sigma_val * 2 * np.sqrt(2 * np.log(2))
+
+    sigma_err =  np.sqrt((width*pconv[0][0])**2 + (popt[0]*)**2)
+    fwhm_err = sigma_err * 2 * np.sqrt(2 * np.log(2))
+
+    Tlist.append([
+        value,
+        unitprint.siunitx(fwhm_val, fwhm_err),
+        unitprint.siunitx(value/fwhm_val, value/fwhm_val**2 * fwhm_err),
+    ])
+
 
 def kurie(T, popt, pconv, basename, time):
     data = np.loadtxt('_build/{}_{}s_bearb.txt'.format(basename,time))
@@ -208,19 +231,6 @@ def fermi(filename):
 
     return popt, pconv
 
-
-def aufloesung(Tlist, value, width, converter):
-    sigma_val = converter(width) - converter(0)
-    fwhm_val = sigma_val * 2 * np.sqrt(2 * np.log(2))
-
-    sigma_err = scipy.misc.derivative(converter, width)
-    fwhm_err = sigma_err * 2 * np.sqrt(2 * np.log(2))
-
-    Tlist.append([
-        value,
-        unitprint.siunitx(fwhm_val, fwhm_err),
-        unitprint.siunitx(value/fwhm_val, value/fwhm_val**2 * fwhm_err),
-    ])
 
 def hall_offset(T):
     '''
