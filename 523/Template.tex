@@ -367,6 +367,7 @@ Abbildung~\ref{fig:hysterese} dargestellt.
                 height=0.7\linewidth,
                 xlabel=Spulenstrom / wilk.\,Einh.,
                 ylabel=Flussdichte / wilk.\,Einh.,
+                grid=major,
             ]
             \addplot[black] table [x index=1, y index=2]{../Daten/data.txt};
         \end{axis}
@@ -567,7 +568,8 @@ des Peak-Bereiches gemacht wurde.
                 height=.4\linewidth,
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
-                no markers
+                no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -595,6 +597,7 @@ des Peak-Bereiches gemacht wurde.
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -654,6 +657,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=$\eta$,
                 no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -678,6 +682,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
+                grid=major,
             ]
             \addplot[error bars/.cd,
                 x dir=both, x explicit,
@@ -702,6 +707,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
                 no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -725,6 +731,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
+                grid=major,
             ]
             \addplot[error bars/.cd,
                 x dir=both, x explicit,
@@ -748,7 +755,8 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
-                no markers
+                no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
