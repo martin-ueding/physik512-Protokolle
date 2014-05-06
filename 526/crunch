@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
+
+import json
+
+import matplotlib.pyplot as pl
+import numpy as np
+import scipy.optimize as op
+import scipy.misc
+import unitprint
+
+def sigma_omega_klein_nishina(gamma, theta):
+    re = 1e-15
+
+    cos = np.cos(theta)
+
+    return re**2 / 2 \
+            * \
+            1 / (1 + gamma * (1 - cos))**2 \
+            * \
+            (1 + cos**2 + (gamma**2 * (1 - cos)**2) / (1 + gamma * (1 - cos)))
+
+
+def task_nishina_theorie(T):
+    theta = np.linspace(0, np.pi, 1000)
+
+    sigma_omega = sigma_omega_klein_nishina(0.01, theta)
+    np.savetxt('_build/plot_klein_nishina_1.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+    sigma_omega = sigma_omega_klein_nishina(0.1, theta)
+    np.savetxt('_build/plot_klein_nishina_2.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+    sigma_omega = sigma_omega_klein_nishina(1, theta)
+    np.savetxt('_build/plot_klein_nishina_3.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+    sigma_omega = sigma_omega_klein_nishina(10, theta)
+    np.savetxt('_build/plot_klein_nishina_4.txt',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+
+
+def main():
+    T = {}
+
+    task_nishina_theorie(T)
+
+    with open('_build/template.js', 'w') as f:
+        json.dump(dict(T), f, indent=4, sort_keys=True)
+
+if __name__ == "__main__":
+    main()
