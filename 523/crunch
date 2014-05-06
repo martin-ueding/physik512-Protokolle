@@ -139,7 +139,7 @@ def aufloesung(Tlist, value, width, dwidth, popt, pconv):
     fwhm_err = sigma_err * 2 * np.sqrt(2 * np.log(2))
 
     Tlist.append([
-        value,
+        unitprint.siunitx(value),
         unitprint.siunitx(fwhm_val, fwhm_err),
         unitprint.siunitx(value/fwhm_val, value/fwhm_val**2 * fwhm_err),
     ])
