@@ -1,4 +1,6 @@
-\input{../../header.tex}
+\documentclass[11pt, ngerman, fleqn, DIV=15, headinclude, BCOR=2cm]{scrreprt}
+
+\usepackage{../../header}
 
 \usepackage[section]{placeins}
 
@@ -365,6 +367,7 @@ Abbildung~\ref{fig:hysterese} dargestellt.
                 height=0.7\linewidth,
                 xlabel=Spulenstrom / wilk.\,Einh.,
                 ylabel=Flussdichte / wilk.\,Einh.,
+                grid=major,
             ]
             \addplot[black] table [x index=1, y index=2]{../Daten/data.txt};
         \end{axis}
@@ -542,7 +545,6 @@ des Peak-Bereiches gemacht wurde.
 %                height=.4\linewidth,
 %                xlabel=Hallspannung/Skt.,
 %                ylabel=Ereignisse,
-%                axis lines=left
 %            ]
 %            \addplot[error bars/.cd,
 %                x dir=both, x explicit,
@@ -567,7 +569,7 @@ des Peak-Bereiches gemacht wurde.
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 no markers,
-                axis lines= left
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -595,7 +597,7 @@ des Peak-Bereiches gemacht wurde.
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
                 no markers,
-                axis lines= left
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -636,16 +638,13 @@ Der Impuls ist in Abbildung~\ref{fig:impulseichung} gegen die Peakschwerpunkte
 aufgetragen. Für die Anpassung ergibt sich
 \[
     \eta = \del{\SI{<< fit_impulseichung_steigung >>}{\per\skt}} \cdot
-    U_\text{Hall} + \del{\num{<< fit_impulseichung_offset >>}}
+    U_\text{Hall} + \del{\num{<< fit_impulseichung_offset >>}},
 \]
+wobei der Nullpunkt als weiterer Datenpunkt berücksichtigt worden ist. Die
+Anpassung aufgrund des Ausschnittes sehr schlecht aus, jedoch sind die Residuen
+in Relation recht klein. Wir haben hier diesen Ausschnitt gewählt, da ansonsten
+die Fehlerbalken an den Messwerten nicht mehr zu sehen wären.
 
-% TODO Auf den ersten Blick sieht es so aus, als wäre der Fit extrem schlecht.
-% Allerdings liegt es ja daran, dass der Ursprung auch noch mit drin ist. In
-% einem der alten Protokolle ist genau das gleiche Problem. Hier sollte
-% entweder noch ein erklärender Text dazu oder der Ursprung noch mit ins Bild.
-% Der ist ja auch noch ein Punkt, so dass es dann insgesamt einen besseren
-% Eindruck macht. Die Fehler sind dann nur nicht mehr zu erkennen. Vielleicht
-% noch einen zweiten Plot? Oder eher einen Text, weil es etwas schneller geht?
 \begin{figure}[htpb]
     \centering
     \begin{tikzpicture}
@@ -655,7 +654,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=$\eta$,
                 no markers,
-                axis lines= left
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -680,7 +679,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
-                axis lines= left
+                grid=major,
             ]
             \addplot[error bars/.cd,
                 x dir=both, x explicit,
@@ -705,7 +704,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
                 no markers,
-                axis lines= left
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
@@ -729,7 +728,7 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$U_\text{Hall}$/\si{\skt},
                 ylabel=Ereignisse,
-                axis lines= left
+                grid=major,
             ]
             \addplot[error bars/.cd,
                 x dir=both, x explicit,
@@ -753,8 +752,8 @@ aufgetragen. Für die Anpassung ergibt sich
                 height=.4\linewidth,
                 xlabel=$\epsilon$,
                 ylabel=$K(\epsilon)$,
-                axis lines= left,
-                no markers
+                no markers,
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
