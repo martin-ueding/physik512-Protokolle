@@ -155,9 +155,9 @@ def kurie(T, popt, pconv, basename, time):
     np.savetxt('_build/Kurie_{}.txt'.format(basename), np.column_stack([energy, K, d_energy]))
 
     if basename == '04_Tl':
-        popt, pconv = op.curve_fit(linear, energy[2:], K[2:])
+        popt, pconv = op.curve_fit(linear, energy[2:-1], K[2:-1])
     else:
-        popt, pconv = op.curve_fit(linear, energy[5:], K[5:])
+        popt, pconv = op.curve_fit(linear, energy[5:-1], K[5:-1])
     
     E_max = -popt[1]/popt[0]
     dE_max = np.sqrt((pconv[1][1]/popt[0])**2 + (popt[1]*pconv[0][0]/popt[0]**2)**2)
