@@ -11,6 +11,7 @@ import matplotlib.pyplot as pl
 import numpy as np
 import scipy.optimize as op
 import scipy.misc
+import scipy.interpolate
 import unitprint
 
 def gauss(x, mean, stddev, amplitude):
@@ -142,24 +143,31 @@ def kurie(T, popt, pconv, basename, time):
     print(basename)
 
     if basename == '04_Tl':
-        popt, pconv = fermi('fermi_Tl.txt')
-        F = exp_sec_deg(impuls, *popt)
+        xx = np.loadtxt('Daten/fermi_Tl.txt')
+        converter = scipy.interpolate.interp1d(xx[:,0], xx[:,1], kind=1)
+        F = converter(impuls)
 
         pl.clf()
         pl.plot(impuls, F)
-        xx = np.loadtxt('Daten/fermi_Tl.txt')
         pl.plot(xx[:,0], xx[:,1], linestyle='None', marker='+')
-        pl.show()
+        pl.savefig('Tl.pdf')
 
     else:
-        popt, pconv = fermi('fermi_Na.txt')
-        F = exp_sec_deg(energy, *popt)
-
         pl.clf()
-        pl.plot(energy, F)
         xx = np.loadtxt('Daten/fermi_Na.txt')
+        converter = scipy.interpolate.interp1d(xx[:,0], xx[:,1], kind=1)
+        print(xx[:, 0])
+        print(energy)
+        F = converter(energy)
+
+        x = np.linspace(np.min(xx[:, 0]), np.max(xx[:, 0]))
+        y = converter(x)
+        pl.plot(x, y)
+
+
+        pl.plot(energy, F)
         pl.plot(xx[:,0], xx[:,1], linestyle='None', marker='+')
-        pl.show()
+        pl.savefig('Na.pdf')
 
 
     K = np.sqrt(rate/(F*impuls*energy))
