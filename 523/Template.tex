@@ -638,16 +638,13 @@ Der Impuls ist in Abbildung~\ref{fig:impulseichung} gegen die Peakschwerpunkte
 aufgetragen. Für die Anpassung ergibt sich
 \[
     \eta = \del{\SI{<< fit_impulseichung_steigung >>}{\per\skt}} \cdot
-    U_\text{Hall} + \del{\num{<< fit_impulseichung_offset >>}}
+    U_\text{Hall} + \del{\num{<< fit_impulseichung_offset >>}},
 \]
+wobei der Nullpunkt als weiterer Datenpunkt berücksichtigt worden ist. Die
+Anpassung aufgrund des Ausschnittes sehr schlecht aus, jedoch sind die Residuen
+in Relation recht klein. Wir haben hier diesen Ausschnitt gewählt, da ansonsten
+die Fehlerbalken an den Messwerten nicht mehr zu sehen wären.
 
-% TODO Auf den ersten Blick sieht es so aus, als wäre der Fit extrem schlecht.
-% Allerdings liegt es ja daran, dass der Ursprung auch noch mit drin ist. In
-% einem der alten Protokolle ist genau das gleiche Problem. Hier sollte
-% entweder noch ein erklärender Text dazu oder der Ursprung noch mit ins Bild.
-% Der ist ja auch noch ein Punkt, so dass es dann insgesamt einen besseren
-% Eindruck macht. Die Fehler sind dann nur nicht mehr zu erkennen. Vielleicht
-% noch einen zweiten Plot? Oder eher einen Text, weil es etwas schneller geht?
 \begin{figure}[htpb]
     \centering
     \begin{tikzpicture}
