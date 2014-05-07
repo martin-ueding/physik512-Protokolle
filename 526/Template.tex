@@ -550,6 +550,31 @@ eine Art Histogramm.
 
 \chapter{Auswertung}
 
+\section{Abschwächungskoeffizient}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Extinktionsfaktor,
+            ]
+            \addplot[black] table {plot-ratio-00mm.txt};
+            \addplot[black] table {plot-ratio-01mm.txt};
+            \addplot[black] table {plot-ratio-05mm.txt};
+            \addplot[black] table {plot-ratio-10mm.txt};
+            \addplot[black] table {plot-ratio-20mm.txt};
+            \addplot[black] table {plot-ratio-50mm.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        %
+    }
+    \label{fig:}
+\end{figure}
+
 \chapter{Ergebnis}
 
 % TODO Ergebnis.

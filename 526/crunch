@@ -36,7 +36,6 @@ def extract_photo_peak(filename, dicke_mm):
         + (counts / normal_counts**2 * np.sqrt(normal_counts))**2
     )
 
-
     lower = 200
     upper = -1
 
@@ -50,17 +49,56 @@ def extract_photo_peak(filename, dicke_mm):
     pl.errorbar(bins, counts, yerr=counts_err)
     pl.plot(bins, np.ones(counts.shape) * np.mean(counts))
 
-def absorption(T):
-    points = []
-    points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
-    points.append(extract_photo_peak('Daten/1mm_Al_0deg001.txt', 1))
-    points.append(extract_photo_peak('Daten/5mm_Al_0deg001.txt', 5))
-    points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
-    points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
-    points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
+def extinction_ratio(filename, dicke_mm):
+    normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
+    normal_counts = normal_data[:, 1]
+    data = np.loadtxt(filename)
+    bins = data[:, 0]
+    counts = data[:, 1]
 
-    pl.grid(True)
-    pl.show()
+    sigma = 50
+
+    normal_counts = scipy.ndimage.filters.gaussian_filter(normal_counts, sigma)
+    counts = scipy.ndimage.filters.gaussian_filter(counts, sigma)
+    counts /= normal_counts
+
+    counts_err = np.sqrt(
+        (np.sqrt(counts) / normal_counts)**2
+        + (counts / normal_counts**2 * np.sqrt(normal_counts))**2
+    )
+
+    lower = 200
+    upper = -1
+    step = len(bins[lower:upper]) // 200
+
+    bins = bins[lower:upper:step]
+    counts = counts[lower:upper:step]
+    counts_err = counts_err[lower:upper:step]
+
+    np.savetxt('_build/plot-ratio-{:02d}mm.txt'.format(dicke_mm), np.column_stack([
+        bins, counts, counts_err
+    ]))
+
+def absorption(T):
+    extinction_ratio('Daten/01_Untergrund001.txt', 0)
+    extinction_ratio('Daten/1mm_Al_0deg001.txt', 1)
+    extinction_ratio('Daten/5mm_Al_0deg001.txt', 5)
+    extinction_ratio('Daten/10mm_Al_0deg001.txt', 10)
+    extinction_ratio('Daten/20mm_Al_0deg001.txt', 20)
+    extinction_ratio('Daten/50mm_Al_0deg001.txt', 50)
+
+
+    if False:
+        points = []
+        points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
+        points.append(extract_photo_peak('Daten/1mm_Al_0deg001.txt', 1))
+        points.append(extract_photo_peak('Daten/5mm_Al_0deg001.txt', 5))
+        points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
+        points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
+        points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
+
+        pl.grid(True)
+        pl.show()
 
 
 
