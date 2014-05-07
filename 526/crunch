@@ -139,6 +139,9 @@ def absorption(T):
     pl.plot(x, y)
     #pl.show()
 
+    np.savetxt('_build/plot-decay-data.txt', np.column_stack([dicke, ampl_val, ampl_err]))
+    np.savetxt('_build/plot-decay-fit.txt', np.column_stack([x, y]))
+
 
 
 def sigma_omega_klein_nishina(gamma, theta):

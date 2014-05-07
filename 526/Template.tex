@@ -605,7 +605,34 @@ eine Art Histogramm.
                 width=\linewidth,
                 height=0.6\linewidth,
                 xlabel=Kanal,
+                ylabel=Amplitude,
+                grid=major,
+            ]
+            \addplot[
+                black,
+                %scatter,
+                only marks,
+                error bars/.cd,
+                y dir=both, y explicit,
+            ]
+            table[y error index=2] {plot-decay-data.txt};
+            \addplot[red] table {plot-decay-fit.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
                 ylabel=Extinktionsfaktor,
+                grid=major,
             ]
             \addplot[black] table {plot-ratio-00mm.txt};
             \addplot[black] table {plot-ratio-01mm.txt};
@@ -616,9 +643,9 @@ eine Art Histogramm.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Extinktionsfaktoren ohne Absorber (per Definition konstant 1) sowie mit
-        \SIlist{1;5;10;20;50}{\milli\meter} Aluminium zwischen eingebauter
-        Quelle und Detektor.
+        Extinktionsfaktoren nach Glättung, ohne Absorber (per Definition
+        konstant 1) sowie mit \SIlist{1;5;10;20;50}{\milli\meter} Aluminium
+        zwischen eingebauter Quelle und Detektor.
     }
     \label{fig:}
 \end{figure}
