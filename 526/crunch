@@ -68,11 +68,6 @@ def extract_photo_peak(filename, dicke_mm):
     return dicke_mm, popt[2], c[2], popt[0], c[0], popt[1], c[1]
 
 
-    #pl.plot(bins, counts)
-    #pl.plot(bins, y)
-    #pl.show()
-
-
 def extinction_ratio(T, filename, dicke_mm):
     normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
     normal_counts = normal_data[:, 1]

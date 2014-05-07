@@ -659,6 +659,7 @@ alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
             ]
             \addplot[
                 black,
+                mark=|,
                 only marks,
                 error bars/.cd,
                 y dir=both, y explicit,
@@ -670,13 +671,14 @@ alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
     \caption{%
         Maximale Amplitude gegen Absorberdicke. Die Messpunkte stammen aus den
         Anpassungen der vorherigen Abbildung. Der letze Punkt wurde aus der
-        Anpassung ausgeschlossen.
+        Anpassung ausgeschlossen. Die Fehlerbalken sind in der Abbildung,
+        jedoch sind jedoch extrem klein.
     }
     \label{fig:decay}
 \end{figure}
 
 Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
-\num{<< extinction_gauss_sigma >>}$\.Kanäle), um diese zu glätten. Danach haben
+\num{<< extinction_gauss_sigma >>}$\,Kanäle), um diese zu glätten. Danach haben
 wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
 zu erhalten. Diese normalisierten Spektren haben wir in
 Abbildung~\ref{fig:extinktion} dargestellt.
