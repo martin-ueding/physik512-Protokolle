@@ -552,6 +552,137 @@ eine Art Histogramm.
 
 \section{Abschwächungskoeffizient}
 
+Aus den Messdaten für den Wirkungsquerschnitt wählen wir das letzte Maximum
+aus. An diese Auswahl passen wir die Normalverteilung
+\[
+    \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+an, deren Integral einfach nur $a$ ist. Die Daten und Anpassungskurven sind in
+Abbildung~\ref{fig:amplituden} dargestellt. In Tabelle~\ref{tab:amplituden}
+sind die Anpassungsparameter zusammengestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                grid=major,
+            ]
+            \addplot[gray] table {plot-decay-data-00mm.txt};
+            \addplot[black] table {plot-decay-used-00mm.txt};
+
+            \addplot[gray] table {plot-decay-data-01mm.txt};
+            \addplot[black] table {plot-decay-used-01mm.txt};
+
+            \addplot[gray] table {plot-decay-data-05mm.txt};
+            \addplot[black] table {plot-decay-used-05mm.txt};
+
+            \addplot[gray] table {plot-decay-data-10mm.txt};
+            \addplot[black] table {plot-decay-used-10mm.txt};
+
+            \addplot[gray] table {plot-decay-data-20mm.txt};
+            \addplot[black] table {plot-decay-used-20mm.txt};
+
+            \addplot[gray] table {plot-decay-data-50mm.txt};
+            \addplot[black] table {plot-decay-used-50mm.txt};
+
+            \addplot[red] table {plot-decay-fit-00mm.txt};
+            \addplot[red] table {plot-decay-fit-01mm.txt};
+            \addplot[red] table {plot-decay-fit-05mm.txt};
+            \addplot[red] table {plot-decay-fit-10mm.txt};
+            \addplot[red] table {plot-decay-fit-20mm.txt};
+            \addplot[red] table {plot-decay-fit-50mm.txt};
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum der eingebauten Quelle ohne Absorber und mit
+        \SIlist{1;5;10;20;50}{\milli\meter} Aluminium. An die schwarz
+        markierten Punkte wurden Normalverteilungen angepasst, diese sind in
+        rot darüber gezeigt.
+    }
+    \label{fig:amplituden}
+\end{figure}
+
+Nach dem Lambert-Beer-Gesetz ist eine exponentielle Abschwächung der
+Strahlungsleistung (hier repräsentiert durch das Integral) zu erwarten. Daher
+passen wir an die Daten eine Zerfallsfunktion,
+\[
+    I(x) = I_0 \exp(- a x),
+\]
+an. Den letzen Punkt haben wir bei der Anpassung ausgelassen, da er sehr weit
+von der Kurve entfernt liegt. Das Aluminiumstück, das für die die letzte
+Messung benutzt haben, war sehr schmal. Dadurch ist es zum einen schwer
+gewesen, es wirklich parallel zum Strahlengang auszurichten, außerdem könnte
+Strahlung auch neben dem Stück passiert und in den Detektor gelangt sein. Der
+Wirkungsquerschnitt ist demnach nicht so gering, wie bei dieser Dicke zu
+erwarten wäre.
+
+Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n \sigma$ ist, erhalten wir
+mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
+der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
+der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
+>>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
+alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSSS}
+        {Dicke / \si{\milli\meter}} &
+        {Integral / Kanal} &
+        {$\mu$ / Kanal} &
+        {$\sigma$ / Kanal} \\
+        \midrule
+        %< for row in decay_table: ->%
+        << ' & '.join(row) >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Anpassungsparameter für die verschiedenen Dicken der
+        Absorbermaterialien.
+    }
+    \label{tab:amplituden}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Integral,
+                grid=major,
+            ]
+            \addplot[
+                black,
+                mark=|,
+                only marks,
+                error bars/.cd,
+                y dir=both, y explicit,
+            ]
+            table[y error index=2] {plot-decay-data.txt};
+            \addplot[red] table {plot-decay-fit.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Maximale Amplitude gegen Absorberdicke. Die Messpunkte stammen aus den
+        Anpassungen der vorherigen Abbildung. Der letze Punkt wurde aus der
+        Anpassung ausgeschlossen. Die Fehlerbalken sind in der Abbildung,
+        jedoch sind jedoch extrem klein.
+    }
+    \label{fig:decay}
+\end{figure}
+
+Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
+\num{<< extinction_gauss_sigma >>}$\,Kanäle), um diese zu glätten. Danach haben
+wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
+zu erhalten. Diese normalisierten Spektren haben wir in
+Abbildung~\ref{fig:extinktion} dargestellt.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -560,6 +691,7 @@ eine Art Histogramm.
                 height=0.6\linewidth,
                 xlabel=Kanal,
                 ylabel=Extinktionsfaktor,
+                grid=major,
             ]
             \addplot[black] table {plot-ratio-00mm.txt};
             \addplot[black] table {plot-ratio-01mm.txt};
@@ -570,9 +702,11 @@ eine Art Histogramm.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        %
+        Extinktionsfaktoren nach Glättung, ohne Absorber (per Definition
+        konstant 1) sowie mit \SIlist{1;5;10;20;50}{\milli\meter} Aluminium
+        zwischen eingebauter Quelle und Detektor.
     }
-    \label{fig:}
+    \label{fig:extinktion}
 \end{figure}
 
 \section{Energieeichung}

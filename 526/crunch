@@ -17,7 +17,11 @@ import scipy.ndimage.filters
 import unitprint
 
 def gauss(x, mean, sigma, a):
-    return a / np.sqrt(sigma) * np.exp(- ((x - mean)/sigma)**2)
+    return a / (np.sqrt(2 * np.pi) * sigma) \
+            * np.exp(- (x - mean)**2/(2 * sigma**2))
+
+def decay(x, tau, a):
+    return a * np.exp(- x / tau)
 
 def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
     return a / np.sqrt(sigma1) * np.exp(- ((x - mean1)/sigma1)**2) + b / np.sqrt(sigma2) * np.exp(- ((x - mean2)/sigma2)**2)
@@ -86,8 +90,6 @@ def extract_photo_peak(filename, dicke_mm):
         counts[lower_fit:upper_fit], 
         p0=[3000, 100, 120000],
     )
-    print(popt)
-    print(pconv)
 
     y = gauss(bins, *popt)
 
@@ -95,17 +97,24 @@ def extract_photo_peak(filename, dicke_mm):
         counts[lower_fit:upper_fit],
         y[lower_fit:upper_fit]
     )
-    print(chisq, p)
     divisor = len(counts[lower_fit:upper_fit]) - 3 - 1
-    print(chisq / divisor, p)
+
+    np.savetxt('_build/plot-decay-data-{:02d}mm.txt'.format(dicke_mm), np.column_stack([
+        bins, counts
+    ]))
+    np.savetxt('_build/plot-decay-used-{:02d}mm.txt'.format(dicke_mm), np.column_stack([
+        bins[lower_fit:upper_fit], counts[lower_fit:upper_fit]
+    ]))
+    np.savetxt('_build/plot-decay-fit-{:02d}mm.txt'.format(dicke_mm), np.column_stack([
+        bins[lower_fit:upper_fit], y[lower_fit:upper_fit]
+    ]))
+
+    c = np.sqrt(pconv.diagonal())
+
+    return dicke_mm, popt[2], c[2], popt[0], c[0], popt[1], c[1]
 
 
-    #pl.plot(bins, counts)
-    #pl.plot(bins, y)
-    #pl.show()
-
-
-def extinction_ratio(filename, dicke_mm):
+def extinction_ratio(T, filename, dicke_mm):
     normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
     normal_counts = normal_data[:, 1]
     data = np.loadtxt(filename)
@@ -113,6 +122,7 @@ def extinction_ratio(filename, dicke_mm):
     counts = data[:, 1]
 
     sigma = 50
+    T['extinction_gauss_sigma'] = unitprint.siunitx(sigma)
 
     normal_counts = scipy.ndimage.filters.gaussian_filter(normal_counts, sigma)
     counts = scipy.ndimage.filters.gaussian_filter(counts, sigma)
@@ -136,12 +146,12 @@ def extinction_ratio(filename, dicke_mm):
     ]))
 
 def absorption(T):
-    extinction_ratio('Daten/01_Untergrund001.txt', 0)
-    extinction_ratio('Daten/1mm_Al_0deg001.txt', 1)
-    extinction_ratio('Daten/5mm_Al_0deg001.txt', 5)
-    extinction_ratio('Daten/10mm_Al_0deg001.txt', 10)
-    extinction_ratio('Daten/20mm_Al_0deg001.txt', 20)
-    extinction_ratio('Daten/50mm_Al_0deg001.txt', 50)
+    extinction_ratio(T, 'Daten/01_Untergrund001.txt', 0)
+    extinction_ratio(T, 'Daten/1mm_Al_0deg001.txt', 1)
+    extinction_ratio(T, 'Daten/5mm_Al_0deg001.txt', 5)
+    extinction_ratio(T, 'Daten/10mm_Al_0deg001.txt', 10)
+    extinction_ratio(T, 'Daten/20mm_Al_0deg001.txt', 20)
+    extinction_ratio(T, 'Daten/50mm_Al_0deg001.txt', 50)
 
     points = []
     points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
@@ -150,6 +160,60 @@ def absorption(T):
     points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
     points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
     points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
+
+    points = np.array(points)
+
+
+    dicke = points[:, 0]
+    ampl_val = points[:, 1]
+    ampl_err = points[:, 2]
+    mean_val = points[:, 3]
+    mean_err = points[:, 4]
+    sigma_val = points[:, 5]
+    sigma_err = points[:, 6]
+
+    popt, pconv = op.curve_fit(
+        decay,
+        dicke[:-1],
+        ampl_val[:-1],
+        p0=[20, 420000],
+        sigma=ampl_err[:-1],
+    )
+    print(popt)
+    print(pconv)
+    x = np.linspace(np.min(dicke), np.max(dicke), 100)
+    y = decay(x, *popt)
+    
+    c = np.sqrt(pconv.diagonal())
+
+    pl.errorbar(dicke, ampl_val, ampl_err)
+    pl.plot(x, y)
+    #pl.show()
+
+    np.savetxt('_build/plot-decay-data.txt', np.column_stack([dicke, ampl_val, ampl_err]))
+    np.savetxt('_build/plot-decay-fit.txt', np.column_stack([x, y]))
+
+    T['decay_table'] = list(zip(
+        unitprint.siunitx(dicke),
+        unitprint.siunitx(ampl_val, ampl_err),
+        unitprint.siunitx(mean_val, mean_err),
+        unitprint.siunitx(sigma_val, sigma_err),
+    ))
+
+    dichte = 2.7
+    amu = 26.98
+    na = 6.022e23
+
+    n = dichte * na / amu
+
+    sigma_val = popt[0] / n
+    sigma_err = c[0] / n
+
+    T['alu_dichte'] = unitprint.siunitx(dichte)
+    T['alu_amu'] = unitprint.siunitx(amu)
+    T['alu_n'] = unitprint.siunitx(n)
+    T['alu_a'] = unitprint.siunitx(popt[0], c[0])
+    T['alu_sigma'] = unitprint.siunitx(sigma_val / 1e-22, sigma_err / 1e-22)
 
 
 def sigma_omega_klein_nishina(gamma, theta):
