@@ -610,7 +610,6 @@ eine Art Histogramm.
             ]
             \addplot[
                 black,
-                %scatter,
                 only marks,
                 error bars/.cd,
                 y dir=both, y explicit,
@@ -625,6 +624,12 @@ eine Art Histogramm.
     }
     \label{fig:}
 \end{figure}
+
+Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
+\num{<< extinction_gauss_sigma >>}$), um diese zu glätten. Danach haben wir die
+Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis zu
+erhalten. Diese normalisierten Spektren haben wir in
+Graph~\ref{fig:extinktion} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -649,7 +654,7 @@ eine Art Histogramm.
         konstant 1) sowie mit \SIlist{1;5;10;20;50}{\milli\meter} Aluminium
         zwischen eingebauter Quelle und Detektor.
     }
-    \label{fig:}
+    \label{fig:extinktion}
 \end{figure}
 
 \chapter{Ergebnis}
