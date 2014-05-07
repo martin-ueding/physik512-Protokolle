@@ -11,6 +11,7 @@ import matplotlib.pyplot as pl
 import numpy as np
 import scipy.optimize as op
 import scipy.misc
+import scipy.stats
 import matplotlib.pyplot as pl
 import scipy.ndimage.filters
 import unitprint
@@ -44,9 +45,18 @@ def extract_photo_peak(filename, dicke_mm):
 
     y = gauss(bins, *popt)
 
-    pl.plot(bins, counts)
-    pl.plot(bins, y)
-    pl.show()
+    chisq, p = scipy.stats.chisquare(
+        counts[lower_fit:upper_fit],
+        y[lower_fit:upper_fit]
+    )
+    print(chisq, p)
+    divisor = len(counts[lower_fit:upper_fit]) - 3 - 1
+    print(chisq / divisor, p)
+
+
+    #pl.plot(bins, counts)
+    #pl.plot(bins, y)
+    #pl.show()
 
 
 def extinction_ratio(filename, dicke_mm):
@@ -94,9 +104,6 @@ def absorption(T):
     points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
     points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
     points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
-
-    sys.exit(0)
-
 
 
 def sigma_omega_klein_nishina(gamma, theta):
