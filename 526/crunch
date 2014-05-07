@@ -133,15 +133,17 @@ def absorption(T):
 
     popt, pconv = op.curve_fit(
         decay,
-        dicke, ampl_val,
+        dicke[:-1],
+        ampl_val[:-1],
         p0=[20, 420000],
-        sigma=ampl_err,
+        sigma=ampl_err[:-1],
     )
     print(popt)
     print(pconv)
     x = np.linspace(np.min(dicke), np.max(dicke), 100)
     y = decay(x, *popt)
     
+    c = np.sqrt(pconv.diagonal())
 
     pl.errorbar(dicke, ampl_val, ampl_err)
     pl.plot(x, y)
@@ -156,6 +158,21 @@ def absorption(T):
         unitprint.siunitx(mean_val, mean_err),
         unitprint.siunitx(sigma_val, sigma_err),
     ))
+
+    dichte = 2.7
+    amu = 26.98
+    na = 6.022e23
+
+    n = dichte * na / amu
+
+    sigma_val = popt[0] / n
+    sigma_err = c[0] / n
+
+    T['alu_dichte'] = unitprint.siunitx(dichte)
+    T['alu_amu'] = unitprint.siunitx(amu)
+    T['alu_n'] = unitprint.siunitx(n)
+    T['alu_a'] = unitprint.siunitx(popt[0], c[0])
+    T['alu_sigma'] = unitprint.siunitx(sigma_val / 1e-22, sigma_err / 1e-22)
 
 
 def sigma_omega_klein_nishina(gamma, theta):

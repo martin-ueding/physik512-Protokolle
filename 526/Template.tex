@@ -557,7 +557,9 @@ aus. An diese Auswahl passen wir die Normalverteilung
 \[
     \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
 \]
-an, deren Integral einfach nur $a$ ist. 
+an, deren Integral einfach nur $a$ ist. Die Daten und Anpassungskurven sind in
+Abbildung~\ref{fig:amplituden} dargestellt. In Tabelle~\ref{tab:amplituden}
+sind die Anpassungsparameter zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -605,6 +607,21 @@ an, deren Integral einfach nur $a$ ist.
     \label{fig:amplituden}
 \end{figure}
 
+Nach dem Lambert-Beer-Gesetz ist eine exponentielle Abschwächung der
+Strahlungsleistung (hier repräsentiert durch das Integral) zu erwarten. Daher
+passen wir an die Daten eine Zerfallsfunktion,
+\[
+    I(x) = I_0 \exp(- a x),
+\]
+an. Den letzen Punkt 
+
+Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n \sigma$ ist, erhalten wir
+mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
+der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
+der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
+>>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
+alu_sigma >>}{\barn}$.
+
 \begin{table}[htbp]
     \centering
     \begin{tabular}{SSSS}
@@ -631,7 +648,7 @@ an, deren Integral einfach nur $a$ ist.
                 width=\linewidth,
                 height=0.6\linewidth,
                 xlabel=Kanal,
-                ylabel=Amplitude,
+                ylabel=Integral,
                 grid=major,
             ]
             \addplot[
@@ -646,16 +663,17 @@ an, deren Integral einfach nur $a$ ist.
     \end{tikzpicture}
     \caption{%
         Maximale Amplitude gegen Absorberdicke. Die Messpunkte stammen aus den
-        Anpassungen der vorherigen Abbildung.
+        Anpassungen der vorherigen Abbildung. Der letze Punkt wurde aus der
+        Anpassung ausgeschlossen.
     }
-    \label{fig:}
+    \label{fig:decay}
 \end{figure}
 
 Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
-\num{<< extinction_gauss_sigma >>}$), um diese zu glätten. Danach haben wir die
-Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis zu
-erhalten. Diese normalisierten Spektren haben wir in
-Graph~\ref{fig:extinktion} dargestellt.
+\num{<< extinction_gauss_sigma >>}$\.Kanäle), um diese zu glätten. Danach haben
+wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
+zu erhalten. Diese normalisierten Spektren haben wir in
+Abbildung~\ref{fig:extinktion} dargestellt.
 
 \begin{figure}[htbp]
     \centering
