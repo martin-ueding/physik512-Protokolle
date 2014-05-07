@@ -12,23 +12,43 @@ import numpy as np
 import scipy.optimize as op
 import scipy.misc
 import matplotlib.pyplot as pl
+import scipy.ndimage.filters
 import unitprint
 
 def gauss(x, mean, sigma, a):
     return a / np.sqrt(sigma) * np.exp(- ((x - mean)/sigma)**2)
 
 def extract_photo_peak(filename, dicke_mm):
+    normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
+    normal_counts = normal_data[:, 1]
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
 
-    lower = 100
+    sigma = 50
+
+    normal_counts = scipy.ndimage.filters.gaussian_filter(normal_counts, sigma)
+    counts = scipy.ndimage.filters.gaussian_filter(counts, sigma)
+    counts /= normal_counts
+
+    counts_err = np.sqrt(
+        (np.sqrt(counts) / normal_counts)**2
+        + (counts / normal_counts**2 * np.sqrt(normal_counts))**2
+    )
+
+
+    lower = 200
     upper = -1
 
     bins = bins[lower:upper]
     counts = counts[lower:upper]
+    counts_err = counts_err[lower:upper]
 
-    pl.plot(bins, counts)
+    mean = np.mean(counts)
+    print(mean)
+
+    pl.errorbar(bins, counts, yerr=counts_err)
+    pl.plot(bins, np.ones(counts.shape) * np.mean(counts))
 
 def absorption(T):
     points = []
@@ -39,6 +59,7 @@ def absorption(T):
     points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
     points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
 
+    pl.grid(True)
     pl.show()
 
 
