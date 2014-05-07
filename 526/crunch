@@ -17,11 +17,29 @@ import unitprint
 def gauss(x, mean, sigma, a):
     return a / np.sqrt(sigma) * np.exp(- ((x - mean)/sigma)**2)
 
-def extract_photo_peak(T):
-    pass
+def extract_photo_peak(filename, dicke_mm):
+    data = np.loadtxt(filename)
+    bins = data[:, 0]
+    counts = data[:, 1]
+
+    lower = 100
+    upper = -1
+
+    bins = bins[lower:upper]
+    counts = counts[lower:upper]
+
+    pl.plot(bins, counts)
 
 def absorption(T):
-    pass
+    points = []
+    points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
+    points.append(extract_photo_peak('Daten/1mm_Al_0deg001.txt', 1))
+    points.append(extract_photo_peak('Daten/5mm_Al_0deg001.txt', 5))
+    points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
+    points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
+    points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
+
+    pl.show()
 
 
 
