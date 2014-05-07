@@ -19,6 +19,44 @@ import unitprint
 def gauss(x, mean, sigma, a):
     return a / np.sqrt(sigma) * np.exp(- ((x - mean)/sigma)**2)
 
+def fit_peak(T, filename, lower, upper, p0, energy, show=False):
+    data = np.loadtxt(filename)
+    bins = data[:, 0]
+    counts = data[:, 1]
+
+    fit_bins = bins[lower:upper]
+    fit_counts = counts[lower:upper]
+
+    popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
+    print(popt)
+    print(pconv)
+    d = np.sqrt(pconv.diagonal())
+    x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
+    y = gauss(x, *popt)
+
+    T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[0], d[0])
+    T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[1], d[1])
+
+    np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
+
+    if show:
+        pl.plot(bins, counts)
+        pl.plot(fit_bins, fit_counts)
+        pl.plot(x, y)
+        pl.show()
+
+    return (popt[0], d[0], abs(popt[1]), d[1], energy)
+
+def job_energieeichung(T):
+    gauge_points = []
+
+    gauge_points.append(fit_peak(T, 'Daten/01_Untergrund001.txt', 2700, 4000, [3300, 1400, 250], 662))
+
+    #gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 1080, 1295, [1200, 40, 1200], 'Ba_links', 81))
+    #gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 4543, 5164, [4834, 40, 9300], 'Ba_links', 356))
+
+    f = fit_gauge_points(T, gauge_points, 'links')
+
 def extract_photo_peak(filename, dicke_mm):
     data = np.loadtxt(filename)
     bins = data[:, 0]
