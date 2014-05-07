@@ -19,35 +19,35 @@ def gauss(x, mean, sigma, a):
     return a / np.sqrt(sigma) * np.exp(- ((x - mean)/sigma)**2)
 
 def extract_photo_peak(filename, dicke_mm):
-    normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
-    normal_counts = normal_data[:, 1]
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
 
-    sigma = 50
-
-    normal_counts = scipy.ndimage.filters.gaussian_filter(normal_counts, sigma)
-    counts = scipy.ndimage.filters.gaussian_filter(counts, sigma)
-    counts /= normal_counts
-
-    counts_err = np.sqrt(
-        (np.sqrt(counts) / normal_counts)**2
-        + (counts / normal_counts**2 * np.sqrt(normal_counts))**2
-    )
-
     lower = 200
     upper = -1
+    step = len(bins[lower:upper]) // 200
 
     bins = bins[lower:upper]
     counts = counts[lower:upper]
-    counts_err = counts_err[lower:upper]
 
-    mean = np.mean(counts)
-    print(mean)
+    lower_fit = 2700
+    upper_fit = -1
 
-    pl.errorbar(bins, counts, yerr=counts_err)
-    pl.plot(bins, np.ones(counts.shape) * np.mean(counts))
+    popt, pconv = op.curve_fit(
+        gauss,
+        bins[lower_fit:upper_fit],
+        counts[lower_fit:upper_fit], 
+        p0=[3000, 100, 120000],
+    )
+    print(popt)
+    print(pconv)
+
+    y = gauss(bins, *popt)
+
+    pl.plot(bins, counts)
+    pl.plot(bins, y)
+    pl.show()
+
 
 def extinction_ratio(filename, dicke_mm):
     normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
@@ -87,18 +87,15 @@ def absorption(T):
     extinction_ratio('Daten/20mm_Al_0deg001.txt', 20)
     extinction_ratio('Daten/50mm_Al_0deg001.txt', 50)
 
+    points = []
+    points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
+    points.append(extract_photo_peak('Daten/1mm_Al_0deg001.txt', 1))
+    points.append(extract_photo_peak('Daten/5mm_Al_0deg001.txt', 5))
+    points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
+    points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
+    points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
 
-    if False:
-        points = []
-        points.append(extract_photo_peak('Daten/01_Untergrund001.txt', 0))
-        points.append(extract_photo_peak('Daten/1mm_Al_0deg001.txt', 1))
-        points.append(extract_photo_peak('Daten/5mm_Al_0deg001.txt', 5))
-        points.append(extract_photo_peak('Daten/10mm_Al_0deg001.txt', 10))
-        points.append(extract_photo_peak('Daten/20mm_Al_0deg001.txt', 20))
-        points.append(extract_photo_peak('Daten/50mm_Al_0deg001.txt', 50))
-
-        pl.grid(True)
-        pl.show()
+    sys.exit(0)
 
 
 
