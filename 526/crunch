@@ -63,9 +63,9 @@ def extract_photo_peak(filename, dicke_mm):
         bins[lower_fit:upper_fit], y[lower_fit:upper_fit]
     ]))
 
-    # TODO Integral zurückgeben
+    c = np.sqrt(pconv.diagonal())
 
-    return dicke_mm, popt[2], np.sqrt(pconv.diagonal())[2]
+    return dicke_mm, popt[2], c[2], popt[0], c[0], popt[1], c[1]
 
 
     #pl.plot(bins, counts)
@@ -126,6 +126,10 @@ def absorption(T):
     dicke = points[:, 0]
     ampl_val = points[:, 1]
     ampl_err = points[:, 2]
+    mean_val = points[:, 3]
+    mean_err = points[:, 4]
+    sigma_val = points[:, 5]
+    sigma_err = points[:, 6]
 
     popt, pconv = op.curve_fit(
         decay,
@@ -146,6 +150,12 @@ def absorption(T):
     np.savetxt('_build/plot-decay-data.txt', np.column_stack([dicke, ampl_val, ampl_err]))
     np.savetxt('_build/plot-decay-fit.txt', np.column_stack([x, y]))
 
+    T['decay_table'] = list(zip(
+        unitprint.siunitx(dicke),
+        unitprint.siunitx(ampl_val, ampl_err),
+        unitprint.siunitx(mean_val, mean_err),
+        unitprint.siunitx(sigma_val, sigma_err),
+    ))
 
 
 def sigma_omega_klein_nishina(gamma, theta):

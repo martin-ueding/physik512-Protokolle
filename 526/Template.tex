@@ -55,7 +55,7 @@
 
 \date{\daterange{2014-05-07}{2014-05-08}}
 
-%\publishers{Tutor: TODO}
+\publishers{Tutor: Roman Schmitz}
 
 \begin{document}
 
@@ -552,6 +552,13 @@ eine Art Histogramm.
 
 \section{Abschwächungskoeffizient}
 
+Aus den Messdaten für den Wirkungsquerschnitt wählen wir das letzte Maximum
+aus. An diese Auswahl passen wir die Normalverteilung
+\[
+    \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+an, deren Integral einfach nur $a$ ist. 
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -595,8 +602,27 @@ eine Art Histogramm.
         markierten Punkte wurden Normalverteilungen angepasst, diese sind in
         rot darüber gezeigt.
     }
-    \label{fig:}
+    \label{fig:amplituden}
 \end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSSS}
+        {Dicke / \si{\milli\meter}} &
+        {Integral} &
+        {$\mu$} &
+        {$\sigma$} \\
+        \midrule
+        %< for row in decay_table: ->%
+        << ' & '.join(row) >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Anpassungsparameter für die verschiedenen Dicken der
+        Absorbermaterialien.
+    }
+    \label{tab:amplituden}
+\end{table}
 
 \begin{figure}[htbp]
     \centering
