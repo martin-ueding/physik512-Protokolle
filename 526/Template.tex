@@ -719,9 +719,10 @@ Abbildung~\ref{fig:extinktion} dargestellt.
                 height=0.6\linewidth,
                 xlabel=Kanal,
                 ylabel=Ereignisse,
+                grid=major,
             ]
-            \addplot[blue] table[skip first n=117] {../Daten/01_Untergrund001.txt};
-            \addplot[black] table {../_build/fit_peak_662.txt};
+            \addplot[black] table[skip first n=117] {../Daten/01_Untergrund001.txt};
+            \addplot[red, thick] table {fit_peak_662.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -739,11 +740,12 @@ Abbildung~\ref{fig:extinktion} dargestellt.
                 height=0.6\linewidth,
                 xlabel=Kanal,
                 ylabel=Ereignisse,
+                grid=major,
             ]
-            \addplot[blue] table[skip first n=83] {../Daten/Spektrum_Ba001.txt};
-            \addplot[black] table {../_build/fit_peak_31.txt};
-            \addplot[black] table {../_build/fit_peak_81.txt};
-            \addplot[black] table {../_build/fit_peak_356.txt};
+            \addplot[black] table[skip first n=83] {../Daten/Spektrum_Ba001.txt};
+            \addplot[red, thick] table {fit_peak_31.txt};
+            \addplot[red, thick] table {fit_peak_81.txt};
+            \addplot[red, thick] table {fit_peak_356.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
