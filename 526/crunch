@@ -20,11 +20,13 @@ def gauss(x, mean, sigma, a):
     return a / (np.sqrt(2 * np.pi) * sigma) \
             * np.exp(- (x - mean)**2/(2 * sigma**2))
 
+def linear(x, a, b):
+    return a * x + b
 def decay(x, tau, a):
     return a * np.exp(- x / tau)
 
 def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
-    return a / np.sqrt(sigma1) * np.exp(- ((x - mean1)/sigma1)**2) + b / np.sqrt(sigma2) * np.exp(- ((x - mean2)/sigma2)**2)
+    return a / (np.sqrt(2*np.pi)*sigma1) * np.exp(- ((x - mean1)/sigma1)**2/2) + b / (np.sqrt(2*np.pi)*sigma2) * np.exp(- ((x - mean2)/sigma2)**2/2)
 
 def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
     data = np.loadtxt(filename)
@@ -38,25 +40,26 @@ def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
 
     if kind == 'double':
         popt, pconv = op.curve_fit(double_gauss, fit_bins, fit_counts, p0=p0)
+        d = np.sqrt(pconv.diagonal())
         y = double_gauss(x, *popt)
+        T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[1], d[1])
+        T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[3], d[3])
+        np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
+
+        return (popt[1], d[1], abs(popt[3]), d[3], energy)
+
     else:
         popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
+        d = np.sqrt(pconv.diagonal())
         y = gauss(x, *popt)
+        T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[0], d[0])
+        T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[1], d[1])
+        np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
 
-    d = np.sqrt(pconv.diagonal())
+        return (popt[0], d[0], abs(popt[1]), d[1], energy)
 
-    T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[0], d[0])
-    T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[1], d[1])
 
-    np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
 
-    if show:
-        pl.plot(bins, counts)
-        pl.plot(fit_bins, fit_counts)
-        pl.plot(x, y)
-        pl.show()
-
-    return (popt[0], d[0], abs(popt[1]), d[1], energy)
 
 def job_energieeichung(T):
     gauge_points = []
@@ -67,7 +70,44 @@ def job_energieeichung(T):
     gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 'single', 307, 670, [452, 90, 2450], 81))
     gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 'double', 1300, 2300, [1550, 1800, 100, 100, 800, 1100], 356))
 
-    #f = fit_gauge_points(T, gauge_points, 'links')
+    popt, pconv = fit_gauge_points(T, gauge_points, 'links')
+    print(popt)
+    print(pconv)
+
+def fit_gauge_points(T, points, prefix, show=False):
+    p = np.array(points)
+    channel_val = p[:, 0]
+    channel_err = p[:, 1]
+    width_val = p[:, 2]
+    width_err = p[:, 3]
+    energy = p[:, 4]
+
+    popt, pconv = op.curve_fit(linear, channel_val, energy)
+
+    d = np.sqrt(pconv.diagonal())
+
+    points_table = np.column_stack([channel_val, energy, channel_err])
+    np.savetxt('_build/data_energieeichung.txt', points_table)
+    T['data_energieeichung'] = list(zip(
+        unitprint.siunitx(channel_val, channel_err),
+        unitprint.siunitx(width_val, width_err),
+        unitprint.siunitx(energy),
+    ))
+
+    x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
+    y = linear(x, *popt)
+
+    T['fit_energieeichung_steigung'] = unitprint.siunitx(popt[0], d[0])
+    T['fit_energieeichung_offset'] = unitprint.siunitx(popt[1], d[1])
+
+    if show:
+        pl.plot(channel_val, energy, marker='+', linestyle='none')
+        pl.plot(x, y)
+        pl.show()
+
+    np.savetxt('_build/fit_energieeichung', np.column_stack([x, y]))
+
+    return popt, pconv
 
 def extract_photo_peak(filename, dicke_mm):
     data = np.loadtxt(filename)
@@ -179,8 +219,6 @@ def absorption(T):
         p0=[20, 420000],
         sigma=ampl_err[:-1],
     )
-    print(popt)
-    print(pconv)
     x = np.linspace(np.min(dicke), np.max(dicke), 100)
     y = decay(x, *popt)
     
