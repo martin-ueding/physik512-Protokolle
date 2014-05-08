@@ -53,7 +53,7 @@
     \small{\href{mailto:l2@uni-bonn.de}{l2@uni-bonn.de}}
 }
 
-\date{\daterange{2014-05-07}{2014-05-08}}
+\date{2014-05-07}
 
 \publishers{Tutor: Roman Schmitz}
 
@@ -707,6 +707,51 @@ Abbildung~\ref{fig:extinktion} dargestellt.
         zwischen eingebauter Quelle und Detektor.
     }
     \label{fig:extinktion}
+\end{figure}
+
+\section{Energieeichung}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+            ]
+            \addplot[blue] table[skip first n=117] {../Daten/01_Untergrund001.txt};
+            \addplot[black] table {../_build/fit_peak_662.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energiespektrum von ${}^{137}$Ba. Zu erkennen ist der Full-Energy-Peak
+        im Bereich von Kanal 3000 bis 3700, das Compton-Kontinuum etwa bis
+        Kanal 2200 und der Rückstreu-Peak circa bei Kanal 1000.
+    }
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+            ]
+            \addplot[blue] table[skip first n=83] {../Daten/Spektrum_Ba001.txt};
+            \addplot[black] table {../_build/fit_peak_31.txt};
+            \addplot[black] table {../_build/fit_peak_81.txt};
+            \addplot[black] table {../_build/fit_peak_356.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energiespektrum von ${}^{133}$Ba. Zu erkennen ist die
+        \SI{31}{\kilo\electronvolt}-Röntgenlinie und die
+        \SI{81}{\kilo\electronvolt}- und
+        \SI{356}{\kilo\electronvolt}-$\gammaup$-Linien.
+    }
 \end{figure}
 
 \chapter{Ergebnis}
