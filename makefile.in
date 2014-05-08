@@ -6,9 +6,12 @@ SHELL = /bin/bash
 tex = "_build/physik512-$(number)-Ueding_Lemmer.tex"
 out = "_build/physik512-$(number)-Ueding_Lemmer.pdf"
 
+makefile = "physik512-$(number)-Ueding_Lemmer.makefile"
+
 all: $(out)
 
 $(out): $(tex)
+	if [[ -f "_build/$(makefile)" ]]; then cd _build && $(MAKE) -f "$(makefile)"; fi
 	cd _build && latexmk -pdflatex='pdflatex -halt-on-error -shell-escape $$O $$S' -pdf $$(basename $<)
 
 _build/template.js: crunch
