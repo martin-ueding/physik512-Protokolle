@@ -197,7 +197,14 @@
 %                            Bibliography (BibTeX)                            %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\bibliographyfile}{../../central-bibtex/Central}
+\IfFileExists{../../central-bibtex/Central}
+{\newcommand{\bibliographyfile}{../../central-bibtex/Central}}
+{
+    \IfFileExists{central-bibtex/Central}
+    {\newcommand{\bibliographyfile}{central-bibtex/Central}}
+    {\newcommand{\bibliographyfile}{../../zentrale_BibTeX/Central}}
+}
+
 
 \usepackage[
     backend=bibtex,
@@ -219,6 +226,7 @@
 
 \IfFileExists{\bibliographyfile}{
     \bibliography{\bibliographyfile}
+    \AtEndDocument{\printbibliography}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
