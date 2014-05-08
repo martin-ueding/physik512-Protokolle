@@ -105,7 +105,7 @@ def fit_gauge_points(T, points, prefix, show=False):
         pl.plot(x, y)
         pl.show()
 
-    np.savetxt('_build/fit_energieeichung', np.column_stack([x, y]))
+    np.savetxt('_build/fit_energieeichung.txt', np.column_stack([x, y]))
 
     return popt, pconv
 
