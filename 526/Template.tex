@@ -554,9 +554,10 @@ eine Art Histogramm.
 
 Aus den Messdaten für den Wirkungsquerschnitt wählen wir das letzte Maximum
 aus. An diese Auswahl passen wir die Normalverteilung
-\[
+\begin{equation}
     \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
-\]
+    \label{eq:gausskurve}
+\end{equation}
 an, deren Integral einfach nur $a$ ist. Die Daten und Anpassungskurven sind in
 Abbildung~\ref{fig:amplituden} dargestellt. In Tabelle~\ref{tab:amplituden}
 sind die Anpassungsparameter zusammengestellt.
@@ -621,7 +622,8 @@ Strahlung auch neben dem Stück passiert und in den Detektor gelangt sein. Der
 Wirkungsquerschnitt ist demnach nicht so gering, wie bei dieser Dicke zu
 erwarten wäre.
 
-Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n \sigma$ ist, erhalten wir
+Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n
+\sigma$\footnote{\erklaerungFehlerNotation} ist, erhalten wir
 mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
 der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
 der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
@@ -711,6 +713,11 @@ Abbildung~\ref{fig:extinktion} dargestellt.
 
 \section{Energieeichung}
 
+Zur Energieeichung betrachten wir zunächst den
+\SI{662}{\kilo\electronvolt}-Übergang im ${}^{137}$Ba. An diesen passen wir
+eine Gaußkurve wie in Gleichung~\eqref{eq:gausskurve} beschrieben an. Die Daten
+sind samt Anpassung in Abbildung~\ref{fig:eichung_137Ba} dargestellt.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -730,7 +737,18 @@ Abbildung~\ref{fig:extinktion} dargestellt.
         im Bereich von Kanal 3000 bis 3700, das Compton-Kontinuum etwa bis
         Kanal 2200 und der Rückstreu-Peak circa bei Kanal 1000.
     }
+    \label{fig:eichung_137Ba}
 \end{figure}
+ 
+Genauso gehen wir beim Spektrum von ${}^{133}$Cs vor. Hier passen wir
+Gaußkurven an die \SI{31}{\kilo\electronvolt}-Röntgenlinie und die
+\SI{81}{\kilo\electronvolt}- und
+\SI{356}{\kilo\electronvolt}-$\gammaup$-Linien an. Da letztere und die weniger
+ausgeprägte \SI{302}{\kilo\electronvolt}-Linie nicht aufgelöst werden können,
+passen wir hier eine Überlagerung zweier Gaußkurven an, wählen für die
+Energieeichung aber nur die höherenergetische Linie aus. Die Daten sind
+einschließlich der Anpassungskurven in Abbildung~\ref{fig:eichung_133Cs} zu
+sehen. 
 
 \begin{figure}[htbp]
     \centering
@@ -749,12 +767,65 @@ Abbildung~\ref{fig:extinktion} dargestellt.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Energiespektrum von ${}^{133}$Ba. Zu erkennen ist die
+        Energiespektrum von ${}^{133}$Cs. Zu erkennen ist die
         \SI{31}{\kilo\electronvolt}-Röntgenlinie und die
         \SI{81}{\kilo\electronvolt}- und
         \SI{356}{\kilo\electronvolt}-$\gammaup$-Linien.
     }
+    \label{fig:eichung_133Cs}
 \end{figure}
+
+Aus den Anpassungen erhalten wir die in Tabelle~\ref{tab:energieeichung}
+dargestellten Zuordnungen.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSS}
+        {$\mu$ / Kanal} & {$\sigma$/ Kanal} & {Energie /
+    \si{\kilo\electronvolt}}\\
+    \midrule
+    %< for a, b, c in data_energieeichung: ->%
+    << a >> & << b >> & << c >> \\
+    %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Schwerpunkte und Breiten der Anpassungen an die jeweiligen Linien.
+    }
+    \label{tab:energieeichung}
+\end{table}
+
+Um damit den Kanal in eine Energie umrechnen zu können, passen wir an diese
+Daten eine Gerade an. Dies ist in Abbildung~\ref{fig:energieeichung} zu sehen.
+Für die Anpassung ergibt sich
+\[
+    E = \SI{<< fit_energieeichung_steigung >>}{\kilo\electronvolt}\cdot \text{Kanal}
+    + \del{\SI{<< fit_energieeichung_offset >>}{\kilo\electronvolt}}.
+\]
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Kanal,
+                ylabel=Energie / \si{\kilo\electronvolt},
+                no markers,
+            ]
+            \addplot[scatter, only marks,
+                error bars/.cd,
+                x dir=both, x explicit,
+            ]
+            table[x error index=2] {../_build/data_energieeichung.txt};
+            \addplot[black] table {../_build/fit_energieeichung.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Geradenanpassung zur Energieeichung
+    }
+    \label{fig:energieeichung}
+\end{figure}
+
 
 \chapter{Ergebnis}
 
