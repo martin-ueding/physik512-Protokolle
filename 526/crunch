@@ -76,11 +76,10 @@ def job_energieeichung(T):
     gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'single', 307, 670, [452, 90, 2450], 81))
     gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'double', 1300, 2300, [1550, 1800, 100, 100, 800, 1100], 356))
 
-    popt, pconv = fit_gauge_points(T, gauge_points, 'links')
-    print(popt)
-    print(pconv)
+    popt, pconv = fit_gauge_points(T, gauge_points)
 
-def fit_gauge_points(T, points, prefix, show=False):
+
+def fit_gauge_points(T, points, show=False):
     p = np.array(points)
     channel_val = p[:, 0]
     channel_err = p[:, 1]
