@@ -118,7 +118,7 @@ def fit_gauge_points(T, points, show=False):
 def peak_winkel(T, popt, pconv):
     energie_winkel = []
     d_winkel = .5
-    for winkel in range (40,120):
+    for winkel in range(40, 121, 5):
         spektrum = np.loadtxt('Daten/plastik_{}deg001.txt'.format(winkel))
         energie = spektrum[:,0]
         spektrum = spektrum[100:,:]
@@ -144,8 +144,6 @@ def peak_winkel(T, popt, pconv):
         np.savetxt('_build/fit_{}deg.txt'.format(winkel), np.column_stack([x,y]))
 
         energie_winkel.append((winkel, popt[0], d_winkel, d[0]))
-
-        winkel += 5
 
     np.savetxt('_build/data_energie_winkel.txt', energie_winkel)
 
