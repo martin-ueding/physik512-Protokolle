@@ -826,6 +826,440 @@ Für die Anpassung ergibt sich
     \label{fig:energieeichung}
 \end{figure}
 
+\section{Messung der Streuspektren}
+
+Nun wird der Detektor auf in einem Winkel von \SI{40}{\degree} zur Strahlachse
+aufgestellt. Als Target wählen wir einen ca. \SI{20}{\milli\meter} starken
+Plexiglas-Zylinder. Wir messen nun das Spektrum
+jeweils \SI{300}{\second} lang in \SI{5}{\degree}-Schritten bis zu einem Winkel
+von \SI{120}{\degree} durch und führen für jede Messung noch eine
+Untergrundmessung mit gleicher Messdauer durch. Die korrigierten Spektren sind
+in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_40deg_korr.txt};
+            \addplot[black] table {../_build/fit_40deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{40}{\degree}
+    }
+    \label{fig:spek_40deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_45deg_korr.txt};
+            \addplot[black] table {../_build/fit_45deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{45}{\degree}
+    }
+    \label{fig:spek_45deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_50deg_korr.txt};
+            \addplot[black] table {../_build/fit_50deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{50}{\degree}
+    }
+    \label{fig:spek_50deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_55deg_korr.txt};
+            \addplot[black] table {../_build/fit_55deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{55}{\degree}
+    }
+    \label{fig:spek_55deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_60deg_korr.txt};
+            \addplot[black] table {../_build/fit_60deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{60}{\degree}
+    }
+    \label{fig:spek_60deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_65deg_korr.txt};
+            \addplot[black] table {../_build/fit_65deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{65}{\degree}
+    }
+    \label{fig:spek_65deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_70deg_korr.txt};
+            \addplot[black] table {../_build/fit_70deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{70}{\degree}
+    }
+    \label{fig:spek_70deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_75deg_korr.txt};
+            \addplot[black] table {../_build/fit_75deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{75}{\degree}
+    }
+    \label{fig:spek_75deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_80deg_korr.txt};
+            \addplot[black] table {../_build/fit_80deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{80}{\degree}
+    }
+    \label{fig:spek_80deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_85deg_korr.txt};
+            \addplot[black] table {../_build/fit_85deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{85}{\degree}
+    }
+    \label{fig:spek_85deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_90deg_korr.txt};
+            \addplot[black] table {../_build/fit_90deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{90}{\degree}
+    }
+    \label{fig:spek_90deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_95deg_korr.txt};
+            \addplot[black] table {../_build/fit_95deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{95}{\degree}
+    }
+    \label{fig:spek_95deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_100deg_korr.txt};
+            \addplot[black] table {../_build/fit_100deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{100}{\degree}
+    }
+    \label{fig:spek_100deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_105deg_korr.txt};
+            \addplot[black] table {../_build/fit_105deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{105}{\degree}
+    }
+    \label{fig:spek_105deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_110deg_korr.txt};
+            \addplot[black] table {../_build/fit_110deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{110}{\degree}
+    }
+    \label{fig:spek_110deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_115deg_korr.txt};
+            \addplot[black] table {../_build/fit_115deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{115}{\degree}
+    }
+    \label{fig:spek_115deg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=Energie / \si{\kilo\electronvolt},
+                ylabel=Ereignisse,
+            ]
+            \addplot[
+                error bars/.cd,
+                x dir=both, x explicit,
+                y dir=both, y explicit,
+            ]
+            table[x error index=2, y error index=3]
+            {../_build/spektrum_120deg_korr.txt};
+            \addplot[black] table {../_build/fit_120deg.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum bei \SI{120}{\degree}
+    }
+    \label{fig:spek_120deg}
+\end{figure}
 
 \chapter{Ergebnis}
 

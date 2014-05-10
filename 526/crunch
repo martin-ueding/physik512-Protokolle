@@ -66,15 +66,21 @@ def job_energieeichung(T):
 
     gauge_points.append(fit_peak(T, 'Daten/01_Untergrund001.txt', 'single', 2700, 4000, [3300, 1400, 250], 662))
 
-    gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 'single', 85, 307, [178, 60, 5500], 31))
-    gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 'single', 307, 670, [452, 90, 2450], 81))
-    gauge_points.append(fit_peak(T, 'Daten/Spektrum_Ba001.txt', 'double', 1300, 2300, [1550, 1800, 100, 100, 800, 1100], 356))
+    spektrum = np.loadtxt('Daten/Spektrum_Ba001.txt')
+    untergrund = np.loadtxt('Daten/Untergrund_Ba001.txt')
+    spektrum[:,1] -= untergrund[:,1]
 
-    popt, pconv = fit_gauge_points(T, gauge_points, 'links')
-    print(popt)
-    print(pconv)
+    np.savetxt('_build/Spektrum_Ba_korr.txt', spektrum)
 
-def fit_gauge_points(T, points, prefix, show=False):
+    gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'single', 85, 307, [178, 60, 5500], 31))
+    gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'single', 307, 670, [452, 90, 2450], 81))
+    gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'double', 1300, 2300, [1550, 1800, 100, 100, 800, 1100], 356))
+
+    popt, pconv = fit_gauge_points(T, gauge_points)
+
+    peak_winkel(T, popt, pconv)
+
+def fit_gauge_points(T, points, show=False):
     p = np.array(points)
     channel_val = p[:, 0]
     channel_err = p[:, 1]
@@ -108,6 +114,43 @@ def fit_gauge_points(T, points, prefix, show=False):
     np.savetxt('_build/fit_energieeichung.txt', np.column_stack([x, y]))
 
     return popt, pconv
+
+def peak_winkel(T, popt, pconv):
+    energie_winkel = []
+    d_winkel = .5
+    for winkel in range (40,120):
+        spektrum = np.loadtxt('Daten/plastik_{}deg001.txt'.format(winkel))
+        energie = spektrum[:,0]
+        spektrum = spektrum[100:,:]
+        untergrund = np.loadtxt('Daten/untergrund_{}deg001.txt'.format(winkel))
+        untergrund = untergrund[100:, :]
+        ereignisse = spektrum[:,1] - untergrund[:,1]
+        energie = spektrum[:,0] * popt[0] + popt[1]
+        np.savetxt('_build/spektrum_{}deg_korr.txt'.format(winkel), np.column_stack([energie, ereignisse]))
+
+        max_index = np.argmax(energie)
+        lower = max_index - 450
+        upper = max_index - 450
+
+        fit_energie = energie[lower:upper]
+        fit_ereignisse = ereignisse[lower:upper]
+
+        popt, pconv = op.curve_fit(gauss, fit_energie, fit_ereignisse, p0=[energie[max_index], 400, 750])
+        d = np.sqrt(pconv.diagonal)
+
+        x = np.linspace(np.min(energie), np.max(energie), 1000)
+        y = gauss(x, *popt)
+
+        np.savetxt('_build/fit_{}deg.txt'.format(winkel), np.column_stack([x,y]))
+
+        energie_winkel.append((winkel, popt[0], d_winkel, d[0]))
+
+        winkel += 5
+
+    np.savetxt('_build/data_energie_winkel.txt', energie_winkel)
+
+    return energie_winkel
+
 
 def extract_photo_peak(filename, dicke_mm):
     data = np.loadtxt(filename)
