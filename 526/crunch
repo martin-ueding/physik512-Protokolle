@@ -78,7 +78,7 @@ def job_energieeichung(T):
 
     popt, pconv = fit_gauge_points(T, gauge_points)
 
-    peak_winkel(T, popt, pconv)
+    peak_winkel(T, popt[0], popt[1])
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
@@ -115,7 +115,7 @@ def fit_gauge_points(T, points, show=False):
 
     return popt, pconv
 
-def peak_winkel(T, popt, pconv):
+def peak_winkel(T, energie_steigung, energie_offset):
     energie_winkel = []
     d_winkel = .5
     for winkel in range(40, 121, 5):
@@ -125,7 +125,7 @@ def peak_winkel(T, popt, pconv):
         untergrund = np.loadtxt('Daten/untergrund_{}deg001.txt'.format(winkel))
         untergrund = untergrund[100:, :]
         ereignisse = spektrum[:,1] - untergrund[:,1]
-        energie = spektrum[:,0] * popt[0] + popt[1]
+        energie = spektrum[:,0] * energie_steigung + energie_offset
         np.savetxt('_build/spektrum_{}deg_korr.txt'.format(winkel), np.column_stack([energie, ereignisse]))
 
         max_index = np.argmax(ereignisse)
