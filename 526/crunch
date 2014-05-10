@@ -148,7 +148,7 @@ def peak_winkel(T, popt, pconv):
         """
 
         popt, pconv = op.curve_fit(gauss, fit_energie, fit_ereignisse, p0=[energie[max_index], 400, 750])
-        d = np.sqrt(pconv.diagonal)
+        d = np.sqrt(pconv.diagonal())
 
         x = np.linspace(np.min(energie), np.max(energie), 1000)
         y = gauss(x, *popt)
