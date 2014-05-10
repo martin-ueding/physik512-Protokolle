@@ -851,9 +851,8 @@ in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
                 x dir=both, x explicit,
                 y dir=both, y explicit,
             ]
-            table
-            {../_build/spektrum_<< angle >>deg_korr.txt};
-            \addplot[black] table {../_build/fit_<< angle >>deg.txt};
+            table {../_build/spektrum_<< angle >>deg_korr.txt};
+            \addplot[red, thick] table {../_build/fit_<< angle >>deg.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
