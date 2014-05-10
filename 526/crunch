@@ -129,8 +129,8 @@ def peak_winkel(T, popt, pconv):
         np.savetxt('_build/spektrum_{}deg_korr.txt'.format(winkel), np.column_stack([energie, ereignisse]))
 
         max_index = np.argmax(ereignisse)
-        lower = max_index - 450
-        upper = max_index - 450
+        lower = max(max_index - 450, 0)
+        upper = min(max_index + 450, len(energie) - 1)
 
         fit_energie = energie[lower:upper]
         fit_ereignisse = ereignisse[lower:upper]
