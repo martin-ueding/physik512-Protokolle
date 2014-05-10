@@ -812,13 +812,14 @@ Für die Anpassung ergibt sich
                 ylabel=Energie / \si{\kilo\electronvolt},
                 no markers,
                 xtick={0,500,...,3500},
+                grid=major,
             ]
             \addplot[scatter, only marks,
                 error bars/.cd,
                 x dir=both, x explicit,
             ]
             table[x error index=2] {../_build/data_energieeichung.txt};
-            \addplot[black] table {../_build/fit_energieeichung.txt};
+            \addplot[red] table {../_build/fit_energieeichung.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -846,6 +847,7 @@ in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
                 height=0.6\linewidth,
                 xlabel=Energie / \si{\kilo\electronvolt},
                 ylabel=Ereignisse,
+                grid=major,
             ]
             \addplot[
                 error bars/.cd,
