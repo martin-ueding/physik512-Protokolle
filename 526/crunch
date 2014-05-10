@@ -126,7 +126,10 @@ def peak_winkel(T, energie_steigung, energie_offset):
         untergrund = untergrund[100:, :]
         ereignisse = spektrum[:,1] - untergrund[:,1]
         energie = spektrum[:,0] * energie_steigung + energie_offset
-        np.savetxt('_build/spektrum_{}deg_korr.txt'.format(winkel), np.column_stack([energie, ereignisse]))
+        np.savetxt(
+            '_build/spektrum_{}deg_korr.txt'.format(winkel),
+            np.column_stack([energie, ereignisse])
+        )
 
         max_index = np.argmax(ereignisse)
         lower = max(max_index - 450, 0)
