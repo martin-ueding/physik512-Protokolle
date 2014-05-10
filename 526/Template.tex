@@ -836,8 +836,7 @@ von \SI{120}{\degree} durch und führen für jede Messung noch eine
 Untergrundmessung mit gleicher Messdauer durch. Die korrigierten Spektren sind
 in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
 
-\foreach \angle in {40,45,...,120} {
-
+%< for angle in range(40, 121, 5): >%
 \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -853,17 +852,16 @@ in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
                 y dir=both, y explicit,
             ]
             table
-            {../_build/spektrum_\angle{}deg_korr.txt};
-            \addplot[black] table {../_build/fit_\angle{}deg.txt};
+            {../_build/spektrum_<< angle >>deg_korr.txt};
+            \addplot[black] table {../_build/fit_<< angle >>deg.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Spektrum bei \SI{\angle}{\degree}
+        Spektrum bei \SI{<< angle >>}{\degree}
     }
-    \label{fig:spek_\angle{}deg}
+    \label{fig:spek_<< angle >>deg}
 \end{figure}
-
-}
+%< endfor >%
 
 \chapter{Ergebnis}
 
