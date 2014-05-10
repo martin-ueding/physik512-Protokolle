@@ -135,23 +135,26 @@ def peak_winkel(T, popt, pconv):
         fit_energie = energie[lower:upper]
         fit_ereignisse = ereignisse[lower:upper]
 
-        """
+        popt, pconv = op.curve_fit(gauss, fit_energie, fit_ereignisse, p0=[energie[max_index], 400, 750])
+        #d = np.sqrt(pconv.diagonal())
+
+        x = np.linspace(np.min(energie), np.max(energie), 1000)
+        y = gauss(x, *popt)
+
+        #"""
         print('lower', lower)
         print('upper', upper)
         print(energie.shape, ereignisse.shape)
         print(fit_energie.shape, fit_ereignisse.shape)
 
+        print(pconv)
+
         pl.clf()
         pl.plot(energie, ereignisse)
         pl.plot(fit_energie, fit_ereignisse)
+        pl.plot(x, y)
         pl.show()
-        """
-
-        popt, pconv = op.curve_fit(gauss, fit_energie, fit_ereignisse, p0=[energie[max_index], 400, 750])
-        d = np.sqrt(pconv.diagonal())
-
-        x = np.linspace(np.min(energie), np.max(energie), 1000)
-        y = gauss(x, *popt)
+        #"""
 
         np.savetxt('_build/fit_{}deg.txt'.format(winkel), np.column_stack([x,y]))
 
