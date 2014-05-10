@@ -77,8 +77,9 @@ def job_energieeichung(T):
     gauge_points.append(fit_peak(T, '_build/Spektrum_Ba_korr.txt', 'double', 1300, 2300, [1550, 1800, 100, 100, 800, 1100], 356))
 
     popt, pconv = fit_gauge_points(T, gauge_points)
+    d = np.sqrt(pconv.diagonal())
 
-    peak_winkel(T, popt[0], popt[1])
+    peak_winkel(T, popt[0], popt[1], d[0], d[1])
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
@@ -115,42 +116,53 @@ def fit_gauge_points(T, points, show=False):
 
     return popt, pconv
 
-def peak_winkel(T, energie_steigung, energie_offset):
+def peak_winkel(T, energie_steigung_val, energie_offset_val, energie_steigung_err, energie_offset_err):
     energie_winkel = []
     d_winkel = .5
     for winkel in range(40, 121, 5):
-        spektrum = np.loadtxt('Daten/plastik_{}deg001.txt'.format(winkel))
-        energie = spektrum[:,0]
-        spektrum = spektrum[100:,:]
+        messdaten = np.loadtxt('Daten/plastik_{}deg001.txt'.format(winkel))
+        messdaten_cut = messdaten[100:,:]
         untergrund = np.loadtxt('Daten/untergrund_{}deg001.txt'.format(winkel))
-        untergrund = untergrund[100:, :]
-        ereignisse = spektrum[:,1] - untergrund[:,1]
-        energie = spektrum[:,0] * energie_steigung + energie_offset
-        np.savetxt(
-            '_build/spektrum_{}deg_korr.txt'.format(winkel),
-            np.column_stack([energie, ereignisse])
+        untergrund_cut = untergrund[100:,:]
+
+        ereignisse_val = messdaten_cut[:,1] - untergrund_cut[:,1]
+        ereignisse_err = np.sqrt(
+            np.sqrt(messdaten_cut[:,1])**2
+            + np.sqrt(untergrund_cut[:,1])**2
         )
 
-        max_index = np.argmax(ereignisse)
-        lower = max(max_index - 450, 0)
-        upper = min(max_index + 450, len(energie) - 1)
+        energie_val = messdaten_cut[:,0] * energie_steigung_val + energie_offset_err
+        energie_err = np.sqrt(
+            (messdaten_cut[:,0] * energie_steigung_err)**2
+            + (energie_offset_err)**2
+        )
 
-        fit_energie = energie[lower:upper]
-        fit_ereignisse = ereignisse[lower:upper]
+        # Exportiere umgerechnete Daten zum Plotten.
+        np.savetxt(
+            '_build/spektrum_{}deg_korr.txt'.format(winkel),
+            np.column_stack([energie_val, ereignisse_val, energie_err, ereignisse_err])
+        )
+
+        max_index = np.argmax(ereignisse_val)
+        lower = max(max_index - 450, 0)
+        upper = min(max_index + 450, len(energie_val) - 1)
+
+        fit_energie = energie_val[lower:upper]
+        fit_ereignisse = ereignisse_val[lower:upper]
 
         popt, pconv = op.curve_fit(
             gauss,
             fit_energie,
             fit_ereignisse,
             p0=[
-                np.mean(energie[max_index - 5:max_index + 5]),
+                np.mean(energie_val[max_index - 5:max_index + 5]),
                 400,
                 750
             ],
         )
         d = np.sqrt(pconv.diagonal())
 
-        x = np.linspace(np.min(energie), np.max(energie), 1000)
+        x = np.linspace(np.min(energie_val), np.max(energie_val), 1000)
         y = gauss(x, *popt)
 
         """
