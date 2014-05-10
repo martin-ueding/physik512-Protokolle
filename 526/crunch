@@ -140,7 +140,7 @@ def peak_winkel(T, popt, pconv):
             fit_energie,
             fit_ereignisse,
             p0=[
-                energie[max_index],
+                np.mean(energie[max_index - 5:max_index + 5]),
                 400,
                 750
             ],
