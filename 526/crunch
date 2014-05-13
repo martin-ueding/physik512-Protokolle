@@ -113,6 +113,13 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     y = E_0*x
     np.savetxt('_build/E_winkelabhaengigkeit_ideal.txt', np.column_stack([x,y]))
 
+    np.savetxt('_build/E_winkelabhaengigkeit_polar.txt', np.column_stack([
+        np.degrees(phi),
+        E,
+        np.degrees(d_phi),
+        d_E,
+    ]))
+
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)

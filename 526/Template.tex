@@ -875,7 +875,9 @@ Die aus den Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
 aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
 Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
 Die graphische Darstellen einschließlich der idealen Gerade ist in
-Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen.
+Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
+Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
+in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -905,6 +907,28 @@ Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen.
     }
     \label{fig:E_winkelabhaengigkeit}
 \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                xlabel={$\phi / \si\degree$},
+                ylabel=Energie / \si{\kilo\electronvolt},
+            ]
+            \addplot[black, only marks] table {E_winkelabhaengigkeit_polar.txt};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Winkelabhängigkeit der Photonenergie nach Compton-Streuung als
+        Polardiagramm. Diese Abbildung ist mit Abbildung~\ref{fig:nishina-theo}
+        zu vergleichen.
+    }
+    \label{fig:nishina-ex}
+\end{figure}
+
 
 \chapter{Ergebnis}
 
