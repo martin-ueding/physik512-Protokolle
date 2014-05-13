@@ -79,7 +79,40 @@ def job_energieeichung(T):
     popt, pconv = fit_gauge_points(T, gauge_points)
     d = np.sqrt(pconv.diagonal())
 
-    peak_winkel(T, popt[0], popt[1], d[0], d[1])
+    energie_winkel = peak_winkel(T, popt[0], popt[1], d[0], d[1])
+
+    E_0 = 662e3
+
+    E_winkelabhaengigkeit(T, E_0, energie_winkel)
+
+def E_winkelabhaengigkeit(T, E_0, energie_winkel):
+    energie_winkel = np.array(energie_winkel)
+    E = energie_winkel[:,1]
+    d_E = energie_winkel[:,4]
+
+    phi = np.radians(energie_winkel[:,0])
+    d_phi = np.radians(energie_winkel[:,3])
+
+    m = 9.91e-31
+    e = 1.6e-19
+    c = 3e8
+
+    P = 1e-3 / ( 1 + E_0*e/(m*c**2) * ( 1 - np.cos(phi) ) )
+    d_P = np.sqrt(
+            (1e-3 * E_0 * e / (m * c**2) * np.sin(phi) * P**2 * d_phi)**2
+            #+ (1e-3 * e / (m * c**2) * (1 - np.cos(phi)) * P**2 * d_E_0)**2
+            )
+
+    np.savetxt('_build/E_winkelabhaengigkeit.txt', np.column_stack([P,E,d_P,d_E]))
+    T['E_winkelabhaengigkeit'] = list(zip(
+        unitprint.siunitx(E, d_E),
+        unitprint.siunitx(phi, d_phi),
+        unitprint.siunitx(P,d_P)
+        ))
+    x = np.linspace(np.min(P), np.max(P), 10)
+    y = E_0*x
+    np.savetxt('_build/E_winkelabhaengigkeit_ideal.txt', np.column_stack([x,y]))
+
 
 def fit_gauge_points(T, points, show=False):
     p = np.array(points)
@@ -182,9 +215,10 @@ def peak_winkel(T, energie_steigung_val, energie_offset_val, energie_steigung_er
 
         np.savetxt('_build/fit_{}deg.txt'.format(winkel), np.column_stack([x,y]))
 
-        energie_winkel.append((winkel, popt[0], d_winkel, d[0]))
+        energie_winkel.append((winkel, popt[0], popt[2], d_winkel, d[0], d[2]))
 
     np.savetxt('_build/data_energie_winkel.txt', energie_winkel)
+
 
     return energie_winkel
 
