@@ -35,6 +35,10 @@
 \usepgfplotslibrary{external}
 \tikzexternalize[mode=list and make]
 
+\tikzset{external/system call={lualatex \tikzexternalcheckshellescape
+-halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+
+
 \DeclareSIUnit{\skt}{SKT}
 
 \usepackage{booktabs}
