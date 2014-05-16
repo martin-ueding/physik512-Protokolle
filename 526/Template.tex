@@ -624,37 +624,6 @@ eine Art Histogramm.
 \clearpage
 \section{Messung der Streuspektren}
 
-Alle Spektren zusammen sind in Abbildung~\ref{fig:spektrum_alle_roh} gezeigt.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                xlabel=Kanal,
-                ylabel=Ereignisse,
-                grid=major,
-                width=\linewidth,
-                xmin=120,
-                height=0.5\linewidth,
-                legend entries={
-                    %< for angle in range(40, 121, 5): ->%
-                    \SI{<< angle >>}{\degree},
-                    %< endfor ->%
-                },
-            ]
-            %< for angle in range(40, 121, 5): >%
-            \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
-            %< endfor >%
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Spektrum des Plastik und Untergrund für alle Winkel zusammen. Die
-        Werte unter Kanal~120 wurden wieder weggelassen, da dort ein sehr hohes
-        Maximum ist, das die eigentlichen Messdaten überschattet.
-    }
-    \label{fig:spektrum_alle_roh}
-\end{figure}
-
 %< for angle in range(40, 111, 10): >%
 \begin{figure}[htbp]
     \centering
