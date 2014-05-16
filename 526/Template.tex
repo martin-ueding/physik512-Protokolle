@@ -547,7 +547,24 @@ eine Art Histogramm.
 
 \chapter{Durchführung}
 
+Der Aufbau besteht aus einem fest montiertem $^{137}$Cs Strahler, einem
+Probenhalter im Strahlengang und einem Detektor, der um den Probenhalter
+gedreht werden kann. In der Ausgangstellung, also direkt gegenüber dem
+Strahler, ist ein Kollimator vor dem Detektor angebracht. Der Detektor ist an
+einen MCA angeschlossen, mit dem wir Spektren aufnehmen können.
+
 \section{Vorbereitung}
+
+% TODO Spannung, ab der man Signale erkennen kann.
+
+% TODO Amplitude es Photopeaks.
+
+% TODO Amplitudenverläufe und Zeitverläufe.
+
+\section{Totaler Stoßwirkungsquerschnitt}
+
+Wir nehmen ein Spektrum mit dem $^{137}$Cs Strahler auf. Die Messdaten sind in
+Abbildung~\ref{fig:untergrund_roh} gezeigt.
 
 \begin{figure}[htbp]
     \centering
@@ -556,7 +573,7 @@ eine Art Histogramm.
         \begin{axis}[
                 xlabel=Kanal,
                 ylabel=Ereignisse,
-                xmin=500,
+                xmin=120,
                 grid=major,
                 width=\linewidth,
                 height=0.5\linewidth,
@@ -565,14 +582,20 @@ eine Art Histogramm.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Untergrundmessung. Die Kanäle kleiner als 500 haben wir ausgelassen, da
-        auf ihnen ein extrem großes Signal ist, das Spektrum unnötig verzerrt.
+        Untergrundmessung. Die Kanäle kleiner als 120 haben wir ausgelassen, da
+        auf ihnen ein extrem großes Signal ist, dass das Spektrum unnötig
+        verzerrt.
     }
     \label{fig:untergrund_roh}
 \end{figure}
 
-\section{Totaler Stoßwirkungsquerschnitt}
-
+Als nächstes bringen wir verschiedene Absorber in den Strahlengang, um die
+Abschwächung durch Material ausmessen zu können. Als Material benutzen wir
+Aluminium in den Dicken \SIlist{1;5;10;20;50}{\milli\meter}, wobei die letzte
+Dicke durch Drehen eines Blockes erreicht wird. Dieser Block ist in der
+gedrehten Richtung jedoch so schmal, dass er nicht den ganzen Strahlengang
+blockiert. Die Messdaten für alle Dicken sind in
+Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -581,7 +604,7 @@ eine Art Histogramm.
         \begin{axis}[
                 xlabel=Kanal,
                 ylabel=Ereignisse,
-                xmin=500,
+                xmin=120,
                 grid=major,
                 width=\linewidth,
                 height=0.5\linewidth,
@@ -605,7 +628,6 @@ eine Art Histogramm.
     }
     \label{fig:absorber_roh}
 \end{figure}
-
 
 \section{Energiekalibrierung des Spektrometers}
 
