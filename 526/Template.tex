@@ -631,6 +631,12 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
 
 \section{Energiekalibrierung des Spektrometers}
 
+Damit wir später in der Auswertung die Kanäle des MCA Energien zuordnen können,
+nehmen wir noch ein Spektrum von $^{133}$Cs auf. Dazu halten wir die Probe
+direkt vor den Detektor, um eine möglichst große Zählrate zu erhalten, die mit
+der des $^{137}$Cs vergleichbar ist. Das Spektrum ist in
+Abbildung~\ref{fig:barium_roh} aufgetragen.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{e5de6cba-24ad-4ac8-8fe7-073595f2195e}
@@ -652,6 +658,18 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
 \end{figure}
 
 \section{Messung der Streuspektren}
+
+Nun wenden wir uns der Winkelabhängigkeit des Comptoneffekts zu. Aus den
+verschiedenen Materialien wählen wir das Polymethylmethacrylat
+(Plexiglas/PMMA) aus, da seine geringe durchschnittliche Kernladungszahl $Z$
+die Comptonstreuung besonders häufig vorkommen lässt.
+
+Wir stellen den Detektor ohne Kollimator auf den beweglichen Arm. Den Bereich
+\SIrange{40}{120}{\degree} fahren wir in \SI{5}{\degree}-Schritten ab. Für jede
+Winkeleinstellung nehmen wir je eine Messung mit und ohne Plexiglas vor, damit
+wir in der Auswertung den winkelabhängigen Untergrund abziehen können. Die
+Messdaten sind etwas komprimiert in den Abbildungen~\ref{fig:spektrum_40_roh}
+bis \ref{fig:spektrum_120_roh} dargestellt.
 
 %< for angle in range(40, 111, 10): >%
 \begin{figure}[htbp]
@@ -675,6 +693,7 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
     \hfill
     \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle + 5 >>}
     \begin{minipage}[t]{0.49\linewidth}
+        \tikzsetnextfilename{ 163b14b7-3870-412c-aab6-7b6c39e2cc10 }
         \begin{tikzpicture}
             \begin{axis}[
                     xlabel=Kanal,
@@ -698,6 +717,33 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
     \label{fig:spektrum_<< angle >>_roh}
 \end{figure}
 %< endfor >%
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-120}
+    \begin{minipage}[t]{0.49\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    xlabel=Kanal,
+                    ylabel=Ereignisse,
+                    grid=major,
+                    width=\linewidth,
+                    xmin=120,
+                    height=\linewidth,
+                ]
+                \addplot[black] table {../Daten/plastik_120deg001.txt};
+                \addplot[Blue] table {../Daten/untergrund_120deg001.txt};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{%
+        Spektrum des Plastik und Untergrund für \SI{120}{\degree}. Die
+        Werte unter Kanal~120 wurden wieder weggelassen, da dort ein sehr hohes
+        Maximum ist, das die eigentlichen Messdaten überschattet.
+    }
+    \label{fig:spektrum_120_roh}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                 Auswertung                                  %
