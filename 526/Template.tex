@@ -536,17 +536,181 @@ eine Art Histogramm.
 
 % TODO Zerfallsschema 137Cs.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                Durchführung                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Durchführung}
 
 \section{Vorbereitung}
 
-% 01_Untergrund001.txt
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                xmin=500,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+            ]
+            \addplot[black] table {../Daten/01_Untergrund001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Untergrundmessung. Die Kanäle kleiner als 500 haben wir ausgelassen, da
+        auf ihnen ein extrem großes Signal ist, das Spektrum unnötig verzerrt.
+    }
+    \label{fig:untergrund_roh}
+\end{figure}
 
 \section{Totaler Stoßwirkungsquerschnitt}
 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                xmin=500,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+                legend entries={
+                    \SI{1}{\milli\meter},
+                    \SI{5}{\milli\meter},
+                    \SI{10}{\milli\meter},
+                    \SI{20}{\milli\meter},
+                    \SI{50}{\milli\meter},
+                },
+            ]
+            \addplot[BrickRed] table {../Daten/1mm_Al_0deg001.txt};
+            \addplot[BurntOrange] table {../Daten/5mm_Al_0deg001.txt};
+            \addplot[OliveGreen] table {../Daten/10mm_Al_0deg001.txt};
+            \addplot[NavyBlue] table {../Daten/20mm_Al_0deg001.txt};
+            \addplot[RedViolet] table {../Daten/50mm_Al_0deg001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Gemessene Ereignisanzahlen für verschiedene Absorberdicken.
+    }
+    \label{fig:absorber_roh}
+\end{figure}
+
+
 \section{Energiekalibrierung des Spektrometers}
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+            ]
+            \addplot[black] table {../Daten/Spektrum_Ba001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum des $^{133}$Ba-Strahlers.
+    }
+    \label{fig:barium_roh}
+\end{figure}
+
+\clearpage
 \section{Messung der Streuspektren}
+
+Alle Spektren zusammen sind in Abbildung~\ref{fig:spektrum_alle_roh} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                grid=major,
+                width=\linewidth,
+                xmin=120,
+                height=0.5\linewidth,
+                legend entries={
+                    %< for angle in range(40, 121, 5): ->%
+                    \SI{<< angle >>}{\degree},
+                    %< endfor ->%
+                },
+            ]
+            %< for angle in range(40, 121, 5): >%
+            \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
+            %< endfor >%
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum des Plastik und Untergrund für alle Winkel zusammen. Die
+        Werte unter Kanal~120 wurden wieder weggelassen, da dort ein sehr hohes
+        Maximum ist, das die eigentlichen Messdaten überschattet.
+    }
+    \label{fig:spektrum_alle_roh}
+\end{figure}
+
+%< for angle in range(40, 111, 10): >%
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    xlabel=Kanal,
+                    ylabel=Ereignisse,
+                    grid=major,
+                    width=\linewidth,
+                    xmin=120,
+                    height=\linewidth,
+                    legend entries={
+                        Messung,
+                        Untergrund,
+                    },
+                ]
+                \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
+                \addplot[Blue] table {../Daten/untergrund_<< angle >>deg001.txt};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    xlabel=Kanal,
+                    ylabel=Ereignisse,
+                    grid=major,
+                    width=\linewidth,
+                    xmin=120,
+                    height=\linewidth,
+                    legend entries={
+                        Messung,
+                        Untergrund,
+                    },
+                ]
+                \addplot[black] table {../Daten/plastik_<< angle + 5 >>deg001.txt};
+                \addplot[Blue] table {../Daten/untergrund_<< angle + 5 >>deg001.txt};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{%
+        Spektrum des Plastik und Untergrund für \SI{<< angle >>}{\degree}. Die
+        Werte unter Kanal~120 wurden wieder weggelassen, da dort ein sehr hohes
+        Maximum ist, das die eigentlichen Messdaten überschattet.
+    }
+    \label{fig:spektrum_<< angle >>_roh}
+\end{figure}
+%< endfor >%
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Auswertung                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Auswertung}
 
