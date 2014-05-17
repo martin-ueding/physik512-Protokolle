@@ -66,7 +66,8 @@
     Wir vermessen die Streuung von Gammastrahlung an Festkörpern, dabei
     untersuchen wir zuerst die Extinktion durch verschiedene Dicken Aluminium.
     Mit den Daten können wir das Gesetz von Lambert-Beer bestätigen und den
-    totalen Wirkungsquerschnitt für Aluminium berechnen.
+    totalen Wirkungsquerschnitt für Aluminium auf \SI{<< alu_sigma >>}{\barn}
+    bestimmen.
 
     Im zweiten Teil vermessen wir die Winkelabhängigkeit des Comptoneffekts und
     können den differentiellen Wirkungsquerschnitt von Klein-Nishina
@@ -256,9 +257,8 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
     T_\text{max} = h \nu \frac{2\gamma}{1+2\gamma}.
 \]
 
-\subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
-
-% TODO
+% TODO Etwas zur Linearpolarisation schreiben.
+%\subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
 
 \subsection{Abschwächung von $\boldsymbol\gammaup$-Strahlung in Materie}
 
@@ -554,7 +554,7 @@ eine Art Histogramm.
 
 \chapter{Durchführung}
 
-Der Aufbau besteht aus einem fest montiertem $^{137}$Cs Strahler, einem
+Der Aufbau besteht aus einem fest montiertem $^{137}$Cs-Strahler, einem
 Probenhalter im Strahlengang und einem Detektor, der um den Probenhalter
 gedreht werden kann. In der Ausgangstellung, also direkt gegenüber dem
 Strahler, ist ein Kollimator vor dem Detektor angebracht. Der Detektor ist an
@@ -562,19 +562,17 @@ einen MCA angeschlossen, mit dem wir Spektren aufnehmen können.
 
 \section{Vorbereitung}
 
-% TODO Spannung, ab der man Signale erkennen kann.
-
-% TODO Amplitude es Photopeaks.
-
-Auf dem Oszilloskop ist die Amplitude des Photopeaks im Signals des
-Photomultiplier bei ungefähr \SI{200}{\milli\volt} zu erkennen. Die Länge ist
-im Bereich \SIrange{2.5}{3}{\micro\second}.
+Die Hochspannung des Photomultipliers wird auf knapp über \SI{900}{\volt}
+gestellt, so dass Signale auf dem Oszilloskop zu erkennen sind. Dort ist die
+Amplitude des Photopeaks im Signals des Photomultiplier bei ungefähr
+\SI{200}{\milli\volt}. Die Länge ist im Bereich
+\SIrange{2.5}{3}{\micro\second}.
 
 % TODO Amplitudenverläufe und Zeitverläufe.
 
 \section{Totaler Stoßwirkungsquerschnitt}
 
-Wir nehmen ein Spektrum mit dem $^{137}$Cs Strahler auf. Die Messdaten sind in
+Wir nehmen ein Spektrum mit dem $^{137}$Cs-Strahler auf. Die Messdaten sind in
 Abbildung~\ref{fig:untergrund_roh} gezeigt.
 
 \begin{figure}[htbp]
@@ -593,9 +591,9 @@ Abbildung~\ref{fig:untergrund_roh} gezeigt.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Untergrundmessung. Die Kanäle kleiner als 120 haben wir ausgelassen, da
-        auf ihnen ein extrem großes Signal ist, dass das Spektrum unnötig
-        verzerrt.
+        Spektrum des $^{137}$Cs-Strahlers mit Kollimator. Die Kanäle kleiner
+        als 120 haben wir ausgelassen, da auf ihnen ein extrem großes Signal
+        ist, dass das Spektrum unnötig verzerrt.
     }
     \label{fig:untergrund_roh}
 \end{figure}
@@ -1052,6 +1050,10 @@ in einem Polardiagramm dargestellt.
 \end{figure}
 
 \chapter{Ergebnis}
+
+Im ersten Versuchsteil konnten wir das Gesetz von Lambert-Beer bestätigen. Den
+Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
+>>}{\barn}$ bestimmt.
 
 % TODO Ergebnis.
 
