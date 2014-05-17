@@ -693,12 +693,14 @@ Messdaten sind in den Abbildungen~\ref{fig:spektrum_40_roh} bis
 Aus den Messdaten für den Wirkungsquerschnitt wählen wir das letzte Maximum
 aus. An diese Auswahl passen wir die Normalverteilung
 \begin{equation}
-    \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
+    \frac{a}{\sqrt{2\piup} \varsigma} \exp\del{\frac{(x-\mu)^2}{2\varsigma^2}}
     \label{eq:gausskurve}
 \end{equation}
-an, deren Integral einfach nur $a$ ist. Die Daten und Anpassungskurven sind in
-Abbildung~\ref{fig:amplituden} dargestellt. In Tabelle~\ref{tab:amplituden}
-sind die Anpassungsparameter zusammengestellt.
+an, deren Integral einfach nur $a$ ist. Um eine Verwechselung mit dem
+Wirkungsquerschnitt $\sigma$ auszuschließen, benutzen wir das handschriftliche
+„sigma“ $\varsigma$ für die Standardabweichung. Die Daten und Anpassungskurven
+sind in Abbildung~\ref{fig:amplituden} dargestellt. In
+Tabelle~\ref{tab:amplituden} sind die Anpassungsparameter zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -775,7 +777,7 @@ alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
         {Dicke / \si{\milli\meter}} &
         {Integral / Kanal} &
         {$\mu$ / Kanal} &
-        {$\sigma$ / Kanal} \\
+        {$\varsigma$ / Kanal} \\
         \midrule
         %< for row in decay_table: ->%
         << ' & '.join(row) >> \\
@@ -819,7 +821,7 @@ alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
     \label{fig:decay}
 \end{figure}
 
-Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
+Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\varsigma =
 \num{<< extinction_gauss_sigma >>}$\,Kanäle), um diese zu glätten. Danach haben
 wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
 zu erhalten. Diese normalisierten Spektren haben wir in
@@ -924,7 +926,7 @@ dargestellten Zuordnungen.
 \begin{table}[htbp]
     \centering
     \begin{tabular}{SSS}
-        {$\mu$ / Kanal} & {$\sigma$/ Kanal} & {Energie /
+        {$\mu$ / Kanal} & {$\varsigma$/ Kanal} & {Energie /
     \si{\kilo\electronvolt}}\\
     \midrule
     %< for a, b, c in data_energieeichung: ->%
