@@ -45,7 +45,7 @@ def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
     '''
     Summe von zwei Gaußfunktionen.
     '''
-    return a / (np.sqrt(2*np.pi)*sigma1) * np.exp(- ((x - mean1)/sigma1)**2/2) + b / (np.sqrt(2*np.pi)*sigma2) * np.exp(- ((x - mean2)/sigma2)**2/2)
+    return gauss(x, mean1, sigma1, a) + gauss(x, mean2, sigma2, b)
 
 def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
     '''
