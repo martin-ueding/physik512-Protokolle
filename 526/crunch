@@ -22,8 +22,12 @@ def gauss(x, mean, sigma, a):
 
 def linear(x, a, b):
     return a * x + b
+
 def decay(x, tau, a):
     return a * np.exp(- x / tau)
+
+def cubic(x, a, b, c, d):
+    return a * x**3 + b * x**2 + c * x + d
 
 def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
     return a / (np.sqrt(2*np.pi)*sigma1) * np.exp(- ((x - mean1)/sigma1)**2/2) + b / (np.sqrt(2*np.pi)*sigma2) * np.exp(- ((x - mean2)/sigma2)**2/2)
@@ -59,6 +63,21 @@ def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
         return (popt[0], d[0], abs(popt[1]), d[1], energy)
 
 
+def interpolate_ansprech():
+    data = np.loadtxt('Ansprechwahrscheinlichkeit.csv')
+    x = data[:, 0]
+    y = data[:, 1]
+
+    popt, pconv = op.curve_fit(cubic, x, y)
+
+    converter = lambda x: cubic(x, *popt)
+
+    fx = np.linspace(min(x), max(x), 1000)
+    fy = converter(fx)
+
+    np.savetxt('_build/Ansprech-fit.csv', np.column_stack([fx, fy]))
+
+    return converter
 
 
 def job_energieeichung(T):
@@ -432,6 +451,7 @@ def main():
     absorption(T)
     job_energieeichung(T)
 
+    interpolate_ansprech()
 
     test_keys(T)
     with open('_build/template.js', 'w') as f:

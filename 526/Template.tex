@@ -1049,6 +1049,36 @@ in einem Polardiagramm dargestellt.
     \label{fig:nishina-ex}
 \end{figure}
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{Ansprech-fit}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=$\epsilon_\text{rel}$,
+                ylabel={$E_\gammaup / \si{\kilo\electronvolt}$},
+                grid=major,
+            ]
+            \addplot[
+                black, only marks, mark=+,
+            ]
+            table {../Ansprechwahrscheinlichkeit.csv};
+            \addplot[black] table {Ansprech-fit.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Relative Ansprechwahrscheinlichkeit des Detektors in Abhängigkeit der
+        Energie. Die Punkte wurden aus
+        \parencite[Abbildung~P526.3]{physik512-Anleitung} abgelesen und mit
+        einer Funktion dritter Ordnung angepasst. In der Originalabbildung sind
+        die Skalen nicht linear, so dass die resultierende Kurve hier anders
+        aussieht.
+    }
+    \label{fig:Ansprech-fit}
+\end{figure}
+
+
 \chapter{Ergebnis}
 
 Im ersten Versuchsteil konnten wir das Gesetz von Lambert-Beer bestätigen. Den
