@@ -989,6 +989,8 @@ Für die Anpassung ergibt sich
 
 \section{Auswertung der Streuspektren}
 
+\subsection{Untergrund und Peakanpassung}
+
 Wir hatten für verschiedene Winkel je eine Spektrum mit und ohne Plexiglas als
 Streukörper aufgenommen. Diese Daten werden wir nun auswerten. Dazu ziehen wir
 den Untergrund von den Messdaten ab. Dann rechnen wir mit der vorher
@@ -1059,6 +1061,10 @@ in einem Polardiagramm dargestellt.
     \label{fig:nishina-ex}
 \end{figure}
 
+\subsection{Korrektur auf Ansprechwahrscheinlichkeit}
+
+% TODO Korrektur mit der Ansprechwahrscheinlichkeit.
+
 Aus dem Diagramm in der Anleitung
 \parencite[Abbildung~P526.3]{physik512-Anleitung} lesen wir einige Datenpunkte
 ab und passen daran eine Funktion dritter Ordnung an. Dies haben wir in
@@ -1093,9 +1099,22 @@ Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
     \label{fig:Ansprech-fit}
 \end{figure}
 
-% TODO Korrektur mit der Ansprechwahrscheinlichkeit.
-
 % TODO Korrektur auf Absorption im Target.
+
+In der Anleitung steht (Hervorhebung von uns):
+\begin{quote}
+    Bestimmen Sie außerdem die Intensität der Streupeaks und führen Sie
+    Korrekturen auf die Ansprechwahrscheinlichkeit (Abb.P526.3) und \emph{die
+    Absorption im dünnen, \SI{17}{\milli\meter} breiten Target} durch.
+    \parencite[4]{physik512-Anleitung}
+\end{quote}
+
+Da wir im ersten Versuchsteil die Extinktion in Aluminium bestimmt haben, für
+den letzten Versuchsteil hingegen Plexiglas benutzt haben, können wir an dieser
+Stelle leider nicht exakt für den Effekt korrigieren, da wir den totalen
+Wirkungsquerschnitt von Plexiglas nicht bestimmt haben.
+
+\subsection{Vergleich mit Klein-Nishina-Plot}
 
 % TODO Polardiagram mit korrigierten Intensitäten.
 
