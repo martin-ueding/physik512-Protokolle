@@ -378,6 +378,15 @@ def extract_photo_peak(filename, dicke_mm):
 
 
 def extinction_ratio(T, filename, dicke_mm):
+    '''
+    Berechnet das Extinktionsverhältnis.
+
+    Glättet die gegebenen Daten und teilt durch den Untergrund. Die Daten
+    werden dann zum Plotten ausgegeben.
+
+    Dies hat sich aber als nicht hilfreich herausgestellt, daher ist diese
+    Funktion nicht mehr sonderlich wichtig.
+    '''
     normal_data = np.loadtxt('Daten/01_Untergrund001.txt')
     normal_counts = normal_data[:, 1]
     data = np.loadtxt(filename)
@@ -409,6 +418,17 @@ def extinction_ratio(T, filename, dicke_mm):
     ]))
 
 def absorption(T):
+    '''
+    Berechnet das Abschwächungsverhältnis und berechnet den totalen
+    Wirkungsquerschnitt.
+
+    Die einzelnen Dateien werden durch extract_photo_peak() und
+    extinction_ratio() gejagt. Danach wird an die Daten ein exponentieller
+    Abfall angepasst.
+
+    Zusammen mit einigen Parametern von Aluminium wird der totalen
+    Wirkungsquerschnitt berechnet.
+    '''
     extinction_ratio(T, 'Daten/01_Untergrund001.txt', 0)
     extinction_ratio(T, 'Daten/1mm_Al_0deg001.txt', 1)
     extinction_ratio(T, 'Daten/5mm_Al_0deg001.txt', 5)
