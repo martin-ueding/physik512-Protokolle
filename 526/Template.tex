@@ -1110,9 +1110,9 @@ Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
                 xmin=0,
                 xmax=180,
                 xlabel={$\phi / \si\degree$},
-                ylabel=korrigierte Ereignisanzahl,
             ]
             \addplot[black, only marks] table {polar_korr.csv};
+            \addplot[black] table {plot_klein_nishina_Cs.csv};
         \end{polaraxis}
     \end{tikzpicture}
     \caption{%

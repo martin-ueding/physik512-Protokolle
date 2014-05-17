@@ -207,8 +207,8 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
         d_E,
     ]))
 
-    # Cut here if you ever want to refactor this.
     # --------------%<---------------------------------------------------------
+    # Cut here if you ever want to refactor this %$@# below this comment.
 
     degree_val = energie_winkel[:, 0]
     degree_err = energie_winkel[:, 3]
@@ -225,10 +225,18 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     integral_corr_err = integral_err / anspr_ftor(integral_val)
 
     # Die Werte, die wir jetzt haben, sind genauso willkürlich wie vorher. Und
-    # jetzt?
+    # jetzt? Erstmal einen theoretischen Klein-Nishina-Plot für die fragliche
+    # Energie erzeugen.
+    theta = np.linspace(np.radians(min(degree_val)), np.radians(max(degree_val)), 1000)
+    sigma_omega = sigma_omega_klein_nishina(662 / 511, theta)
+    np.savetxt('_build/plot_klein_nishina_Cs.csv',
+               np.column_stack([np.degrees(theta), sigma_omega]))
+    
+    # Jetzt müssen noch die Daten passend gemacht werden. Ich versuche das erstmal so, dass ich einen Wert aus den Messdaten genau auf den theoretischen Plot anpasse. »What could possibly go wrong?«
+
+    integral_corr_val /= integral_corr_val[0] / sigma_omega_klein_nishina(662 / 511, np.radians(degree_val[0]))
 
     np.savetxt('_build/polar_korr.csv', np.column_stack([degree_val, integral_corr_val]))
-
 
 
 
