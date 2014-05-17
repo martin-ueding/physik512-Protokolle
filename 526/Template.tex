@@ -702,6 +702,25 @@ Wirkungsquerschnitt $\sigma$ auszuschließen, benutzen wir das handschriftliche
 sind in Abbildung~\ref{fig:amplituden} dargestellt. In
 Tabelle~\ref{tab:amplituden} sind die Anpassungsparameter zusammengestellt.
 
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSSS}
+        {Dicke / \si{\milli\meter}} &
+        {Integral / Kanal} &
+        {$\mu$ / Kanal} &
+        {$\varsigma$ / Kanal} \\
+        \midrule
+        %< for row in decay_table: ->%
+        << ' & '.join(row) >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Anpassungsparameter für die verschiedenen Dicken der
+        Absorbermaterialien.
+    }
+    \label{tab:amplituden}
+\end{table}
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{c32e3e3a-76f2-4502-81f0-529ff82ab0b0}
@@ -755,41 +774,13 @@ passen wir an die Daten eine Zerfallsfunktion,
 \[
     I(x) = I_0 \exp(- a x),
 \]
-an. Den letzen Punkt haben wir bei der Anpassung ausgelassen, da er sehr weit
-von der Kurve entfernt liegt. Das Aluminiumstück, das für die die letzte
-Messung benutzt haben, war sehr schmal. Dadurch ist es zum einen schwer
-gewesen, es wirklich parallel zum Strahlengang auszurichten, außerdem könnte
-Strahlung auch neben dem Stück passiert und in den Detektor gelangt sein. Der
-Wirkungsquerschnitt ist demnach nicht so gering, wie bei dieser Dicke zu
-erwarten wäre.
-
-Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n
-\sigma$\footnote{\erklaerungFehlerNotation} ist, erhalten wir
-mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
-der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
-der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
->>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
-alu_sigma >>}{\barn}$. Dies liegt in der vom Tutor angekündigten Größenordnung
-von $\si\barn$.
-
-\begin{table}[htbp]
-    \centering
-    \begin{tabular}{SSSS}
-        {Dicke / \si{\milli\meter}} &
-        {Integral / Kanal} &
-        {$\mu$ / Kanal} &
-        {$\varsigma$ / Kanal} \\
-        \midrule
-        %< for row in decay_table: ->%
-        << ' & '.join(row) >> \\
-        %< endfor ->%
-    \end{tabular}
-    \caption{%
-        Anpassungsparameter für die verschiedenen Dicken der
-        Absorbermaterialien.
-    }
-    \label{tab:amplituden}
-\end{table}
+an, siehe Abbildung~\ref{fig:decay}. Den letzen Punkt haben wir bei der
+Anpassung ausgelassen, da er sehr weit von der Kurve entfernt liegt. Das
+Aluminiumstück, das für die die letzte Messung benutzt haben, war sehr schmal.
+Dadurch ist es zum einen schwer gewesen, es wirklich parallel zum Strahlengang
+auszurichten, außerdem könnte Strahlung auch neben dem Stück passiert und in
+den Detektor gelangt sein. Der Wirkungsquerschnitt ist demnach nicht so gering,
+wie bei dieser Dicke zu erwarten wäre.
 
 \begin{figure}[htbp]
     \centering
@@ -822,11 +813,24 @@ von $\si\barn$.
     \label{fig:decay}
 \end{figure}
 
+Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n
+\sigma$\footnote{\erklaerungFehlerNotation} ist, erhalten wir
+mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
+der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
+der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
+>>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
+alu_sigma >>}{\barn}$. Dies liegt in der vom Tutor angekündigten Größenordnung
+von $\si\barn$.
+
 Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\varsigma =
 \num{<< extinction_gauss_sigma >>}$\,Kanäle), um diese zu glätten. Danach haben
 wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
 zu erhalten. Diese normalisierten Spektren haben wir in
-Abbildung~\ref{fig:extinktion} dargestellt.
+Abbildung~\ref{fig:extinktion} dargestellt. In den Kurven ist die Ableitung der
+Messdaten zu erkennen, so dass diese Methode zu einer Energieabhängigkeit
+führt, die der Energieverteilung der Messung entspricht. Daher wird es wohl
+eher eine Zählratenabhängigkeit geben, was nicht sein darf. Diese Methode ist
+also nicht sinnvoll nutzbar.
 
 \begin{figure}[htbp]
     \centering
