@@ -151,6 +151,28 @@ def job_energieeichung(T):
     E_winkelabhaengigkeit(T, E_0, energie_winkel)
 
 def E_winkelabhaengigkeit(T, E_0, energie_winkel):
+    '''
+    Nimmt die Energie ↔ Winkel Beziehung und rechnet damit weiter.
+
+    Diese Beschreibung enthält einige »und« und sollte daher dringend zerlegt
+    werden. Aber dies wird jetzt einfach mit aller Kraft ignoriert.
+
+    Zuerst werden die Daten mit dem Cosinus linearisiert und für das
+    linearisierte Diagramm gespeichert. Dann wird die ideale Kurve gespeichert.
+    Als letztes in diesem Schritt werden die Daten noch für ein Polardiagram
+    gespeichert.
+
+    :param energie_winkel: Liste mit Tupeln, die jeweils folgendes enthalten:
+
+        - Winkel
+        - Mittelpunkt
+        - Integral
+        - Fehler Winkel
+        - Fehler Mittelpunkt
+        - Fehler Integral
+
+    :returns: None
+    '''
     energie_winkel = np.array(energie_winkel)
     E = energie_winkel[:,1]
     d_E = energie_winkel[:,4]
