@@ -79,7 +79,7 @@ def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
         T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[3], d[3])
         np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
 
-        return (popt[1], d[1], abs(popt[3]), d[3], energy)
+        return popt[1], d[1], abs(popt[3]), d[3], energy
 
     else:
         popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
@@ -89,7 +89,7 @@ def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
         T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[1], d[1])
         np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
 
-        return (popt[0], d[0], abs(popt[1]), d[1], energy)
+        return popt[0], d[0], abs(popt[1]), d[1], energy
 
 
 def interpolate_ansprech():
