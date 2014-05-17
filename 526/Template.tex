@@ -2,7 +2,8 @@
 
 \usepackage{../../header}
 
-\usepackage[section]{placeins}
+\usepackage{placeins}
+\usepackage[maxfloats=50]{morefloats}
 
 \usepackage{csquotes}
 
@@ -62,12 +63,15 @@
 \maketitle
 
 \begin{abstract}
-    In diesem Versuch untersuchen wir die Wechselwirkung von
-    $\gammaup$-Strahlung mit Materie. Der Schwerpunkt liegt dabei beim
-    Compton-Effekt. Zunächst bestimmen wir den Compton-Wirkungsquerschnitt von
-    Aluminium, indem wir Targets unterschiedlicher Dicken zwischen Quelle und
-    Detektor bringen. Im Anschluss messen wir die Energie des Photopeaks bei
-    verschiedenen Streuwinkeln und prüfen so die Klein-Nishina-Gleichung.
+    Wir vermessen die Streuung von Gammastrahlung an Festkörpern, dabei
+    untersuchen wir zuerst die Extinktion durch verschiedene Dicken Aluminium.
+    Mit den Daten können wir das Gesetz von Lambert-Beer bestätigen und den
+    totalen Wirkungsquerschnitt für Aluminium auf \SI{<< alu_sigma >>}{\barn}
+    bestimmen.
+
+    Im zweiten Teil vermessen wir die Winkelabhängigkeit des Comptoneffekts und
+    können den differentiellen Wirkungsquerschnitt von Klein-Nishina
+    bestätigen.
 \end{abstract}
 
 \tableofcontents
@@ -128,6 +132,7 @@ Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{2902e0dd-ab0b-414a-b746-a3cb9b36b504}
     \begin{tikzpicture}
         \draw[->, thick] (-3, 0) -- (0, 0) node[above, midway] {$h\nu$};
         \draw[->, thick] (0, 0) -- (40:3) node[above, midway, sloped] {$h\nu'$};
@@ -171,6 +176,7 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{6ad40d38-51ae-490f-9133-697d38aba59d}
     \begin{tikzpicture}
         \draw[thick,->]
         (0,0) -- (0,5) node[left] {$I$}
@@ -253,10 +259,8 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
     T_\text{max} = h \nu \frac{2\gamma}{1+2\gamma}.
 \]
 
-
-\subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
-
-% TODO
+% TODO Etwas zur Linearpolarisation schreiben.
+%\subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
 
 \subsection{Abschwächung von $\boldsymbol\gammaup$-Strahlung in Materie}
 
@@ -291,6 +295,7 @@ Abbildung~\ref{fig:nishina-theo} dargestellt.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{fcb6c569-98f2-4c07-ac48-14c15825c348}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -418,6 +423,7 @@ Anstiegszeit ist jedoch deutlich größer. Daher heißt dieses Signal auch
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{25073b1c-dab7-47a6-8fe9-ecfe8804f1ef}
     \begin{tikzpicture}
         % Röhre
         \draw[thick] (2,-1) rectangle (9,1);
@@ -484,6 +490,7 @@ eine Art Histogramm.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{ab4cd5b2-1691-453d-97cc-3c6bd9c24dc1}
     \begin{tikzpicture}
         \draw[thick]
         (-.5,5) node[left]{$\frac12^+$} -- node[above] (Ba) {${}^{133}$Ba} (1,5)
@@ -543,17 +550,141 @@ eine Art Histogramm.
 
 % TODO Zerfallsschema 137Cs.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                Durchführung                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Durchführung}
+
+Der Aufbau besteht aus einem fest montiertem $^{137}$Cs-Strahler, einem
+Probenhalter im Strahlengang und einem Detektor, der um den Probenhalter
+gedreht werden kann. In der Ausgangstellung, also direkt gegenüber dem
+Strahler, ist ein Kollimator vor dem Detektor angebracht. Der Detektor ist an
+einen MCA angeschlossen, mit dem wir Spektren aufnehmen können.
 
 \section{Vorbereitung}
 
-% 01_Untergrund001.txt
+Die Hochspannung des Photomultipliers wird auf knapp über \SI{900}{\volt}
+gestellt, so dass Signale auf dem Oszilloskop zu erkennen sind. Dort ist die
+Amplitude des Photopeaks im Signals des Photomultiplier bei ungefähr
+\SI{200}{\milli\volt}. Die Länge ist im Bereich
+\SIrange{2.5}{3}{\micro\second}.
+
+% TODO Amplitudenverläufe und Zeitverläufe.
 
 \section{Totaler Stoßwirkungsquerschnitt}
 
+Wir nehmen ein Spektrum mit dem $^{137}$Cs-Strahler auf. Die Messdaten sind in
+Abbildung~\ref{fig:untergrund_roh} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{52d4836e-6d59-44b8-be49-c914eb2c8be7}
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                xmin=120,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+            ]
+            \addplot[black] table {../Daten/01_Untergrund001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum des $^{137}$Cs-Strahlers mit Kollimator. Die Kanäle kleiner
+        als 120 haben wir ausgelassen, da auf ihnen ein extrem großes Signal
+        ist, dass das Spektrum unnötig verzerrt.
+    }
+    \label{fig:untergrund_roh}
+\end{figure}
+
+Als nächstes bringen wir verschiedene Absorber in den Strahlengang, um die
+Abschwächung durch Material ausmessen zu können. Als Material benutzen wir
+Aluminium in den Dicken \SIlist{1;5;10;20;50}{\milli\meter}, wobei die letzte
+Dicke durch Drehen eines Blockes erreicht wird. Dieser Block ist in der
+gedrehten Richtung jedoch so schmal, dass er nicht den ganzen Strahlengang
+blockiert. Die Messdaten für alle Dicken sind in
+Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{2867931c-e141-49bb-aedd-65b2e20ab832}
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                xmin=120,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+                legend entries={
+                    \SI{1}{\milli\meter},
+                    \SI{5}{\milli\meter},
+                    \SI{10}{\milli\meter},
+                    \SI{20}{\milli\meter},
+                    \SI{50}{\milli\meter},
+                },
+            ]
+            \addplot[BrickRed] table {../Daten/1mm_Al_0deg001.txt};
+            \addplot[BurntOrange] table {../Daten/5mm_Al_0deg001.txt};
+            \addplot[OliveGreen] table {../Daten/10mm_Al_0deg001.txt};
+            \addplot[NavyBlue] table {../Daten/20mm_Al_0deg001.txt};
+            \addplot[RedViolet] table {../Daten/50mm_Al_0deg001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Gemessene Ereignisanzahlen für verschiedene Absorberdicken.
+    }
+    \label{fig:absorber_roh}
+\end{figure}
+
 \section{Energiekalibrierung des Spektrometers}
 
+Damit wir später in der Auswertung die Kanäle des MCA Energien zuordnen können,
+nehmen wir noch ein Spektrum von $^{133}$Cs auf. Dazu halten wir die Probe
+direkt vor den Detektor, um eine möglichst große Zählrate zu erhalten, die mit
+der des $^{137}$Cs vergleichbar ist. Das Spektrum ist in
+Abbildung~\ref{fig:barium_roh} aufgetragen.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{e5de6cba-24ad-4ac8-8fe7-073595f2195e}
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Kanal,
+                ylabel=Ereignisse,
+                grid=major,
+                width=\linewidth,
+                height=0.5\linewidth,
+            ]
+            \addplot[black] table {../Daten/Spektrum_Ba001.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum des $^{133}$Ba-Strahlers.
+    }
+    \label{fig:barium_roh}
+\end{figure}
+
 \section{Messung der Streuspektren}
+
+Nun wenden wir uns der Winkelabhängigkeit des Comptoneffekts zu. Aus den
+verschiedenen Materialien wählen wir das Polymethylmethacrylat
+(Plexiglas/PMMA) aus, da seine geringe durchschnittliche Kernladungszahl $Z$
+die Comptonstreuung besonders häufig vorkommen lässt.
+
+Wir stellen den Detektor ohne Kollimator auf den beweglichen Arm. Den Bereich
+\SIrange{40}{120}{\degree} fahren wir in \SI{5}{\degree}-Schritten ab. Für jede
+Winkeleinstellung nehmen wir je eine Messung mit und ohne Plexiglas vor, damit
+wir in der Auswertung den winkelabhängigen Untergrund abziehen können. Die
+Messdaten sind in den Abbildungen~\ref{fig:spektrum_40_roh} bis
+\ref{fig:spektrum_120_roh} im Anhang dargestellt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Auswertung                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Auswertung}
 
@@ -562,15 +693,37 @@ eine Art Histogramm.
 Aus den Messdaten für den Wirkungsquerschnitt wählen wir das letzte Maximum
 aus. An diese Auswahl passen wir die Normalverteilung
 \begin{equation}
-    \frac{a}{\sqrt{2\piup} \sigma} \exp\del{\frac{(x-\mu)^2}{2\sigma^2}}
+    \frac{a}{\sqrt{2\piup} \varsigma} \exp\del{\frac{(x-\mu)^2}{2\varsigma^2}}
     \label{eq:gausskurve}
 \end{equation}
-an, deren Integral einfach nur $a$ ist. Die Daten und Anpassungskurven sind in
-Abbildung~\ref{fig:amplituden} dargestellt. In Tabelle~\ref{tab:amplituden}
-sind die Anpassungsparameter zusammengestellt.
+an, deren Integral einfach nur $a$ ist. Um eine Verwechselung mit dem
+Wirkungsquerschnitt $\sigma$ auszuschließen, benutzen wir das handschriftliche
+„sigma“ $\varsigma$ für die Standardabweichung. Die Daten und Anpassungskurven
+sind in Abbildung~\ref{fig:amplituden} dargestellt. In
+Tabelle~\ref{tab:amplituden} sind die Anpassungsparameter zusammengestellt.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSSS}
+        {Dicke / \si{\milli\meter}} &
+        {Integral / Kanal} &
+        {$\mu$ / Kanal} &
+        {$\varsigma$ / Kanal} \\
+        \midrule
+        %< for row in decay_table: ->%
+        << ' & '.join(row) >> \\
+        %< endfor ->%
+    \end{tabular}
+    \caption{%
+        Anpassungsparameter für die verschiedenen Dicken der
+        Absorbermaterialien.
+    }
+    \label{tab:amplituden}
+\end{table}
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{c32e3e3a-76f2-4502-81f0-529ff82ab0b0}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -621,43 +774,17 @@ passen wir an die Daten eine Zerfallsfunktion,
 \[
     I(x) = I_0 \exp(- a x),
 \]
-an. Den letzen Punkt haben wir bei der Anpassung ausgelassen, da er sehr weit
-von der Kurve entfernt liegt. Das Aluminiumstück, das für die die letzte
-Messung benutzt haben, war sehr schmal. Dadurch ist es zum einen schwer
-gewesen, es wirklich parallel zum Strahlengang auszurichten, außerdem könnte
-Strahlung auch neben dem Stück passiert und in den Detektor gelangt sein. Der
-Wirkungsquerschnitt ist demnach nicht so gering, wie bei dieser Dicke zu
-erwarten wäre.
-
-Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n
-\sigma$\footnote{\erklaerungFehlerNotation} ist, erhalten wir
-mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
-der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
-der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
->>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
-alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
-
-\begin{table}[htbp]
-    \centering
-    \begin{tabular}{SSSS}
-        {Dicke / \si{\milli\meter}} &
-        {Integral / Kanal} &
-        {$\mu$ / Kanal} &
-        {$\sigma$ / Kanal} \\
-        \midrule
-        %< for row in decay_table: ->%
-        << ' & '.join(row) >> \\
-        %< endfor ->%
-    \end{tabular}
-    \caption{%
-        Anpassungsparameter für die verschiedenen Dicken der
-        Absorbermaterialien.
-    }
-    \label{tab:amplituden}
-\end{table}
+an, siehe Abbildung~\ref{fig:decay}. Den letzen Punkt haben wir bei der
+Anpassung ausgelassen, da er sehr weit von der Kurve entfernt liegt. Das
+Aluminiumstück, das für die die letzte Messung benutzt haben, war sehr schmal.
+Dadurch ist es zum einen schwer gewesen, es wirklich parallel zum Strahlengang
+auszurichten, außerdem könnte Strahlung auch neben dem Stück passiert und in
+den Detektor gelangt sein. Der Wirkungsquerschnitt ist demnach nicht so gering,
+wie bei dieser Dicke zu erwarten wäre.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{b9f2cca1-18dc-45b3-9878-f0a7af5f33c5}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -686,14 +813,28 @@ alu_sigma >>}{\barn}$. Dies liegt in der angekündigten Größenordnung.
     \label{fig:decay}
 \end{figure}
 
-Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\sigma =
+Da $a = \SI{<< alu_a >>}{\per\milli\meter} = n
+\sigma$\footnote{\erklaerungFehlerNotation} ist, erhalten wir
+mit der Dichte $\rho = \SI{<< alu_dichte >>}{\gram\per\cubic\milli\meter}$ und
+der Atommasse $m = \SI{<< alu_amu >>}{\atomicmassunit}$ von Aluminium, sowie
+der Anzahldichte $n = \rho N_\text A / m = \SI{<< alu_n
+>>}{\per\cubic\milli\meter}$ einen Wirkungsquerschnitt von $\sigma = \SI{<<
+alu_sigma >>}{\barn}$. Dies liegt in der vom Tutor angekündigten Größenordnung
+von $\si\barn$.
+
+Wir haben zusätzlich die Spektren mit einen Gaußkern gefaltet ($\varsigma =
 \num{<< extinction_gauss_sigma >>}$\,Kanäle), um diese zu glätten. Danach haben
 wir die Spektren durch das ohne Absorber geteilt, um ein Auslöschungsverhältnis
 zu erhalten. Diese normalisierten Spektren haben wir in
-Abbildung~\ref{fig:extinktion} dargestellt.
+Abbildung~\ref{fig:extinktion} dargestellt. In den Kurven ist die Ableitung der
+Messdaten zu erkennen, so dass diese Methode zu einer Energieabhängigkeit
+führt, die der Energieverteilung der Messung entspricht. Daher wird es wohl
+eher eine Zählratenabhängigkeit geben, was nicht sein darf. Diese Methode ist
+also nicht sinnvoll nutzbar.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{81d5a112-c43e-4513-8a41-c6ce292e1e2d}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -718,6 +859,9 @@ Abbildung~\ref{fig:extinktion} dargestellt.
     \label{fig:extinktion}
 \end{figure}
 
+% TODO Vergleich mit Literaturwert.
+% TODO Vergleich mit Klein-Nishina-Formel.
+
 \section{Energieeichung}
 
 Zur Energieeichung betrachten wir zunächst den
@@ -727,6 +871,7 @@ sind samt Anpassung in Abbildung~\ref{fig:eichung_137Ba} dargestellt.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{a7ab4afa-5d99-4f25-9f47-d0fde56ffb66}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -759,6 +904,7 @@ sehen.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{587e34ca-5ad5-4b70-8e59-97389e5e2618}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -783,12 +929,19 @@ sehen.
 \end{figure}
 
 Aus den Anpassungen erhalten wir die in Tabelle~\ref{tab:energieeichung}
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
+Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
+Die graphische Darstellung einschließlich der idealen Gerade (keine
+Anpassungsgerade) ist in
+Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
+Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
+in einem Polardiagramm dargestellt.
 dargestellten Zuordnungen.
 
 \begin{table}[htbp]
     \centering
     \begin{tabular}{SSS}
-        {$\mu$ / Kanal} & {$\sigma$/ Kanal} & {Energie /
+        {$\mu$ / Kanal} & {$\varsigma$/ Kanal} & {Energie /
     \si{\kilo\electronvolt}}\\
     \midrule
     %< for a, b, c in data_energieeichung: ->%
@@ -811,6 +964,7 @@ Für die Anpassung ergibt sich
 
 \begin{figure}
     \centering
+    \tikzsetnextfilename{ab69515e-fb44-45a6-b225-5ecc3e1904b1}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -835,59 +989,32 @@ Für die Anpassung ergibt sich
     \label{fig:energieeichung}
 \end{figure}
 
-\FloatBarrier
-\section{Messung der Streuspektren}
+\section{Auswertung der Streuspektren}
 
-Nun wird der Detektor auf in einem Winkel von \SI{40}{\degree} zur Strahlachse
-aufgestellt. Als Target wählen wir einen ca. \SI{20}{\milli\meter} starken
-Plexiglas-Zylinder. Wir messen nun das Spektrum
-jeweils \SI{300}{\second} lang in \SI{5}{\degree}-Schritten bis zu einem Winkel
-von \SI{120}{\degree} durch und führen für jede Messung noch eine
-Untergrundmessung mit gleicher Messdauer durch. Die korrigierten Spektren sind
-in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
+\subsection{Untergrund und Peakanpassung}
 
-%< for angle in range(40, 121, 5): >%
-\begin{figure}
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=0.6\linewidth,
-                xlabel=Energie / \si{\kilo\electronvolt},
-                ylabel=Ereignisse,
-                grid=major,
-            ]
-            \addplot[
-                error bars/.cd,
-                x dir=both, x explicit,
-                y dir=both, y explicit,
-            ]
-            table {spektrum_<< angle >>deg_korr.txt};
-            \addplot[red, thick] table {fit_<< angle >>deg.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Spektrum bei \SI{<< angle >>}{\degree}.
-    }
-    \label{fig:spek_<< angle >>deg}
-\end{figure}
-%< endfor >%
+Wir hatten für verschiedene Winkel je eine Spektrum mit und ohne Plexiglas als
+Streukörper aufgenommen. Diese Daten werden wir nun auswerten. Dazu ziehen wir
+den Untergrund von den Messdaten ab. Dann rechnen wir mit der vorher
+durchgeführten Energieeichung die Kanäle in Energien um. Die resultierenden
+Spektren sind in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg}
+zu sehen.
 
-\clearpage
-
-Die aus den Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
+An den Photopeak passen wir jeweils eine Normalverteilung an. Die aus den
+Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
 \[
-    \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos\phi}}
+    \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos(\phi)}}
 \]
-aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
-Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
-Die graphische Darstellen einschließlich der idealen Gerade ist in
-Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
+Nach der Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$
+ergeben. Die graphische Darstellung einschließlich der idealen Gerade (keine
+Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
 Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
 in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{149d4a4e-2dac-43ee-8747-0fd5a245c915}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -917,6 +1044,7 @@ in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
+    \tikzsetnextfilename{00fe76c2-dc11-457e-8da0-fd8b33871df0}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -935,10 +1063,167 @@ in einem Polardiagramm dargestellt.
     \label{fig:nishina-ex}
 \end{figure}
 
+\subsection{Korrektur auf Ansprechwahrscheinlichkeit}
+
+% TODO Korrektur mit der Ansprechwahrscheinlichkeit.
+
+Aus dem Diagramm in der Anleitung
+\parencite[Abbildung~P526.3]{physik512-Anleitung} lesen wir einige Datenpunkte
+ab und passen daran eine Funktion dritter Ordnung an. Dies haben wir in
+Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{Ansprech-fit}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel=$\epsilon_\text{rel}$,
+                ylabel={$E_\gammaup / \si{\kilo\electronvolt}$},
+                grid=major,
+            ]
+            \addplot[
+                black, only marks, mark=+,
+            ]
+            table {../Ansprechwahrscheinlichkeit.csv};
+            \addplot[black] table {Ansprech-fit.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Relative Ansprechwahrscheinlichkeit des Detektors in Abhängigkeit der
+        Energie. Die Punkte wurden aus
+        \parencite[Abbildung~P526.3]{physik512-Anleitung} abgelesen und mit
+        einer Funktion dritter Ordnung angepasst. In der Originalabbildung sind
+        die Skalen nicht linear, so dass die resultierende Kurve hier anders
+        aussieht.
+    }
+    \label{fig:Ansprech-fit}
+\end{figure}
+
+Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{polar_korr}
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                xlabel={$\phi / \si\degree$},
+            ]
+            \addplot[black, only marks] table {polar_korr.csv};
+            \addplot[black] table {plot_klein_nishina_Cs.csv};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Winkelabhängigkeit der korrigierten Ereignisanzahl.
+    }
+    \label{fig:polar_korr}
+\end{figure}
+
+\subsection{Korrektur auf Absorption im Target}
+
+In der Anleitung steht (Hervorhebung von uns):
+\begin{quote}
+    Bestimmen Sie außerdem die Intensität der Streupeaks und führen Sie
+    Korrekturen auf die Ansprechwahrscheinlichkeit (Abb.P526.3) und \emph{die
+    Absorption im dünnen, \SI{17}{\milli\meter} breiten Target} durch.
+    \parencite[4]{physik512-Anleitung}
+\end{quote}
+
+Da wir im ersten Versuchsteil die Extinktion in Aluminium bestimmt haben, für
+den letzten Versuchsteil hingegen Plexiglas benutzt haben, können wir an dieser
+Stelle leider nicht exakt für den Effekt korrigieren, da wir den totalen
+Wirkungsquerschnitt von Plexiglas nicht bestimmt haben. Daher lassen wir diese
+Korrektur aus. Unsere Ergebnisse werden nachher einen bestimmten Faktor zu hoch
+sein.
+
+\subsection{Vergleich mit Klein-Nishina-Plot}
+
+% TODO Polardiagram mit korrigierten Intensitäten.
+
+% TODO Vergleich mit Klein-Nishina-Plot.
 
 \chapter{Ergebnis}
 
+Im ersten Versuchsteil konnten wir das Gesetz von Lambert-Beer bestätigen. Den
+Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
+>>}{\barn}$ bestimmt.
+
 % TODO Ergebnis.
+
+\begin{appendix}
+    \chapter{Graphen zu einzelnen Winkeln}
+
+    Die Messdaten zu diesen Graphen können auch auf
+    \url{https://github.com/martin-ueding/physik512-Protokolle/tree/master/526/Daten}
+    eingesehen werden.
+
+    %< for angle in range(40, 121, 5): >%
+    \begin{figure}[htbp]
+        \centering
+        \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle >>}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    xlabel=Kanal,
+                    ylabel=Ereignisse,
+                    grid=major,
+                    width=\linewidth,
+                    xmin=120,
+                    height=0.6\linewidth,
+                    legend entries={
+                        Messung,
+                        Untergrund,
+                    },
+                ]
+                \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
+                \addplot[Blue] table {../Daten/untergrund_<< angle >>deg001.txt};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{%
+            Spektrum des Plastik und Untergrund für \SI{<< angle >>}{\degree}.
+            Die Werte unter Kanal~120 wurden wieder weggelassen, da dort ein
+            sehr hohes Maximum ist, das die eigentlichen Messdaten
+            überschattet.
+        }
+        \label{fig:spektrum_<< angle >>_roh}
+    \end{figure}
+    %< endfor >%
+
+    %< for angle in range(40, 121, 5): >%
+    \begin{figure}
+        \centering
+        \tikzsetnextfilename{e078e2a4-533c-4363-bdee-c79a4074a5a7-<< angle >>}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=\linewidth,
+                    height=0.6\linewidth,
+                    xlabel=Energie / \si{\kilo\electronvolt},
+                    ylabel=Ereignisse,
+                    grid=major,
+                    legend entries={
+                        Messung,
+                        Anpassung,
+                    },
+                ]
+                \addplot[
+                    error bars/.cd,
+                    x dir=both, x explicit,
+                    y dir=both, y explicit,
+                ]
+                table {spektrum_<< angle >>deg_korr.txt};
+                \addplot[red, thick] table {fit_<< angle >>deg.txt};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{%
+            Spektrum bei \SI{<< angle >>}{\degree}
+        }
+        \label{fig:spek_<< angle >>deg}
+    \end{figure}
+    %< endfor >%
+\end{appendix}
 
 \end{document}
 
