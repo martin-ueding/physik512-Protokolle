@@ -17,19 +17,34 @@ import scipy.ndimage.filters
 import unitprint
 
 def gauss(x, mean, sigma, a):
+    '''
+    Einfache Normalverteilung, deren Integral durch ``a`` gegeben ist.
+    '''
     return a / (np.sqrt(2 * np.pi) * sigma) \
             * np.exp(- (x - mean)**2/(2 * sigma**2))
 
 def linear(x, a, b):
+    '''
+    Lineare Funktion.
+    '''
     return a * x + b
 
 def decay(x, tau, a):
+    '''
+    Exponentieller Abfall.
+    '''
     return a * np.exp(- x / tau)
 
 def cubic(x, a, b, c, d):
+    '''
+    Kubische Funktion.
+    '''
     return a * x**3 + b * x**2 + c * x + d
 
 def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
+    '''
+    Summe von zwei Gaußfunktionen.
+    '''
     return a / (np.sqrt(2*np.pi)*sigma1) * np.exp(- ((x - mean1)/sigma1)**2/2) + b / (np.sqrt(2*np.pi)*sigma2) * np.exp(- ((x - mean2)/sigma2)**2/2)
 
 def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
@@ -64,6 +79,13 @@ def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
 
 
 def interpolate_ansprech():
+    '''
+    Interpoliert die Ansprechwahrscheinlichkeit.
+
+    Als Nebeneffekt wird die angepasste Funktion zum Plotten ausgegeben.
+
+    :return: Umrechnungsfunktion Energie → Ansprechwahrscheinlichkeit.
+    '''
     data = np.loadtxt('Ansprechwahrscheinlichkeit.csv')
     x = data[:, 0]
     y = data[:, 1]
@@ -78,7 +100,6 @@ def interpolate_ansprech():
     np.savetxt('_build/Ansprech-fit.csv', np.column_stack([fx, fy]))
 
     return converter
-
 
 def job_energieeichung(T):
     gauge_points = []
@@ -395,6 +416,13 @@ def absorption(T):
 
 
 def sigma_omega_klein_nishina(gamma, theta):
+    '''
+    Differentieller Wirkungsquerschnitt aus der Klein-Nishina-Formel.
+
+    :param gamma: Photonenenergie
+    :param theta: Ablenkwinkel
+    :return: Differentieller Wirkungsquerschnitt
+    '''
     re = 1e-15
 
     cos = np.cos(theta)
@@ -407,6 +435,9 @@ def sigma_omega_klein_nishina(gamma, theta):
 
 
 def task_nishina_theorie(T):
+    '''
+    Erzeugt Dateien mit theoretischen Klein-Nishina-Plots.
+    '''
     theta = np.linspace(0, np.pi, 1000)
 
     sigma_omega = sigma_omega_klein_nishina(0.01, theta)
@@ -426,6 +457,9 @@ def task_nishina_theorie(T):
                np.column_stack([np.degrees(theta), sigma_omega]))
 
 def test_keys(T):
+    '''
+    Testet das dict auf Schlüssel mit Bindestrichen.
+    '''
     dash_keys = []
     for key in T:
         if '-' in key:
