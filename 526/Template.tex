@@ -1101,6 +1101,26 @@ Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
 
 Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{polar_korr}
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                xlabel={$\phi / \si\degree$},
+                ylabel=korrigierte Ereignisanzahl,
+            ]
+            \addplot[black, only marks] table {polar_korr.csv};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Winkelabhängigkeit der korrigierten Ereignisanzahl.
+    }
+    \label{fig:polar_korr}
+\end{figure}
+
 \subsection{Korrektur auf Absorption im Target}
 
 In der Anleitung steht (Hervorhebung von uns):

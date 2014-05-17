@@ -207,6 +207,30 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
         d_E,
     ]))
 
+    # Cut here if you ever want to refactor this.
+    # --------------%<---------------------------------------------------------
+
+    degree_val = energie_winkel[:, 0]
+    degree_err = energie_winkel[:, 3]
+    E_val = energie_winkel[:, 1]
+    E_err = energie_winkel[:, 4]
+    integral_val = energie_winkel[:, 2]
+    integral_err = energie_winkel[:, 5]
+
+    # Korrigiere die Zählraten um die Ansprechwahrscheinlichkeit. Je größer die
+    # Wahrscheinlichkeit ist, desto mehr Zählrate haben wir gemessen. Daher
+    # müssen wir durch die Wahrscheinlichkeit teilen.
+    anspr_ftor = interpolate_ansprech()
+    integral_corr_val = integral_val / anspr_ftor(integral_val)
+    integral_corr_err = integral_err / anspr_ftor(integral_val)
+
+    # Die Werte, die wir jetzt haben, sind genauso willkürlich wie vorher. Und
+    # jetzt?
+
+    np.savetxt('_build/polar_korr.csv', np.column_stack([degree_val, integral_corr_val]))
+
+
+
 
 def fit_gauge_points(T, points, show=False):
     '''
