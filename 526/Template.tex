@@ -857,6 +857,9 @@ also nicht sinnvoll nutzbar.
     \label{fig:extinktion}
 \end{figure}
 
+% TODO Vergleich mit Literaturwert.
+% TODO Vergleich mit Klein-Nishina-Formel.
+
 \section{Energieeichung}
 
 Zur Energieeichung betrachten wir zunächst den
@@ -924,6 +927,13 @@ sehen.
 \end{figure}
 
 Aus den Anpassungen erhalten wir die in Tabelle~\ref{tab:energieeichung}
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
+Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
+Die graphische Darstellung einschließlich der idealen Gerade (keine
+Anpassungsgerade) ist in
+Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
+Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
+in einem Polardiagramm dargestellt.
 dargestellten Zuordnungen.
 
 \begin{table}[htbp]
@@ -977,24 +987,24 @@ Für die Anpassung ergibt sich
     \label{fig:energieeichung}
 \end{figure}
 
-\section{Messung der Streuspektren}
+\section{Auswertung der Streuspektren}
 
-Nun wird der Detektor auf in einem Winkel von \SI{40}{\degree} zur Strahlachse
-aufgestellt. Als Target wählen wir einen ca. \SI{20}{\milli\meter} starken
-Plexiglas-Zylinder. Wir messen nun das Spektrum
-jeweils \SI{300}{\second} lang in \SI{5}{\degree}-Schritten bis zu einem Winkel
-von \SI{120}{\degree} durch und führen für jede Messung noch eine
-Untergrundmessung mit gleicher Messdauer durch. Die korrigierten Spektren sind
-in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
+Wir hatten für verschiedene Winkel je eine Spektrum mit und ohne Plexiglas als
+Streukörper aufgenommen. Diese Daten werden wir nun auswerten. Dazu ziehen wir
+den Untergrund von den Messdaten ab. Dann rechnen wir mit der vorher
+durchgeführten Energieeichung die Kanäle in Energien um. Die resultierenden
+Spektren sind in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg}
+zu sehen.
 
-Die aus den Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
+An den Photopeak passen wir jeweils eine Normalverteilung an. Die aus den
+Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
 \[
-    \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos\phi}}
+    \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos(\phi)}}
 \]
-aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
-Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
-Die graphische Darstellen einschließlich der idealen Gerade ist in
-Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
+Nach der Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$
+ergeben. Die graphische Darstellung einschließlich der idealen Gerade (keine
+Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
 Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
 in einem Polardiagramm dargestellt.
 
@@ -1049,6 +1059,11 @@ in einem Polardiagramm dargestellt.
     \label{fig:nishina-ex}
 \end{figure}
 
+Aus dem Diagramm in der Anleitung
+\parencite[Abbildung~P526.3]{physik512-Anleitung} lesen wir einige Datenpunkte
+ab und passen daran eine Funktion dritter Ordnung an. Dies haben wir in
+Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{Ansprech-fit}
@@ -1070,7 +1085,7 @@ in einem Polardiagramm dargestellt.
     \caption{%
         Relative Ansprechwahrscheinlichkeit des Detektors in Abhängigkeit der
         Energie. Die Punkte wurden aus
-        \parencite[Abbildung~P526.3]{physik512-Anleitung} abgelesen und mit
+         abgelesen und mit
         einer Funktion dritter Ordnung angepasst. In der Originalabbildung sind
         die Skalen nicht linear, so dass die resultierende Kurve hier anders
         aussieht.
@@ -1078,6 +1093,13 @@ in einem Polardiagramm dargestellt.
     \label{fig:Ansprech-fit}
 \end{figure}
 
+% TODO Korrektur mit der Ansprechwahrscheinlichkeit.
+
+% TODO Korrektur auf Absorption im Target.
+
+% TODO Polardiagram mit korrigierten Intensitäten.
+
+% TODO Vergleich mit Klein-Nishina-Plot.
 
 \chapter{Ergebnis}
 
