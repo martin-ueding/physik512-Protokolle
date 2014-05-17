@@ -3,7 +3,7 @@
 \usepackage{../../header}
 
 \usepackage{placeins}
-\usepackage{morefloats}
+\usepackage[maxfloats=50]{morefloats}
 
 \usepackage{csquotes}
 
@@ -248,7 +248,6 @@ Elektron übertragen. Diese Maximalenergie zeigt sich im Spektrum als
 \[
     T_\text{max} = h \nu \frac{2\gamma}{1+2\gamma}.
 \]
-
 
 \subsection{Linearpolarisation von $\boldsymbol\gammaup$-Quanten}
 
@@ -673,81 +672,8 @@ Wir stellen den Detektor ohne Kollimator auf den beweglichen Arm. Den Bereich
 \SIrange{40}{120}{\degree} fahren wir in \SI{5}{\degree}-Schritten ab. Für jede
 Winkeleinstellung nehmen wir je eine Messung mit und ohne Plexiglas vor, damit
 wir in der Auswertung den winkelabhängigen Untergrund abziehen können. Die
-Messdaten sind etwas komprimiert in den Abbildungen~\ref{fig:spektrum_40_roh}
-bis \ref{fig:spektrum_120_roh} dargestellt.
-
-%< for angle in range(40, 111, 10): >%
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle >>}
-    \begin{minipage}[t]{0.49\linewidth}
-        \begin{tikzpicture}
-            \begin{axis}[
-                    xlabel=Kanal,
-                    ylabel=Ereignisse,
-                    grid=major,
-                    width=\linewidth,
-                    xmin=120,
-                    height=\linewidth,
-                ]
-                \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
-                \addplot[Blue] table {../Daten/untergrund_<< angle >>deg001.txt};
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-    \hfill
-    \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle + 5 >>}
-    \begin{minipage}[t]{0.49\linewidth}
-        \begin{tikzpicture}
-            \begin{axis}[
-                    xlabel=Kanal,
-                    grid=major,
-                    width=\linewidth,
-                    xmin=120,
-                    height=\linewidth,
-                    yticklabel pos=right,
-                ]
-                \addplot[black] table {../Daten/plastik_<< angle + 5 >>deg001.txt};
-                \addplot[Blue] table {../Daten/untergrund_<< angle + 5 >>deg001.txt};
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-    \caption{%
-        Spektrum des Plastik und Untergrund für \SIlist{<< angle >>;<< angle +
-        5 >>}{\degree}. Die Werte unter Kanal~120 wurden wieder weggelassen, da
-        dort ein sehr hohes Maximum ist, das die eigentlichen Messdaten
-        überschattet.
-    }
-    \label{fig:spektrum_<< angle >>_roh}
-\end{figure}
-%< endfor >%
-
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-120}
-    \begin{minipage}[t]{0.49\linewidth}
-        \begin{tikzpicture}
-            \begin{axis}[
-                    xlabel=Kanal,
-                    ylabel=Ereignisse,
-                    grid=major,
-                    width=\linewidth,
-                    xmin=120,
-                    height=\linewidth,
-                ]
-                \addplot[black] table {../Daten/plastik_120deg001.txt};
-                \addplot[Blue] table {../Daten/untergrund_120deg001.txt};
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-    \caption{%
-        Spektrum des Plastik und Untergrund für \SI{120}{\degree}. Die
-        Werte unter Kanal~120 wurden wieder weggelassen, da dort ein sehr hohes
-        Maximum ist, das die eigentlichen Messdaten überschattet.
-    }
-    \label{fig:spektrum_120_roh}
-\end{figure}
-
+Messdaten sind in den Abbildungen~\ref{fig:spektrum_40_roh} bis
+\ref{fig:spektrum_120_roh} im Anhang dargestellt.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                 Auswertung                                  %
@@ -1049,36 +975,6 @@ von \SI{120}{\degree} durch und führen für jede Messung noch eine
 Untergrundmessung mit gleicher Messdauer durch. Die korrigierten Spektren sind
 in den Abbildungen~\ref{fig:spek_40deg} bis \ref{fig:spek_120deg} zu sehen.
 
-%< for angle in range(40, 121, 5): >%
-\begin{figure}
-    \centering
-    \tikzsetnextfilename{e078e2a4-533c-4363-bdee-c79a4074a5a7-<< angle >>}
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=0.6\linewidth,
-                xlabel=Energie / \si{\kilo\electronvolt},
-                ylabel=Ereignisse,
-                grid=major,
-            ]
-            \addplot[
-                error bars/.cd,
-                x dir=both, x explicit,
-                y dir=both, y explicit,
-            ]
-            table {spektrum_<< angle >>deg_korr.txt};
-            \addplot[red, thick] table {fit_<< angle >>deg.txt};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Spektrum bei \SI{<< angle >>}{\degree}
-    }
-    \label{fig:spek_<< angle >>deg}
-\end{figure}
-%< endfor >%
-
-\FloatBarrier
-
 Die aus den Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
 \[
     \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos\phi}}
@@ -1141,10 +1037,76 @@ in einem Polardiagramm dargestellt.
     \label{fig:nishina-ex}
 \end{figure}
 
-
 \chapter{Ergebnis}
 
 % TODO Ergebnis.
+
+\begin{appendix}
+    \chapter{Graphen zu einzelnen Winkeln}
+
+    %< for angle in range(40, 121, 5): >%
+    \begin{figure}[htbp]
+        \centering
+        \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle >>}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    xlabel=Kanal,
+                    ylabel=Ereignisse,
+                    grid=major,
+                    width=\linewidth,
+                    xmin=120,
+                    height=0.6\linewidth,
+                    legend entries={
+                        Messung,
+                        Untergrund,
+                    },
+                ]
+                \addplot[black] table {../Daten/plastik_<< angle >>deg001.txt};
+                \addplot[Blue] table {../Daten/untergrund_<< angle >>deg001.txt};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{%
+            Spektrum des Plastik und Untergrund für \SI{<< angle >>}{\degree}.
+            Die Werte unter Kanal~120 wurden wieder weggelassen, da dort ein
+            sehr hohes Maximum ist, das die eigentlichen Messdaten
+            überschattet.
+        }
+        \label{fig:spektrum_<< angle >>_roh}
+    \end{figure}
+    %< endfor >%
+
+    %< for angle in range(40, 121, 5): >%
+    \begin{figure}
+        \centering
+        \tikzsetnextfilename{e078e2a4-533c-4363-bdee-c79a4074a5a7-<< angle >>}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=\linewidth,
+                    height=0.6\linewidth,
+                    xlabel=Energie / \si{\kilo\electronvolt},
+                    ylabel=Ereignisse,
+                    grid=major,
+                    legend entries={
+                        Messung,
+                        Anpassung,
+                    },
+                ]
+                \addplot[
+                    error bars/.cd,
+                    x dir=both, x explicit,
+                    y dir=both, y explicit,
+                ]
+                table {spektrum_<< angle >>deg_korr.txt};
+                \addplot[red, thick] table {fit_<< angle >>deg.txt};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{%
+            Spektrum bei \SI{<< angle >>}{\degree}
+        }
+        \label{fig:spek_<< angle >>deg}
+    \end{figure}
+    %< endfor >%
+\end{appendix}
 
 \end{document}
 
