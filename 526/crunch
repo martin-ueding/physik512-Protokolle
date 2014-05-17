@@ -48,6 +48,20 @@ def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
     return a / (np.sqrt(2*np.pi)*sigma1) * np.exp(- ((x - mean1)/sigma1)**2/2) + b / (np.sqrt(2*np.pi)*sigma2) * np.exp(- ((x - mean2)/sigma2)**2/2)
 
 def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
+    '''
+    Passt einen einzelnen Peak an.
+
+    :param T: Template dict
+    :param filename: Dateiname mit Datenpunkten
+    :param kind: ``double`` oder anderes
+    :param lower: Unterer Index
+    :param upper: Oberer Index
+    :param p0: Anfangswerte für Fit
+    :param energy: Energie, der dieser Peak entspricht
+    :param show: Zeige Plot interaktiv an
+
+    :return: Mittelpunkt, Fehler Mittelpunkt, Breite, Fehler Breite, Energie
+    '''
     data = np.loadtxt(filename)
     bins = data[:, 0]
     counts = data[:, 1]
