@@ -929,14 +929,7 @@ sehen.
 \end{figure}
 
 Aus den Anpassungen erhalten wir die in Tabelle~\ref{tab:energieeichung}
-aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
-Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
-Die graphische Darstellung einschließlich der idealen Gerade (keine
-Anpassungsgerade) ist in
-Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
-Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
-in einem Polardiagramm dargestellt.
-dargestellten Zuordnungen.
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
 
 \begin{table}[htbp]
     \centering
@@ -958,8 +951,8 @@ Um damit den Kanal in eine Energie umrechnen zu können, passen wir an diese
 Daten eine Gerade an. Dies ist in Abbildung~\ref{fig:energieeichung} zu sehen.
 Für die Anpassung ergibt sich
 \[
-    E = \SI{<< fit_energieeichung_steigung >>}{\kilo\electronvolt}\cdot \text{Kanal}
-    + \del{\SI{<< fit_energieeichung_offset >>}{\kilo\electronvolt}}.
+    E = \SI{<< fit_energieeichung_steigung >>}{\kilo\electronvolt}\, \text{Kanal}
+    \SI{<< fit_energieeichung_offset >>}{\kilo\electronvolt}.
 \]
 
 \begin{figure}
@@ -993,7 +986,7 @@ Für die Anpassung ergibt sich
 
 \subsection{Untergrund und Peakanpassung}
 
-Wir hatten für verschiedene Winkel je eine Spektrum mit und ohne Plexiglas als
+Wir hatten für verschiedene Winkel je ein Spektrum mit und ohne Plexiglas als
 Streukörper aufgenommen. Diese Daten werden wir nun auswerten. Dazu ziehen wir
 den Untergrund von den Messdaten ab. Dann rechnen wir mit der vorher
 durchgeführten Energieeichung die Kanäle in Energien um. Die resultierenden
