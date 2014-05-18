@@ -152,9 +152,10 @@ Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
 
 Aus Energie und Impulserhaltung folgt die Beziehung zwischen ein- und
 ausgehendem Photon \parencite[(2.106)]{Leo/Techniques_Nuclear_Experiments}:
-\[
+\begin{equation}
+    \label{eq:h_nu_prime}
     h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi))},
-\]
+\end{equation}
 wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung kann man
 herleiten, dass die Wellenlängendifferenz gegeben ist durch:
 \[
@@ -1005,11 +1006,11 @@ Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
     \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos(\phi)}}
 \]
 aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
-Nach der Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$
-ergeben. Die graphische Darstellung einschließlich der idealen Gerade (keine
-Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
-Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
-in einem Polardiagramm dargestellt.
+Nach \eqref{eq:h_nu_prime} sollte dies eine Gerade mit Steigung $E_\gammaup = h
+\nu$ ergeben. Die graphische Darstellung einschließlich der idealen Gerade
+(keine Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu
+sehen. In Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht
+linearisiert in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1034,9 +1035,8 @@ in einem Polardiagramm dargestellt.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Winkelabhängigkeit der Photonenergie nach Compton-Streuung. Die
-        Gerade beschreibt die mit der Klein-Nishina-Formel vorhergesagte
-        Abhängigkeit.
+        Winkelabhängigkeit der Photonenergie nach Compton-Streuung. Die Gerade
+        beschreibt die mit \eqref{eq:h_nu_prime} vorhergesagte Abhängigkeit.
     }
     \label{fig:E_winkelabhaengigkeit}
 \end{figure}
