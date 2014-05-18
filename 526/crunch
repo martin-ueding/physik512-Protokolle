@@ -221,8 +221,8 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     # Wahrscheinlichkeit ist, desto mehr Zählrate haben wir gemessen. Daher
     # müssen wir durch die Wahrscheinlichkeit teilen.
     anspr_ftor = interpolate_ansprech()
-    integral_corr_val = integral_val / anspr_ftor(integral_val)
-    integral_corr_err = integral_err / anspr_ftor(integral_val)
+    integral_corr_val = integral_val / anspr_ftor(E_val)
+    integral_corr_err = integral_err / anspr_ftor(E_val)
 
     # Die Werte, die wir jetzt haben, sind genauso willkürlich wie vorher. Und
     # jetzt? Erstmal einen theoretischen Klein-Nishina-Plot für die fragliche
@@ -236,7 +236,10 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     # erstmal so, dass ich einen Wert aus den Messdaten genau auf den
     # theoretischen Plot anpasse. »What could possibly go wrong?«
 
-    integral_corr_val /= integral_corr_val[0] / sigma_omega_klein_nishina(662 / 511, np.radians(degree_val[0]))
+    factors = integral_corr_val / sigma_omega_klein_nishina(662 / 511, np.radians(degree_val))
+    factor = np.mean(factors)
+
+    integral_corr_val /= factor
 
     np.savetxt('_build/polar_korr.csv', np.column_stack([degree_val, integral_corr_val]))
 
