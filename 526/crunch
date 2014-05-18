@@ -240,8 +240,9 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     factor = np.mean(factors)
 
     integral_corr_val /= factor
+    integral_corr_err /= factor
 
-    np.savetxt('_build/polar_korr.csv', np.column_stack([degree_val, integral_corr_val]))
+    np.savetxt('_build/polar_korr.csv', np.column_stack([degree_val, integral_corr_val, degree_err, integral_corr_err]))
 
 
 

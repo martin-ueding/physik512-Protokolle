@@ -1102,26 +1102,8 @@ grafisch dargestellt.
 \end{figure}
 
 Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
-
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{polar_korr}
-    \begin{tikzpicture}
-        \begin{polaraxis}[
-                width=0.9\linewidth,
-                xmin=0,
-                xmax=180,
-                xlabel={$\phi / \si\degree$},
-            ]
-            \addplot[black, only marks] table {polar_korr.csv};
-            \addplot[black] table {plot_klein_nishina_Cs.csv};
-        \end{polaraxis}
-    \end{tikzpicture}
-    \caption{%
-        Winkelabhängigkeit der korrigierten Ereignisanzahl.
-    }
-    \label{fig:polar_korr}
-\end{figure}
+Dazu teilen wir die integrierten Ereigniszahlen durch die
+Ansprechwahrscheinlichkeit bei der entsprechenden Energie.
 
 \subsection{Korrektur auf Absorption im Target}
 
@@ -1140,11 +1122,49 @@ Wirkungsquerschnitt von Plexiglas nicht bestimmt haben. Daher lassen wir diese
 Korrektur aus. Unsere Ergebnisse werden nachher einen bestimmten Faktor zu hoch
 sein.
 
+Glücklicherweise ist das Plexiglastarget jedoch rotationssymmetrisch, so dass
+wir eine isotrope Exinktion haben. Im nächsten Unterabschnitt wird dieser
+konstante Faktor direkt mit korrigiert, so dass dies kein Problem darstellt.
+
 \subsection{Vergleich mit Klein-Nishina-Plot}
 
-% TODO Polardiagram mit korrigierten Intensitäten.
+Nun sind die Zählraten entsprechend korrigiert. Uns fehlt der absolute
+Zusammenhang, um die Daten normieren zu können. Daher wählen wir einen Faktor
+so, dass er das durchschnittliche Verhältnis von unseren Daten zu den durch die
+Klein-Nishina-Formel vorhergesagten Daten beschreibt. Durch diesen Faktor
+teilen wir unsere korrigierten Daten. Zusammen mit der theoretischen Kurve für
+die entsprechende Energie tragen wir dies in ein ein Polardiagram auf, siehe
+Abbildung~\ref{fig:polar_korr}.
 
-% TODO Vergleich mit Klein-Nishina-Plot.
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{polar_korr}
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                width=0.9\linewidth,
+                xmin=0,
+                xmax=180,
+                xlabel={$\phi / \si\degree$},
+            ]
+            \addplot[
+                black, only marks,
+                mark=+,
+            ] table {polar_korr.csv};
+            \addplot[black] table {plot_klein_nishina_Cs.csv};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Winkelabhängigkeit der korrigierten Ereignisanzahl. Die Daten sind
+        so normiert, dass die am besten zu den theoretischen Werten passen. Die
+        Daten stellen so den differentiellen Wirkungsquerschnitt dar.
+    }
+    \label{fig:polar_korr}
+\end{figure}
+
+Die Daten passen nach der Korrektur und Normierung gut zu den theoretischen
+Werten. Bei kleinen Winkeln ist die Zählrate etwas zu klein, bei größeren
+Winkeln jedoch etwas zu groß. Die könnte daran liegen, dass der Comptoneffekt
+zwar der dominante Wechselwirkungskanal ist, jedoch nicht der Einzige. 
 
 \chapter{Ergebnis}
 
@@ -1152,7 +1172,12 @@ Im ersten Versuchsteil konnten wir das Gesetz von Lambert-Beer bestätigen. Den
 Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
 >>}{\barn}$ bestimmt.
 
-% TODO Ergebnis.
+Im zweiten Versuchsteil konnten wir den differentiellen Wirkungsquerschnitt für
+den Comptoneffekt von Klein-Nishina bestätigen.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   Anhang                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{appendix}
     \chapter{Graphen zu einzelnen Winkeln}
