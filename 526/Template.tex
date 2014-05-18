@@ -35,6 +35,7 @@
 
 \usepgfplotslibrary{external}
 \tikzexternalize[mode=list and make]
+\tikzsetexternalprefix{Abbildung-}
 
 \DeclareSIUnit{\skt}{SKT}
 
@@ -174,7 +175,7 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{6ad40d38-51ae-490f-9133-697d38aba59d}
+    \tikzsetnextfilename{compton}
     \begin{tikzpicture}
         \draw[thick,->]
         (0,0) -- (0,5) node[left] {$I$}
@@ -293,7 +294,7 @@ Abbildung~\ref{fig:nishina-theo} dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{fcb6c569-98f2-4c07-ac48-14c15825c348}
+    \tikzsetnextfilename{nishina-theo}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -421,7 +422,7 @@ Anstiegszeit ist jedoch deutlich größer. Daher heißt dieses Signal auch
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{25073b1c-dab7-47a6-8fe9-ecfe8804f1ef}
+    \tikzsetnextfilename{PM}
     \begin{tikzpicture}
         % Röhre
         \draw[thick] (2,-1) rectangle (9,1);
@@ -488,7 +489,7 @@ eine Art Histogramm.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{ab4cd5b2-1691-453d-97cc-3c6bd9c24dc1}
+    \tikzsetnextfilename{Ba-Zerfall}
     \begin{tikzpicture}
         \draw[thick]
         (-.5,5) node[left]{$\frac12^+$} -- node[above] (Ba) {${}^{133}$Ba} (1,5)
@@ -577,7 +578,7 @@ Abbildung~\ref{fig:untergrund_roh} gezeigt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{52d4836e-6d59-44b8-be49-c914eb2c8be7}
+    \tikzsetnextfilename{untergrund_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -608,7 +609,7 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{2867931c-e141-49bb-aedd-65b2e20ab832}
+    \tikzsetnextfilename{absorber_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -648,7 +649,7 @@ Abbildung~\ref{fig:barium_roh} aufgetragen.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{e5de6cba-24ad-4ac8-8fe7-073595f2195e}
+    \tikzsetnextfilename{barium_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -721,7 +722,7 @@ Tabelle~\ref{tab:amplituden} sind die Anpassungsparameter zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{c32e3e3a-76f2-4502-81f0-529ff82ab0b0}
+    \tikzsetnextfilename{amplituden}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -782,7 +783,7 @@ wie bei dieser Dicke zu erwarten wäre.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{b9f2cca1-18dc-45b3-9878-f0a7af5f33c5}
+    \tikzsetnextfilename{decay}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -832,7 +833,7 @@ also nicht sinnvoll nutzbar.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{81d5a112-c43e-4513-8a41-c6ce292e1e2d}
+    \tikzsetnextfilename{extinktion}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -869,7 +870,7 @@ sind samt Anpassung in Abbildung~\ref{fig:eichung_137Ba} dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{a7ab4afa-5d99-4f25-9f47-d0fde56ffb66}
+    \tikzsetnextfilename{eichung_137Ba}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -902,7 +903,7 @@ sehen.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{587e34ca-5ad5-4b70-8e59-97389e5e2618}
+    \tikzsetnextfilename{eichung_133Cs}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -962,7 +963,7 @@ Für die Anpassung ergibt sich
 
 \begin{figure}
     \centering
-    \tikzsetnextfilename{ab69515e-fb44-45a6-b225-5ecc3e1904b1}
+    \tikzsetnextfilename{energieeichung}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -1012,7 +1013,7 @@ in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{149d4a4e-2dac-43ee-8747-0fd5a245c915}
+    \tikzsetnextfilename{E_winkelabhaengigkeit}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -1042,7 +1043,7 @@ in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{00fe76c2-dc11-457e-8da0-fd8b33871df0}
+    \tikzsetnextfilename{nishina-ex}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -1162,7 +1163,7 @@ Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
     %< for angle in range(40, 121, 5): >%
     \begin{figure}[htbp]
         \centering
-        \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle >>}
+        \tikzsetnextfilename{spektrum_<< angle >>_roh}
         \begin{tikzpicture}
             \begin{axis}[
                     xlabel=Kanal,
@@ -1193,7 +1194,7 @@ Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
     %< for angle in range(40, 121, 5): >%
     \begin{figure}
         \centering
-        \tikzsetnextfilename{e078e2a4-533c-4363-bdee-c79a4074a5a7-<< angle >>}
+        \tikzsetnextfilename{spek_<< angle >>deg}
         \begin{tikzpicture}
             \begin{axis}[
                     width=\linewidth,
