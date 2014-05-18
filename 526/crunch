@@ -232,7 +232,9 @@ def E_winkelabhaengigkeit(T, E_0, energie_winkel):
     np.savetxt('_build/plot_klein_nishina_Cs.csv',
                np.column_stack([np.degrees(theta), sigma_omega]))
     
-    # Jetzt müssen noch die Daten passend gemacht werden. Ich versuche das erstmal so, dass ich einen Wert aus den Messdaten genau auf den theoretischen Plot anpasse. »What could possibly go wrong?«
+    # Jetzt müssen noch die Daten passend gemacht werden. Ich versuche das
+    # erstmal so, dass ich einen Wert aus den Messdaten genau auf den
+    # theoretischen Plot anpasse. »What could possibly go wrong?«
 
     integral_corr_val /= integral_corr_val[0] / sigma_omega_klein_nishina(662 / 511, np.radians(degree_val[0]))
 
