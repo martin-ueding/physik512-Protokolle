@@ -35,6 +35,7 @@
 
 \usepgfplotslibrary{external}
 \tikzexternalize[mode=list and make]
+\tikzsetexternalprefix{Abbildung-}
 
 \DeclareSIUnit{\skt}{SKT}
 
@@ -152,11 +153,11 @@ Energie hängt nur vom Winkel ab und ist Maximal bei einem Streuwinkel von $\phi
 
 Aus Energie und Impulserhaltung folgt die Beziehung zwischen ein- und
 ausgehendem Photon \parencite[(2.106)]{Leo/Techniques_Nuclear_Experiments}:
-\[
+\begin{equation}
+    \label{eq:h_nu_prime}
     h\nu' = \frac{h\nu}{1 + \gamma(1 - \cos(\phi))},
-\]
-wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung, der
-Klein-Nishina-Gleichung, kann man
+\end{equation}
+wobei $\gamma := h \nu / m_\text e c^2$ ist. Aus dieser Beziehung kann man
 herleiten, dass die Wellenlängendifferenz gegeben ist durch:
 \[
     \Deltaup \lambda = \frac{h}{m_\text e c} (1 - \cos(\phi)).
@@ -176,7 +177,7 @@ die Differenz von $E_\nu$ und der Energie an der Compton-Kante.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{6ad40d38-51ae-490f-9133-697d38aba59d}
+    \tikzsetnextfilename{compton}
     \begin{tikzpicture}
         \draw[thick,->]
         (0,0) -- (0,5) node[left] {$I$}
@@ -295,7 +296,7 @@ Abbildung~\ref{fig:nishina-theo} dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{fcb6c569-98f2-4c07-ac48-14c15825c348}
+    \tikzsetnextfilename{nishina-theo}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -423,7 +424,7 @@ Anstiegszeit ist jedoch deutlich größer. Daher heißt dieses Signal auch
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{25073b1c-dab7-47a6-8fe9-ecfe8804f1ef}
+    \tikzsetnextfilename{PM}
     \begin{tikzpicture}
         % Röhre
         \draw[thick] (2,-1) rectangle (9,1);
@@ -490,7 +491,7 @@ eine Art Histogramm.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{ab4cd5b2-1691-453d-97cc-3c6bd9c24dc1}
+    \tikzsetnextfilename{Ba-Zerfall}
     \begin{tikzpicture}
         \draw[thick]
         (-.5,5) node[left]{$\frac12^+$} -- node[above] (Ba) {${}^{133}$Ba} (1,5)
@@ -579,7 +580,7 @@ Abbildung~\ref{fig:untergrund_roh} gezeigt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{52d4836e-6d59-44b8-be49-c914eb2c8be7}
+    \tikzsetnextfilename{untergrund_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -610,7 +611,7 @@ Abbbildung~\ref{fig:absorber_roh} zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{2867931c-e141-49bb-aedd-65b2e20ab832}
+    \tikzsetnextfilename{absorber_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -650,7 +651,7 @@ Abbildung~\ref{fig:barium_roh} aufgetragen.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{e5de6cba-24ad-4ac8-8fe7-073595f2195e}
+    \tikzsetnextfilename{barium_roh}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel=Kanal,
@@ -723,7 +724,7 @@ Tabelle~\ref{tab:amplituden} sind die Anpassungsparameter zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{c32e3e3a-76f2-4502-81f0-529ff82ab0b0}
+    \tikzsetnextfilename{amplituden}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -784,7 +785,7 @@ wie bei dieser Dicke zu erwarten wäre.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{b9f2cca1-18dc-45b3-9878-f0a7af5f33c5}
+    \tikzsetnextfilename{decay}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -834,7 +835,7 @@ also nicht sinnvoll nutzbar.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{81d5a112-c43e-4513-8a41-c6ce292e1e2d}
+    \tikzsetnextfilename{extinktion}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -871,7 +872,7 @@ sind samt Anpassung in Abbildung~\ref{fig:eichung_137Ba} dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{a7ab4afa-5d99-4f25-9f47-d0fde56ffb66}
+    \tikzsetnextfilename{eichung_137Ba}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -904,7 +905,7 @@ sehen.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{587e34ca-5ad5-4b70-8e59-97389e5e2618}
+    \tikzsetnextfilename{eichung_133Cs}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -929,14 +930,7 @@ sehen.
 \end{figure}
 
 Aus den Anpassungen erhalten wir die in Tabelle~\ref{tab:energieeichung}
-aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist. Nach der
-Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$ ergeben.
-Die graphische Darstellung einschließlich der idealen Gerade (keine
-Anpassungsgerade) ist in
-Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
-Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
-in einem Polardiagramm dargestellt.
-dargestellten Zuordnungen.
+aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
 
 \begin{table}[htbp]
     \centering
@@ -958,13 +952,13 @@ Um damit den Kanal in eine Energie umrechnen zu können, passen wir an diese
 Daten eine Gerade an. Dies ist in Abbildung~\ref{fig:energieeichung} zu sehen.
 Für die Anpassung ergibt sich
 \[
-    E = \SI{<< fit_energieeichung_steigung >>}{\kilo\electronvolt}\cdot \text{Kanal}
-    + \del{\SI{<< fit_energieeichung_offset >>}{\kilo\electronvolt}}.
+    E = \SI{<< fit_energieeichung_steigung >>}{\kilo\electronvolt}\, \text{Kanal}
+    \SI{<< fit_energieeichung_offset >>}{\kilo\electronvolt}.
 \]
 
 \begin{figure}
     \centering
-    \tikzsetnextfilename{ab69515e-fb44-45a6-b225-5ecc3e1904b1}
+    \tikzsetnextfilename{energieeichung}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -993,7 +987,7 @@ Für die Anpassung ergibt sich
 
 \subsection{Untergrund und Peakanpassung}
 
-Wir hatten für verschiedene Winkel je eine Spektrum mit und ohne Plexiglas als
+Wir hatten für verschiedene Winkel je ein Spektrum mit und ohne Plexiglas als
 Streukörper aufgenommen. Diese Daten werden wir nun auswerten. Dazu ziehen wir
 den Untergrund von den Messdaten ab. Dann rechnen wir mit der vorher
 durchgeführten Energieeichung die Kanäle in Energien um. Die resultierenden
@@ -1006,15 +1000,15 @@ Anpassungen erhaltenen Schwerpunktsenergien werden nun gegen
     \frac1{1+\frac{E_\gammaup}{m_\text{e}c^2}\del{1-\cos(\phi)}}
 \]
 aufgetragen, wobei $E_\gammaup$ die ursprüngliche Energie des Übergangs ist.
-Nach der Klein-Nishina-Formel sollte dies eine Gerade mit Steigung $E_\gammaup$
-ergeben. Die graphische Darstellung einschließlich der idealen Gerade (keine
-Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu sehen. In
-Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht linearisiert
-in einem Polardiagramm dargestellt.
+Nach \eqref{eq:h_nu_prime} sollte dies eine Gerade mit Steigung $E_\gammaup = h
+\nu$ ergeben. Die graphische Darstellung einschließlich der idealen Gerade
+(keine Anpassungsgerade) ist in Abbildung~\ref{fig:E_winkelabhaengigkeit} zu
+sehen. In Abbildung~\ref{fig:nishina-ex} ist die gleiche Abhängigkeit nicht
+linearisiert in einem Polardiagramm dargestellt.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{149d4a4e-2dac-43ee-8747-0fd5a245c915}
+    \tikzsetnextfilename{E_winkelabhaengigkeit}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -1035,16 +1029,15 @@ in einem Polardiagramm dargestellt.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Winkelabhängigkeit der Photonenergie nach Compton-Streuung. Die
-        Gerade beschreibt die mit der Klein-Nishina-Formel vorhergesagte
-        Abhängigkeit.
+        Winkelabhängigkeit der Photonenergie nach Compton-Streuung. Die Gerade
+        beschreibt die mit \eqref{eq:h_nu_prime} vorhergesagte Abhängigkeit.
     }
     \label{fig:E_winkelabhaengigkeit}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{00fe76c2-dc11-457e-8da0-fd8b33871df0}
+    \tikzsetnextfilename{nishina-ex}
     \begin{tikzpicture}
         \begin{polaraxis}[
                 width=0.9\linewidth,
@@ -1069,8 +1062,9 @@ in einem Polardiagramm dargestellt.
 
 Aus dem Diagramm in der Anleitung
 \parencite[Abbildung~P526.3]{physik512-Anleitung} lesen wir einige Datenpunkte
-ab und passen daran eine Funktion dritter Ordnung an. Dies haben wir in
-Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
+ab und passen daran eine Funktion dritter Ordnung an. Die abgelesenen Punkte
+und die Anpassung haben wir in Abbildung~\ref{fig:Ansprech-fit} noch einmal
+grafisch dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1102,6 +1096,39 @@ Abbildung~\ref{fig:Ansprech-fit} noch einmal grafisch dargestellt.
 \end{figure}
 
 Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
+Dazu teilen wir die integrierten Ereigniszahlen durch die
+Ansprechwahrscheinlichkeit bei der entsprechenden Energie.
+
+\subsection{Korrektur auf Absorption im Target}
+
+In der Anleitung steht (Hervorhebung von uns):
+\begin{quote}
+    »Bestimmen Sie außerdem die Intensität der Streupeaks und führen Sie
+    Korrekturen auf die Ansprechwahrscheinlichkeit (Abb.P526.3) und \emph{die
+    Absorption im dünnen, \SI{17}{\milli\meter} breiten Target} durch.«
+    \parencite[4]{physik512-Anleitung}
+\end{quote}
+
+Da wir im ersten Versuchsteil die Extinktion in Aluminium bestimmt haben, für
+den letzten Versuchsteil hingegen Plexiglas benutzt haben, können wir an dieser
+Stelle leider nicht exakt für den Effekt korrigieren, da wir den totalen
+Wirkungsquerschnitt von Plexiglas nicht bestimmt haben. Daher lassen wir diese
+Korrektur aus. Unsere Ergebnisse würden nachher einen bestimmten Faktor zu hoch
+sein.
+
+Glücklicherweise ist das Plexiglastarget jedoch rotationssymmetrisch, so dass
+wir eine isotrope Exinktion haben. Im nächsten Unterabschnitt wird dieser
+konstante Faktor direkt mit korrigiert, so dass dies kein Problem darstellt.
+
+\subsection{Vergleich mit Klein-Nishina-Plot}
+
+Nun sind die Zählraten entsprechend korrigiert. Uns fehlt der absolute
+Zusammenhang, um die Daten normieren zu können. Daher wählen wir einen Faktor
+so, dass er das durchschnittliche Verhältnis von unseren Daten zu den durch die
+Klein-Nishina-Formel vorhergesagten Daten beschreibt. Durch diesen Faktor
+teilen wir unsere korrigierten Daten. Zusammen mit der theoretischen Kurve für
+die entsprechende Energie tragen wir dies in ein ein Polardiagram auf, siehe
+Abbildung~\ref{fig:polar_korr}.
 
 \begin{figure}[htbp]
     \centering
@@ -1113,38 +1140,25 @@ Diese Daten benutzen wir nun, um die Amplituden der Photopeaks zu konvertieren.
                 xmax=180,
                 xlabel={$\phi / \si\degree$},
             ]
-            \addplot[black, only marks] table {polar_korr.csv};
+            \addplot[
+                black, only marks,
+                mark=+,
+            ] table {polar_korr.csv};
             \addplot[black] table {plot_klein_nishina_Cs.csv};
         \end{polaraxis}
     \end{tikzpicture}
     \caption{%
-        Winkelabhängigkeit der korrigierten Ereignisanzahl.
+        Winkelabhängigkeit der korrigierten Ereignisanzahl. Die Daten sind
+        so normiert, dass die am besten zu den theoretischen Werten passen. Die
+        Daten stellen so den differentiellen Wirkungsquerschnitt dar.
     }
     \label{fig:polar_korr}
 \end{figure}
 
-\subsection{Korrektur auf Absorption im Target}
-
-In der Anleitung steht (Hervorhebung von uns):
-\begin{quote}
-    Bestimmen Sie außerdem die Intensität der Streupeaks und führen Sie
-    Korrekturen auf die Ansprechwahrscheinlichkeit (Abb.P526.3) und \emph{die
-    Absorption im dünnen, \SI{17}{\milli\meter} breiten Target} durch.
-    \parencite[4]{physik512-Anleitung}
-\end{quote}
-
-Da wir im ersten Versuchsteil die Extinktion in Aluminium bestimmt haben, für
-den letzten Versuchsteil hingegen Plexiglas benutzt haben, können wir an dieser
-Stelle leider nicht exakt für den Effekt korrigieren, da wir den totalen
-Wirkungsquerschnitt von Plexiglas nicht bestimmt haben. Daher lassen wir diese
-Korrektur aus. Unsere Ergebnisse werden nachher einen bestimmten Faktor zu hoch
-sein.
-
-\subsection{Vergleich mit Klein-Nishina-Plot}
-
-% TODO Polardiagram mit korrigierten Intensitäten.
-
-% TODO Vergleich mit Klein-Nishina-Plot.
+Die Daten passen nach der Korrektur und Normierung gut zu den theoretischen
+Werten. Bei kleinen Winkeln ist die Zählrate etwas zu klein, bei größeren
+Winkeln jedoch etwas zu groß. Dies könnte daran liegen, dass der Comptoneffekt
+zwar der dominante Wechselwirkungskanal ist, jedoch nicht der Einzige. 
 
 \chapter{Ergebnis}
 
@@ -1152,7 +1166,12 @@ Im ersten Versuchsteil konnten wir das Gesetz von Lambert-Beer bestätigen. Den
 Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
 >>}{\barn}$ bestimmt.
 
-% TODO Ergebnis.
+Im zweiten Versuchsteil konnten wir den differentiellen Wirkungsquerschnitt für
+den Comptoneffekt von Klein-Nishina bestätigen.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   Anhang                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{appendix}
     \chapter{Graphen zu einzelnen Winkeln}
@@ -1164,7 +1183,7 @@ Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
     %< for angle in range(40, 121, 5): >%
     \begin{figure}[htbp]
         \centering
-        \tikzsetnextfilename{2bcec96b-96c2-446c-a946-27890da9be1a-<< angle >>}
+        \tikzsetnextfilename{spektrum_<< angle >>_roh}
         \begin{tikzpicture}
             \begin{axis}[
                     xlabel=Kanal,
@@ -1195,7 +1214,7 @@ Wirkungsquerschnitt von Aluminium haben wir auf $\sigma = \SI{<< alu_sigma
     %< for angle in range(40, 121, 5): >%
     \begin{figure}
         \centering
-        \tikzsetnextfilename{e078e2a4-533c-4363-bdee-c79a4074a5a7-<< angle >>}
+        \tikzsetnextfilename{spek_<< angle >>deg}
         \begin{tikzpicture}
             \begin{axis}[
                     width=\linewidth,
