@@ -9,12 +9,20 @@ import sys
 
 import matplotlib.pyplot as pl
 import numpy as np
-import scipy.optimize as op
 import scipy.misc
-import scipy.stats
-import matplotlib.pyplot as pl
 import scipy.ndimage.filters
+import scipy.optimize as op
+import scipy.stats
 import unitprint
+
+def job_cos_squared():
+    '''
+    Generiert eine :math:`\cos(\phi)^2` Datei zum Plotten.
+    '''
+    phi = np.linspace(0, 2*np.pi, 1000)
+    y = np.cos(phi + np.pi/2)**2
+
+    np.savetxt('_build/cos2.csv', np.column_stack([np.degrees(phi), y]))
 
 def gauss(x, mean, sigma, a):
     '''
@@ -160,6 +168,8 @@ def test_keys(T):
 
 def main():
     T = {}
+
+    job_cos_squared()
 
     test_keys(T)
     with open('_build/template.js', 'w') as f:

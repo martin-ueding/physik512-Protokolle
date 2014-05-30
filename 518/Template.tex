@@ -71,6 +71,25 @@
 
 \chapter{Theorie}
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{cos2}
+    \begin{tikzpicture}
+        \begin{polaraxis}[
+                xmin=180,
+                xmax=360,
+            ]
+            \addplot[black] table {cos2.csv};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Erwartete Intensitätsverteilung der Höhenstrahlung $\cos(\phi)^2$.
+        Dabei ist $\phi$ hier so gewählt, dass $\phi = \SI{90}{\degree}$
+        senkrecht nach oben zeigt.
+    }
+    \label{fig:cos2}
+\end{figure}
+
 \chapter{Durchführung Winkelverteilung}
 
 \chapter{Durchführung Myonenlebensdauer}
