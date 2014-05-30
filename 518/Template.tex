@@ -1,0 +1,78 @@
+\documentclass[11pt, ngerman, fleqn, DIV=15, headinclude, BCOR=2cm]{scrreprt}
+
+\usepackage{../../header}
+
+\usepackage{placeins}
+\usepackage[maxfloats=50]{morefloats}
+
+\usepackage{csquotes}
+
+\usepackage{tikz}
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes.geometric}
+
+\tikzset{device/.style={
+                rectangle,
+                minimum size=6mm,
+                draw=black
+            },
+            monitor/.style={
+                rectangle,
+                rounded corners=2mm,
+                minimum size=6mm,
+                draw=black
+            },
+        }
+
+\usepackage{pgfplots}
+\pgfplotsset{
+    compat=1.9,
+    width=0.8\linewidth,
+    xticklabel style={/pgf/number format/use comma},
+    yticklabel style={/pgf/number format/use comma},
+}
+\usepgfplotslibrary{polar}
+
+\usepgfplotslibrary{external}
+\tikzexternalize[mode=list and make]
+\tikzsetexternalprefix{Abbildung-}
+
+\DeclareSIUnit{\skt}{SKT}
+
+\usepackage{booktabs}
+
+\hypersetup{
+    pdftitle=
+}
+
+\subject{Praktikumsprotokoll}
+\title{Höhenstrahlung}
+\subtitle{Versuch P518 -- Universität Bonn}
+\author{
+    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    \and
+    Lino Lemmer \\
+    \small{\href{mailto:l2@uni-bonn.de}{l2@uni-bonn.de}}
+}
+
+% TODO Versuchsdatum
+\date{2014-05-07}
+
+% TODO Tutor eintragen
+\publishers{Tutor: }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    % TODO Abstract formulieren.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Theorie}
+
+\end{document}
+
+% vim: spell spelllang=de tw=79

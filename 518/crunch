@@ -1,0 +1,169 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
+
+import json
+import sys
+
+import matplotlib.pyplot as pl
+import numpy as np
+import scipy.optimize as op
+import scipy.misc
+import scipy.stats
+import matplotlib.pyplot as pl
+import scipy.ndimage.filters
+import unitprint
+
+def gauss(x, mean, sigma, a):
+    '''
+    Einfache Normalverteilung, deren Integral durch ``a`` gegeben ist.
+    '''
+    return a / (np.sqrt(2 * np.pi) * sigma) \
+            * np.exp(- (x - mean)**2/(2 * sigma**2))
+
+def linear(x, a, b):
+    '''
+    Lineare Funktion.
+    '''
+    return a * x + b
+
+def decay(x, tau, a):
+    '''
+    Exponentieller Abfall.
+    '''
+    return a * np.exp(- x / tau)
+
+def cubic(x, a, b, c, d):
+    '''
+    Kubische Funktion.
+    '''
+    return a * x**3 + b * x**2 + c * x + d
+
+def double_gauss(x, mean1, mean2, sigma1, sigma2, a, b):
+    '''
+    Summe von zwei Gaußfunktionen.
+    '''
+    return gauss(x, mean1, sigma1, a) + gauss(x, mean2, sigma2, b)
+
+def fit_peak(T, filename, kind, lower, upper, p0, energy, show=False):
+    '''
+    Passt einen einzelnen Peak an.
+
+    Als Seiteneffekt werden die Fitdaten in das Template dict geschrieben und
+    die Fits in Plotdateien ausgegeben.
+
+    :param T: Template dict
+    :param filename: Dateiname mit Datenpunkten
+    :param kind: ``double`` oder anderes
+    :param lower: Unterer Index
+    :param upper: Oberer Index
+    :param p0: Anfangswerte für Fit
+    :param energy: Energie, der dieser Peak entspricht
+    :param show: Zeige Plot interaktiv an
+
+    :return: Mittelpunkt, Fehler Mittelpunkt, Breite, Fehler Breite, Energie
+    '''
+    data = np.loadtxt(filename)
+    bins = data[:, 0]
+    counts = data[:, 1]
+
+    fit_bins = bins[lower:upper]
+    fit_counts = counts[lower:upper]
+
+    x = np.linspace(np.min(fit_bins), np.max(fit_bins), 1000)
+
+    if kind == 'double':
+        popt, pconv = op.curve_fit(double_gauss, fit_bins, fit_counts, p0=p0)
+        d = np.sqrt(pconv.diagonal())
+        y = double_gauss(x, *popt)
+        T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[1], d[1])
+        T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[3], d[3])
+        np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
+
+        return popt[1], d[1], abs(popt[3]), d[3], energy
+
+    else:
+        popt, pconv = op.curve_fit(gauss, fit_bins, fit_counts, p0=p0)
+        d = np.sqrt(pconv.diagonal())
+        y = gauss(x, *popt)
+        T['{}_mean_kanal'.format(energy)] = unitprint.siunitx(popt[0], d[0])
+        T['{}_sigma'.format(energy)] = unitprint.siunitx(popt[1], d[1])
+        np.savetxt('_build/fit_peak_{}.txt'.format(energy), np.column_stack([x, y]))
+
+        return popt[0], d[0], abs(popt[1]), d[1], energy
+
+def fit_gauge_points(T, points, show=False):
+    '''
+    Passt an Eichpunkte eine Gerade an und gibt die Fitparameter zurück.
+
+    Als Nebeneffekt werden die Daten zum Plotten in Dateien geschrieben.
+    '''
+    p = np.array(points)
+    channel_val = p[:, 0]
+    channel_err = p[:, 1]
+    width_val = p[:, 2]
+    width_err = p[:, 3]
+    energy = p[:, 4]
+
+    popt, pconv = op.curve_fit(linear, channel_val, energy)
+
+    d = np.sqrt(pconv.diagonal())
+
+    points_table = np.column_stack([channel_val, energy, channel_err])
+    np.savetxt('_build/data_energieeichung.txt', points_table)
+    T['data_energieeichung'] = list(zip(
+        unitprint.siunitx(channel_val, channel_err),
+        unitprint.siunitx(width_val, width_err),
+        unitprint.siunitx(energy),
+    ))
+
+    x = np.linspace(np.min(channel_val), np.max(channel_val), 10)
+    y = linear(x, *popt)
+
+    T['fit_energieeichung_steigung'] = unitprint.siunitx(popt[0], d[0])
+    T['fit_energieeichung_offset'] = unitprint.siunitx(popt[1], d[1])
+
+    if show:
+        pl.plot(channel_val, energy, marker='+', linestyle='none')
+        pl.plot(x, y)
+        pl.show()
+
+    np.savetxt('_build/fit_energieeichung.txt', np.column_stack([x, y]))
+
+    return popt, pconv
+
+
+
+def test_keys(T):
+    '''
+    Testet das dict auf Schlüssel mit Bindestrichen.
+    '''
+    dash_keys = []
+    for key in T:
+        if '-' in key:
+            dash_keys.append(key)
+
+    if len(dash_keys) > 0:
+        print()
+        print('**************************************************************')
+        print('* Es dürfen keine Bindestriche in den Schlüsseln für T sein! *')
+        print('**************************************************************')
+        print()
+        print('Folgende Schlüssel enthalten Bindestriche:')
+        for dash_key in dash_keys:
+            print('-', dash_key)
+        print()
+        sys.exit(100)
+
+
+def main():
+    T = {}
+
+    test_keys(T)
+    with open('_build/template.js', 'w') as f:
+        json.dump(dict(T), f, indent=4, sort_keys=True)
+
+if __name__ == "__main__":
+    main()
