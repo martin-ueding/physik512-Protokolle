@@ -100,6 +100,24 @@
 
 \section{Logische Schaltungen}
 
+\subsection{Constant Fraction Diskriminator (CFD)}
+
+Ein Diskriminator ist ein Gerät, welches nur anspricht, wenn ein eintreffendes
+Signal stärker ist, als ein bestimmter Grenzwert (engl. \emph{threshold}).
+Trifft ein solches Signal ein, gibt der Diskriminator ein Standardsignal, zum
+Beispiel ein Rechtecksignal aus.
+
+Eine Anwendung des Diskriminators ist das Triggern: Trifft ein Signal ein, wird
+ein neues, standardisiertes abgegeben. So ist zum Beispiel der zeitliche
+Abstand zwischen zwei eintreffenden Signalen zu messen. Wann genau der
+Diskriminator triggert, kommt auf die Art an.
+
+Ein CFD triggert, wenn ein bestimmter Anteil der Maximalamplitude erreicht
+wird. Dazu wird das einkommende Signal gesplittet, ein Teil wird zeitlich
+verzögert, der andere invertiert und um einen Faktor $k$ gedämpft. Anschließend
+werden beide Signale wieder addiert. Ein vorher rein positives Signal erhält so
+eine Nullstelle, welche durch $k$ bestimmt wird und den Triggerpunkt definiert.
+
 \section{Vorbereitungsfragen zur Winkelverteilung}
 
 Dies sind die Vorbereitungsfragen aus \parencite[11]{physik512-Anleitung}.
@@ -255,9 +273,18 @@ hier erst einmal die Schritte grob zusammenstellen:
 
 \subsection{Zählerring}
 
+Das Detektorsystem besteht aus 24 ringförmig angeordneten
+Szintillationszählern, die um einen zentralen Zähler angeordnet sind. Der ganze
+Ring steht senkrecht, so dass die Winkelverteilung im Bezug auf den Zenit
+bestimmt werden kann.
+
+% TODO Vielleicht ein entsprechendes Bild hier einfügen?
+
 \subsection{Elektronik}
 
 \subsubsection{Diskriminatoren}
+
+An jeden Detektor ist ein Diskriminator angeschlossen.
 
 \subsubsection{Verteiler}
 
