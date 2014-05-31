@@ -307,42 +307,42 @@ Koinzidenzeinheit.
     \centering
     \tikzsetnextfilename{koinzidenz}
     \begin{tikzpicture}
-        \node[draw, rectangle] (fan) at (0, 0) {Fanout};
+        %\node[draw, rectangle] (fan) at (0, 0) {Fanout};
 
-        \node[draw, rectangle] (D25) [above=of fan] {Diskr.};
-        \node[draw, rectangle] (D1) [right=of fan] {Diskr.};
-        \node[draw, rectangle] (D2) [right=of D1] {Diskr.};
-        \node[draw, rectangle] (D15) [left=of fan] {Diskr.};
-        \node[draw, rectangle] (D14) [left=of D15] {Diskr.};
+        %\node[draw, rectangle] (D25) [above=of fan] {Diskr.};
+        %\node[draw, rectangle] (D1) [right=of fan] {Diskr.};
+        %\node[draw, rectangle] (D2) [right=of D1] {Diskr.};
+        %\node[draw, rectangle] (D15) [left=of fan] {Diskr.};
+        %\node[draw, rectangle] (D14) [left=of D15] {Diskr.};
 
-        \node[draw, rectangle] (Z1) [above=of D1] {Z1};
-        \node[draw, rectangle] (Z2) [above=of D2] {Z2};
-        \node[draw, rectangle] (Z14) [above=of D14] {Z14};
-        \node[draw, rectangle] (Z15) [above=of D15] {Z15};
-        \node[draw, rectangle] (Z25) [above=of D25] {Z25};
+        \node[draw, circle] (Z1) at (75:7) {Z1};
+        \node[draw, circle] (Z2) at (60:7) {Z2};
+        \node[draw, circle] (Z14) at (-105:7) {Z14};
+        \node[draw, circle] (Z15) at (-120:7) {Z15};
+        \node[draw, circle] (Z25) at (0:7) {Z25};
 
-        \node[draw, rectangle] (con1) [below right=of fan] {Koinzidenz 1 14 25};
-        \node[draw, rectangle] (con2) [below left=of fan] {Koinzidenz 2 15 25};
+        %\node[draw, rectangle] (con1) [below right=of fan] {Koinzidenz 1 14 25};
+        %\node[draw, rectangle] (con2) [below left=of fan] {Koinzidenz 2 15 25};
 
         \begin{scope}[->]
-            \draw (Z1) -- (D1);
-            \draw (Z2) -- (D2);
-            \draw (Z14) -- (D14);
-            \draw (Z15) -- (D15);
-            \draw (Z25) -- (D25);
+            %\draw (Z1) -- (D1);
+            %\draw (Z2) -- (D2);
+            %\draw (Z14) -- (D14);
+            %\draw (Z15) -- (D15);
+            %\draw (Z25) -- (D25);
         \end{scope}
 
         \begin{scope}[->, dashed]
-            \draw (D25) -- (fan);
+            %\draw (D25) -- (fan);
             
-            \draw (fan) -- (con1);
-            \draw (fan) -- (con2);
+            %\draw (fan) -- (con1);
+            %\draw (fan) -- (con2);
 
-            \draw (D1) -- (con1);
-            \draw (D14) -- (con1);
+            %\draw (D1) -- (con1);
+            %\draw (D14) -- (con1);
 
-            \draw (D2) -- (con2);
-            \draw (D15) -- (con2);
+            %\draw (D2) -- (con2);
+            %\draw (D15) -- (con2);
         \end{scope}
 
     \end{tikzpicture}
