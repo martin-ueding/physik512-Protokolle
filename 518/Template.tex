@@ -286,11 +286,71 @@ bestimmt werden kann.
 
 \subsubsection{Diskriminatoren}
 
-An jeden Detektor ist ein Diskriminator angeschlossen.
+An jeden Detektor ist ein Diskriminator angeschlossen. Damit werden die
+analogen Pulse in digitale Pulse umgewandelt.
 
 \subsubsection{Verteiler}
 
+Der mittlere Zähler Z25 wird für die Koinzidenz von allen Detektorpaaren
+benötigt. Daher wird dessen Signal nach dem Diskriminator durch einen Fanout
+zwölffach aufgefächert.
+
 \subsubsection{Koinzidenz}
+
+Ziel der Koinzidenz ist, nur solche Ereignisse zu filtern, bei denen ein
+Teilchen genau durch durch die Mitte und ein gegenüberliegendes Detektorpaar
+fliegt. Um dies zu filtern, gehen die digitalen Signale von zwei
+gegenüberliegenden Detektoren sowie des mittleren Detektors in eine
+Koinzidenzeinheit.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{koinzidenz}
+    \begin{tikzpicture}
+        \node[draw, rectangle] (fan) at (0, 0) {Fanout};
+
+        \node[draw, rectangle] (D25) [above=of fan] {Diskr.};
+        \node[draw, rectangle] (D1) [right=of fan] {Diskr.};
+        \node[draw, rectangle] (D2) [right=of D1] {Diskr.};
+        \node[draw, rectangle] (D15) [left=of fan] {Diskr.};
+        \node[draw, rectangle] (D14) [left=of D15] {Diskr.};
+
+        \node[draw, rectangle] (Z1) [above=of D1] {Z1};
+        \node[draw, rectangle] (Z2) [above=of D2] {Z2};
+        \node[draw, rectangle] (Z14) [above=of D14] {Z14};
+        \node[draw, rectangle] (Z15) [above=of D15] {Z15};
+        \node[draw, rectangle] (Z25) [above=of D25] {Z25};
+
+        \node[draw, rectangle] (con1) [below right=of fan] {Koinzidenz 1 14 25};
+        \node[draw, rectangle] (con2) [below left=of fan] {Koinzidenz 2 15 25};
+
+        \begin{scope}[->]
+            \draw (Z1) -- (D1);
+            \draw (Z2) -- (D2);
+            \draw (Z14) -- (D14);
+            \draw (Z15) -- (D15);
+            \draw (Z25) -- (D25);
+        \end{scope}
+
+        \begin{scope}[->, dashed]
+            \draw (D25) -- (fan);
+            
+            \draw (fan) -- (con1);
+            \draw (fan) -- (con2);
+
+            \draw (D1) -- (con1);
+            \draw (D14) -- (con1);
+
+            \draw (D2) -- (con2);
+            \draw (D15) -- (con2);
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{%
+        %
+    }
+    \label{fig:koinzidenz}
+\end{figure}
 
 \subsubsection{Zähler}
 
