@@ -75,17 +75,14 @@
     \centering
     \tikzsetnextfilename{cos2}
     \begin{tikzpicture}
-        \begin{polaraxis}[
-                xmin=180,
-                xmax=360,
-            ]
+        \begin{polaraxis}
             \addplot[black] table {cos2.csv};
         \end{polaraxis}
     \end{tikzpicture}
     \caption{%
-        Erwartete Intensitätsverteilung der Höhenstrahlung $\cos(\phi)^2$.
-        Dabei ist $\phi$ hier so gewählt, dass $\phi = \SI{90}{\degree}$
-        senkrecht nach oben zeigt. Somit gilt $\theta = \phi + \piup/2$.
+        Erwartete Intensitätsverteilung der Höhenstrahlung $\cos(\theta)^2$.
+        Dabei ist $\theta$ hier so gewählt, dass $\theta = \SI{0}{\degree}$
+        einer Einstrahlung senkrecht zum Erdboden entspricht.
     }
     \label{fig:cos2}
 \end{figure}
