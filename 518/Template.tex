@@ -184,6 +184,43 @@ Plateau einstellen.
     Eingangssignal?
 \end{quote}
 
+Zur Funktionsweise des Diskriminators siehe §\ref{sec:CFD}. Eine
+Koinzidenzschaltungen benutzt ein logisches und.
+
+Der Ausgang von einem Diskriminator ist ein Rechteckpuls, das über dem
+ursprünglichen Signal liegt. Die zeitliche Lage sowie die Länge des Pulses
+hängt vom Diskriminator ab. Ein Oszillogramm ist in
+Abbildung~\ref{fig:oszi-cfd} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.5\linewidth]{../Oszi-CFD.pdf}
+    \caption{%
+        Slow-Signal eines Photomultipliers zusammen mit dem
+        Signal des Einkanalanalysators (SCA). Bild aus
+        \parencite[Abbildung~2.8]{Ueding/525}. Ein Diskriminator ist zwar kein
+        Einkanalanalysator, jedoch ist das Ausgangsbild vergleichbar.
+    }
+    \label{fig:oszi-cfd}
+\end{figure}
+
+Die Koinzidenzeinheit wird aus zwei digitalen Rechteckpulsen das Produkt
+erstellen, also wieder einen Rechteckpulse, der nur in der überlappenden Region
+1 ist. In Abbildung~\ref{fig:oszi-koinzidenz} ist das Oszillogramm von zwei
+Eingängen gezeigt. Nach der Koinzidenz ist nur ein etwas schmalerer
+Rechteckpuls zu sehen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.5\linewidth]{../Oszi-Koinzidenz.pdf}
+    \caption{%
+        Oszillogramm der Slow-Zweige von zwei verschiedenen Photomultiplier. Es
+        wurde auf eins der Signale getriggert. Bild aus
+        \parencite[Abbildung~2.24]{Ueding/525}.
+    }
+    \label{fig:oszi-koinzidenz}
+\end{figure}
+
 % TODO Antwort einfügen.
 
 \subsubsection{Frage 3}
