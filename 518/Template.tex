@@ -644,7 +644,8 @@ Diskriminatorschwelle wählen wir anschließend so, dass wir den Untergrund
 filtern können, jedoch möglichst wenig von den Myonen verlieren.
 
 Dazu konstruieren wir in LabVIEW eine Schaltung, die über Nacht die
-verschiedenen Schwellen durchfährt und die Zählraten misst.
+verschiedenen Schwellen durchfährt und die Zählraten misst. Dabei müssen
+folgende Daten für die weitere Durchführung aufgezeichet werden.
 
 \begin{itemize}
     \item
@@ -665,6 +666,60 @@ verschiedenen Schwellen durchfährt und die Zählraten misst.
     \item
         Anzahl der Koinzidenzen
 \end{itemize}
+
+Im Vorfeld haben wir uns überlegt, wie diese Programme grob aussehen müssten.
+In Abbildung~\ref{fig:entwurf-1} ist der Teil, der die Koinzidenz
+implementiert, gezeigt. Dort werden die Signale aus den Diskriminatoren über
+drei oder-Gatter zusammengeführt. Zusammen mit dem Signal aus D12 gehen diese
+dann in den Koinzidenzzähler. Dessen Logikausgang geben wir zur Kontrolle auf
+eine LED sowie durch die Lemo-Buchse nach draußen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{../Drawing-0001.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für die Koinzidenz.
+    }
+    \label{fig:entwurf-1}
+\end{figure}
+
+Um nun die verschiedenen Schwellen durchzumessen, müssen wir eine Schleife
+konstruieren und die verschiedenen Schwellen eine gewisse Zeit lang messen.
+Dazu halten wir eine \texttt{for}-Schleife für sinnvoll. Aus dem Index
+errechnen wir die Schwelle und sammeln alle interessanten Daten in Arrays. Mit
+Abbildung~\ref{fig:entwurf-2} haben wir unsere Skizze eingefügt.
+
+Die Schwellenzahl, die Messdauer und der Schwellenschritt müssen noch
+eingetragen werden. Dabei müssen wir darauf achten, dass die Messzeit bis zum
+nächsten Morgen nicht überschritten wird.
+
+In jedem Schleifendurchlauf wird die Schwelle berechnet und der Diskriminator
+entsprechend eingestellt. Die Messzeit wird gewartet, bis entsprechend viele
+Ereignisse im Koinzidenzzähler angekommen sind. Mit weiteren Zählern zählen wir
+noch weitere Größen, die interessant werden können. Diese Werte geben wir durch
+den „loop tunnel” in Arrays weiter.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{../Drawing-0002.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für das Durchmessen der Schwellen.
+    }
+    \label{fig:entwurf-2}
+\end{figure}
+
+Zuletzt speichern wir die Daten aus den Arrays ab. Dazu bündeln wir sie in ein
+zweidimensionales Array und speichern es als Textdatei ab. Dies ist in
+Abbildung~\ref{fig:entwurf-3} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\linewidth]{../Drawing-0003.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für das Speichern der Daten.
+    }
+    \label{fig:entwurf-3}
+\end{figure}
 
 % TODO Wir stellen das ganze exemplarisch für Z12 ein. Was müssen wir mit den
 % anderen Zählern machen? Sind die (a) schon fertig eingestellt, (b) erhalten
