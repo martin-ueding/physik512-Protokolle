@@ -627,8 +627,24 @@ Koinzidenzeinheit.
 \subsection{Optimieren der Verzögerung}
 \label{sec:optimieren_verzoegerung}
 
+In LabVIEW konstruieren wir ein logisches oder zwischen den Diskriminatoren D23,
+D24, D1 und D2. Mit dessen Ausgang konstruieren wir eine Koinzidenz mit dem
+Ausgang von D12.
+
 \subsection{Einstellung der Diskriminatorschwelle}
 \label{sec:einstellung_diskriminatorschwelle}
+
+Zur Ermittlung der optimalen Diskriminatorschwelle müssen wir eine
+Schwellenkurve aufnehmen. Dies ist eine Kurve mit Zählrate gegen
+Diskriminatorschwelle. Da wir von einer recht monoenergetischen Myonenstrahlung
+ausgehen, erwarten wir eine Stufenfunktion mit einer Stufe. Bei kleinen
+Schwellen werden wir den kompletten Untergrund mitnehmen. Ab der Schwelle, die
+der Myonenstrahlung entspricht, erwarten wir einen Einbruch. Die
+Diskriminatorschwelle wählen wir anschließend so, dass wir den Untergrund
+filtern können, jedoch möglichst wenig von den Myonen verlieren.
+
+Dazu konstruieren wir in LabVIEW eine Schaltung, die über Nacht die
+verschiedenen Schwellen durchfährt und die Zählraten misst.
 
 \begin{itemize}
     \item
