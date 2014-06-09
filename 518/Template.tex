@@ -1,0 +1,753 @@
+\documentclass[11pt, ngerman, fleqn, DIV=15, headinclude, BCOR=2cm]{scrreprt}
+
+\usepackage{../../header}
+
+\usepackage{placeins}
+\usepackage[maxfloats=50]{morefloats}
+
+\usepackage{csquotes}
+
+\usepackage{tikz}
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes.geometric}
+
+\tikzset{device/.style={
+                rectangle,
+                minimum size=6mm,
+                draw=black
+            },
+            monitor/.style={
+                rectangle,
+                rounded corners=2mm,
+                minimum size=6mm,
+                draw=black
+            },
+        }
+
+\usepackage{pgfplots}
+\pgfplotsset{
+    compat=1.9,
+    width=0.8\linewidth,
+    xticklabel style={/pgf/number format/use comma},
+    yticklabel style={/pgf/number format/use comma},
+}
+\usepgfplotslibrary{polar}
+
+\usepgfplotslibrary{external}
+\tikzexternalize[mode=list and make]
+\tikzsetexternalprefix{Abbildung-}
+
+\DeclareSIUnit{\skt}{SKT}
+
+\usepackage{booktabs}
+
+\hypersetup{
+    pdftitle=
+}
+
+\subject{Praktikumsprotokoll}
+\title{Höhenstrahlung}
+\subtitle{Versuch P518 -- Universität Bonn}
+\author{
+    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    \and
+    Lino Lemmer \\
+    \small{\href{mailto:l2@uni-bonn.de}{l2@uni-bonn.de}}
+}
+
+\date{\daterange{2014-07-02}{2014-07-03}}
+
+\publishers{Tutor: Michael Lupberger}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Wir vermessen die Energie- und Winkelabhängigkeit der Höhenstrahlung.
+    Außerdem bestimmen wir die Lebensdauer der Myonen.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Theorie}
+
+\section{Höhenstrahlung}
+
+Deutlich außerhalb der Atmosphäre befinden sich hochenergetische Teilchen, die
+beim Eintritt in die Atmosphäre diverse Reaktionen verursachen. 
+
+Die Winkelabhängigkeit ist, wenn man die Ablenkung durch das Erdmagnetfeld
+ignoriert, isotrop in der Azimutrichtung und ungefähr $\cos(\theta)^2$ in der
+Höhe. Diese Verteilung ist in Abbildung~\ref{fig:cos2} skizziert.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{cos2}
+    \begin{tikzpicture}
+        \begin{polaraxis}
+            \addplot[black] table {cos2.csv};
+        \end{polaraxis}
+    \end{tikzpicture}
+    \caption{%
+        Erwartete Intensitätsverteilung der Höhenstrahlung $\cos(\theta)^2$.
+        Dabei ist $\theta$ hier so gewählt, dass $\theta = \SI{0}{\degree}$
+        einer Einstrahlung senkrecht zum Erdboden entspricht.
+    }
+    \label{fig:cos2}
+\end{figure}
+
+Die Primärstrahlung besteht zum Großteil aus Protonen und hat Energien bis
+\SI{e21}{\electronvolt}, der Mittelwert liegt im Bereich
+\SIrange{e9}{e10}{\electronvolt} \parencite[983]{meschede-gerthsen_24}.
+
+Diese teils sehr harten Teilchen zerfallen in der Atmosphäre in Elektronen und
+Positronen sowie harte Myonen. Myonen haben eine hohe Ruhemasse und verlieren
+daher wenig Energie durch Bremsstrahlung. Daher kommen Sie hochenergetisch an
+der Erdoberfläche an. \parencite[984]{meschede-gerthsen_24}
+
+Dies sind die Teilchen, die wir hier im Versuch untersuchen werden.
+
+\section{Standardmodell}
+
+\subsection{Protonen und Neutronen}
+
+Proton und Neutron sind Hadronen, die aus up- und down-Quarks zusammengesetzt
+sind. Sie haben beide Spin $S$ und Isospin $I$ von $\frac12$. Sie unterscheiden
+sich in der $I_3$-Komponente, dort hat das Proton $\frac12$, das Neutron
+$-\frac12$.
+
+Über das $W^-$-Boson, einem Vermittler der schwachen Wechselwirkung, kann das
+Neutron in ein Proton zerfallen:
+\[
+    \mathrm n \quad\rightharpoonup\quad \mathrm p + \mathrm e^- + \bar
+    \nuup_\mathrm e
+    \qquad\iff\qquad
+    \mathrm d
+    \quad\rightharpoonup\quad
+    \mathrm u + \mathrm W^-
+    \quad\rightharpoonup\quad
+    \mathrm u
+    + \mathrm e^- + \bar \nuup_\mathrm e
+\]
+
+Das Proton ist stabil, das Neutron zerfällt jedoch innerhalb Minuten.
+
+\subsection{Photonen}
+
+Photonen sind die Vermittler der elektromagnetischen Wechselwirkung. Sie sind
+masselos und tragen keinerlei Ladung. Sie haben jedoch Spin $S = 1$ und können
+positive und negative Helizität haben, können also polarisiert sein. Die
+Energie eines Photons ist $\hbar \omega$.
+
+Gilt $\vnabla \vec E \neq 0$, so erlaubt es die Energie- und Impulserhaltung,
+dass ein Photon ein Teilchen-Antiteilchen-Paar erzeugt (Paarbildung).
+
+\subsection{Elektronen, Myonen, Neutrinos}
+
+Elektronen und Myonen (sowie das Tau) sind die drei Familien von Leptonen im
+Standardmodell. Myon und Tau sind letztlich schwerere Varianten des Elektrons.
+Sie alle haben Ladung $-1$. Zu jedem dieser Teilchen gibt es ein Antiteilchen.
+Außerdem gibt es zu jedem noch ein Neutrino und Antineutrino, diese werden als
+$\nu_X$ für $X \in \{ \eup, \muup, \tauup \}$ bezeichnet. Auch diese haben
+jeweils ein Antiteilchen. Neutrons wechselwirken nur durch die schwache
+Wechselwirkung. Man geht davon aus, dass die Neutrinos eine kleine, allerdings
+endliche Ruhemasse besitzen, da man Neutrinooszillation beobachtet.
+
+Elektronen haben aufgrund ihrer geringen Ruhemasse einen relativ hohen
+Energieverlust durch Bremsstrahlung. Die schwereren Teilchen haben nur eine
+endliche Lebensdauer und gehen unter Abstrahlung von Neutrinos in den
+Grundzustand, das Elektron, über.
+
+\subsection{Leichte Mesonen}
+
+% TODO Leichte Mesonen.
+
+\section{Interaktion von Teilchen mit Materie}
+
+\subsection{Bethe-Bloch-Gleichung}
+
+% TODO
+
+\subsection{Landau-Verteilung}
+
+% TODO
+
+\subsection{Schauerentwicklung}
+
+% TODO
+
+\section{Zerfallsgesetz und Lebensdauer}
+
+Die Lebensdauer $\tau$ ist gerade die Zeit, bei der die Teilchenzahl auf
+$\eup^{-1}$ gesunken ist. Das Zerfallsgesetz ist im Einklang damit durch
+\[
+    N(t) = N(0) \exp\del{- \frac t\tau}
+\]
+gegeben.
+
+\section{Detektoren}
+
+Um ionisierende Strahlung nachzuweisen gibt es den Geiger-Müller Zähler, in dem
+die Strahlung Ionenpaare erzeugen, die durch eine Hochspannung abgesaugt und
+registriert werden. In einer Nebel- oder Blasenkammer dienen Ionisationen als
+Kondensationskeime, so können die Spuren verfolgt werden. Betreibt man eine
+Diode in Sperrrichtung, erzeugt Strahlung wie beim Geier-Zähler Ionenpaar,
+deren Absaugen einen kurzen Strompuls erzeugt.
+
+In diesem Versuch benutzen wir Szintillationszähler. Dort deponieren Teilchen
+ihre Energie durch Wechselwirkungen wie Compton- oder Photoeffekt,
+Bremsstrahlung und Paarerzeugung. Das Szintillatormaterial wird dadurch
+angeregt und strahlt Licht auf den Photomultiplier, der das Signal entsprechend
+verstärkt.
+
+Siehe auch §\ref{sec:frage1-1}.
+
+\section{Logische Schaltungen}
+
+\subsection{Constant Fraction Diskriminator (CFD)}
+
+Ein Diskriminator ist ein Gerät, welches nur anspricht, wenn ein eintreffendes
+Signal stärker ist, als ein bestimmter Grenzwert (engl. \emph{threshold}).
+Trifft ein solches Signal ein, gibt der Diskriminator ein Standardsignal, zum
+Beispiel ein Rechtecksignal aus.
+
+Eine Anwendung des Diskriminators ist das Triggern: Trifft ein Signal ein, wird
+ein neues, standardisiertes abgegeben. So ist zum Beispiel der zeitliche
+Abstand zwischen zwei eintreffenden Signalen zu messen. Wann genau der
+Diskriminator triggert, kommt auf die Art an.
+
+Ein CFD triggert, wenn ein bestimmter Anteil der Maximalamplitude erreicht
+wird. Dazu wird das einkommende Signal gesplittet, ein Teil wird zeitlich
+verzögert, der andere invertiert und um einen Faktor $k$ gedämpft. Anschließend
+werden beide Signale wieder addiert. Ein vorher rein positives Signal erhält so
+eine Nullstelle, welche durch $k$ bestimmt wird und den Triggerpunkt definiert.
+
+\parencite{Ueding/525}
+
+\subsection{Koinzidenz}
+
+Eine Koinzidenzeinheit wirkt als logisches und. Sie hat mehrere Eingänge und
+einen Ausgang. Genau dann, wenn an allen Eingängen der Wert 1 anliegt, steht
+der Ausgang auf 1.
+
+\subsection{FPGA}
+
+Ein Field Programmable Gate Array (FPGA) ist ein Gerät, das frei verschaltbare
+Gatter bietet. Die einzelnen Gatter können als verschiedene Gatter programmiert
+werden (und, oder, exklusives oder, nicht und, …) und im Rahmen der
+Anordnungsmöglichkeiten zu beliebigen Logikschaltungen kombiniert werden.
+Dadurch ist es möglich, eine Schaltung zu programmieren.
+
+Der Vorteil von einem FPGA gegen einen kleinen Computer ist, dass das FPGA mit
+einer festen Schaltung deutlich weniger Zyklen als ein Computer mit einem
+Programm braucht. Daher werden FPGA direkt hinter Detektoren eingesetzt, um mit
+den großen Zählraten klar zu kommen.
+
+\section{Vorbereitungsfragen}
+
+\subsection{Vorbereitungsfragen zur Winkelverteilung}
+
+Dies sind die Vorbereitungsfragen aus \parencite[11]{physik512-Anleitung}.
+
+\subsubsection{Frage 1}
+\label{sec:frage1-1}
+
+\begin{quote}
+    Wie funktionieren Szintillatoren und Photomultiplier? Welche physikalischen
+    Prozesse und apparativen Einflüsse bestimmen den zeitlichen Verlauf des
+    Photomultiplier-Ausgangssignals? Wie hängt die Pulshöhe von der gewählten
+    Hochspannung am Photomultiplier ab?
+\end{quote}
+
+In einem Szintillator verlieren eingehende Teilchen und Photonen durch
+verschiedene Prozesse (Comptoneffekt, Photoeffekt, Paarbildung) ihre Energie
+und wandeln sie letztendlich in Photonen um. Diese treffen auf den
+Photomultiplier, wo sie Elektronen auslösen. Diese Elektronen werden durch
+starke elektrische Felder zu der nächsten Anode beschleunigt. Dort schlagen sie
+weitere Elektronen heraus, es entwickelt sich eine Lawine.
+
+Der zeitliche Verlauf wird durch die Vorgänge im Szintillator beeinflusst. Je
+nach Material dauert es unterschiedlich lange, bis die angeregten Atome im
+Material in den Grundzustand übergehen und ihre Energie abgeben.
+
+% TODO Hier vielleicht noch etwas mehr schreiben?
+
+Je größer die angelegte Hochspannung ist, desto stärker werden die Elektronen
+beschleunigt und desto mehr können sie in jedem Schritt herausschlagen. Jedoch
+kann die Stromversorgung nicht mehr schnell genug Elektronen nachliefern, so
+dass eine Sättigung eintritt. Somit sollte sich ein linearer Verlauf mit
+Plateau einstellen.
+
+\subsubsection{Frage 2}
+
+\begin{quote}
+    Wie funktionieren Diskriminator- und Koinzidenz-Schaltungen? Wie sehen die
+    jeweiligen Ausgangssignale aus? Wie beeinflusst die Schwellenhöhe eines
+    Diskriminators die zeitliche Lage des Ausgangssignals gegenüber dem
+    Eingangssignal?
+\end{quote}
+
+Zur Funktionsweise des Diskriminators siehe §\ref{sec:CFD}. Eine
+Koinzidenzschaltungen benutzt ein logisches und.
+
+Der Ausgang von einem Diskriminator ist ein Rechteckpuls, das über dem
+ursprünglichen Signal liegt. Die zeitliche Lage sowie die Länge des Pulses
+hängt vom Diskriminator ab. Ein Oszillogramm ist in
+Abbildung~\ref{fig:oszi-cfd} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.5\linewidth]{../Oszi-CFD.pdf}
+    \caption{%
+        Slow-Signal eines Photomultipliers zusammen mit dem
+        Signal des Einkanalanalysators (SCA). Bild aus
+        \parencite[Abbildung~2.8]{Ueding/525}. Ein Diskriminator ist zwar kein
+        Einkanalanalysator, jedoch ist das Ausgangsbild vergleichbar.
+    }
+    \label{fig:oszi-cfd}
+\end{figure}
+
+Die Koinzidenzeinheit wird aus zwei digitalen Rechteckpulsen das Produkt
+erstellen, also wieder einen Rechteckpulse, der nur in der überlappenden Region
+1 ist. In Abbildung~\ref{fig:oszi-koinzidenz} ist das Oszillogramm von zwei
+Eingängen gezeigt. Nach der Koinzidenz ist nur ein etwas schmalerer
+Rechteckpuls zu sehen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.5\linewidth]{../Oszi-Koinzidenz.pdf}
+    \caption{%
+        Oszillogramm der Slow-Zweige von zwei verschiedenen Photomultiplier. Es
+        wurde auf eins der Signale getriggert. Bild aus
+        \parencite[Abbildung~2.24]{Ueding/525}.
+    }
+    \label{fig:oszi-koinzidenz}
+\end{figure}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 3}
+
+\begin{quote}
+    Die Zählrate für jeden einzelnen Zähler betrage etwa 1 Hz am
+    Diskriminatorausgang. Wie groß ist die theoretisch zu erwartende Rate der
+    Zufallskoinzidenzen für eine der Dreifach- Koinzidenz-Schaltungen zur
+    Messung der Winkelverteilung der Höhenstrahlung? Und für die
+    Koinzidenz-Schaltung, die zur Messung des Pulshöhenspektrums verwendet
+    wird? Wie groß sind jeweils die Totzeiten? Machen Sie einen Vorschlag, wie
+    die Rate der Zufallskoinzidenzen für eine der
+    Dreifach-Koinzidenz-Schaltungen gemessen werden kann.
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 4}
+
+\begin{quote}
+    Welchen inhaltlichen Zusammenhang haben Bethe-Bloch-Gleichung und
+    Landau-Verteilung?
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 5}
+
+\begin{quote}
+    Welche Beiträge hat das Pulshöhenspektrum? Welche physikalischen und
+    apparativen Einflüsse bestimmen die Form des Pulshöhenspektrums? Wie
+    unterscheiden sich zwei Pulshöhenspektren, wenn diese mit und ohne aktiven
+    Gate-Eingang aufgenommen werden?
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 6}
+
+\begin{quote}
+    Wie hängen Pulshöhenspektrum und Schwellenkurve zusammen? Wie ändert sich
+    die Form der Schwellenkurve, wenn man die Anzahl der Koinzidenzsignale
+    anstelle der Diskriminatorsignale betrachtet?
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 7}
+
+\begin{quote}
+    Welche Funktion erfüllt das in Abbildung 5 gezeigte LabVIEW-Programm?
+\end{quote}
+
+Wir haben das Programm mit einigen Anmerkungen versehen, siehe
+Abbildung~\ref{fig:labview-test}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{../Programm-crop.pdf}
+    \caption{%
+        LabVIEW Programm aus \parencite[Abbildung~5]{physik512-Anleitung}.
+    }
+    \label{fig:labview-test}
+\end{figure}
+
+Dieses Programm realisiert eine Zählratenbestimmung mit einem Zähler mit
+Diskriminator und Gate. Die Bauteile im Detail:
+
+\paragraph{Erstes Bild: Reset}
+
+Im ersten Bild des Filmstreifens wird die NIMBox zurückgesetzt und
+initialisiert.
+
+\paragraph{Zweites Bild: Init}
+
+Hier wird die Verbindung zur NIMBox aufgebaut und die USB Verbindung als handle
+(dunkelviolett) zum nächsten Bild gegeben. Mit diesem handle können alle Module
+auf die richtige NIMBox bezogen werden.
+
+\paragraph{Drittes Bild: Setup}
+
+Oben ist das violette handle für die USB-Verbindung zum nächsten Bild
+geschleift. Dieses handle ist ebenfalls an alle Bauteile angeschlossen.
+
+Das grüne ist ein Diskriminator. Dieser bekommt von oben eine 1, so dass dies
+der erste Diskriminator in der Box ist. Die drei weiteren Eingänge, $-420$, 20
+und 5 stehen für die Schwelle, Hystere in \si{\milli\volt} bzw. für die Dauer
+des Ausgangspulses in \SI{10}{\nano\second}. Das „Connect“ führt hier dazu,
+dass dieser Diskriminator so konfiguriert wird.
+
+Das türkise Element ist für digitale Ein- und Ausgabe (digitale IO). Auch
+dieses ist das erste in der Box. Mit einem „Connect“ wird es ebenfalls
+angeschlossen. Der Cluster mit Parametern gibt noch an, dass NIM anstelle von
+TTL als Übertragunsstandard gewählt worden ist. Dies muss mit der Position des
+physischen Jumpers übereinstimmen. Dieses Modul wird dazu benutzt, digitale
+Signale in das Programm zu bekommen.
+
+Die Signale von Diskriminator und digitaler Eingabe werden zusammen auf einen
+Koinzidenzzähler (orange) gelegt. Dies ist der erste in der Box und wird auch
+so angeschlossen.
+
+Dessen Ausgang geht wiederum auf eine LED, diesmal die dritte in der Box.
+
+\paragraph{Viertes Bild: Schleife}
+
+Auch im vierten Bild kommt das handle für die USB-Verbindung an und wird
+weitergegeben. Das handle wird in die Endlosschleife hineingegeben. Dort wird
+der erste Koinzidenzzähler (dunkles orange) ausgelesen und durch die bis
+dorthin verstrichene Zeit geteilt. Diese Zeit liefert ein Zeitgeber (hellblau).
+In der Ausgabe erscheint die Rate sowie die Zeit seit Start. Um die Schleife
+verlassen zu können ist ein Schalter als Abbruchbedingung in die Vorderansicht
+eingebaut.
+
+\paragraph{Fünftes Bild: Ende}
+
+Zuletzt wird die USB-Verbindung getrennt.
+
+\subsection{Vorbereitungsfragen zur Myonenlebensdauer}
+
+Dies sind die Vorbereitungsfragen aus \parencite[14]{physik512-Anleitung}.
+
+\subsubsection{Frage 1}
+
+\begin{quote}
+    Es kommen sowohl Myonen als auch Antimyonen auf der Erdoberfläche an.
+    Welcher atomphysikalische Prozeß ist für Myonen möglich, aber nicht für
+    Antimyonen? Wie beeinflußt das qualitativ die in diesem Versuch gemessene
+    Lebensdauer?
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 2}
+
+\begin{quote}
+    Machen Sie einen Vorschlag, wie man unter Verwendung von Diskriminatoren,
+    Verzögerungs- kabeln und Koinzidenz-Schaltungen die START-und STOP-Impulse
+    erzeugen kann.
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 3}
+
+\begin{quote}
+    Entwerfen Sie das Blockschaltbild für Messkreis und Monitorkreis.
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\subsubsection{Frage 4}
+
+\begin{quote}
+    Können Sie eine andere Gestaltung der Zeitintervalle vorschlagen, die die
+    Genauigkeit der Myonlebensdauerbestimmung optimieren würde?
+\end{quote}
+
+Die Intervalleinteilung in der Anleitung ist linear. Da ein exponentieller
+Abfall in der Kurve zu erwarten ist, werden in den ersten Intervallen mehr
+Ereignisse gemessen als in den letzten. Dadurch ist der relative Fehler in den
+ersten Intervallen kleiner. Verkleinert man die ersten und streckt dafür die
+letzten Intervalle exponentiell, kann man dadurch den relativen Fehler in allen
+Intervallen gleich bekommen.
+
+\subsubsection{Frage 5}
+
+\begin{quote}
+    Das aus der Apparatur kommende Start-Signal wird gegenüber dem Stop-Signal
+    um ca. 100 ns verzögert. Warum ist das notwendig? Wie wirkt es sich auf das
+    Messergebnis aus?
+\end{quote}
+
+Diese Verzögerung wurde auch schon in Versuch 525 benutzt, um sicherzustellen,
+dass das Start-Signal wirklich vor dem Stop-Signal kommt. Das Messergebnis wird
+dadurch nur zu größeren Zeiten verschoben, Die Lebenszeit $\tau$ der Myonen
+erhalten wir jedoch aus dem exponentiellen Abfall der Zählrate. Diese
+Verschiebung ändert daran nichts.
+
+\subsubsection{Frage 6}
+
+\begin{quote}
+    Wie können scheinbare Myonzerfälle zustandekommen? Welche Messgrößen
+    braucht man, um die erwartete Anzahl von Zufallsereignissen berechnen zu
+    können?
+\end{quote}
+
+% TODO Antwort einfügen.
+
+\chapter{Winkelverteilung}
+
+Um die Übersicht über die vielen kleinen Schritte zu gewährleisten, möchten wir
+hier erst einmal die Schritte grob zusammenstellen:
+
+\begin{enumerate}
+    \item
+        Finden der optimalen Verzögerung der Signale, die in die Koninzidenz
+        gehen, damit deren Überschneidung maximiert wird. Siehe
+        §\ref{sec:optimieren_verzoegerung}.
+
+    \item
+        Einstellung der Diskriminatorschwellen um den Untergrund zu filtern.
+        Die zugehörige Messung läuft über Nacht. Siehe
+        §\ref{sec:einstellung_diskriminatorschwelle}.
+
+    \item
+        Aufnahme der Winkelverteilung, also Zählrate über alle Energien gegen
+        Winkel. Diese Messung läuft über Wochen. Siehe
+        §\ref{sec:langzeit_winkel}
+        
+    \item
+        Aufnahme eines Pulshöhenspektrums der Höhenstrahlung, also letztlich
+        Zählrate gegen Energie. Dies läuft ebenfalls über Wochen. Siehe
+        §\ref{sec:langzeit_puls}
+\end{enumerate}
+
+\section{Aufbau, Geräte}
+
+\subsection{Zählerring}
+
+Das Detektorsystem besteht aus 24 ringförmig angeordneten
+Szintillationszählern, die um einen zentralen Zähler angeordnet sind. Der ganze
+Ring steht senkrecht, so dass die Winkelverteilung im Bezug auf den Zenit
+bestimmt werden kann.
+
+% TODO Vielleicht ein entsprechendes Bild hier einfügen?
+
+\subsection{Elektronik}
+
+\subsubsection{Diskriminatoren}
+
+An jeden Detektor ist ein Diskriminator angeschlossen. Damit werden die
+analogen Pulse in digitale Pulse umgewandelt.
+
+\subsubsection{Verteiler}
+
+Der mittlere Zähler Z25 wird für die Koinzidenz von allen Detektorpaaren
+benötigt. Daher wird dessen Signal nach dem Diskriminator durch einen Fanout
+zwölffach aufgefächert.
+
+\subsubsection{Koinzidenz}
+
+Ziel der Koinzidenz ist, nur solche Ereignisse zu filtern, bei denen ein
+Teilchen genau durch durch die Mitte und ein gegenüberliegendes Detektorpaar
+fliegt. Um dies zu filtern, gehen die digitalen Signale von zwei
+gegenüberliegenden Detektoren sowie des mittleren Detektors in eine
+Koinzidenzeinheit.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{koinzidenz}
+    \begin{tikzpicture}
+
+        %< for i in range(1, 25): >%
+        \node[draw, circle] (Z<< i >>) at (<< 90 - i * 15 >>:7) {Z<< i >>};
+        \node[draw, rectangle] (D<< i >>) at (<< 90 - i * 15 >>:5) {D<< i >>};
+        \draw[->] (Z<< i >>) -- (D<< i >>);
+        %< endfor >%
+
+        \node[draw, circle] (Z25) at (0, 0) {Z25};
+
+        \node[draw, rectangle] (D25) [below=of Z25] {D25};
+
+        \node[draw, rectangle] (fan) [below=of D25] {Fanout};
+
+        \node[draw, rectangle] (con1) [right=of Z25] {Koinzidenz};
+        \node[draw, rectangle] (con2) [left=of Z25] {Koinzidenz};
+
+        \begin{scope}[->]
+            \draw (Z25) -- (D25);
+        \end{scope}
+
+        \begin{scope}[->, dashed]
+            \draw (D25) -- (fan);
+            
+            \draw (fan) -- (con1);
+            \draw (fan) -- (con2);
+
+            \draw (D2) -- (con2);
+            \draw (D14) -- (con2);
+
+            \draw (D22) -- (con1);
+            \draw (D10) -- (con1);
+        \end{scope}
+
+        \draw[->] (45:8) -- ++(0, 1) node[right, midway] {$\theta = 0$};
+
+    \end{tikzpicture}
+    \caption{%
+        Anordnung der Detektoren. Zur Übersicht sind nur zwei
+        Koinzidenzschaltungen eingezeichnet. Durchgezogene und gestrichelte
+        Linien stehen für analoge bzw. digitale Signalübertragungen.
+    }
+    \label{fig:koinzidenz}
+\end{figure}
+
+\subsubsection{Zähler}
+
+\section{Justierung}
+
+\subsection{Optimieren der Verzögerung}
+\label{sec:optimieren_verzoegerung}
+
+In LabVIEW konstruieren wir ein logisches oder zwischen den Diskriminatoren D23,
+D24, D1 und D2. Mit dessen Ausgang konstruieren wir eine Koinzidenz mit dem
+Ausgang von D12.
+
+\subsection{Einstellung der Diskriminatorschwelle}
+\label{sec:einstellung_diskriminatorschwelle}
+
+\subsubsection{Entwicklung der Schaltung}
+
+Zur Ermittlung der optimalen Diskriminatorschwelle müssen wir eine
+Schwellenkurve aufnehmen. Dies ist eine Kurve mit Zählrate gegen
+Diskriminatorschwelle. Da wir von einer recht monoenergetischen Myonenstrahlung
+ausgehen, erwarten wir eine Stufenfunktion mit einer Stufe. Bei kleinen
+Schwellen werden wir den kompletten Untergrund mitnehmen. Ab der Schwelle, die
+der Myonenstrahlung entspricht, erwarten wir einen Einbruch. Die
+Diskriminatorschwelle wählen wir anschließend so, dass wir den Untergrund
+filtern können, jedoch möglichst wenig von den Myonen verlieren.
+
+Dazu konstruieren wir in LabVIEW eine Schaltung, die über Nacht die
+verschiedenen Schwellen durchfährt und die Zählraten misst. Dabei müssen
+folgende Daten für die weitere Durchführung aufgezeichet werden.
+
+\begin{itemize}
+    \item
+        Gewählte Schwelle für Z12
+
+    \item
+        Anzahl Ereignisse in D12
+
+    \item
+        Anzahl der oder-Ereignisse
+
+    \item
+        Anzahl der Ereignisse in Z25
+
+    \item
+        Messdauer
+
+    \item
+        Anzahl der Koinzidenzen
+\end{itemize}
+
+Im Vorfeld haben wir uns überlegt, wie diese Programme grob aussehen müssten.
+In Abbildung~\ref{fig:entwurf-1} ist der Teil, der die Koinzidenz
+implementiert, gezeigt. Dort werden die Signale aus den Diskriminatoren über
+drei oder-Gatter zusammengeführt. Zusammen mit dem Signal aus D12 gehen diese
+dann in den Koinzidenzzähler. Dessen Logikausgang geben wir zur Kontrolle auf
+eine LED sowie durch die Lemo-Buchse nach draußen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{../Drawing-0001.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für die Koinzidenz.
+    }
+    \label{fig:entwurf-1}
+\end{figure}
+
+Um nun die verschiedenen Schwellen durchzumessen, müssen wir eine Schleife
+konstruieren und die verschiedenen Schwellen eine gewisse Zeit lang messen.
+Dazu halten wir eine \texttt{for}-Schleife für sinnvoll. Aus dem Index
+errechnen wir die Schwelle und sammeln alle interessanten Daten in Arrays. Mit
+Abbildung~\ref{fig:entwurf-2} haben wir unsere Skizze eingefügt.
+
+Die Schwellenzahl, die Messdauer und der Schwellenschritt müssen noch
+eingetragen werden. Dabei müssen wir darauf achten, dass die Messzeit bis zum
+nächsten Morgen nicht überschritten wird.
+
+In jedem Schleifendurchlauf wird die Schwelle berechnet und der Diskriminator
+entsprechend eingestellt. Die Messzeit wird gewartet, bis entsprechend viele
+Ereignisse im Koinzidenzzähler angekommen sind. Mit weiteren Zählern zählen wir
+noch weitere Größen, die interessant werden können. Diese Werte geben wir durch
+den „loop tunnel” in Arrays weiter.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{../Drawing-0002.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für das Durchmessen der Schwellen.
+    }
+    \label{fig:entwurf-2}
+\end{figure}
+
+Zuletzt speichern wir die Daten aus den Arrays ab. Dazu bündeln wir sie in ein
+zweidimensionales Array und speichern es als Textdatei ab. Dies ist in
+Abbildung~\ref{fig:entwurf-3} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.8\linewidth]{../Drawing-0003.pdf}
+    \caption{%
+        Entwurf einer LabVIEW Schaltung für das Speichern der Daten.
+    }
+    \label{fig:entwurf-3}
+\end{figure}
+
+% TODO Wir stellen das ganze exemplarisch für Z12 ein. Was müssen wir mit den
+% anderen Zählern machen? Sind die (a) schon fertig eingestellt, (b) erhalten
+% die gleichen Parameter wie Z12 oder (c) müssen jeweils noch ausgemessen
+% werden?
+
+\subsubsection{Auswertung der Daten}
+
+\section{Langzeitmessung zur Winkelverteilung}
+\label{sec:langzeit_winkel}
+
+\section{Langzeitmessung des Pulshöhenspektrums}
+\label{sec:langzeit_puls}
+
+\chapter{Myonenlebensdauer}
+
+\section{Aufbau}
+
+\subsection{Monitorkreis}
+
+\section{Durchführung}
+
+\section{Auswertung}
+
+\chapter{Ergebnis}
+
+\end{document}
+
+% vim: spell spelllang=de tw=79
