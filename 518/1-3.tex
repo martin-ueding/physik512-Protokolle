@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{// Copyright © 2014 Martin Ueding \PYZlt{}dev@martin\PYZhy{}ueding.de\PYZgt{}}
+\PY{c+c1}{// Licensed under The GNU Public License Version 2 (or later)}
+
+\PY{c+cp}{\PYZsh{}}\PY{c+cp}{include \PYZlt{}functional\PYZgt{}}
+\PY{c+cp}{\PYZsh{}}\PY{c+cp}{include \PYZlt{}iostream\PYZgt{}}
+\PY{c+cp}{\PYZsh{}}\PY{c+cp}{include \PYZlt{}random\PYZgt{}}
+
+\PY{k+kt}{int} \PY{n+nf}{main}\PY{p}{(}\PY{p}{)} \PY{p}{\PYZob{}}
+    \PY{k+kt}{double} \PY{n}{dtm}\PY{p}{\PYZob{}}\PY{l+m+mf}{100e\PYZhy{}5}\PY{p}{\PYZcb{}}\PY{p}{;}
+    \PY{k+kt}{double} \PY{n}{dtu}\PY{p}{\PYZob{}}\PY{l+m+mf}{50e\PYZhy{}5}\PY{p}{\PYZcb{}}\PY{p}{;}
+    \PY{k+kt}{double} \PY{n}{dto}\PY{p}{\PYZob{}}\PY{l+m+mf}{30e\PYZhy{}5}\PY{p}{\PYZcb{}}\PY{p}{;}
+
+    \PY{k+kt}{unsigned} \PY{n}{iterations}\PY{p}{\PYZob{}}\PY{l+m+mi}{100000000}\PY{p}{\PYZcb{}}\PY{p}{;}
+    \PY{k+kt}{unsigned} \PY{n}{triple}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{;}
+
+    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{default\PYZus{}random\PYZus{}engine} \PY{n}{engine}\PY{p}{;}
+    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{uniform\PYZus{}real\PYZus{}distribution}\PY{o}{\PYZlt{}}\PY{k+kt}{double}\PY{o}{\PYZgt{}} \PY{n}{distribution}\PY{p}{\PYZob{}}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{;}
+    \PY{k}{auto} \PY{n}{die} \PY{o}{=} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{bind}\PY{p}{(}\PY{n}{distribution}\PY{p}{,} \PY{n}{engine}\PY{p}{)}\PY{p}{;}
+
+    \PY{k}{for} \PY{p}{(}\PY{k+kt}{unsigned} \PY{n}{i}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{;} \PY{n}{i} \PY{o}{!}\PY{o}{=} \PY{n}{iterations}\PY{p}{;} \PY{o}{+}\PY{o}{+}\PY{n}{i}\PY{p}{)} \PY{p}{\PYZob{}}
+        \PY{k+kt}{double} \PY{n}{tm}\PY{p}{\PYZob{}}\PY{n}{die}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{k+kt}{double} \PY{n}{tu}\PY{p}{\PYZob{}}\PY{n}{die}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{k+kt}{double} \PY{n}{to}\PY{p}{\PYZob{}}\PY{n}{die}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{;}
+
+        \PY{c+c1}{// Compute coincidence between M and U.}
+        \PY{k+kt}{bool} \PY{n}{m\PYZus{}and\PYZus{}u}\PY{p}{\PYZob{}}\PY{o}{\PYZhy{}}\PY{n}{dtu} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{tu} \PY{o}{\PYZhy{}} \PY{n}{tm} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{n}{tu} \PY{o}{\PYZhy{}} \PY{n}{tm} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{dtm}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{k}{if} \PY{p}{(}\PY{o}{!}\PY{n}{m\PYZus{}and\PYZus{}u}\PY{p}{)} \PY{p}{\PYZob{}} \PY{k}{continue}\PY{p}{;} \PY{p}{\PYZcb{}}
+
+        \PY{k+kt}{bool} \PY{n}{m\PYZus{}and\PYZus{}o}\PY{p}{\PYZob{}}\PY{o}{\PYZhy{}}\PY{n}{dto} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{to} \PY{o}{\PYZhy{}} \PY{n}{tm} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{n}{to} \PY{o}{\PYZhy{}} \PY{n}{tm} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{dtm}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{k}{if} \PY{p}{(}\PY{o}{!}\PY{n}{m\PYZus{}and\PYZus{}o}\PY{p}{)} \PY{p}{\PYZob{}} \PY{k}{continue}\PY{p}{;} \PY{p}{\PYZcb{}}
+
+        \PY{k+kt}{bool} \PY{n}{u\PYZus{}and\PYZus{}o}\PY{p}{\PYZob{}}\PY{o}{\PYZhy{}}\PY{n}{dto} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{to} \PY{o}{\PYZhy{}} \PY{n}{tu} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{n}{to} \PY{o}{\PYZhy{}} \PY{n}{tu} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{dtu}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{k}{if} \PY{p}{(}\PY{o}{!}\PY{n}{u\PYZus{}and\PYZus{}o}\PY{p}{)} \PY{p}{\PYZob{}} \PY{k}{continue}\PY{p}{;} \PY{p}{\PYZcb{}}
+
+        \PY{c+c1}{// All three match up, this is a triple coincidence.}
+        \PY{o}{+}\PY{o}{+}\PY{n}{triple}\PY{p}{;}
+    \PY{p}{\PYZcb{}}
+
+    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{triple} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{ / }\PY{l+s}{\PYZdq{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{iterations} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{: }\PY{l+s}{\PYZdq{}}
+        \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{k}{static\PYZus{}cast}\PY{o}{\PYZlt{}}\PY{k+kt}{double}\PY{o}{\PYZgt{}}\PY{p}{(}\PY{n}{triple}\PY{p}{)} \PY{o}{/} \PY{n}{iterations} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+
+    \PY{k}{return} \PY{l+m+mi}{0}\PY{p}{;}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

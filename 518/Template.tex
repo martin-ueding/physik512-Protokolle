@@ -6,6 +6,8 @@
 \usepackage[maxfloats=50]{morefloats}
 
 \usepackage{csquotes}
+\usepackage{fancyvrb}
+\usepackage{../pygments}
 
 \usepackage{tikz}
 \usetikzlibrary{chains}
@@ -339,6 +341,71 @@ Rechteckpuls zu sehen.
     die Rate der Zufallskoinzidenzen für eine der
     Dreifach-Koinzidenz-Schaltungen gemessen werden kann.
 \end{quote}
+
+\newcommand\DtM{\Deltaup t_\text M}
+\newcommand\DtO{\Deltaup t_\text O}
+\newcommand\DtU{\Deltaup t_\text U}
+
+Die Pulslängen der Diskriminatoren oben, unten und in der Mitte sind gegeben
+mit:
+\[
+    \DtO = \SI{30}{\nano\second}
+    \eqnsep
+    \DtU = \SI{50}{\nano\second}
+    \eqnsep
+    \DtM = \SI{100}{\nano\second}.
+\]
+
+An jedem Zähler ist $f = \SI{1}{\hertz}$ als Durchschnitt angegeben. Wir nehmen
+für unsere weiteren Überlegungen an, dass pro Intervall von \SI{1}{\second} ein
+Impuls kommt, jedoch innerhalb des Intervalls zu einem beliebigen Zeitpunkt.
+Wahrscheinlich sind die Pulse poissonverteilt, jedoch sind die Pulslängen so
+kurz, dass eine Überlappung von zwei Impulsen das Endergebnis wahrscheinlich
+nicht sonderlich verändern.
+
+Innerhalb der Zeit $\DtM$ müssen auch die anderen Diskriminatoren ihr Signal
+abgeben. Dies bedeutet also für die Koinzidenz von oberen und mittlerem
+Detektor
+\[
+    - \DtO \leq t_\text O - t_\text M \leq \DtM,
+\]
+wobei $t_\text O$ und $t_\text M$ die Signalzeitpunkte innerhalb des Intervalls
+sind. Sei $t_\text M$ beliebig. Somit muss $t_\text O$ ein Intervall der Breite
+$\DtO + \DtM$ treffen, damit es eine Zweifachkoinzidenz gibt. Der Anteil
+\[
+    f \sbr{\DtO + \DtM}
+\]
+der Zeit steht also für Zweifachkoinzidenzen offen. Dazu muss jetzt das dritte
+Signal ebenfalls so liegen, dass es die beiden vorherigen Überschneidet. Dies
+ist immer gegeben, wenn $t_\text U$ innerhalb von $\DtO$ liegt, weil letzteres
+das kürzeste Intervall ist. Im Prinzip kann es auch noch davor liegen, weil es
+größer ist.
+
+Da $\DtO < \DtM$, ist die Wahrscheinlichkeit, dass das kleinste komplett
+innerhalb des größten ist, relativ groß und deckt das meiste damit ab. Somit
+ist hier die Wahrscheinlichkeit, eine Koinzidenz zu erhalten:
+\[
+    f \sbr{\DtO + \DtU}.
+\]
+
+Die Rate ist somit:
+\[
+    f^3 \sbr{\DtO + \DtM} \sbr{\DtO + \DtU} \approx \SI{1.2e-14}{\hertz}.
+\]
+
+Da bei dieser Herleitung einige Überlappungsfälle nicht so genau behandelt
+worden sind, haben wir dies noch mit Monte Carlo Methoden ausprobiert. Dieses
+C++11 Programm zieht drei zufällige Zeiten innerhalb des Intervalls von einer
+Sekunde. Dann prüft es, ob eine Dreifachkoinzidenz vorliegt.
+
+\input{../1-3.tex}
+
+Die Daten aus der Anleitung erhält man mit \texttt{e-9}, also nano als Basis.
+Wir haben mit \texttt{e-3} bis \texttt{e-5} laufen lassen, danach wurde die
+Laufzeit zu lang. Verringert man die Größenordnung der Diskriminatorsignale um
+eins, so verringert sich die Größenordnung der Zufallskoinzidenzrate um zwei.
+Daher extrapolieren wir dies auf eine erwartete Rate von \SI{9e-15}{\hertz}.
+Dies deckt sich gut mit den vorherigen Überlegungen.
 
 % TODO Antwort einfügen.
 
