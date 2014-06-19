@@ -740,7 +740,35 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
 
 \section{Aufbau}
 
+\subsection{Detektoren}
+
+Da wir eine Lebensdauer messen möchten, brauchen wir zwei Detektoren. Wir
+benutzen hier einen schmalen über einem hohen Detektor. Beide sind unter einen
+\SI{5}{\centi\meter} dicken Bleiabschirmung angebracht, um nur die harte
+Komponente der Höhenstrahlung durchzulassen.
+
+Der obere Detektor liefert uns ein Startsignal für die Lebensdauermessung. Der
+untere Detektoren das dazugehörige Stoppsignal.
+
 \subsection{Monitorkreis}
+
+\subsubsection{Motivation}
+
+Zur Einstellung der Diskriminatorschwelle und der benötigten Verzögerung
+zwischen Start- und Stop-Signal müssten wir Schwellen- und Verzögerungskurven
+aufnehmen. Jedoch sind die Zählraten so gering, dass wir keine sinnvollen
+Aussagen treffen können.
+
+\subsubsection{Aufbau}
+
+Daher bauen wir die Elektronik ein zweites Mal auf,
+lassen allerdings Schwellenwerte und Verzögerungen unverändert. Unsere
+Messgröße sind dann die Zählratenverhältnisse der beiden Kreise.
+
+\subsection{Zeitmessung}
+
+Für die Zeitmessung benutzen wir die Pulse eines \SI{20}{\mega\hertz}
+Oszillators. Nach dem Startsignal werden die Pulse gezählt. 
 
 \section{Durchführung}
 
