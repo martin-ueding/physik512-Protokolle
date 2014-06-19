@@ -142,8 +142,9 @@ masselos und tragen keinerlei Ladung. Sie haben jedoch Spin $S = 1$ und können
 positive und negative Helizität haben, können also polarisiert sein. Die
 Energie eines Photons ist $\hbar \omega$.
 
-Gilt $\vnabla \vec E \neq 0$, so erlaubt es die Energie- und Impulserhaltung,
-dass ein Photon ein Teilchen-Antiteilchen-Paar erzeugt (Paarbildung).
+Steht ein weiteres Teilchen als Stoßpartner zur Verfügung, so erlaubt es die
+Energie- und Impulserhaltung, dass ein Photon ein Teilchen-Antiteilchen-Paar
+erzeugt (Paarbildung).
 
 \subsection{Elektronen, Myonen, Neutrinos}
 
@@ -329,18 +330,38 @@ Rechteckpuls zu sehen.
 
 % TODO Antwort einfügen.
 
-\subsubsection{Frage 3}
+\subsubsection{Frage 3: Zufallskoinzidenzen}
+
+Wir haben Gliederungspunkte eingefügt, damit wir besser auf die einzelnen
+Fragen eingehen können.
 
 \begin{quote}
     Die Zählrate für jeden einzelnen Zähler betrage etwa 1 Hz am
-    Diskriminatorausgang. Wie groß ist die theoretisch zu erwartende Rate der
-    Zufallskoinzidenzen für eine der Dreifach- Koinzidenz-Schaltungen zur
-    Messung der Winkelverteilung der Höhenstrahlung? Und für die
-    Koinzidenz-Schaltung, die zur Messung des Pulshöhenspektrums verwendet
-    wird? Wie groß sind jeweils die Totzeiten? Machen Sie einen Vorschlag, wie
-    die Rate der Zufallskoinzidenzen für eine der
-    Dreifach-Koinzidenz-Schaltungen gemessen werden kann.
+    Diskriminatorausgang.
+    \begin{enumerate}
+        \item
+            \label{it:3-1-rate}
+            Wie groß ist die theoretisch zu erwartende Rate der
+            Zufallskoinzidenzen für eine der Dreifach-Koinzidenz-Schaltungen
+            zur Messung der Winkelverteilung der Höhenstrahlung?
+
+        \item
+            \label{it:3-1-puls}
+            Und für die Koinzidenz-Schaltung, die zur Messung des
+            Pulshöhenspektrums verwendet wird?
+
+        \item
+            \label{it:3-1-tot}
+            Wie groß sind jeweils die Totzeiten? 
+
+        \item
+            \label{it:3-1-vorschlag}
+            Machen Sie einen Vorschlag, wie die Rate der Zufallskoinzidenzen
+            für eine der Dreifach-Koinzidenz-Schaltungen gemessen werden kann.
+    \end{enumerate}
 \end{quote}
+
+\paragraph{Teil \ref{it:3-1-rate}: Zufallskoinzidenzrate}
 
 \newcommand\DtM{\Deltaup t_\text M}
 \newcommand\DtO{\Deltaup t_\text O}
@@ -406,6 +427,30 @@ Laufzeit zu lang. Verringert man die Größenordnung der Diskriminatorsignale um
 eins, so verringert sich die Größenordnung der Zufallskoinzidenzrate um zwei.
 Daher extrapolieren wir dies auf eine erwartete Rate von \SI{9e-15}{\hertz}.
 Dies deckt sich gut mit den vorherigen Überlegungen.
+
+\paragraph{Teil \ref{it:3-1-puls}: Für Pulshöhenspektrum}
+
+Für das Pulshöhenspektrum wird folgende Koinzidenz aufgebaut:
+\[
+    [\mathrm D23 \lor \mathrm D24 \lor \mathrm D1 \lor \mathrm D2] \land
+    \mathrm D12.
+\]
+
+Daher muss jetzt in nur einem der oberen Detektoren ein Ereignis gleichzeitig
+mit dem unteren Detektor stattfinden, damit es eine Zufallskoinzidenz gibt. Wir
+nehmen an, dass die Zufallsereignisse in den oberen vier Detektoren nicht
+gleichzeitig auftreten. Dies führt dazu, dass die Gesamtrate das vierfache der
+einfachen Koinzidenzrate ist:
+\[
+    4 f^2 \sbr{\DtO + \DtU} \approx \SI{3.2e-7}{\hertz}.
+\]
+Auch diese Rate ist wieder sehr klein.
+
+\paragraph{Teil \ref{it:3-1-tot}: Totzeiten}
+
+% TODO Antwort einfügen.
+
+\paragraph{Teil \ref{it:3-1-vorschlag}: Vorschlag zur Messung}
 
 % TODO Antwort einfügen.
 
