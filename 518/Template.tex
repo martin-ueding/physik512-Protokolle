@@ -274,6 +274,9 @@ wobei dabei folgende Größen benutzt worden sind:
     $\delta$ & Dichtekorrektur
 \end{tabular}
 
+$T_\text{max}$ ist die maximal übertragene Energie in einer einzelnen
+Kollision \parencite[24]{Leo/Techniques_Nuclear_Experiments}.
+
 % TODO
 
 \subsection{Landau-Verteilung}
@@ -282,7 +285,47 @@ Die Bethe-Bloch-Gleichung aus §\ref{sec:bethe-bloch} gibt den mittleren
 Energieverlust an. Diese Werte sind entsprechend einer Landauverteilung
 verteilt. \parencite[44]{Grupen/Astroteilchenphysik}
 
-% TODO
+Die Bethe-Bloch-Gleichung gibt den Anschein, dass der Energieverlust stetig
+ist. Dies würde dazu führen, dass nachdem die Energie aufgebraucht ist, die
+Intensität vollständig verschwindet. Jedoch beobachtet man, dass die Intensität
+um die Reichweite etwas verteilt abnimmt. Dies liegt daran, dass der
+Energieverlust durch endlich viele, diskrete Wechelwirkungen zustande kommt.
+\parencite[§2.2.9]{Leo/Techniques_Nuclear_Experiments}
+
+Betrachtet man dieses Phänomen nicht als Funktion der Reichweite, sondern des
+Energieverlusts in dünnen Absorbern, ergibt sich ebenfalls die Konsequenz, dass
+der Energieverlust eine Verteilung aufweist.
+\parencite[§2.6]{Leo/Techniques_Nuclear_Experiments}
+
+Im Grenzfall des dünnen Absorbers gelten die Überlegungen von Landau, Symon und
+Vavilov. Die Theorie von Landau nimmt an, dass der maximale Energieübertrag
+unbegrenzt ist. Daher läuft die Landau-Verteilung bei hohen Energieverlusten
+asymptotisch aus. \parencite[§2.6.3]{Leo/Techniques_Nuclear_Experiments}
+
+Die Landauverteilung ist in Abbildung~\ref{fig:landau-plot} für bestimmte
+Parameter dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{landau}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.5\linewidth,
+                grid=major,
+                xlabel={$x$},
+                ylabel={$L(x, \mu, \sigma)$},
+            ]
+            \addplot[black] table {../landau.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Landauverteilung mit $\mu = \num{2}$ und $\sigma = \num{0.5}$.
+        Datenpunkte mit Mathematica 9 durch \texttt{PDF[LandauDistribution[2,
+        0.5], x]} erzeugt.
+    }
+    \label{fig:landau-plot}
+\end{figure}
 
 \subsection{Schauerentwicklung}
 
