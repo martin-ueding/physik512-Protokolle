@@ -244,10 +244,11 @@ In der zitierten Tabelle wird die Lebensdauer dieser Mesonen angegeben mit:
 \section{Interaktion von Teilchen mit Materie}
 
 \subsection{Bethe-Bloch-Gleichung}
+\label{sec:bethe-bloch}
 
 Die Bethe-Bloch-Gleichung gibt einen differentiellen Zusammenhang zwischen
-Energieverlust und Eindringtiefe eine geladenen Teilchens in Materie an
-\parencite[42, 43]{Grupen/Astroteilchenphysik}:
+Energieverlust und Eindringtiefe eines geladenen Teilchens in Materie an
+\parencite[(4.6)]{Grupen/Astroteilchenphysik}:
 \[
     - \dod Ex = K z^2 \frac ZA \frac{1}{\beta^2} \sbr{\frac 12
         \ln\del{\frac{2m_\text e c^2 \beta^2 \gamma^2 T_\text{max}}{I^2}} -
@@ -276,6 +277,10 @@ wobei dabei folgende Größen benutzt worden sind:
 % TODO
 
 \subsection{Landau-Verteilung}
+
+Die Bethe-Bloch-Gleichung aus §\ref{sec:bethe-bloch} gibt den mittleren
+Energieverlust an. Diese Werte sind entsprechend einer Landauverteilung
+verteilt. \parencite[44]{Grupen/Astroteilchenphysik}
 
 % TODO
 
@@ -561,7 +566,15 @@ werden. In beiden Fällen ist dies $\DtO = \SI{30}{\nano\second}$.
 
 \paragraph{Teil \ref{it:3-1-vorschlag}: Vorschlag zur Messung}
 
-% TODO Antwort einfügen.
+Zufällige Ereignisse sind miteinander überhaupt nicht korreliert. Daher kann
+man die Diskriminatorsignale beliebig verzögern und erhält die gleiche
+Zufallskoinzidenzrate. Die legitimen Signale verschwinden jedoch bei zu großen
+Verzögerungen.
+
+Baut man also eine zweite Koinzidenzschaltungen auf, in der die Signale stark
+verzögert ankommen auf, gibt diese die Zufallskoinzidenzrate. Ein Teilchen kann
+die Detektoren gar nicht derart durchlaufen, dass es mit großen Verzögerungen
+ein Signal gibt.
 
 \subsubsection{Frage 4}
 
