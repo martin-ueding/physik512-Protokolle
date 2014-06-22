@@ -1164,32 +1164,47 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
 \subsection{Detektoren}
 
 Da wir eine Lebensdauer messen möchten, brauchen wir zwei Detektoren. Wir
-benutzen hier einen schmalen über einer hohen Detektor. Beide sind unter einen
+benutzen hier einen schmalen über einer hohen Detektor. Beide sind unter einer
 \SI{5}{\centi\meter} dicken Bleiabschirmung angebracht, um nur die harte
 Komponente der Höhenstrahlung durchzulassen.
 
 Der obere Detektor liefert uns ein Startsignal für die Lebensdauermessung. Der
-untere Detektoren das dazugehörige Stoppsignal.
+untere Detektor gibt das dazugehörige Stoppsignal.
+
+% TODO Vielleicht hier noch ein Bild zum Aufbau?
 
 \subsection{Monitorkreis}
-
-\subsubsection{Motivation}
 
 Zur Einstellung der Diskriminatorschwelle und der benötigten Verzögerung
 zwischen Start- und Stop-Signal müssten wir Schwellen- und Verzögerungskurven
 aufnehmen. Jedoch sind die Zählraten so gering, dass wir keine sinnvollen
 Aussagen treffen können.
 
-\subsubsection{Aufbau}
+Daher bauen wir die Elektronik ein zweites Mal auf, lassen allerdings
+Schwellenwerte und Verzögerungen unverändert. Unsere Messgröße sind dann die
+Zählratenverhältnisse der beiden Kreise. Mit dieser ist eine sinnvolle
+Einstellung der Diskriminatorschwellen möglich.
 
-Daher bauen wir die Elektronik ein zweites Mal auf,
-lassen allerdings Schwellenwerte und Verzögerungen unverändert. Unsere
-Messgröße sind dann die Zählratenverhältnisse der beiden Kreise.
+Nachdem alles eingestellt ist, wird dieser Kreis nicht mehr benötigt.
 
 \subsection{Zeitmessung}
 
 Für die Zeitmessung benutzen wir die Pulse eines \SI{20}{\mega\hertz}
-Oszillators. Nach dem Startsignal werden die Pulse gezählt. 
+Oszillators. Nach dem Startsignal werden die Pulse gezählt. Die Länge einer
+Periode sind \SI{50}{\nano\second}. Diese werden mit $1:20$-Untersetzern
+auf eine größere Periode umgewandelt.
+
+Zehn Sichtzähler erstellen eine Art
+Histogram mit Intervallgröße \SI{1}{\micro\second}. Für den Fall, dass
+innerhalb der \SI{10}{\micro\second}, die dargestellt werden können, kein
+STOP-Impuls kommt, wird das dahinter liegende Zählwerk zurückgesetzt. Somit ist
+die Totzeit durch ein Zufallsimpuls oder ein sehr langlebiges Myon begrenzt.
+
+Der STOP-Impuls löst außerdem eine Sperre für das START-Signal aus, damit der
+passende Sichtzähler um eins erhöht werden kann, Und damit das keine unnötige
+Totzeit generiert, wenn die \SI{10}{\micro\second} abgelaufen sind, wird durch
+den letzten Zähler ein weiterer Impuls erzeugt, der die Sperre wieder außer
+Kraft setzt.
 
 \section{Durchführung}
 
