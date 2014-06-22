@@ -51,7 +51,8 @@
 \title{Höhenstrahlung}
 \subtitle{Versuch P518 -- Universität Bonn}
 \author{
-    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    Martin Ueding \\
+    \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
     \and
     Lino Lemmer \\
     \small{\href{mailto:l2@uni-bonn.de}{l2@uni-bonn.de}}
@@ -215,7 +216,8 @@ Die Zerfallskanäle, die direkt zu Myonen führen, haben wir bereits in
         $\mathrm K^- \to \muup^- + \bar \nuup_\muup$
 \end{itemize}
 
-Dazu kommen noch weiter Zerfälle, die nicht direkt in Myonen enden \parencite[Tabelle~19.6]{meschede-gerthsen_24}:
+Dazu kommen noch weiter Zerfälle, die nicht direkt in Myonen enden
+\parencite[Tabelle~19.6]{meschede-gerthsen_24}:
 
 \begin{itemize}
     \item
@@ -847,20 +849,20 @@ sondern eine Überlagerung von zwei exponentiellen Zerfallskurven.
 
 \begin{quote}
     Machen Sie einen Vorschlag, wie man unter Verwendung von Diskriminatoren,
-    Verzögerungskabeln und Koinzidenz-Schaltungen die START-und STOP-Impulse
-    erzeugen kann.
+    Verzögerungskabeln und Koinzidenz-Schaltungen die \textsc{Start}-und
+    \textsc{Stop}-Impulse erzeugen kann.
 \end{quote}
 
 Ähnlich wie bei der Lebensdauermessung des metastabilen Zustands in Versuch~525
-lassen wir den ersten Detektor das START-Signal liefern. Der Diskriminator muss
-entsprechend eingestellt werden, dass nur Ereignisse registriert werden, die
-von einem Myon stammen. Der STOP-Impuls kommt vom zweiten Detektor, in dem das
-Myon zur Ruhe gekommen ist.
+lassen wir den ersten Detektor das \textsc{Start}-Signal liefern. Der
+Diskriminator muss entsprechend eingestellt werden, dass nur Ereignisse
+registriert werden, die von einem Myon stammen. Der \textsc{Stop}-Impuls kommt vom
+zweiten Detektor, in dem das Myon zur Ruhe gekommen ist.
 
 Da es theoretisch möglich ist, dass das Myon sofort zerfällt, sollte das
-STOP-Signal etwas verzögert werden, damit das STOPP-Signal nach dem
-START-Signal kommt. Die Lebensdauer bestimmt sich aus dem exponentiellen
-Abfall, so dass eine derartige Verschiebung nichts ändert.
+\textsc{Stop}-Signal etwas verzögert werden, damit das \textsc{Stop}-Signal nach dem
+\textsc{Start}-Signal kommt. Die Lebensdauer bestimmt sich aus dem
+exponentiellen Abfall, so dass eine derartige Verschiebung nichts ändert.
 
 \subsection{Frage 3: Blockschaltbild}
 
@@ -906,7 +908,7 @@ Verschiebung ändert daran nichts.
     können?
 \end{quote}
 
-Kommt es innerhalb der Messzeit in den START- und STOP-Detektoren zu
+Kommt es innerhalb der Messzeit in den \textsc{Start}- und \textsc{Stop}-Detektoren zu
 Zufallsereignissen, werden diese als ein Ereignis mit entsprechender
 Lebensdauer registriert.
 
@@ -1048,9 +1050,9 @@ Abbildung~\ref{fig:koinzidenz} dargestellt.
 \subsection{Optimieren der Verzögerung}
 \label{sec:optimieren_verzoegerung}
 
-In LabVIEW konstruieren wir ein logisches Oder zwischen den Diskriminatoren D23,
-D24, D1 und D2. Mit dessen Ausgang konstruieren wir eine Koinzidenz mit dem
-Ausgang von D12.
+In LabVIEW konstruieren wir ein logisches Oder zwischen den Diskriminatoren
+D23, D24, D1 und D2. Mit dessen Ausgang konstruieren wir eine Koinzidenz mit
+dem Ausgang von D12.
 
 \subsection{Einstellung der Diskriminatorschwelle}
 \label{sec:einstellung_diskriminatorschwelle}
@@ -1194,17 +1196,17 @@ Oszillators. Nach dem Startsignal werden die Pulse gezählt. Die Länge einer
 Periode sind \SI{50}{\nano\second}. Diese werden mit $1:20$-Untersetzern
 auf eine größere Periode umgewandelt.
 
-Zehn Sichtzähler erstellen eine Art
-Histogram mit Intervallgröße \SI{1}{\micro\second}. Für den Fall, dass
-innerhalb der \SI{10}{\micro\second}, die dargestellt werden können, kein
-STOP-Impuls kommt, wird das dahinter liegende Zählwerk zurückgesetzt. Somit ist
-die Totzeit durch ein Zufallsimpuls oder ein sehr langlebiges Myon begrenzt.
+Zehn Sichtzähler erstellen eine Art Histogram mit Intervallgröße
+\SI{1}{\micro\second}. Für den Fall, dass innerhalb der \SI{10}{\micro\second},
+die dargestellt werden können, kein \textsc{Stop}-Impuls kommt, wird das
+dahinter liegende Zählwerk zurückgesetzt. Somit ist die Totzeit durch ein
+Zufallsimpuls oder ein sehr langlebiges Myon begrenzt.
 
-Der STOP-Impuls löst außerdem eine Sperre für das START-Signal aus, damit der
-passende Sichtzähler um eins erhöht werden kann, Und damit das keine unnötige
-Totzeit generiert, wenn die \SI{10}{\micro\second} abgelaufen sind, wird durch
-den letzten Zähler ein weiterer Impuls erzeugt, der die Sperre wieder außer
-Kraft setzt.
+Der \textsc{Stop}-Impuls löst außerdem eine Sperre für das
+\textsc{Start}-Signal aus, damit der passende Sichtzähler um eins erhöht werden
+kann, Und damit das keine unnötige Totzeit generiert, wenn die
+\SI{10}{\micro\second} abgelaufen sind, wird durch den letzten Zähler ein
+weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
 \section{Durchführung}
 
