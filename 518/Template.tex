@@ -856,12 +856,19 @@ sondern eine Überlagerung von zwei exponentiellen Zerfallskurven.
 Ähnlich wie bei der Lebensdauermessung des metastabilen Zustands in Versuch~525
 lassen wir den ersten Detektor das \textsc{Start}-Signal liefern. Der
 Diskriminator muss entsprechend eingestellt werden, dass nur Ereignisse
-registriert werden, die von einem Myon stammen. Der \textsc{Stop}-Impuls kommt vom
-zweiten Detektor, in dem das Myon zur Ruhe gekommen ist.
+registriert werden, die von einem Myon stammen. Um zufällige Ereignisse besser
+herausfiltern zu können, müssen oberer und unterer Detektor gleichzeitig ein
+Signal liefern, damit dies als \textsc{Start}-Signal zählt. Der
+\textsc{Stop}-Impuls kommt alleine vom zweiten Detektor, in dem das Myon zur
+Ruhe gekommen ist.
+
+Da in der Anleitung nur Diskriminatoren und keine Einkanalanalysatoren erwähnt
+werden, benutzen wir wahrscheinlich keine Fast-Slow-Koinzidenzschaltung,
+sondern benutzten nur den Fast-Zweig aus dieser.
 
 Da es theoretisch möglich ist, dass das Myon sofort zerfällt, sollte das
-\textsc{Stop}-Signal etwas verzögert werden, damit das \textsc{Stop}-Signal nach dem
-\textsc{Start}-Signal kommt. Die Lebensdauer bestimmt sich aus dem
+\textsc{Stop}-Signal etwas verzögert werden, damit das \textsc{Stop}-Signal
+nach dem \textsc{Start}-Signal kommt. Die Lebensdauer bestimmt sich aus dem
 exponentiellen Abfall, so dass eine derartige Verschiebung nichts ändert.
 
 \subsection{Frage 3: Blockschaltbild}
@@ -870,7 +877,7 @@ exponentiellen Abfall, so dass eine derartige Verschiebung nichts ändert.
     Entwerfen Sie das Blockschaltbild für Messkreis und Monitorkreis.
 \end{quote}
 
-% TODO Antwort einfügen.
+Siehe Abbildung~\ref{fig:aufbau-muon}.
 
 \subsection{Frage 4: Zeitintervalle}
 
@@ -908,9 +915,9 @@ Verschiebung ändert daran nichts.
     können?
 \end{quote}
 
-Kommt es innerhalb der Messzeit in den \textsc{Start}- und \textsc{Stop}-Detektoren zu
-Zufallsereignissen, werden diese als ein Ereignis mit entsprechender
-Lebensdauer registriert.
+Kommt es innerhalb der Messzeit in den \textsc{Start}- und
+\textsc{Stop}-Detektoren zu Zufallsereignissen, werden diese als ein Ereignis
+mit entsprechender Lebensdauer registriert.
 
 % TODO Antwort einfügen.
 
@@ -1170,8 +1177,11 @@ benutzen hier einen schmalen über einer hohen Detektor. Beide sind unter einer
 \SI{5}{\centi\meter} dicken Bleiabschirmung angebracht, um nur die harte
 Komponente der Höhenstrahlung durchzulassen.
 
-Der obere Detektor liefert uns ein Startsignal für die Lebensdauermessung. Der
-untere Detektor gibt das dazugehörige Stoppsignal.
+Der obere und untere Detektor liefert uns, sofern sie gleichzeitig aktiviert
+werden, ein Startsignal für die Lebensdauermessung. Der untere Detektor gibt
+das dazugehörige \textsc{Stop}-Signal.
+
+Die Beschaltung ist in Abbildung~\ref{fig:aufbau-muon} gezeigt.
 
 % TODO Vielleicht hier noch ein Bild zum Aufbau?
 
@@ -1188,6 +1198,47 @@ Zählratenverhältnisse der beiden Kreise. Mit dieser ist eine sinnvolle
 Einstellung der Diskriminatorschwellen möglich.
 
 Nachdem alles eingestellt ist, wird dieser Kreis nicht mehr benötigt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{aufbau-muon}
+    \begin{tikzpicture}
+        \node[draw, rectangle] (Z1) at (0, 0) {Detektor 1};
+        \node[draw, rectangle] (Z2) at (0, -2) {Detektor 2};
+
+        \node[draw, rectangle, right=of Z1] (D1) {D1};
+        \node[draw, rectangle, right=of Z2] (D2) {D2};
+
+        \node[draw, rectangle, left=of Z1] (D1x) {D1'};
+        \node[draw, rectangle, left=of Z2] (D2x) {D2'};
+
+        \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
+        \node[draw, rectangle, right=of D2] (V1) {Verzögerung};
+
+        \node[draw, rectangle] (Zeit1) at (10, -1) {Zeitmessung};
+
+        \draw[->] (Z1) -- (D1);
+        \draw[->] (Z2) -- (D2);
+        \draw[->] (Z1) -- (D1x);
+        \draw[->] (Z2) -- (D2x);
+
+        \begin{scope}[dashed]
+            \draw[->] (D1) -- (K1);
+            \draw[->] (D2) -- (K1);
+            \draw[->] (K1) -- (Zeit1) node[midway, sloped, above]
+            {\textsc{Start}};
+            \draw[->] (D2) -- (V1);
+            \draw[->] (V1) -- (Zeit1) node[midway, sloped, below]
+            {\textsc{Stop}};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau mit Monitorkreis (links) und Kreis zur Zeitmessung (rechts). Die
+        „D“ bezeichnen die Diskriminatoren. Analoge Signale sind durch
+        durchgezogene Linien gekennzeichnet, Digitale durch Gestrichelte.
+    }
+    \label{fig:aufbau-muon}
+\end{figure}
 
 \subsection{Zeitmessung}
 
@@ -1210,9 +1261,27 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
 \section{Durchführung}
 
+\subsection{Aufbau der Elektronik}
+
+% TODO
+
+\subsection{Einstellen der Verzögerung}
+
+% TODO
+
+\subsection{Aufnahme der Schwellenkurve}
+
+% TODO
+
+\subsection{Aufnahme der Lebensdauerkurve}
+
 \section{Auswertung}
 
+% TODO
+
 \chapter{Ergebnis}
+
+% TODO
 
 \end{document}
 
