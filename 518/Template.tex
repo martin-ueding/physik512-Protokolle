@@ -1342,22 +1342,6 @@ Abbildung~\ref{fig:ratio-data-c1} dargestellt. Um den Wendepunkt ablesen zu
 können, haben wir die numerische Ableitung gebildet und ebenfalls in das
 Diagramm eingetragen.
 
-\begin{table}[htbp]
-    \centering
-        \begin{tabular}{SS}
-            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
-            \midrule
-            %< for row in table_ratio_c1: >%
-            << ' & '.join(row) >> \\
-            %< endfor >%
-        \end{tabular}
-    \caption{%
-        Diskriminatorschwellen und Verhältnis der Zählraten für den ersten
-        Detektor.
-    }
-    \label{tab:table_ratio_c1}
-\end{table}
-
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{ratio-data-c1}
@@ -1415,23 +1399,6 @@ Aus diesen Daten haben wir eine Schwelle von \SI{-1.0}{\volt} abgelesen.
 Für den zweiten Detektor sind wir analog vorgegangen. Die Verhältnisse sind in
 Tabelle~\ref{tab:table_ratio_c2} aufgelistet und in
 Abbildung~\ref{fig:ratio-data-c2} dargestellt.
-
-\begin{table}[htbp]
-    \centering
-        \begin{tabular}{SS}
-            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
-            \midrule
-            %< for row in table_ratio_c2: >%
-            << ' & '.join(row) >> \\
-            %< endfor >%
-        \end{tabular}
-    \caption{%
-        Diskriminatorschwellen und Verhältnis der Zählraten für den zweiten
-        Detektor.
-    }
-    \label{tab:table_ratio_c2}
-\end{table}
-
 
 \begin{figure}[htbp]
     \centering
@@ -1536,6 +1503,39 @@ Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
             \label{tab:schwellen_roh}
         \end{figure}
     \end{landscape}
+
+    \begin{table}[htbp]
+        \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c1: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+        \caption{%
+            Diskriminatorschwellen und Verhältnis der Zählraten für den ersten
+            Detektor.
+        }
+        \label{tab:table_ratio_c1}
+    \end{table}
+
+    \begin{table}[htbp]
+        \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c2: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+        \caption{%
+            Diskriminatorschwellen und Verhältnis der Zählraten für den zweiten
+            Detektor.
+        }
+        \label{tab:table_ratio_c2}
+    \end{table}
+
 \end{appendix}
 
 \end{document}
