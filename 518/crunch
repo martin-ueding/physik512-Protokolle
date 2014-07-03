@@ -193,7 +193,11 @@ def lebensdauer_schwellenbestimmung(T):
     pl.errorbar(schwelle_me_c2, ratio_c2_val, yerr=ratio_c2_err)
     diff_x = np.diff(schwelle_me_c2)
     diff_y = np.diff(ratio_c2_val)
-    pl.plot(schwelle_me_c2[:-1] + diff_x[0]/2, diff_y)
+    diff_y_err = np.sqrt(
+        (ratio_c2_err[1:])**2
+        + (ratio_c2_err[:-1])**2
+    )
+    pl.errorbar(schwelle_me_c2[:-1] + diff_x[0]/2, diff_y, yerr=diff_y_err)
     pl.grid(True)
     pl.show()
     pl.clf()
