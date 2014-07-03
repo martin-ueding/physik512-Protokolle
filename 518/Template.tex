@@ -9,6 +9,8 @@
 \usepackage{fancyvrb}
 \usepackage{../pygments}
 
+\usepackage{pdflscape}
+
 \usepackage{tikz}
 \usetikzlibrary{chains}
 \usetikzlibrary{shapes.geometric}
@@ -1213,138 +1215,6 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
 
 \subsubsection{Auswertung der Daten}
 
-\begin{table}[htbp]
-    \centering
-        \begin{tabular}{SS}
-            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
-            \midrule
-            %< for row in table_ratio_c1: >%
-            << ' & '.join(row) >> \\
-            %< endfor >%
-        \end{tabular}
-    \caption{%
-        Diskriminatorschwellen und Verhältnis der Zählraten für den ersten
-        Detektor.
-    }
-    \label{fig:}
-\end{table}
-
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{ratio-data-c1}
-    \begin{tikzpicture}
-        % let both axes use the same layers
-        \pgfplotsset{set layers}
-        \begin{axis}[
-                %width=\linewidth,
-                %height=0.55\linewidth,
-                scale only axis,
-                grid=major,
-                xmin=-2.2,
-                xmax=-0.4,
-                axis y line*=left,
-                xlabel={Schwelle / \si\volt},
-                ylabel={Verhältnis der Zählraten},
-            ]
-            \addplot[
-                black,
-                only marks,
-                mark=+,
-                error bars/.cd,
-                y dir=both,
-                y explicit
-            ] table[y error index=2] {ratio-data-c1.csv};
-        \end{axis}
-        \begin{axis}[
-                scale only axis,
-                xmin=-2.2,
-                xmax=-0.4,
-                axis y line*=right,
-                axis x line=none,
-                ylabel={numerische Ableitung (rot)},
-            ]
-            \addplot[
-                red,
-                only marks,
-                mark=+,
-                error bars/.cd,
-                y dir=both,
-                y explicit
-            ] table[y error index=2] {ratio-diff-c1.csv};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        %
-    }
-    \label{fig:}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{ratio-data-c2}
-    \begin{tikzpicture}
-        % let both axes use the same layers
-        \pgfplotsset{set layers}
-        \begin{axis}[
-                %width=\linewidth,
-                %height=0.55\linewidth,
-                scale only axis,
-                grid=major,
-                axis y line*=left,
-                xmin=-2.2,
-                xmax=-0.4,
-                xlabel={Schwelle / \si\volt},
-                ylabel={Verhältnis der Zählraten},
-            ]
-            \addplot[
-                black,
-                only marks,
-                mark=+,
-                error bars/.cd,
-                y dir=both,
-                y explicit
-            ] table[y error index=2] {ratio-data-c2.csv};
-        \end{axis}
-        \begin{axis}[
-                scale only axis,
-                axis y line*=right,
-                xmin=-2.2,
-                xmax=-0.4,
-                axis x line=none,
-                ylabel={numerische Ableitung (rot)},
-            ]
-            \addplot[
-                red,
-                only marks,
-                mark=+,
-                error bars/.cd,
-                y dir=both,
-                y explicit
-            ] table[y error index=2] {ratio-diff-c2.csv};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        %
-    }
-    \label{fig:}
-\end{figure}
-
-\begin{table}[htbp]
-    \centering
-        \begin{tabular}{SS}
-            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
-            \midrule
-            %< for row in table_ratio_c2: >%
-            << ' & '.join(row) >> \\
-            %< endfor >%
-        \end{tabular}
-    \caption{%
-        Diskriminatorschwellen und Verhältnis der Zählraten für den zweiten
-        Detektor.
-    }
-    \label{fig:}
-\end{table}
-
 
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
@@ -1400,9 +1270,13 @@ Nachdem alles eingestellt ist, wird dieser Kreis nicht mehr benötigt.
 
         \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
         \node[draw, rectangle, right=of K1] (V1) {Verzögerung};
-        \node[draw, rectangle, right=of D2] (V2) {Verzögerung};
 
         \node[draw, rectangle] (Zeit1) at (10, -2) {Zeitmessung};
+
+        \node[draw, rectangle, above=of D1] (Zahl1) {Zähler};
+        \node[draw, rectangle, above=of D1x] (Zahl1x) {Zähler};
+        \node[draw, rectangle, below=of D2] (Zahl2) {Zähler};
+        \node[draw, rectangle, below=of D2x] (Zahl2x) {Zähler};
 
         \draw[->] (Z1) -- (D1);
         \draw[->] (Z2) -- (D2);
@@ -1413,11 +1287,12 @@ Nachdem alles eingestellt ist, wird dieser Kreis nicht mehr benötigt.
             \draw[->] (D1) -- (K1);
             \draw[->] (D2) -- (K1);
             \draw[->] (K1) -- (V1);
-            \draw[->] (V1) -- (Zeit1) node[midway, sloped, above]
-            {\textsc{Start}};
-            \draw[->] (D2) -- (V2);
-            \draw[->] (V2) -- (Zeit1) node[midway, sloped, below]
-            {\textsc{Stop}};
+            \draw[->] (V1) -- (Zeit1) node[midway, sloped, above] {\textsc{Start}};
+            \draw[->] (D2) -- (Zeit1) node[midway, sloped, below] {\textsc{Stop}};
+            \draw[->] (D1) -- (Zahl1);
+            \draw[->] (D2) -- (Zahl2);
+            \draw[->] (D1x) -- (Zahl1x);
+            \draw[->] (D2x) -- (Zahl2x);
         \end{scope}
     \end{tikzpicture}
     \caption{%
@@ -1443,7 +1318,7 @@ Zufallsimpuls oder ein sehr langlebiges Myon begrenzt.
 
 Der \textsc{Stop}-Impuls löst außerdem eine Sperre für das
 \textsc{Start}-Signal aus, damit der passende Sichtzähler um eins erhöht werden
-kann, Und damit das keine unnötige Totzeit generiert, wenn die
+kann. Und damit das keine unnötige Totzeit generiert, wenn die
 \SI{10}{\micro\second} abgelaufen sind, wird durch den letzten Zähler ein
 weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
@@ -1453,15 +1328,172 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
 % TODO
 
+\subsection{Aufnahme der Schwellenkurve}
+
+Wir stellen die Diskriminatorschwellen des Monitorkreises auf das Minimum. Dann
+gehen wir per Hand die Diskriminatorschwellen für den Messkreis durch und
+messen die Anzahl der Ereignisse, die in \SI{600}{\second} eintreffen. Die
+rohen Messdaten sind in Tabelle~\ref{tab:schwellen_roh}.
+
+Für uns interessant ist das Verhältnis der Zählraten von Mess- und
+Monitorkreis. Diese sind für den ersten Detektor in
+Tabelle~\ref{tab:table_ratio_c1} aufgelistet und in
+Abbildung~\ref{fig:ratio-data-c1} dargestellt. Um den Wendepunkt ablesen zu
+können, haben wir die numerische Ableitung gebildet und ebenfalls in das
+Diagramm eingetragen.
+
+\begin{table}[htbp]
+    \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c1: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+    \caption{%
+        Diskriminatorschwellen und Verhältnis der Zählraten für den ersten
+        Detektor.
+    }
+    \label{tab:table_ratio_c1}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{ratio-data-c1}
+    \begin{tikzpicture}
+        % let both axes use the same layers
+        \pgfplotsset{set layers}
+        \begin{axis}[
+                %width=\linewidth,
+                height=0.55\linewidth,
+                scale only axis,
+                grid=major,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis y line*=left,
+                xlabel={Schwelle / \si\volt},
+                ylabel={Verhältnis der Zählraten},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-data-c1.csv};
+        \end{axis}
+        \begin{axis}[
+                height=0.55\linewidth,
+                scale only axis,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis y line*=right,
+                axis x line=none,
+                ylabel={numerische Ableitung (rot)},
+            ]
+            \addplot[
+                red,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-diff-c1.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Verhältnis der Zählraten von Mess- und Monitorkreis des ersten
+        Detektors. Zusätzlich ist in rot die numerische Ableitung eingetragen.
+    }
+    \label{fig:ratio-data-c1}
+\end{figure}
+
+Aus diesen Daten haben wir eine Schwelle von \SI{-1.0}{\volt} abgelesen.
+
+Für den zweiten Detektor sind wir analog vorgegangen. Die Verhältnisse sind in
+Tabelle~\ref{tab:table_ratio_c2} aufgelistet und in
+Abbildung~\ref{fig:ratio-data-c2} dargestellt.
+
+\begin{table}[htbp]
+    \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c2: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+    \caption{%
+        Diskriminatorschwellen und Verhältnis der Zählraten für den zweiten
+        Detektor.
+    }
+    \label{tab:table_ratio_c2}
+\end{table}
+
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{ratio-data-c2}
+    \begin{tikzpicture}
+        % let both axes use the same layers
+        \pgfplotsset{set layers}
+        \begin{axis}[
+                %width=\linewidth,
+                height=0.55\linewidth,
+                scale only axis,
+                grid=major,
+                axis y line*=left,
+                xmin=-2.2,
+                xmax=-0.4,
+                xlabel={Schwelle / \si\volt},
+                ylabel={Verhältnis der Zählraten},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-data-c2.csv};
+        \end{axis}
+        \begin{axis}[
+                height=0.55\linewidth,
+                scale only axis,
+                axis y line*=right,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis x line=none,
+                ylabel={numerische Ableitung (rot)},
+            ]
+            \addplot[
+                red,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-diff-c2.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Verhältnis der Zählraten von Mess- und Monitorkreis des ersten
+        Detektors. Zusätzlich ist in rot die numerische Ableitung eingetragen.
+    }
+    \label{fig:ratio-data-c2}
+\end{figure}
+
+Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
+
 \subsection{Einstellen der Verzögerung}
 
 % TODO
 
-\subsection{Aufnahme der Schwellenkurve}
+\subsection{Aufnahme der Lebensdauerkurve}
 
 % TODO
-
-\subsection{Aufnahme der Lebensdauerkurve}
 
 \section{Auswertung}
 
@@ -1470,6 +1502,41 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 \chapter{Ergebnis}
 
 % TODO
+
+\begin{appendix}
+    \chapter{Rohe Messdaten}
+
+    \begin{landscape}
+        \section{Schwellenkurve Myonlebensdauer}
+
+        \begin{figure}[htbp]
+            \centering
+            \begin{tabular}{*4S|*4S|S}
+                {Me. 1} &
+                {Me. 2} &
+                {Mo. 1} &
+                {Mo. 2} &
+                {Me. 1} &
+                {Me. 2} &
+                {Mo. 1} &
+                {Mo. 2} &
+                {Zeit} \\
+                \midrule
+                %< for row in schwellen_roh: >%
+                << ' & '.join(row) >> \\
+                %< endfor >%
+            \end{tabular}
+            \caption{%
+                Rohe Messdaten der Schwellenkurve für die Myonlebensdauer. Die
+                ersten vier Spalten sind die Diskriminatorschwellen in
+                \si\volt, wobei „Me“ für Mess- und „Mo“ für Monitorkreis steht.
+                Die nächsten vier Spalten sind die Anzahl der Ereignisse. Die
+                letzte Spalte ist die Zeit in \si\second.
+            }
+            \label{tab:schwellen_roh}
+        \end{figure}
+    \end{landscape}
+\end{appendix}
 
 \end{document}
 
