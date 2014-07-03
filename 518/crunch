@@ -142,6 +142,40 @@ def fit_gauge_points(T, points, show=False):
 
     return popt, pconv
 
+def lebensdauer_schwellenbestimmung(T):
+    data = np.loadtxt('Daten/lebensdauer_schwellen.txt')
+
+    # Schwellen
+    schwelle_me_c1 = data[:,0]
+    schwelle_me_c2 = data[:,1]
+    schwelle_mo_c1 = data[:,2]
+    schwelle_mo_c2 = data[:,3]
+
+    # Ereignisse
+    count_me_c1 = data[:,4]
+    count_me_c2 = data[:,5]
+    count_mo_c1 = data[:,6]
+    count_mo_c2 = data[:,7]
+
+    # Zeit
+    time = data[:,8]
+
+    # Raten
+    rate_me_c1_val = data[:,4]/time
+    rate_me_c2_val = data[:,5]/time
+    rate_mo_c1_val = data[:,6]/time
+    rate_mo_c2_val = data[:,7]/time
+
+    rate_me_c1_err = np.sqrt(data[:,4]) / time
+    rate_me_c2_err = np.sqrt(data[:,5]) / time
+    rate_mo_c1_err = np.sqrt(data[:,6]) / time
+    rate_mo_c2_err = np.sqrt(data[:,7]) / time
+
+    # Verhältnisse
+    ratio_c1_val = rate_me_c1/rate_mo_c1
+    ratio_c2_val = rate_me_c2/rate_mo_c2
+
+    
 
 
 def test_keys(T):
