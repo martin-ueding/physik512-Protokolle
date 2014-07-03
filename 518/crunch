@@ -171,8 +171,15 @@ def lebensdauer_schwellenbestimmung(T):
     rate_mo_c1_err = np.sqrt(data[:,6]) / time
     rate_mo_c2_err = np.sqrt(data[:,7]) / time
 
-    ratio_derivative_plot(schwelle_me_c1, rate_me_c1_val, rate_me_c1_err, rate_mo_c1_val, rate_mo_c1_err)
-    ratio_derivative_plot(schwelle_me_c2, rate_me_c2_val, rate_me_c2_err, rate_mo_c2_val, rate_mo_c2_err)
+    r_data, diff_data = ratio_derivative_plot(schwelle_me_c1, rate_me_c1_val,
+                                              rate_me_c1_err, rate_mo_c1_val,
+                                              rate_mo_c1_err)
+    ratio_output(T, 'c1', schwelle_me_c1, r_data, diff_data)
+    r_data, diff_data = ratio_derivative_plot(schwelle_me_c2, rate_me_c2_val,
+                                              rate_me_c2_err, rate_mo_c2_val,
+                                              rate_mo_c2_err)
+    ratio_output(T, 'c2', schwelle_me_c1, r_data, diff_data)
+
 
 def ratio_derivative_plot(schwelle_me, rate_me_val, rate_me_err, rate_mo_val, rate_mo_err):
     # Verhältnisse
@@ -184,17 +191,33 @@ def ratio_derivative_plot(schwelle_me, rate_me_val, rate_me_err, rate_mo_val, ra
 
     pl.errorbar(schwelle_me, ratio_val, yerr=ratio_err)
     diff_x = np.diff(schwelle_me)
+    diff_x = schwelle_me[:-1] + diff_x/2
     diff_y = np.diff(ratio_val)
     diff_y_err = np.sqrt(
         (ratio_err[1:])**2
         + (ratio_err[:-1])**2
     )
-    pl.errorbar(schwelle_me[:-1] + diff_x/2, diff_y, yerr=diff_y_err)
+    pl.errorbar(diff_x, diff_y, yerr=diff_y_err)
     pl.grid(True)
-    pl.show()
+    #pl.show()
     pl.clf()
 
-    
+    return np.column_stack([ratio_val, ratio_err]), \
+            np.column_stack([diff_x, diff_y, diff_y_err])
+
+def ratio_output(T, tag, schwelle_me, r_data, diff_data):
+    np.savetxt('_build/ratio-data-{}.csv'.format(tag), np.column_stack([schwelle_me, r_data]))
+    np.savetxt('_build/ratio-diff-{}.csv'.format(tag), diff_data)
+
+    T['table_ratio_{}'.format(tag)] = list(zip(
+        unitprint.siunitx(schwelle_me),
+        unitprint.siunitx(r_data[:, 0], r_data[:, 1]),
+    ))
+
+    T['table_diff_{}'.format(tag)] = list(zip(
+        unitprint.siunitx(diff_data[:, 0]),
+        unitprint.siunitx(diff_data[:, 1], diff_data[:, 2]),
+    ))
 
 
 def test_keys(T):

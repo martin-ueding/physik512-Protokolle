@@ -2,7 +2,7 @@
 
 \usepackage{../../header}
 
-\usepackage{placeins}
+\usepackage[section]{placeins}
 \usepackage[maxfloats=50]{morefloats}
 
 \usepackage{csquotes}
@@ -25,6 +25,9 @@
         draw=black
     },
 }
+
+\def\table{\def\figurename{Tabelle}\figure}
+\let\endtable\endfigure
 
 \usepackage{pgfplots}
 \pgfplotsset{
@@ -544,7 +547,7 @@ Fragen eingehen können.
 
         \item
             \label{it:3-1-tot}
-            Wie groß sind jeweils die Totzeiten? 
+            Wie groß sind jeweils die Totzeiten?
 
         \item
             \label{it:3-1-vorschlag}
@@ -1209,6 +1212,139 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
 % werden?
 
 \subsubsection{Auswertung der Daten}
+
+\begin{table}[htbp]
+    \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c1: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+    \caption{%
+        Diskriminatorschwellen und Verhältnis der Zählraten für den ersten
+        Detektor.
+    }
+    \label{fig:}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{ratio-data-c1}
+    \begin{tikzpicture}
+        % let both axes use the same layers
+        \pgfplotsset{set layers}
+        \begin{axis}[
+                %width=\linewidth,
+                %height=0.55\linewidth,
+                scale only axis,
+                grid=major,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis y line*=left,
+                xlabel={Schwelle / \si\volt},
+                ylabel={Verhältnis der Zählraten},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-data-c1.csv};
+        \end{axis}
+        \begin{axis}[
+                scale only axis,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis y line*=right,
+                axis x line=none,
+                ylabel={numerische Ableitung (rot)},
+            ]
+            \addplot[
+                red,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-diff-c1.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        %
+    }
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{ratio-data-c2}
+    \begin{tikzpicture}
+        % let both axes use the same layers
+        \pgfplotsset{set layers}
+        \begin{axis}[
+                %width=\linewidth,
+                %height=0.55\linewidth,
+                scale only axis,
+                grid=major,
+                axis y line*=left,
+                xmin=-2.2,
+                xmax=-0.4,
+                xlabel={Schwelle / \si\volt},
+                ylabel={Verhältnis der Zählraten},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-data-c2.csv};
+        \end{axis}
+        \begin{axis}[
+                scale only axis,
+                axis y line*=right,
+                xmin=-2.2,
+                xmax=-0.4,
+                axis x line=none,
+                ylabel={numerische Ableitung (rot)},
+            ]
+            \addplot[
+                red,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {ratio-diff-c2.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        %
+    }
+    \label{fig:}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+        \begin{tabular}{SS}
+            {Diskriminatorschwelle / \si\volt} & {Verhältnis der Zählraten} \\
+            \midrule
+            %< for row in table_ratio_c2: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+    \caption{%
+        Diskriminatorschwellen und Verhältnis der Zählraten für den zweiten
+        Detektor.
+    }
+    \label{fig:}
+\end{table}
+
 
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
