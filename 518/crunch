@@ -171,33 +171,25 @@ def lebensdauer_schwellenbestimmung(T):
     rate_mo_c1_err = np.sqrt(data[:,6]) / time
     rate_mo_c2_err = np.sqrt(data[:,7]) / time
 
+    ratio_derivative_plot(schwelle_me_c1, rate_me_c1_val, rate_me_c1_err, rate_mo_c1_val, rate_mo_c1_err)
+    ratio_derivative_plot(schwelle_me_c2, rate_me_c2_val, rate_me_c2_err, rate_mo_c2_val, rate_mo_c2_err)
+
+def ratio_derivative_plot(schwelle_me, rate_me_val, rate_me_err, rate_mo_val, rate_mo_err):
     # Verhältnisse
-    ratio_c1_val = rate_me_c1_val/rate_mo_c1_val
-    ratio_c2_val = rate_me_c2_val/rate_mo_c2_val
-    ratio_c1_err = np.sqrt(
-        (rate_me_c1_err/rate_mo_c1_val)**2
-        + (rate_mo_c1_val / rate_mo_c1_val**2 * rate_mo_c1_err)**2
-    )
-    ratio_c2_err = np.sqrt(
-        (rate_me_c2_err/rate_mo_c2_val)**2
-        + (rate_mo_c2_val / rate_mo_c2_val**2 * rate_mo_c2_err)**2
+    ratio_val = rate_me_val/rate_mo_val
+    ratio_err = np.sqrt(
+        (rate_me_err/rate_mo_val)**2
+        + (rate_mo_val / rate_mo_val**2 * rate_mo_err)**2
     )
 
-    pl.errorbar(schwelle_me_c1, ratio_c1_val, yerr=ratio_c1_err)
-    diff_x = np.diff(schwelle_me_c1)
-    diff_y = np.diff(ratio_c1_val)
-    pl.plot(schwelle_me_c1[:-1] + diff_x[0]/2, diff_y)
-    pl.grid(True)
-    pl.show()
-    pl.clf()
-    pl.errorbar(schwelle_me_c2, ratio_c2_val, yerr=ratio_c2_err)
-    diff_x = np.diff(schwelle_me_c2)
-    diff_y = np.diff(ratio_c2_val)
+    pl.errorbar(schwelle_me, ratio_val, yerr=ratio_err)
+    diff_x = np.diff(schwelle_me)
+    diff_y = np.diff(ratio_val)
     diff_y_err = np.sqrt(
-        (ratio_c2_err[1:])**2
-        + (ratio_c2_err[:-1])**2
+        (ratio_err[1:])**2
+        + (ratio_err[:-1])**2
     )
-    pl.errorbar(schwelle_me_c2[:-1] + diff_x[0]/2, diff_y, yerr=diff_y_err)
+    pl.errorbar(schwelle_me[:-1] + diff_x/2, diff_y, yerr=diff_y_err)
     pl.grid(True)
     pl.show()
     pl.clf()
