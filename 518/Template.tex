@@ -1243,65 +1243,18 @@ Die Beschaltung ist in Abbildung~\ref{fig:aufbau-muon} gezeigt.
 
 \subsection{Monitorkreis}
 
-Zur Einstellung der Diskriminatorschwelle und der benötigten Verzögerung
-zwischen Start- und Stop-Signal müssten wir Schwellen- und Verzögerungskurven
-aufnehmen. Jedoch sind die Zählraten so gering, dass wir keine sinnvollen
-Aussagen treffen können.
+Zur Einstellung der Diskriminatorschwelle müssten wir eine Schwellenkurve
+aufnehmen. Da Myonen meist in Schauern auftreten, ist es sinnvoll die Zählrate
+für jede Schwelle in Verhältnis zu der Zählrate bei einer konstanten,
+betragsmäßig niedrigen Schwelle zu stellen.
 
-Daher bauen wir die Elektronik ein zweites Mal auf, lassen allerdings
-Schwellenwerte und Verzögerungen unverändert. Unsere Messgröße sind dann die
+Daher bauen wir die Elektronik zwei Mal auf, lassen im Monitorkreis die
+Schwellen unverändert, während wie im Messkreis die Schwellen durchlaufen. Unsere Messgröße sind dann die
 Zählratenverhältnisse der beiden Kreise. Mit dieser ist eine sinnvolle
 Einstellung der Diskriminatorschwellen möglich.
 
-Nachdem alles eingestellt ist, wird dieser Kreis nicht mehr benötigt.
+Nachdem alles eingestellt ist, wird der Monitorkreis nicht mehr benötigt.
 
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{aufbau-muon}
-    \begin{tikzpicture}
-        \node[draw, rectangle] (Z1) at (0, 0) {Detektor 1};
-        \node[draw, rectangle] (Z2) at (0, -2) {Detektor 2};
-
-        \node[draw, rectangle, right=of Z1] (D1) {D1};
-        \node[draw, rectangle, right=of Z2] (D2) {D2};
-
-        \node[draw, rectangle, left=of Z1] (D1x) {D1'};
-        \node[draw, rectangle, left=of Z2] (D2x) {D2'};
-
-        \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
-        \node[draw, rectangle, right=of K1] (V1) {Verzögerung};
-
-        \node[draw, rectangle] (Zeit1) at (10, -2) {Zeitmessung};
-
-        \node[draw, rectangle, above=of D1] (Zahl1) {Zähler};
-        \node[draw, rectangle, above=of D1x] (Zahl1x) {Zähler};
-        \node[draw, rectangle, below=of D2] (Zahl2) {Zähler};
-        \node[draw, rectangle, below=of D2x] (Zahl2x) {Zähler};
-
-        \draw[->] (Z1) -- (D1);
-        \draw[->] (Z2) -- (D2);
-        \draw[->] (Z1) -- (D1x);
-        \draw[->] (Z2) -- (D2x);
-
-        \begin{scope}[dashed]
-            \draw[->] (D1) -- (K1);
-            \draw[->] (D2) -- (K1);
-            \draw[->] (K1) -- (V1);
-            \draw[->] (V1) -- (Zeit1) node[midway, sloped, above] {\textsc{Start}};
-            \draw[->] (D2) -- (Zeit1) node[midway, sloped, below] {\textsc{Stop}};
-            \draw[->] (D1) -- (Zahl1);
-            \draw[->] (D2) -- (Zahl2);
-            \draw[->] (D1x) -- (Zahl1x);
-            \draw[->] (D2x) -- (Zahl2x);
-        \end{scope}
-    \end{tikzpicture}
-    \caption{%
-        Aufbau mit Monitorkreis (links) und Kreis zur Zeitmessung (rechts). Die
-        „D“ bezeichnen die Diskriminatoren. Analoge Signale sind durch
-        durchgezogene Linien gekennzeichnet, Digitale durch Gestrichelte.
-    }
-    \label{fig:aufbau-muon}
-\end{figure}
 
 \subsection{Zeitmessung}
 
@@ -1326,7 +1279,88 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
 \subsection{Aufbau der Elektronik}
 
-% TODO
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{myon-schwellen}
+    \begin{tikzpicture}
+        \node[draw, rectangle] (Det1) at (0,0) {Detektor 1};
+        \node[draw, rectangle] (Det2) at (0,-2) {Detektor 2};
+ 
+        \coordinate (NodeD1) at (2,0);
+        \coordinate (NodeD2) at (2,-2);
+
+        \node (Mess) at (5,1) {Messkreis};
+        \node (Mon) at (5,-3) {Monitorkreis};
+
+        \node[draw, rectangle, above=.5cm of Mess] (Dis1Mess) {Diskriminator};
+        \node[draw, rectangle, below=.5cm of Mess] (Dis2Mess) {Diskriminator};
+        \node[draw, rectangle, above=.5cm of Mon] (Dis1Mon) {Diskriminator};
+        \node[draw, rectangle, below=.5cm of Mon] (Dis2Mon) {Diskriminator};
+
+        \node[draw, rectangle, right= of Dis1Mess] (Z1Mess) {Zähler};
+        \node[draw, rectangle, right= of Dis2Mess] (Z2Mess) {Zähler};
+        \node[draw, rectangle, right= of Dis1Mon] (Z1Mon) {Zähler};
+        \node[draw, rectangle, right= of Dis2Mon] (Z2Mon) {Zähler};
+        \draw[->]
+        (Det1) -- (NodeD1) -- (Dis1Mess);
+        \draw[->]
+        (NodeD1) -- (Dis1Mon);
+        \draw[->]
+        (Det2) -- (NodeD2) -- (Dis2Mess);
+        \draw[->]
+        (NodeD2) -- (Dis2Mon);
+        \begin{scope}[dashed]
+            \draw[->] (Dis1Mess) -- (Z1Mess);
+            \draw[->] (Dis2Mess) -- (Z2Mess);
+            \draw[->] (Dis1Mon) -- (Z1Mon);
+            \draw[->] (Dis2Mon) -- (Z2Mon);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+    Versuchsaufbau für die Lebensdauerbestimmung von Myonen. Durchgezogene
+    Linien bezeichnen analoge, gestrichelte bezeichnen digitale Signale
+    }
+    \label{fig:myon-schwellen}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{myon-zeit}
+    \begin{tikzpicture}
+        \node[draw, rectangle] (Z1) at (0, 0) {Detektor 1};
+        \node[draw, rectangle] (Z2) at (0, -2) {Detektor 2};
+
+        \node[draw, rectangle, right=of Z1] (D1) {D1};
+        \node[draw, rectangle, right=of Z2] (D2) {D2};
+
+        \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
+        \node[draw, rectangle, right=of K1] (V1) {Verzögerung};
+
+        \node[draw, rectangle] (Zeit1) at (10, -2) {Zeitmessung};
+
+        \node[draw, rectangle, above=of D1] (Zahl1) {Zähler};
+        \node[draw, rectangle, below=of D2] (Zahl2) {Zähler};
+
+        \draw[->] (Z1) -- (D1);
+        \draw[->] (Z2) -- (D2);
+
+        \begin{scope}[dashed]
+            \draw[->] (D1) -- (K1);
+            \draw[->] (D2) -- (K1);
+            \draw[->] (K1) -- (V1);
+            \draw[->] (V1) -- (Zeit1) node[midway, sloped, above] {\textsc{Start}};
+            \draw[->] (D2) -- (Zeit1) node[midway, sloped, below] {\textsc{Stop}};
+            \draw[->] (D1) -- (Zahl1);
+            \draw[->] (D2) -- (Zahl2);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{%
+        Aufbau mit Monitorkreis (links) und Kreis zur Zeitmessung (rechts). Die
+        „D“ bezeichnen die Diskriminatoren. Analoge Signale sind durch
+        durchgezogene Linien gekennzeichnet, Digitale durch Gestrichelte.
+    }
+    \label{fig:myon-zeit}
+\end{figure}
 
 \subsection{Aufnahme der Schwellenkurve}
 
