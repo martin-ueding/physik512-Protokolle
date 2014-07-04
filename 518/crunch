@@ -166,7 +166,7 @@ def lebensdauer_schwellenbestimmung(T):
         unitprint.siunitx(data[:, 2]),
         unitprint.siunitx(data[:, 3]),
         unitprint.siunitx(data[:, 4]),
-        unitprint.siunitx(data[:, 5]),
+        unitprint.siunitx(data[:, 5], allowed_hang=5),
         unitprint.siunitx(data[:, 6]),
         unitprint.siunitx(data[:, 7]),
         unitprint.siunitx(data[:, 8]),
