@@ -241,7 +241,6 @@ def winkel_schwellenbestimmung(T):
     oder = data[:, 4]
     d25 = data[:, 5]
 
-    pl.errorbar(schwelle, koinzidenz_val, yerr=koinzidenz_err)
     diff_x = np.diff(schwelle)
     diff_x = schwelle[:-1] + diff_x/2
     diff_y = np.diff(koinzidenz_val)
@@ -249,7 +248,6 @@ def winkel_schwellenbestimmung(T):
         (koinzidenz_err[1:])**2
         + (koinzidenz_err[:-1])**2
     )
-    pl.errorbar(diff_x, diff_y, yerr=diff_y_err)
 
     diff_x2 = np.diff(diff_x)
     diff_x2 = diff_x[:-1] + diff_x2/2
@@ -258,11 +256,18 @@ def winkel_schwellenbestimmung(T):
         (diff_y_err[1:])**2
         + (diff_y_err[:-1])**2
     )
-    pl.errorbar(diff_x2, diff_y2, yerr=diff_y2_err)
 
-    pl.grid(True)
-    #pl.show()
-    pl.clf()
+    np.savetxt('_build/winkel-schwelle-ratio.csv', np.column_stack([
+        schwelle, koinzidenz_val, koinzidenz_err,
+    ]))
+
+    np.savetxt('_build/winkel-schwelle-steigung.csv', np.column_stack([
+        diff_x, diff_y, diff_y_err,
+    ]))
+
+    np.savetxt('_build/winkel-schwelle-kruemmung.csv', np.column_stack([
+        diff_x2, diff_y2, diff_y2_err,
+    ]))
 
 def test_keys(T):
     '''
