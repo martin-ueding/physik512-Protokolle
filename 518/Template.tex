@@ -1297,9 +1297,26 @@ Diese Überschneidung haben wir auf dem Oszilloskop betrachtet. Aufgrund der
 geringen Ereignisrate sind wir im Einzelschrittmodus vorgegangen. Da ein
 einzelnes Oszillogramm mit Überlappung nicht viel aussagt, haben wir einige Bilder
 gespeichert. Auf alle diesen ist die Überlappung gut, so dass die Verzögerung,
-die bereits eingestellt war, korrekt ist.
+die bereits eingestellt war, korrekt ist. Dies ist in
+Abbildung~\ref{fig:koinzidenz} abgebildet.
 
-% TODO Oszillogramme einfügen.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.47\linewidth]{../Daten/DS0000.png}
+    \hfill
+    \includegraphics[width=0.47\linewidth]{../Daten/DS0002.png}
+
+    \vspace*{5ex}
+
+    \includegraphics[width=0.47\linewidth]{../Daten/DS0003.png}
+    \caption{%
+        Oszillogramme zur Koinzidenz vom analogen Z12 Signal gegen das
+        dazugehörige Gatesignal. Auf Kanal~1 (orange) ist das analoge Signal
+        von Z12, auf Kanal~2 (cyan) das Gatesignal. Der Trigger liegt auf der
+        steigenden Flanke auf Kanal~2.
+    }
+    \label{fig:koinzidenz}
+\end{figure}
 
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
