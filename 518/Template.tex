@@ -1328,15 +1328,15 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
     \tikzsetnextfilename{myon-zeit}
     \begin{tikzpicture}
         \node[draw, rectangle] (Z1) at (0, 0) {Detektor 1};
-        \node[draw, rectangle] (Z2) at (0, -2) {Detektor 2};
+        \node[draw, rectangle, below= of Z1] (Z2)  {Detektor 2};
 
-        \node[draw, rectangle, right=of Z1] (D1) {D1};
-        \node[draw, rectangle, right=of Z2] (D2) {D2};
+        \node[draw, rectangle, right=of Z1] (D1) {Diskriminator 1};
+        \node[draw, rectangle, right=of Z2] (D2) {Diskriminator 2};
 
         \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
         \node[draw, rectangle, right=of K1] (V1) {Verzögerung};
 
-        \node[draw, rectangle] (Zeit1) at (10, -2) {Zeitmessung};
+        \node[draw, rectangle, below= of V1] (Zeit1) {Zeitmessung};
 
         \node[draw, rectangle, above=of D1] (Zahl1) {Zähler};
         \node[draw, rectangle, below=of D2] (Zahl2) {Zähler};
