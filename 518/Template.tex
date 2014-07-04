@@ -1208,10 +1208,23 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
     \label{fig:entwurf-3}
 \end{figure}
 
-% TODO Wir stellen das ganze exemplarisch für Z12 ein. Was müssen wir mit den
-% anderen Zählern machen? Sind die (a) schon fertig eingestellt, (b) erhalten
-% die gleichen Parameter wie Z12 oder (c) müssen jeweils noch ausgemessen
-% werden?
+Das endgültige Programm, das wir am ersten Versuchstag entwickelt haben, ist in
+Abbildung~\ref{fig:labview-programm} gezeigt. Wir haben noch das Zurücksetzen
+der Zähler eingefügt. Die Schwellen für die anderen Diskriminatoren haben wir
+aus dem Programm kopiert, das für die Langzeitmessung benutzt wird.
+
+\begin{landscape}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=\linewidth]{../Programm_kombiniert.png}
+        \caption{%
+            Das von uns entwickelte LabVIEW Programm zur Schwellenbestimmung.
+            Es geht verschiedene Schwellenwerte durch, nimmt für eine feste
+            Zeit Ereignisse auf und speichert die Resultate in einer Datei.
+        }
+        \label{fig:labview-programm}
+    \end{figure}
+\end{landscape}
 
 \subsubsection{Auswertung der Daten}
 
