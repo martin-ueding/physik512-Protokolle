@@ -261,7 +261,7 @@ def winkel_schwellenbestimmung(T):
     pl.errorbar(diff_x2, diff_y2, yerr=diff_y2_err)
 
     pl.grid(True)
-    pl.show()
+    #pl.show()
     pl.clf()
 
 def test_keys(T):
