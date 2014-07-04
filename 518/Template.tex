@@ -1364,10 +1364,12 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
 
 \subsection{Aufnahme der Schwellenkurve}
 
-Wir stellen die Diskriminatorschwellen des Monitorkreises auf das Minimum. Dann
-gehen wir per Hand die Diskriminatorschwellen für den Messkreis durch und
-messen die Anzahl der Ereignisse, die in \SI{600}{\second} eintreffen. Die
-rohen Messdaten sind in Tabelle~\ref{tab:schwellen_roh}.
+Wir stellen die Diskriminatorschwellen des Monitorkreises auf das Minimum.
+Dies sind \SI{<< schwelle_mo_c1 >>}{\volt} beziehungsweise \SI{<<
+schwelle_mo_c2 >>}{\volt}. Dann gehen wir per Hand die
+Diskriminatorschwellen für den Messkreis durch und messen die Anzahl der
+Ereignisse, die in \SI{600}{\second} eintreffen. Die rohen Messdaten sind in
+Tabelle~\ref{tab:schwellen_roh}.
 
 Für uns interessant ist das Verhältnis der Zählraten von Mess- und
 Monitorkreis. Diese sind für den ersten Detektor in
@@ -1512,11 +1514,9 @@ Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
 
         \begin{figure}[htbp]
             \centering
-            \begin{tabular}{*4S|*4S|S}
+            \begin{tabular}{*2S|*4S|S}
                 {Me. 1} &
                 {Me. 2} &
-                {Mo. 1} &
-                {Mo. 2} &
                 {Me. 1} &
                 {Me. 2} &
                 {Mo. 1} &
@@ -1528,11 +1528,11 @@ Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
                 %< endfor >%
             \end{tabular}
             \caption{%
-                Rohe Messdaten der Schwellenkurve für die Myonlebensdauer. Die
-                ersten vier Spalten sind die Diskriminatorschwellen in
-                \si\volt, wobei „Me“ für Mess- und „Mo“ für Monitorkreis steht.
-                Die nächsten vier Spalten sind die Anzahl der Ereignisse. Die
-                letzte Spalte ist die Zeit in \si\second.
+                Rohe Messdaten der Schwellenkurve für die Myonlebensdauer.
+                Die ersten zwei Spalten sind die Diskriminatorschwellen in
+                \si\volt, die nächsten vier Spalten sind die Anzahl der
+                Ereignisse. „Me“ steht dabei für Mess- und „Mo“ für
+                Monitorkreis.  Die letzte Spalte ist die Zeit in \si\second.
             }
             \label{tab:schwellen_roh}
         \end{figure}
