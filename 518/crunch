@@ -269,6 +269,16 @@ def winkel_schwellenbestimmung(T):
         diff_x2, diff_y2, diff_y2_err,
     ]))
 
+    T['winkel_sweep_roh'] = list(zip(
+        unitprint.siunitx(data[:, 0]),
+        unitprint.siunitx(data[:, 1]),
+        unitprint.siunitx(data[:, 2], allowed_hang=6),
+        unitprint.siunitx(data[:, 3], allowed_hang=6),
+        unitprint.siunitx(data[:, 4], allowed_hang=6),
+        unitprint.siunitx(data[:, 5], allowed_hang=6),
+    ))
+
+
 def test_keys(T):
     '''
     Testet das dict auf Schlüssel mit Bindestrichen.

@@ -1215,6 +1215,11 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
 
 \subsubsection{Auswertung der Daten}
 
+Die Daten, die über Nacht durch das LabVIEW Programm gemessen worden sind, sind
+in Tabelle~\ref{tab:winkel-daten} aufgelistet. In
+Abbildung~\ref{fig:winkel-koinzidenz} ist die Anzahl der Koinzidenzen gegen die
+eingestellte Schwelle zusammen mit der ersten Ableitung dargestellt.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{winkel-koinzidenz}
@@ -1267,6 +1272,9 @@ Abbildung~\ref{fig:entwurf-3} dargestellt.
     \label{fig:winkel-koinzidenz}
 \end{figure}
 
+Wir benutzen als Schwelle nun \SI{-125}{\milli\volt}, da dort das Minimum der
+ersten Ableitung ist, es sich also um einen Wendepunkt in der gewünschten
+Richtung handelt.
 
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
@@ -1525,10 +1533,31 @@ Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
 \begin{appendix}
     \chapter{Rohe Messdaten}
 
+    \section{Schwellenkurve Winkelverteilung}
+
+    \begin{table}[htbp]
+        \centering
+        \begin{tabular}{*2S|*4S}
+            {Index} &
+            {Schwelle} &
+            {Koinzidenzen} &
+            {D12} &
+            {oder} &
+            {D25} \\
+            \midrule
+            %< for row in winkel_sweep_roh: >%
+            << ' & '.join(row) >> \\
+            %< endfor >%
+        \end{tabular}
+        \caption{%
+        }
+        \label{tab:winkel-daten}
+    \end{table}
+
     \begin{landscape}
         \section{Schwellenkurve Myonlebensdauer}
 
-        \begin{figure}[htbp]
+        \begin{table}[htbp]
             \centering
             \begin{tabular}{*4S|*4S|S}
                 {Me. 1} &
@@ -1553,7 +1582,7 @@ Aus diesen Daten lesen wir \SI{-0.9}{\volt} als sinnvolle Schwelle ab.
                 letzte Spalte ist die Zeit in \si\second.
             }
             \label{tab:schwellen_roh}
-        \end{figure}
+        \end{table}
     \end{landscape}
 
     \begin{table}[htbp]
