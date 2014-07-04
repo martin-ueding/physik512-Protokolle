@@ -1109,13 +1109,6 @@ Abbildung~\ref{fig:koinzidenz} dargestellt.
 
 \section{Justierung}
 
-\subsection{Optimieren der Verzögerung}
-\label{sec:optimieren_verzoegerung}
-
-In LabVIEW konstruieren wir ein logisches Oder zwischen den Diskriminatoren
-D23, D24, D1 und D2. Mit dessen Ausgang konstruieren wir eine Koinzidenz mit
-dem Ausgang von D12.
-
 \subsection{Einstellung der Diskriminatorschwelle}
 \label{sec:einstellung_diskriminatorschwelle}
 
@@ -1288,6 +1281,25 @@ eingestellte Schwelle zusammen mit der ersten Ableitung dargestellt.
 Wir benutzen als Schwelle nun \SI{-125}{\milli\volt}, da dort das Minimum der
 ersten Ableitung ist, es sich also um einen Wendepunkt in der gewünschten
 Richtung handelt.
+
+\subsection{Optimieren der Verzögerung}
+\label{sec:optimieren_verzoegerung}
+
+Das LabVIEW Programm, das für die Langzeitmessung benutzt wird, ist so
+aufgebaut, dass auf einem der Digitalausgänge der NIMBox das Signal von D12
+liegt. Dieses wird durch einen Gate Delay Generator verlängert und dient als
+Gatesignal für den MCA. Das analoge Signal von Z12 wird in einem
+Shapingamplifier derart umgeformt, dass es positiv ist und eine mit dem MCA
+kompatible Form hat. Dieses Signal wird noch verzögert, damit es sich mit dem
+Gatesignal aus der NIMBox überschneidet.
+
+Diese Überschneidung haben wir auf dem Oszilloskop betrachtet. Aufgrund der
+geringen Ereignisrate sind wir im Einzelschrittmodus vorgegangen. Da ein
+einzelnes Oszillogramm mit Überlappung nicht viel aussagt, haben wir einige Bilder
+gespeichert. Auf alle diesen ist die Überlappung gut, so dass die Verzögerung,
+die bereits eingestellt war, korrekt ist.
+
+% TODO Oszillogramme einfügen.
 
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
