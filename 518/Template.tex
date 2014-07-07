@@ -1324,6 +1324,33 @@ Abbildung~\ref{fig:koinzidenz} abgebildet.
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{winkel-fit}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                grid=major,
+                xlabel={Winkel / \si\degree},
+                ylabel={Anzahl},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {winkel-daten.csv};
+            \addplot[red] table {winkel-fit.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:winkel-fit}
+\end{figure}
+
 \section{Langzeitmessung des Pulshöhenspektrums}
 \label{sec:langzeit_puls}
 
