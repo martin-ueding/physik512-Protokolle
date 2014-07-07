@@ -1514,8 +1514,9 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
         \end{scope}
     \end{tikzpicture}
     \caption{%
-    Versuchsaufbau für die Lebensdauerbestimmung von Myonen. Durchgezogene
-    Linien bezeichnen analoge, gestrichelte bezeichnen digitale Signale
+    Aufbau für die Diskriminatorschwellenbestimmung zu Messung der Lebensdauer
+    von Myonen. Durchgezogene Linien bezeichnen analoge, gestrichelte
+    bezeichnen digitale Signale.
     }
     \label{fig:myon-schwellen}
 \end{figure}
@@ -1533,7 +1534,7 @@ weiterer Impuls erzeugt, der die Sperre wieder außer Kraft setzt.
         \node[draw, rectangle, right=of D1] (K1) {Koinzidenz};
         \node[draw, rectangle, right=of K1] (V1) {Verzögerung};
 
-        \node[draw, rectangle, right=of D2] (Zeit1) {Zeitmessung};
+        \node[draw, rectangle, below=of V1] (Zeit1) {Zeitmessung};
 
         \node[draw, rectangle, above=of D1] (Zahl1) {Zähler};
         \node[draw, rectangle, below=of D2] (Zahl2) {Zähler};
