@@ -160,11 +160,12 @@ def lebensdauer_schwellenbestimmung(T):
     # Zeit
     time = data[:,8]
 
+    T['schwelle_mo_c1'] = schwelle_mo_c1[0]
+    T['schwelle_mo_c2'] = schwelle_mo_c2[0]
+
     T['schwellen_roh'] = list(zip(
         unitprint.siunitx(data[:, 0]),
         unitprint.siunitx(data[:, 1]),
-        unitprint.siunitx(data[:, 2]),
-        unitprint.siunitx(data[:, 3]),
         unitprint.siunitx(data[:, 4]),
         unitprint.siunitx(data[:, 5], allowed_hang=5),
         unitprint.siunitx(data[:, 6]),
