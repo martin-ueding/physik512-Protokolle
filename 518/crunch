@@ -284,23 +284,27 @@ def cos_fit(x, amp):
 def job_winkelverteilung(T):
     data = np.loadtxt('Daten/Winkel.csv')
 
-    winkel = data[:, 0]
     anzahl_val = data[:, 1]
-    anzahl_err = np.sqrt(anzahl_val)
+    selection = anzahl_val > 1
 
-    pl.errorbar(winkel, anzahl_val, yerr=anzahl_err)
-    pl.show()
-    pl.clf()
+    winkel = data[:, 0][selection]
+    anzahl_val = anzahl_val[selection]
+    anzahl_err = np.sqrt(anzahl_val)
 
     np.savetxt('_build/winkel-daten.csv', np.column_stack([
         winkel, anzahl_val, anzahl_err,
     ]))
 
-    popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err)
+    popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err, p0=[1000])
     d = np.sqrt(pconv.diagonal())
+    print(popt)
 
-    fit_x = np.linspace(np.min(winkel), np.max(winkel))
+    fit_x = np.linspace(np.min(winkel), np.max(winkel), 100)
     fit_y = cos_fit(fit_x, *popt)
+    np.savetxt('_build/winkel-fit.csv', np.column_stack([
+        fit_x, fit_y,
+    ]))
+
 
     T['cos_fit_amp'] = unitprint.siunitx(popt[0], d[0])
     T['winkel_daten'] = list(zip(
