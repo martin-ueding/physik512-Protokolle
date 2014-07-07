@@ -1324,6 +1324,32 @@ Abbildung~\ref{fig:koinzidenz} abgebildet.
 \section{Langzeitmessung zur Winkelverteilung}
 \label{sec:langzeit_winkel}
 
+Nachdem wir die Schwelle für den Diskriminator~12 entsprechend im
+vorgefertigten LabVIEW Programm eingestellt haben, starten wir damit die
+Langzeitmessung zur Winkelverteilung. Nach drei Tagen lesen wir Daten ab, siehe
+Tabelle~\ref{tab:winkel_daten}. Die Fehler haben wir durch $\sqrt n$ berechnet,
+da es sich hier um ein Zählexperiment handelt.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Winkel / \si\degree} & {Anzahl Koinzidenzen} \\
+        \midrule
+        %< for row in winkel_daten: >%
+        << ' & '.join(row) >> \\
+        %< endfor >%
+    \end{tabular}
+    \caption{%
+        Anzahl der Koinzidenzen für die verschiedenen Raumrichtungen.
+    }
+    \label{tab:winkel_daten}
+\end{table}
+
+Die Daten aus Tabelle~\ref{tab:winkel_daten} sind zusammen mit einer
+Anpassungsfunktion $\propto \cos(\theta)^2$ in Abbildung~\ref{fig:winkel-fit}
+gezeigt. Den Detektor, der keine Ereignisse gezählt hat, haben wir für die
+Anpassung ausgelassen.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{winkel-fit}
@@ -1347,12 +1373,48 @@ Abbildung~\ref{fig:koinzidenz} abgebildet.
         \end{axis}
     \end{tikzpicture}
     \caption{%
+        Anzahl der Koinzidenzen gegen die Raumrichtung mit Anpassungsfunktion.
     }
     \label{fig:winkel-fit}
 \end{figure}
 
+Die Verteilung ist nicht ganz symmetrisch um \SI{90}{\degree}, folgt der
+Erwartung jedoch gut. Das Erdmagnetfeld kann die Verteilung etwas verschieben,
+jedoch können wir nicht sagen, wie groß dieser Effekt ist.
+
 \section{Langzeitmessung des Pulshöhenspektrums}
 \label{sec:langzeit_puls}
+
+Gleichzeitig mit der Messung der Winkelverteilung haben wir mit Detektor~12 ein
+Pulshöhenspektrum vermessen. Dieses ist in Abbildung~\ref{fig:spektrum-daten}
+dargestellt. Wir haben in dieser Abbildung einen Ausschnitt gewählt, da bei
+kleinen Energien Rauschen auftritt. Die vollständigen Daten sind in
+Abbildung~\ref{fig:spektrum-daten-roh} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{spektrum-daten}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                grid=major,
+                xmin=25,
+                xmax=900,
+                xlabel={Kanal},
+                ylabel={Anzahl},
+            ]
+            \addplot[black] table {../Daten/Werte.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Spektrum der Myonen.
+    }
+    \label{fig:spektrum-daten}
+\end{figure}
+
+Die Asymmetrie der Landauverteilung ist zu erkennen. Aufgrund der geringen
+Messzeit von drei Tagen sind die Schwankungen der einzelnen Messpunkte sehr groß.
 
 \chapter{Myonenlebensdauer}
 
@@ -1599,16 +1661,97 @@ Zeitmessers an, das Signal von Detektor~2 schließen wir an den
 \textsc{Stop}-Eingang an. Wir setzen die 10 Sichtzähler zurück und lassen die
 Messung die nächsten Tage laufen.
 
+Nach drei Tagen lesen wir die Messdaten ab. Die Daten sind in
+Tabelle~\ref{tab:leben_daten} aufgelistet.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SS}
+        {Lebensdauer / \si{\micro\second}} & {Anzahl Ereignisse} \\
+        \midrule
+        %< for row in leben_daten: >%
+        << ' & '.join(row) >> \\
+        %< endfor >%
+    \end{tabular}
+    \caption{%
+        Messdaten nach drei Tagen Lebensdauermessung.
+    }
+    \label{tab:leben_daten}
+\end{table}
+
 \section{Auswertung}
 
-% TODO
+An die Daten aus Tabelle~\ref{tab:leben_daten} passen wir eine fallende
+Exponentialfunktion an. Die Anpassung un Messdaten sind zusammen in
+Abbildung~\ref{fig:leben-fit} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{leben-fit}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                grid=major,
+                xlabel={Lebensdauer / \si{\micro\second}},
+                ylabel={Anzahl Ereignisse},
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {leben-daten.csv};
+            \addplot[red] table {leben-fit.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Messdaten und Anpassung mit einer abfallenden Exponentialfunktion aus
+        der Lebensdauermessung.
+    }
+    \label{fig:leben-fit}
+\end{figure}
+
+Aus der Anpassung erhalten wir eine Lebensdauer von \SI{<< leben_fit_time
+>>}{\micro\second}.
 
 \chapter{Ergebnis}
 
-% TODO
+Die $\cos(\theta)^2$ Verteilung der Myonen konnten wir nachvollziehen. Das
+Spektrum der senkrecht einfallenden Myonen weißt die erwartete Landauverteilung
+auf.
+
+Die Lebensdauer des Myons haben wir auf \SI{<< leben_fit_time
+>>}{\micro\second} bestimmt. Dies passt sehr gut zum Literaturwert von
+\SI{2.1969811(22)}{\micro\second} \parencite{Wikipedia/Muon}.
 
 \begin{appendix}
     \chapter{Rohe Messdaten}
+
+    \section{Pulshöhenspektrum}
+
+    \begin{figure}[htbp]
+        \centering
+        \tikzsetnextfilename{spektrum-daten-roh}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=\linewidth,
+                    height=0.55\linewidth,
+                    grid=major,
+                    xlabel={Kanal},
+                    ylabel={Anzahl},
+                ]
+                \addplot[black] table {../Daten/Werte.txt};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{%
+            Alle Messdaten, in Abbildung~\ref{fig:spektrum-daten} ist der
+            interessante Ausschnitt dargestellt.
+        }
+        \label{fig:spektrum-daten-roh}
+    \end{figure}
 
     \section{Schwellenkurve Winkelverteilung}
 

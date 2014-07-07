@@ -278,6 +278,36 @@ def winkel_schwellenbestimmung(T):
         unitprint.siunitx(data[:, 5], allowed_hang=6),
     ))
 
+def decay(x, tau, amp):
+    return amp * np.exp(- x / tau)
+
+def job_lebensdauer(T):
+    data = np.loadtxt('Daten/Lebensdauer.csv')
+    slot = data[:, 0]
+    anzahl_val = data[:, 1]
+    anzahl_err = np.sqrt(anzahl_val)
+
+    np.savetxt('_build/leben-daten.csv', np.column_stack([
+        slot, anzahl_val, anzahl_err,
+    ]))
+
+    popt, pconv = op.curve_fit(decay, slot, anzahl_val, sigma=anzahl_err)
+    d = np.sqrt(pconv.diagonal())
+    print(popt)
+
+    fit_x = np.linspace(np.min(slot), np.max(slot), 100)
+    fit_y = decay(fit_x, *popt)
+    np.savetxt('_build/leben-fit.csv', np.column_stack([
+        fit_x, fit_y,
+    ]))
+
+
+    T['leben_fit_time'] = unitprint.siunitx(popt[0], d[0])
+    T['leben_daten'] = list(zip(
+        unitprint.siunitx(slot),
+        unitprint.siunitx(anzahl_val, anzahl_err),
+    ))
+
 def cos_fit(x, amp):
     return amp * np.cos(np.radians(x))**2
 
@@ -287,13 +317,23 @@ def job_winkelverteilung(T):
     anzahl_val = data[:, 1]
     selection = anzahl_val > 1
 
-    winkel = data[:, 0][selection]
-    anzahl_val = anzahl_val[selection]
+    winkel = data[:, 0]
+    winkel[winkel > 90] -= 180
+    anzahl_val = anzahl_val
     anzahl_err = np.sqrt(anzahl_val)
 
     np.savetxt('_build/winkel-daten.csv', np.column_stack([
         winkel, anzahl_val, anzahl_err,
     ]))
+    T['winkel_daten'] = list(zip(
+        unitprint.siunitx(winkel),
+        unitprint.siunitx(anzahl_val, anzahl_err),
+    ))
+
+    winkel = data[:, 0][selection]
+    winkel[winkel > 90] -= 180
+    anzahl_val = anzahl_val[selection]
+    anzahl_err = np.sqrt(anzahl_val)
 
     popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err, p0=[1000])
     d = np.sqrt(pconv.diagonal())
@@ -307,10 +347,6 @@ def job_winkelverteilung(T):
 
 
     T['cos_fit_amp'] = unitprint.siunitx(popt[0], d[0])
-    T['winkel_daten'] = list(zip(
-        unitprint.siunitx(winkel),
-        unitprint.siunitx(anzahl_val, anzahl_err),
-    ))
 
 
 def test_keys(T):
@@ -339,6 +375,7 @@ def main():
     T = {}
 
     job_winkelverteilung(T)
+    job_lebensdauer(T)
     job_cos_squared()
     lebensdauer_schwellenbestimmung(T)
     winkel_schwellenbestimmung(T)
