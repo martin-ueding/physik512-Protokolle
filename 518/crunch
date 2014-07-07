@@ -278,6 +278,36 @@ def winkel_schwellenbestimmung(T):
         unitprint.siunitx(data[:, 5], allowed_hang=6),
     ))
 
+def cos_fit(x, amp):
+    return amp * np.cos(np.radians(x))**2
+
+def job_winkelverteilung(T):
+    data = np.loadtxt('Daten/Winkel.csv')
+
+    winkel = data[:, 0]
+    anzahl_val = data[:, 1]
+    anzahl_err = np.sqrt(anzahl_val)
+
+    pl.errorbar(winkel, anzahl_val, yerr=anzahl_err)
+    pl.show()
+    pl.clf()
+
+    np.savetxt('_build/winkel-daten.csv', np.column_stack([
+        winkel, anzahl_val, anzahl_err,
+    ]))
+
+    popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err)
+    d = np.sqrt(pconv.diagonal())
+
+    fit_x = np.linspace(np.min(winkel), np.max(winkel))
+    fit_y = cos_fit(fit_x, *popt)
+
+    T['cos_fit_amp'] = unitprint.siunitx(popt[0], d[0])
+    T['winkel_daten'] = list(zip(
+        unitprint.siunitx(winkel),
+        unitprint.siunitx(anzahl_val, anzahl_err),
+    ))
+
 
 def test_keys(T):
     '''
@@ -304,6 +334,7 @@ def test_keys(T):
 def main():
     T = {}
 
+    job_winkelverteilung(T)
     job_cos_squared()
     lebensdauer_schwellenbestimmung(T)
     winkel_schwellenbestimmung(T)
