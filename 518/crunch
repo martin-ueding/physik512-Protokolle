@@ -15,8 +15,9 @@ import scipy.optimize as op
 import scipy.stats
 import unitprint
 
-def landau(x, amp, offset):
-    return amp/np.sqrt(2*np.pi) * np.exp(-0.5*((x-offset)+np.exp(-(x-offset))))
+def landau(x, amp, width, offset):
+    z = (x-offset) / width
+    return amp/np.sqrt(2*np.pi) * np.exp(-0.5*(z+np.exp(-z)))
 
 def job_cos_squared():
     '''
@@ -196,7 +197,6 @@ def lebensdauer_schwellenbestimmung(T):
                                               rate_mo_c2_err)
     ratio_output(T, 'c2', schwelle_me_c1, r_data, diff_data)
 
-
 def ratio_derivative_plot(schwelle_me, rate_me_val, rate_me_err, rate_mo_val, rate_mo_err):
     # Verhältnisse
     ratio_val = rate_me_val/rate_mo_val
@@ -305,7 +305,6 @@ def job_lebensdauer(T):
         fit_x, fit_y,
     ]))
 
-
     T['leben_fit_time'] = unitprint.siunitx(popt[0], d[0])
     T['leben_daten'] = list(zip(
         unitprint.siunitx(slot),
@@ -349,12 +348,39 @@ def job_winkelverteilung(T):
         fit_x, fit_y,
     ]))
 
-
     T['cos_fit_amp'] = unitprint.siunitx(popt[0], d[0])
     T['cos_fit_off'] = unitprint.siunitx(popt[1], d[1])
     T['cos_fit_phi'] = unitprint.siunitx(popt[2], d[2])
     T['cos_fit_exp'] = unitprint.siunitx(popt[3], d[3])
 
+def job_landau_fit(T):
+    data = np.loadtxt('Daten/Werte.txt')
+    kanal = data[50:900, 0]
+    werte_val = data[50:900, 1]
+
+    selection = werte_val > 0
+
+    kanal = kanal[selection]
+    werte_val = werte_val[selection]
+    werte_err = np.sqrt(werte_val)
+
+    popt, pconv = op.curve_fit(landau, kanal, werte_val, sigma=werte_err, p0=(30, 300, 100))
+    print(popt)
+    print(pconv)
+
+    fit_x = np.linspace(np.min(kanal), np.max(kanal), 200)
+    fit_y = landau(fit_x, *popt)
+
+    np.savetxt('_build/landau-fit.txt', np.column_stack((fit_x, fit_y)))
+
+    popt, pconv = op.curve_fit(gauss, kanal, werte_val, sigma=werte_err, p0=(300, 100, 100))
+    print(popt)
+    print(pconv)
+
+    fit_x = np.linspace(np.min(kanal), np.max(kanal), 200)
+    fit_y = gauss(fit_x, *popt)
+
+    np.savetxt('_build/gauss-fit.txt', np.column_stack((fit_x, fit_y)))
 
 def test_keys(T):
     '''
@@ -377,10 +403,10 @@ def test_keys(T):
         print()
         sys.exit(100)
 
-
 def main():
     T = {}
 
+    job_landau_fit(T)
     job_winkelverteilung(T)
     job_lebensdauer(T)
     job_cos_squared()

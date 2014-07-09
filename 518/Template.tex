@@ -1412,7 +1412,12 @@ Abbildung~\ref{fig:spektrum-daten-roh} gezeigt.
                 xlabel={Kanal},
                 ylabel={Anzahl},
             ]
-            \addplot[black] table {../Daten/Werte.txt};
+            \addplot[
+                only marks,
+                marker=.,
+            ] table {../Daten/Werte.txt};
+            \addblot[red] table {landau-fit.txt};
+            \addblot[blue] table {gauss-fit.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
