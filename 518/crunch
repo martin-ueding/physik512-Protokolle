@@ -15,6 +15,9 @@ import scipy.optimize as op
 import scipy.stats
 import unitprint
 
+def landau(x, amp, offset):
+    return amp/np.sqrt(2*np.pi) * np.exp(-0.5*((x-offset)+np.exp(-(x-offset))))
+
 def job_cos_squared():
     '''
     Generiert eine :math:`\cos(\phi)^2` Datei zum Plotten.
