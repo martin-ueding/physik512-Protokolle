@@ -309,8 +309,8 @@ def job_lebensdauer(T):
         unitprint.siunitx(anzahl_val, anzahl_err),
     ))
 
-def cos_fit(x, amp):
-    return amp * np.cos(np.radians(x))**2
+def cos_fit(x, amp, off, phi, ex):
+    return amp * np.cos(np.radians(x) + phi)**ex + off
 
 def job_winkelverteilung(T):
     data = np.loadtxt('Daten/Winkel.csv')
@@ -336,9 +336,9 @@ def job_winkelverteilung(T):
     anzahl_val = anzahl_val[selection]
     anzahl_err = np.sqrt(anzahl_val)
 
-    popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err, p0=[1000])
-    d = np.sqrt(pconv.diagonal())
+    popt, pconv = op.curve_fit(cos_fit, winkel, anzahl_val, sigma=anzahl_err, p0=[1000, -10, 0, 2])
     print(popt)
+    d = np.sqrt(pconv.diagonal())
 
     fit_x = np.linspace(np.min(winkel), np.max(winkel), 100)
     fit_y = cos_fit(fit_x, *popt)
@@ -348,6 +348,9 @@ def job_winkelverteilung(T):
 
 
     T['cos_fit_amp'] = unitprint.siunitx(popt[0], d[0])
+    T['cos_fit_off'] = unitprint.siunitx(popt[1], d[1])
+    T['cos_fit_phi'] = unitprint.siunitx(popt[2], d[2])
+    T['cos_fit_exp'] = unitprint.siunitx(popt[3], d[3])
 
 
 def test_keys(T):
