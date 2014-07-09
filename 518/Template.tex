@@ -1411,20 +1411,26 @@ Abbildung~\ref{fig:spektrum-daten-roh} gezeigt.
                 xmax=900,
                 xlabel={Kanal},
                 ylabel={Anzahl},
+                legend entries={
+                    Daten,
+                    Landauverteilung,
+                    Normalverteilung,
+                }
             ]
             \addplot[black] table {../Daten/Werte.txt};
-            \addplot[red] table {landau-fit.txt};
-            \addplot[blue] table {gauss-fit.txt};
+            \addplot[thick, red] table {landau-fit.txt};
+            \addplot[thick, blue] table {gauss-fit.txt};
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Spektrum der Myonen.
+        Spektrum der Myonen. Angepasst wurden Landau- und Normalverteilung.
     }
     \label{fig:spektrum-daten}
 \end{figure}
 
 Die Asymmetrie der Landauverteilung ist zu erkennen. Aufgrund der geringen
-Messzeit von drei Tagen sind die Schwankungen der einzelnen Messpunkte sehr groß.
+Messzeit von drei Tagen sind die Schwankungen der einzelnen Messpunkte sehr
+groß.
 
 An diese Daten passen wir eine Näherung der Landauverteilung an. Leider bietet
 SciPy keine exakte Landauverteilung an, so dass wir folgende Näherung benutzen
@@ -1441,21 +1447,21 @@ mit
 
 Aus der Anpassung erhalten wir 
 \[
-    A = << landau_fit_amp >>
+    A = \num{<< landau_fit_amp >>}
     \eqnsep
-    \sigma = << landau_fit_width >>
+    \sigma = \num{<< landau_fit_width >>}
     \eqnsep
-    \mu = << landau_fit_offset >>
+    \mu = \num{<< landau_fit_offset >>}
 \]
 
 Zum Vergleich passen wir noch eine Normalverteilung mit Integral $A$, Breite
 $\sigma$ und Mittelwert $\mu$ an und erhalten:
 \[
-    A = << gauss_fit_integral >>
+    A = \num{<< gauss_fit_integral >>}
     \eqnsep
-    \sigma = << gauss_fit_sigma >>
+    \sigma = \num{<< gauss_fit_sigma >>}
     \eqnsep
-    \mu = << gauss_fit_mean >>
+    \mu = \num{<< gauss_fit_mean >>}
 \]
 
 \chapter{Myonenlebensdauer}
