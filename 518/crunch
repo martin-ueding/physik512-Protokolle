@@ -310,7 +310,7 @@ def job_lebensdauer(T):
     ))
 
 def cos_fit(x, amp, off, phi, ex):
-    return amp * np.cos(np.radians(x) + phi)**ex + off
+    return amp * np.cos(np.radians(x + phi))**ex + off
 
 def job_winkelverteilung(T):
     data = np.loadtxt('Daten/Winkel.csv')

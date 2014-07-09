@@ -1333,7 +1333,7 @@ da es sich hier um ein Zählexperiment handelt.
 \begin{table}[htbp]
     \centering
     \begin{tabular}{SS}
-        {Winkel / \si\degree} & {Anzahl Koinzidenzen} \\
+        {$\theta$ / \si\degree} & {Anzahl Koinzidenzen} \\
         \midrule
         %< for row in winkel_daten: >%
         << ' & '.join(row) >> \\
@@ -1345,10 +1345,15 @@ da es sich hier um ein Zählexperiment handelt.
     \label{tab:winkel_daten}
 \end{table}
 
-Die Daten aus Tabelle~\ref{tab:winkel_daten} sind zusammen mit einer
-Anpassungsfunktion $\propto \cos(\theta)^2$ in Abbildung~\ref{fig:winkel-fit}
-gezeigt. Den Detektor, der keine Ereignisse gezählt hat, haben wir für die
-Anpassung ausgelassen.
+Die Daten aus Tabelle~\ref{tab:winkel_daten} sind in Abbildung~\ref{fig:winkel-fit}
+gezeigt. Durch die Anpassung mit
+\[
+    N = A\cdot\cos^n\del{\theta + \phi} + B
+\]
+erhalten wir $A = \num{<< cos_fit_amp >>}$, $n = \num{<< cos_fit_exp >>}$,
+$\phi = \num{<< cos_fit_phi >>}$ und $B = \num{<< cos_fit_off >> }$, 
+wobei wir den Detektor, der keine Ereignisse gezählt hat, für die
+Anpassung ausgelassen haben.
 
 \begin{figure}[htbp]
     \centering
@@ -1358,7 +1363,7 @@ Anpassung ausgelassen.
                 width=\linewidth,
                 height=0.55\linewidth,
                 grid=major,
-                xlabel={Winkel / \si\degree},
+                xlabel={$\theta$ / \si\degree},
                 ylabel={Anzahl},
             ]
             \addplot[
@@ -1379,8 +1384,8 @@ Anpassung ausgelassen.
 \end{figure}
 
 Die Verteilung ist nicht ganz symmetrisch um \SI{90}{\degree}, folgt der
-Erwartung jedoch gut. Das Erdmagnetfeld kann die Verteilung etwas verschieben,
-jedoch können wir nicht sagen, wie groß dieser Effekt ist.
+Erwartung jedoch gut. Der Exponent passt auf die Theorie von einer
+$\cos^2\phi$-Proportionalität.
 
 \section{Langzeitmessung des Pulshöhenspektrums}
 \label{sec:langzeit_puls}
