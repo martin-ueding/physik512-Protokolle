@@ -1452,6 +1452,10 @@ Aus der Anpassung erhalten wir
     \sigma = \num{<< landau_fit_width >>}
     \eqnsep
     \mu = \num{<< landau_fit_offset >>}
+    \eqnsep
+    \chi^2 = \num{<< landau_chi_sq >>}
+    \eqnsep
+    p = \num{<< landau_p >>}
 \]
 
 Zum Vergleich passen wir noch eine Normalverteilung mit Integral $A$, Breite
@@ -1462,7 +1466,14 @@ $\sigma$ und Mittelwert $\mu$ an und erhalten:
     \sigma = \num{<< gauss_fit_sigma >>}
     \eqnsep
     \mu = \num{<< gauss_fit_mean >>}
+    \eqnsep
+    \chi^2 = \num{<< gauss_chi_sq >>}
+    \eqnsep
+    p = \num{<< gauss_p >>}
 \]
+
+Das $\chi^2$ ist leicht größer. In der Abbildung~\ref{fig:spektrum-daten} ist
+gut zu sehen, dass die Landauverteilung besser passt als die Normalverteilung.
 
 \chapter{Myonenlebensdauer}
 
