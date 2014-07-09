@@ -368,6 +368,12 @@ def job_landau_fit(T):
     print(popt)
     print(pconv)
 
+    d = np.sqrt(pconv.diagonal())
+
+    T['landau_fit_amp'] = unitprint.siunitx(popt[0], d[0])
+    T['landau_fit_width'] = unitprint.siunitx(popt[1], d[1])
+    T['landau_fit_offset'] = unitprint.siunitx(popt[2], d[2])
+
     fit_x = np.linspace(np.min(kanal), np.max(kanal), 200)
     fit_y = landau(fit_x, *popt)
 
@@ -379,6 +385,10 @@ def job_landau_fit(T):
 
     fit_x = np.linspace(np.min(kanal), np.max(kanal), 200)
     fit_y = gauss(fit_x, *popt)
+
+    T['gauss_fit_mean'] = unitprint.siunitx(popt[0], d[0])
+    T['gauss_fit_sigma'] = unitprint.siunitx(popt[1], d[1])
+    T['gauss_fit_integral'] = unitprint.siunitx(popt[2], d[2])
 
     np.savetxt('_build/gauss-fit.txt', np.column_stack((fit_x, fit_y)))
 
